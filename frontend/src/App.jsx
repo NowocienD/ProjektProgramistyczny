@@ -14,9 +14,10 @@ class App extends Component {
 
   componentDidMount() {
     axios.get("https://localhost:44306/controller/abc")
-    .catch(response => {
-      console.log(response);
-    })
+      .then(res => {
+        console.log(res);
+      })
+    
 
   }
   createMenu = () => {
