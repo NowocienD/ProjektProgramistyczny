@@ -7,10 +7,10 @@ namespace GradeBook.Controllers
     public class TestController : ControllerBase
     {
         [HttpGet]
-        [Route("abc")]
-        public string Get()
+        [Route("test")]
+        public IActionResult Get()
         {
-            return "dziala";
+            return BadRequest("Wlascnie zwróciłem badRequest");
         }
     }
 }
