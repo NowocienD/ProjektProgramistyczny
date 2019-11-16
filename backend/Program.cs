@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
+
 
 namespace GradeBook
 {
@@ -18,11 +21,17 @@ namespace GradeBook
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((webHostBuilderContext, configurationBuilder) =>
+            {
+                configurationBuilder
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>()
-                    .UseKestrel()
-                    .UseIISIntegration();
+                    webBuilder
+                    //.UseKestrel()
+                    .UseIISIntegration()
+                    .UseStartup<Startup>();
                 });
     }
 }

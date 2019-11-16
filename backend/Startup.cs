@@ -26,6 +26,28 @@ namespace GradeBook
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            //CorsSettings corsSettings = new CorsSettings();
+
+            services.AddCors(options =>
+            {
+                CorsSettings corsSettings = new CorsSettings();
+                string[] a = new string[1];
+                a[0] = "http://localhost:3000";
+                corsSettings.Origins = a;
+                Configuration.GetSection("CorsSettings").Bind(corsSettings);
+
+                options.AddPolicy(
+                    "default",
+                    builder =>
+                    {
+                        builder
+                        .WithOrigins(corsSettings.Origins)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,12 +3,21 @@ import './App.css';
 import Layout from './Components/navigation/Layout';
 import 'typeface-roboto'
 import LoginContainer from './Components/login/LoginContainer';
+import axios from 'axios';
 
 class App extends Component {
 
   constructor() {
     super();
     this.createMenu();
+  }
+
+  componentDidMount() {
+    axios.get("https://localhost:44306/controller/abc")
+    .catch(response => {
+      console.log(response);
+    })
+
   }
   createMenu = () => {
     this.menu = [
