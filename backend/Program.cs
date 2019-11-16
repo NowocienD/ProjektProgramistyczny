@@ -24,7 +24,7 @@ namespace GradeBook
             .ConfigureAppConfiguration((webHostBuilderContext, configurationBuilder) =>
             {
                 configurationBuilder
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                    .AddJsonFile("backend/appsettings.json", optional: false, reloadOnChange: true);
             })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

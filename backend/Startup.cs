@@ -31,18 +31,18 @@ namespace GradeBook
 
             services.AddCors(options =>
             {
-                CorsSettings corsSettings = new CorsSettings();
-                string[] a = new string[1];
-                a[0] = "http://localhost:3000";
-                corsSettings.Origins = a;
-                Configuration.GetSection("CorsSettings").Bind(corsSettings);
+            //    CorsSettings corsSettings = new CorsSettings();
+            //    string[] a = new string[1];
+            //    a[0] = "http://localhost:3000";
+            //    corsSettings.Origins = a;
+            //    Configuration.GetSection("CorsSettings").Bind(corsSettings);
 
                 options.AddPolicy(
                     "default",
                     builder =>
                     {
                         builder
-                        .WithOrigins(corsSettings.Origins)
+                        .WithOrigins("http://localhost:3000")
                         .AllowAnyMethod()
                         .AllowAnyHeader();
                     });
@@ -57,6 +57,8 @@ namespace GradeBook
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("default");
 
             app.UseHttpsRedirection();
 

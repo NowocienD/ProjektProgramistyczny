@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\GradeBook\\GradeBook.csproj": {}
+    "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\gradebook\\backend\\GradeBook.csproj": {}
   },
   "projects": {
-    "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\GradeBook\\GradeBook.csproj": {
+    "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\gradebook\\backend\\GradeBook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\GradeBook\\GradeBook.csproj",
+        "projectUniqueName": "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\gradebook\\backend\\GradeBook.csproj",
         "projectName": "GradeBook",
-        "projectPath": "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\GradeBook\\GradeBook.csproj",
+        "projectPath": "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\gradebook\\backend\\GradeBook.csproj",
         "packagesPath": "C:\\Users\\qwertyuiop\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\GradeBook\\obj\\",
+        "outputPath": "C:\\Users\\qwertyuiop\\Desktop\\ProjektIO\\gradebook\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
