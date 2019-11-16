@@ -1,0 +1,90 @@
+{
+  "grades": [
+    {
+      "id": "1",
+      "weight": "1",
+      "subjectId": "1",
+      "grade": 5,
+      "topic": "Sprawdzian matma1",
+      "teacher": "Kowalski",
+      "studentId": "1"
+    },
+    {
+      "id": "2",
+      "weight": "1",
+      "subjectId": "1",
+      "grade": 4,
+      "topic": "Sprawdzian matma2",
+      "teacher": "Kowalski",
+      "studentId": "1"
+    },
+    {
+      "id": "3",
+      "weight": "1",
+      "subjectId": "1",
+      "grade": 3,
+      "topic": "Sprawdzian matma3",
+      "teacher": "Kowalski",
+      "studentId": "1"
+    },
+    {
+      "id": "4",
+      "weight": "1",
+      "subjectId": "2",
+      "grade": 5,
+      "topic": "Sprawdzian angol1",
+      "teacher": "Nowak",
+      "studentId": "1"
+    },
+    {
+      "id": "5",
+      "weight": "1",
+      "subjectId": "2",
+      "grade": 4,
+      "topic": "Sprawdzian angol2",
+      "teacher": "Nowak",
+      "studentId": "1"
+    },
+    {
+      "id": "6",
+      "weight": "1",
+      "subjectId": "2",
+      "grade": 3,
+      "topic": "Sprawdzian angol3",
+      "teacher": "Nowak",
+      "studentId": "1"
+    }
+  ],
+  "subjects": [
+    {
+      "id": "1",
+      "name": "Matematyka"
+    },
+    {
+      "id": "2",
+      "name": "Angielski"
+    }
+  ],
+  "timetable": [
+    {
+      "day": "Poniedziałek",
+      "name": "Matematyka",
+      "lesson": "1"
+    },
+    {
+      "day": "Poniedziałek",
+      "name": "Angielski",
+      "lesson": "2"
+    },
+    {
+      "day": "Wtorek",
+      "name": "Polski",
+      "lesson": "1"
+    },
+    {
+      "day": "Wtorek",
+      "name": "Historia",
+      "lesson": "2"
+    }
+  ]
+}

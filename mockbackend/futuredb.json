@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "mail": "mail1",
+      "name": "Jan",
+      "surname": "Kowalski",
+      "roleId": "1",
+      "classId": "1"
+    },
+    {
+      "id": "2",
+      "mail": "mail2",
+      "name": "Paweł",
+      "surname": "Nowak",
+      "roleId": "1",
+      "classId": "1"
+    },
+    {
+      "id": "3",
+      "mail": "mail3",
+      "name": "Maciej",
+      "surname": "Sienkiewicz",
+      "roleId": "1",
+      "classId": "1"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "Uczen"
+    },
+    {
+      "id": "2",
+      "name": "Nauczyciel"
+    },
+    {
+      "id": "2",
+      "name": "Nauczyciel"
+    }
+  ],
+  "classes": [
+    {
+      "id": "1",
+      "name": "1a"
+    }
+  ],
+  "grades": [
+    {
+      "studentId": "1",
+      ""
+    }
+  ]
+}
