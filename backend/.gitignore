@@ -6,6 +6,7 @@
 #
 *.rar
 *.zip
+dist
 
 # User-specific files
 *.rsuser
