@@ -1,12 +1,3 @@
-#Backend
-
-# Uwagi
- - plik sln jest dla Api. Reszte otwieramy używajac opcji otworz folder. Macie ochote stworzcie sobie reszte slnów 
- - jak ktoś nie ma Windowsa 10 to niech wypierdala
- - jak ktoś nie ma x64 to niech wypierdala
- - jak komuś nie działa vs2019 to niech wypierdala
- - jak ktoś chce pisać w javie to niech wypierdala
-
 # Założenia
  - nie wrzucamy na gita kodu który się nie kompiluje. Puknt dotyczy również poszczególnych commitów
  - dbamy o styleCop i jego warrningi.
@@ -26,6 +17,27 @@
  -- GgradeBook.Models powiazania z baza danych
  - jak chcecie pisać UnitTesty to tworzycie w folderze backend z identyczną nazwą zakonczoną *.Tests
  - dodajac paczki z NuGeta uważajcie co robicie bo potrafią zasyfiac pliki csproj. Polecam ręczne robienie albo przynajmniej zweryfikowanie zawartości!
+ 
+
+# Branche i zadania
+
+ - Zadania są widoczne jako issues, każde zadanie ma swój numer
+ - Nazwy branchy:
+
+> feature-nr_zadania 
+
+lub 
+
+>  bugfix-nr_zadania
+
+#Backend
+
+# Uwagi
+ - plik sln jest dla Api. Reszte otwieramy używajac opcji otworz folder. Macie ochote stworzcie sobie reszte slnów 
+ - jak ktoś nie ma Windowsa 10 to niech wypierdala
+ - jak ktoś nie ma x64 to niech wypierdala
+ - jak komuś nie działa vs2019 to niech wypierdala
+ - jak ktoś chce pisać w javie to niech wypierdala
 
 # Skrypty
  - prawy przycisk myszy na skrypcie -> run with PowerShell
