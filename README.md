@@ -141,7 +141,7 @@ minimalna konfiguracja!
 # Uruchamianie
 Aby uruchomić frontend należy:
 (bash otwarty w folderze frontend)
-1.  zainstalować yarn
+1.  zainstalować zależności
     ```sh
     $ yarn install
     ```
