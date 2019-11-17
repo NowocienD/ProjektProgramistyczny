@@ -118,3 +118,23 @@ minimalna konfiguracja!
   </Rules>
 </RuleSet>
 ```
+#Frontend
+
+# Oprogramowanie konieczne do uruchomienia
+ - [YARN](https://yarnpkg.com/lang/en/)
+ - [Node.js](https://nodejs.org/en/)
+
+# Uruchamianie
+Aby uruchomić frontend należy:
+(bash otwarty w folderze frontend)
+1.  zainstalować yarn
+    `yarn install`
+2. Od tej pory można odpalać front poleceniem
+    `yarn start`
+3. `CTRL + C` zabija proces i wyłącza serwer
+
+# Uwagi
+- Front powinien sam odpalić przeglądarke z odpowiednim adresem po wpisaniu polecenia `yarn start`
+Jeśli się to jednak nie stanie, strona powinna być widoczna na (http://localhost:3000).
+- Frontend przeładowuje się sam i nie ma potrzeby przekompilowania go.
+Po dokonaniu jakichkolwiek zmian i zapisaniu ich, strona się odświeży.
