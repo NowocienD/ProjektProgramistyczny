@@ -134,7 +134,7 @@ Aby uruchomić frontend należy:
 3. `CTRL + C` zabija proces i wyłącza serwer
 
 # Uwagi
-- Front powinien sam odpalić przeglądarke z odpowiednim adresem po wpisaniu polecenia `yarn start`
+- Front powinien sam odpalić przeglądarke z odpowiednim adresem po wpisaniu polecenia `yarn start`.
 Jeśli się to jednak nie stanie, strona powinna być widoczna na (http://localhost:3000).
 - Frontend przeładowuje się sam i nie ma potrzeby przekompilowania go.
 Po dokonaniu jakichkolwiek zmian i zapisaniu ich, strona się odświeży.
