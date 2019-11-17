@@ -22,6 +22,8 @@
 # Branche i zadania
 
  - Zadania są widoczne jako issues, każde zadanie ma swój numer
+ - Branche tworzymy z *developa* i merge requesty zgłaszamy do *developa*
+ - Na *mastera* wgrywana jest co jakiś czas nowa wersja
  - Nazwy branchy:
 
 > feature-nr_zadania 
