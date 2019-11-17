@@ -128,9 +128,14 @@ minimalna konfiguracja!
 Aby uruchomić frontend należy:
 (bash otwarty w folderze frontend)
 1.  zainstalować yarn
-    `yarn install`
+    ```sh
+    $ yarn install
+    ```
 2. Od tej pory można odpalać front poleceniem
-    `yarn start`
+
+    ```sh
+    $ yarn start
+    ```
 3. `CTRL + C` zabija proces i wyłącza serwer
 
 # Uwagi
