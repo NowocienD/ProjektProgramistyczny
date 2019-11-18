@@ -2,10 +2,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using GradeBook.API.Core;
+using GradeBook.Services.Core;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GradeBook.API
+namespace GradeBook.Services
 {
     public class TokenGeneratorService : ITokenGeneratorService
     {

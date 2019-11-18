@@ -11,25 +11,25 @@ namespace GradeBook.API.Controllers
     {
         private readonly ITokenGeneratorService tokenService;
 
-        private readonly IUserData userData;
+        private readonly IUserDataService userDataService;
 
         public LoginController(
             ITokenGeneratorService tokenService,
-            IUserData userData)
+            IUserDataService userDataService)
         {
             this.tokenService = tokenService;
-            this.userData = userData;
+            this.userDataService = userDataService;
         }
 
         [HttpPost("login")]
         public IActionResult GetToken([FromBody] UserLoginCommandDto dto)
         {
-            if (dto == null | string.IsNullOrWhiteSpace(dto.login) | string.IsNullOrEmpty(dto.password))
+            if (dto == null | string.IsNullOrWhiteSpace(dto.Login) | string.IsNullOrEmpty(dto.Password))
             {
                 return BadRequest();
             }            
 
-            string token = tokenService.GenerateToken(userData.GetId(dto.login));
+            string token = tokenService.GenerateToken(userDataService.GetId(dto.Login));
 
             // dogadaj z FIlipem sposob przekazywania. Gdzie w headerze ma sie zanjdować token
             return Ok(token); 

@@ -1,11 +1,11 @@
 namespace GradeBook.Services.Core
 {
-    public interface IUserData
+    public interface IUserDataService
     {
         int GetId(string userName);
         
-        string GetUsername(int Id);
+        string GetUsername(int id);
         
-        string GetAccountType(int Id);
+        string GetAccountType(int id);
     }
 }

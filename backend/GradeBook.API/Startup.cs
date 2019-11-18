@@ -1,9 +1,9 @@
 using System;
 using System.Text;
 using GradeBook.API;
-using GradeBook.API.Core;
-using GradeBook.API.Core.Settings;
-using GradeBook.Services.Core;
+using GradeBook.Services;
+using GradeBook.Services.Core;  
+using GradeBook.Services.Core.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -81,7 +81,7 @@ namespace GradeBook
             });
 
             services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
-            services.AddTransient<IUserData, UserData>();
+            services.AddTransient<IUserDataService, UserDataService>();
             services.AddSingleton<ITokenSettings>(tokenSettings);
             services.AddSingleton<IDevelopmentSettings>(devSettings);
         }

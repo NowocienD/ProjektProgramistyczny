@@ -1,4 +1,4 @@
-﻿namespace GradeBook.API.Core
+﻿namespace GradeBook.Services.Core
 {
     public interface IDevelopmentSettings
     {
