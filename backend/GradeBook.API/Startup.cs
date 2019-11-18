@@ -1,6 +1,6 @@
 using System;
+using System.Text;
 using GradeBook.API;
-using GradeBook.API.Controllers;
 using GradeBook.API.Core;
 using GradeBook.API.Core.Settings;
 using GradeBook.Services.Core;
@@ -58,6 +58,9 @@ namespace GradeBook
                         .AllowAnyHeader();
                     });
             });
+            
+            TokenSettings tokenSettings = new TokenSettings();
+            Configuration.GetSection("TokenSettings").Bind(tokenSettings);
 
             services.AddAuthentication(options =>
             {
@@ -68,7 +71,7 @@ namespace GradeBook
             {
                 jwtOptions.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    IssuerSigningKey = SigningController.SigningKey,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSettings.SecretKey)),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
@@ -79,6 +82,7 @@ namespace GradeBook
 
             services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
             services.AddTransient<IUserData, UserData>();
+            services.AddSingleton<ITokenSettings>(tokenSettings);
             services.AddSingleton<IDevelopmentSettings>(devSettings);
         }
 

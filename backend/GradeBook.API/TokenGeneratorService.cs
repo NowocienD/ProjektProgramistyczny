@@ -1,14 +1,26 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
+using GradeBook.API.Core;
 using Microsoft.IdentityModel.Tokens;
 
 namespace GradeBook.API
 {
     public class TokenGeneratorService : ITokenGeneratorService
     {
-        public string GenerateToken(int userId, SymmetricSecurityKey signingKey)
-        {            
+        private readonly ITokenSettings tokenSettings;
+
+        private readonly SymmetricSecurityKey signingKey;
+
+        public TokenGeneratorService(ITokenSettings tokenSettings)
+        {
+            this.tokenSettings = tokenSettings;
+            signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenSettings.SecretKey));
+        }
+
+        public string GenerateToken(int userId)
+        {
             if (signingKey is null)
             {
                 throw new ArgumentNullException(nameof(signingKey));

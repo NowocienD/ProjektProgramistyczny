@@ -1,9 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
-
-namespace GradeBook.API
+﻿namespace GradeBook.API
 {
     public interface ITokenGeneratorService
     {
-        string GenerateToken(int userId, SymmetricSecurityKey signingKey);
+        string GenerateToken(int userId);
     }
 }
