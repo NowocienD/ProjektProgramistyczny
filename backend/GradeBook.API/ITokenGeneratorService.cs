@@ -4,6 +4,6 @@ namespace GradeBook.API
 {
     public interface ITokenGeneratorService
     {
-        string GenerateToken(int username, SymmetricSecurityKey signingKey);
+        string GenerateToken(int userId, SymmetricSecurityKey signingKey);
     }
 }

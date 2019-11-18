@@ -7,7 +7,7 @@ namespace GradeBook.API
 {
     public class TokenGeneratorService : ITokenGeneratorService
     {
-        public string GenerateToken(int username, SymmetricSecurityKey signingKey)
+        public string GenerateToken(int userId, SymmetricSecurityKey signingKey)
         {            
             if (signingKey is null)
             {
@@ -15,7 +15,7 @@ namespace GradeBook.API
             }
 
             var token = new JwtSecurityToken(
-                claims: new Claim[] { new Claim(ClaimTypes.Name, username.ToString()) },
+                claims: new Claim[] { new Claim(nameof(userId), userId.ToString()) },
                 notBefore: new DateTimeOffset(DateTime.Now).DateTime,
                 expires: new DateTimeOffset(DateTime.Now.AddMinutes(5)).DateTime,
                 signingCredentials: new SigningCredentials(
