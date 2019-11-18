@@ -5,6 +5,7 @@ using GradeBook.API.Core;
 using GradeBook.API.Core.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -24,25 +25,23 @@ namespace GradeBook
         {
             services.AddControllers();
 
-            //DevelopmentSettings devSettings = new DevelopmentSettings();
-            //Configuration.GetSection("DevelopmentSettings").Bind(devSettings);
-            //if (devSettings.IsDevelopment)
-            //{
-            //    services.AddMvc(option =>
-            //    {
-            //        option.EnableEndpointRouting = false;
-            //        option.Filters.Add(new AllowAnonymousFilter());
-            //    });
-            //}
-            //else
-            //{
-            //services.AddMvc(option =>
-            //{
-            //    option.EnableEndpointRouting = false;
-            //});
-            //}
-            
-            services.AddMvc(option => option.EnableEndpointRouting = false);
+            DevelopmentSettings devSettings = new DevelopmentSettings();
+            Configuration.GetSection("DevelopmentSettings").Bind(devSettings);
+            if (devSettings.IsDevelopment)
+            {
+                services.AddMvc(option =>
+                {
+                    option.EnableEndpointRouting = false;
+                    option.Filters.Add(new AllowAnonymousFilter());
+                });
+            }
+            else
+            {
+                services.AddMvc(option =>
+                {
+                    option.EnableEndpointRouting = false;
+                });
+            }
 
             services.AddCors(options =>
             {            
@@ -79,7 +78,7 @@ namespace GradeBook
             });
 
             services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
-            //services.AddSingleton<IDevelopmentSettings>(devSettings);
+            services.AddSingleton<IDevelopmentSettings>(devSettings);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
