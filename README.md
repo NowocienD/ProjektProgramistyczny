@@ -1,6 +1,6 @@
 # Założenia
  - nie wrzucamy na gita kodu który się nie kompiluje. Puknt dotyczy również poszczególnych commitów
- - dbamy o styleCop i jego warrningi.
+ - dbamy o styleCop i jego warrningi
  - pełna zgodność z REST API
  - używamy tylko camelCase lub PascalCase 
  - robimy API wiec każdy kontroler ma ustowiony route na api/*. 
@@ -8,16 +8,20 @@
  - nowe zadanie = nowy branch  
  - klasy z modelem zawierają w nazwie słowo Models np. AccountModels,
  - klasy kontrolerów zawierają w nazwie słowo Controller np. AccountController,
- - zachowujcie strukturę folderów i nie mieszajcie ich funckji (każdy folder to też inny namespace)
- -- GradeBook.API tylko dla kontrolerów i bliskiej okolicy 
- -- Gradebook.Services logika
- -- Gradebook.Services/Helpers helpery
- -- Gradebook.Services.Core interfejsy
- -- Gradebook.Services.Core/DTO dto
- -- GgradeBook.Models powiazania z baza danych
- - jak chcecie pisać UnitTesty to tworzycie w folderze backend z identyczną nazwą zakonczoną *.Tests
+ - interfejsy zacznają nazwę od I
  - dodajac paczki z NuGeta uważajcie co robicie bo potrafią zasyfiac pliki csproj. Polecam ręczne robienie albo przynajmniej zweryfikowanie zawartości!
+ - zachowujcie strukturę folderów i nie mieszajcie ich funckji (każdy folder to też inny namespace):
  
+  |folder|zastosowanie|
+  |-----|------|
+  | GradeBook.API | tylko dla kontrolerów i bliskiej okolicy 
+  |Gradebook.Services | logika |
+  | Gradebook.Services/Helpers | helpery |
+  | Gradebook.Services.Core | interfejsy |
+  | Gradebook.Services.Core/DTO | dto | 
+  | GgradeBook.Models | powiazania z baza danych |
+  | GgradeBook.Models.Core | interfejsy bazy danych |
+  | GradeBook*.Tests | testy jednostkowe |
 
 # Branche i zadania
 
@@ -32,7 +36,7 @@ lub
 
 >  bugfix-nr_zadania
 
-#Backend
+# #Backend
 
 # Uwagi
  - plik sln jest dla Api. Reszte otwieramy używajac opcji otworz folder. Macie ochote stworzcie sobie reszte slnów 
@@ -55,7 +59,9 @@ $ Y
 ```
 # Uruchamianie rozwiazania 
 zawsze kolejnosc: przywracanie -> budowanie -> uruchamianie
-przywracanie jest konieczne tylko po dodaniu jakiejś NuGetowej paczki co nie bedzie bardzo czeste ale moze się zdarzać
+przywracanie jest konieczne tylko po dodaniu jakiejś NuGetowej paczki co nie bedzie bardzo czeste ale moze się zdarzać lub referencji na projekt.
+
+Jeśli coś na tym etapie nie działa to prawdopodonie dlatego ze nie jesteś w folderze API.
 
 # Przywracanie
 ##### Sposób 1:
@@ -73,6 +79,10 @@ skrypt _build.ps1
 
 ##### Sposób 2:
 PowerShell  
+```sh
+$ dotnet build --no-restore
+```
+lub jeżeli nie robiłeś wcześniej restore
 ```sh
 $ dotnet build
 ```
@@ -93,7 +103,6 @@ $ dotnet run
 zielona strzałka w VS ale jak nie działa to wiecej info w uwagach.
 
 
-
 # Konfiguracja 
 wg uznania jednak na poczatek proponuje tak
 #### appsettings.json
@@ -109,8 +118,15 @@ wg uznania jednak na poczatek proponuje tak
       "Microsoft.Hosting.Lifetime": "Information"
     }
   },
-  "AllowedHosts": "*"
+  "AllowedHosts": "*",
+  "DevelopmentSettings": {
+    "IsDevelopment": false
+  },
+  "TokenSettings": {
+    "SecretKey": "toJestKluczWgKtoregoDokonujeSieSzyfrowanie.LubieMalePenisyIDoktoraPaducha"
+  }
 }
+
 ```
 
 #### styleCop.ruleset
@@ -119,9 +135,9 @@ minimalna konfiguracja!
 <?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="New Rule Set" Description=" " ToolsVersion="16.0">
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
-    <Rule Id="SA1302" Action="Error" />
-    <Rule Id="CS0105" Action="Error" />
-    <Rule Id="SA1210" Action="Error" />
+    <Rule Id="SA1302" Action="Warning" />
+    <Rule Id="CS0105" Action="Warning" />
+    <Rule Id="SA1210" Action="Warning" />
     <Rule Id="IDE0005" Action="Warning" />
     <Rule Id="SA1600" Action="None" />
     <Rule Id="SA1200" Action="None" />
@@ -132,7 +148,7 @@ minimalna konfiguracja!
   </Rules>
 </RuleSet>
 ```
-#Frontend
+# #Frontend
 
 # Oprogramowanie konieczne do uruchomienia
  - [YARN](https://yarnpkg.com/lang/en/)
