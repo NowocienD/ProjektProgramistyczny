@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="New Rule Set" Description=" " ToolsVersion="16.0">
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
-    <Rule Id="SA1302" Action="Error" />
-    <Rule Id="CS0105" Action="Error" />
-    <Rule Id="SA1210" Action="Error" />
+    <Rule Id="SA1302" Action="Warning" />
+    <Rule Id="CS0105" Action="Warning" />
+    <Rule Id="SA1210" Action="Warning" />
     <Rule Id="IDE0005" Action="Warning" />
     <Rule Id="SA1600" Action="None" />
     <Rule Id="SA1200" Action="None" />
