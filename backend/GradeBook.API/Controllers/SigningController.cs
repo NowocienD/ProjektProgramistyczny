@@ -9,9 +9,9 @@ namespace GradeBook.API.Controllers
     [Route("api")]
     public class SigningController : ControllerBase
     {
-        public static readonly SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
+        public static readonly SymmetricSecurityKey SigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
 
-        private const string SecretKey = "TQvgjeABMPOwCycOqah5EQu5yyVjpmVG";
+        private const string SecretKey = "TQvgjeABMPOwCycOqah5EQujyhvgjuhb5yyVjpmVG";
 
         private readonly ITokenGeneratorService tokenService;
 
@@ -24,7 +24,7 @@ namespace GradeBook.API.Controllers
         public IActionResult GetToken()
         {
             int userId = 12;
-            return new ObjectResult(tokenService.GenerateToken(userId, signingKey));
+            return new ObjectResult(tokenService.GenerateToken(userId, SigningKey));
         }
 
         [Authorize]

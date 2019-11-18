@@ -1,4 +1,4 @@
-﻿namespace GradeBook
+﻿namespace GradeBook.API.Core.Settings
 {
     public class CorsSettings
     {
