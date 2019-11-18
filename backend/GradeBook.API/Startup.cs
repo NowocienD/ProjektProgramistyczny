@@ -63,7 +63,7 @@ namespace GradeBook
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseCors("default");
             
