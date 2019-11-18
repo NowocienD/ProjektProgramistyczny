@@ -3,6 +3,7 @@ using GradeBook.API;
 using GradeBook.API.Controllers;
 using GradeBook.API.Core;
 using GradeBook.API.Core.Settings;
+using GradeBook.Services.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -77,6 +78,7 @@ namespace GradeBook
             });
 
             services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
+            services.AddTransient<IUserData, UserData>();
             services.AddSingleton<IDevelopmentSettings>(devSettings);
         }
 

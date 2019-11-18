@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using GradeBook.Services.Core;
+using GradeBook.Services.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -15,16 +17,28 @@ namespace GradeBook.API.Controllers
 
         private readonly ITokenGeneratorService tokenService;
 
-        public SigningController(ITokenGeneratorService tokenService)
+        private readonly IUserData userData;
+
+        public SigningController(
+            ITokenGeneratorService tokenService,
+            IUserData userData)
         {
-            this.tokenService = tokenService; 
+            this.tokenService = tokenService;
+            this.userData = userData;
         }
 
-        [HttpGet("token")]
-        public IActionResult GetToken()
+        [HttpPost("login")]
+        public IActionResult GetToken([FromBody] UserLoginCommandDto dto)
         {
-            int userId = 12;
-            return new ObjectResult(tokenService.GenerateToken(userId, SigningKey));
+            if (dto == null | string.IsNullOrWhiteSpace(dto.login) | string.IsNullOrEmpty(dto.password))
+            {
+                return BadRequest();
+            }            
+
+            string token = tokenService.GenerateToken(userData.GetId(dto.login), SigningKey);
+
+            // dogadaj z FIlipem sposob przekazywania. Gdzie w headerze ma sie zanjdować token
+            return Ok(token); 
         }
 
         [Authorize]
