@@ -4,7 +4,6 @@ using GradeBook.API.Controllers;
 using GradeBook.API.Core;
 using GradeBook.API.Core.Settings;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,7 +46,7 @@ namespace GradeBook
             {            
                 CorsSettings corsSettings = new CorsSettings();
                 Configuration.GetSection("CorsSettings").Bind(corsSettings);
-                
+
                 options.AddPolicy(
                     "default",
                     builder =>
@@ -81,12 +80,12 @@ namespace GradeBook
             services.AddSingleton<IDevelopmentSettings>(devSettings);
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseAuthentication();
 
             app.UseCors("default");
-            
+
             app.UseRouting();
             app.UseMvc();
         }
