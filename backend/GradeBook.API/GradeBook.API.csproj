@@ -18,6 +18,16 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GradeBook.Services\GradeBook.Services.csproj" />
+    <ProjectReference Include="..\GradeBook.Services.Core\GradeBook.Services.Core.csproj" />
+    <ProjectReference Include="..\GradeBook.Services.Tests\GradeBook.Services.Tests.csproj" />
+
+    <ProjectReference Include="..\GradeBook.Models\GradeBook.Models.csproj" />
+    <ProjectReference Include="..\GradeBook.Models.Core\GradeBook.Models.Core.csproj" />
+    <ProjectReference Include="..\GradeBook.Models.Tests\GradeBook.Models.Tests.csproj" />
+  </ItemGroup>
+
     <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
