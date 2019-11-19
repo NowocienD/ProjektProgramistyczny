@@ -36,7 +36,8 @@ lub
 
 >  bugfix-nr_zadania
 
-#Konflikty
+# Konflikty
+
 Jak naprawić konflikty pojawiające sie przy merge requestach?
 1. Przełączyć się na Developa
 
