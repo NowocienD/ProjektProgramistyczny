@@ -36,6 +36,27 @@ lub
 
 >  bugfix-nr_zadania
 
+#Konflikty
+Jak naprawić konflikty pojawiające sie przy merge requestach?
+1. Przełączyć się na Developa
+
+    `$ git checkout develop`
+
+2. Dociągnąć zmiany
+
+    `$ git pull`
+
+3. Wrócić na naszą  gałąź
+
+    `$ git checkout feature-X`
+
+4. Scalić gałęzie lokalnie
+
+    `$ git merge develop`
+
+5. W plikach pojawią się błędy (konflikty), nalezy je naprawić, zacommitować i pushnąć zmiany
+
+
 # #Backend
 
 # Uwagi
