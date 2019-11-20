@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Layout from './Components/navigation/Layout';
 import 'typeface-roboto'
-import LoginContainer from './Components/login/LoginContainer';
 import axios from 'axios';
 
 class App extends Component {
@@ -13,13 +12,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get("https://localhost:44306/controller/abc")
-      .then(res => {
-        console.log(res);
+    axios.get("http://localhost:8080/api/test")
+      .then(response => {
+        console.log(response);
       })
+      .catch(function(response) {
+        console.log(response);
+      }
+     )
+    }
     
-
-  }
   createMenu = () => {
     this.menu = [
       {
@@ -42,6 +44,7 @@ class App extends Component {
       },
     ]
   }
+  
   render() {
     return (
       <div className="Container">
