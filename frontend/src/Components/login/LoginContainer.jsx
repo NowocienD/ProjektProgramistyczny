@@ -1,32 +1,26 @@
 import React, { Component } from 'react';
 import LoginComponent from './LoginComponent';
-import { login, random } from './../../Actions/login';
+import { login } from './../../Actions/auth';
+import { withRouter } from 'react-router-dom';
 
 class LoginContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isLogged: false,
-      role: '',
-    }
+
+  onSubmit = (data) => login(data);
+
+  redirectToMainPage = () => {
+    this.props.history.push('/');
   }
 
-  onSubmit = (data) => login (data);
-    
   render() {
     return (
-      (this.state.isLogged === false ? (
-        <div>
-          <LoginComponent
-            login={this.onSubmit}
-          />
-        </div>
-      ) : (
-          this.props.children
-        ))
-
-    );
+      <div>
+        <LoginComponent
+          login={this.onSubmit}
+          redirectToMainPage={this.redirectToMainPage}
+        />
+      </div>
+    )
   }
 }
 
-export default LoginContainer;
+  export default withRouter(LoginContainer);

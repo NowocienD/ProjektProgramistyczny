@@ -1,16 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import "./index.css";
-import App from "./App";
+import Auth from "./Auth";
 import * as serviceWorker from "./serviceWorker";
-import LoginContainer from "./Components/login/LoginContainer";
+import { setAuthorizationToken } from "./Actions/auth";
+import LoginContainer from './Components/login/LoginContainer';
+
+setAuthorizationToken(localStorage.getItem('Token'));
 
 ReactDOM.render(
   <BrowserRouter>
-    <LoginContainer>
-      <App />
-    </LoginContainer>
+  <Switch>
+    <Route path='/login' component={LoginContainer} />
+    <Auth />
+  </Switch>
   </BrowserRouter>,
   document.getElementById("root")
 );

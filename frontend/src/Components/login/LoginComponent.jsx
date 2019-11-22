@@ -17,7 +17,10 @@ const formikEnhancer = withFormik({
   }),
 
   handleSubmit: (values, { props }) => {
-    props.login(values);  
+    props.login(values)
+      .then(() => {
+        props.redirectToMainPage();
+      });
   }
 });
 
@@ -78,6 +81,7 @@ const LoginComponent = (props) => {
                   id="Password"
                   label="Hasło"
                   variant="outlined"
+                  type="password"
                   value={values.Password}
                   className={classes.textfield}
                   onChange={props.handleChange}
