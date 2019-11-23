@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using GradeBook.Services.Core;
 using GradeBook.Services.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
@@ -27,19 +28,25 @@ namespace GradeBook.API.Controllers
             if (dto == null | string.IsNullOrWhiteSpace(dto.Login) | string.IsNullOrEmpty(dto.Password))
             {
                 return BadRequest();
-            }            
+            }
+            string token = tokenService.GenerateToken(8);
+            //string token = tokenService.GenerateToken(userDataService.GetId(dto.Login));
 
-            string token = tokenService.GenerateToken(userDataService.GetId(dto.Login));
-
-            // dogadaj z FIlipem sposob przekazywania. Gdzie w headerze ma sie zanjdować token
             return Ok(token); 
         }
 
         [Authorize]
-        [HttpGet("values")]
-        public IEnumerable<string> TestGetValues()
+        [HttpGet("user/myProfile")]
+        public IActionResult Get_MyProfile()
         {
-            return new string[] { "value1", "value2" };
+            UserDataDTO dto = new UserDataDTO 
+            { 
+                Imie = "Jan",
+                Nazwisko = "kowalski",
+                Rola = "admin",
+            };
+
+            return Ok(dto);
         }
     }
 }
