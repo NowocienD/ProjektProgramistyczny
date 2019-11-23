@@ -24,40 +24,10 @@ const formikEnhancer = withFormik({
   }
 });
 
-const useStyles = makeStyles(theme => ({
-  background: {
-    background: styles.COLORS.primary,
-    height: "100%",
-    width: "100%",
-    position: "absolute",
-    paddingTop: "10%",
-  },
-
-  loginPanel: {
-    width: "30%",
-    background: "white",
-    marginLeft: "auto",
-    marginRight: "auto",
-    padding: "2%"
-  },
-  textfield: {
-    marginTop: "4%",
-    marginBottom: "4%",
-    width: "100%"
-  },
-  underline: {
-    borderBottom: "1px solid currentColor",
-    lineHeight: 2,
-    marginBottom: "2%",
-    marginTop: "0",
-  },
-}));
-
 const LoginComponent = (props) => {
   const {
     values,
   } = props;
-  const classes = useStyles();
 
   return (
     <div className="login-background">
@@ -92,6 +62,7 @@ const LoginComponent = (props) => {
                   variant="contained"
                   className="button"
                   onClick={props.handleSubmit}
+                  color="primary"
                 >
                   Zaloguj się
               </Button>

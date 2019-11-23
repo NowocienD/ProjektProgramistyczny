@@ -1,0 +1,16 @@
+.component-container {
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-bottom: 4%;
+  .underline-title {
+    border-bottom: 1px solid currentColor;
+    line-height: 2;
+    margin-bottom: 2%;
+    margin-top: 0%;
+  }
+  .select {
+    margin-top: 0%;
+    margin-bottom: 4%;
+    width: 30%;
+  }
+}
