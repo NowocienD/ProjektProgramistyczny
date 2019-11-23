@@ -60,7 +60,6 @@ const LoginComponent = (props) => {
                   variant="contained"
                   className="button"
                   onClick={props.handleSubmit}
-                  color="primary"
                 >
                   Zaloguj się
               </Button>

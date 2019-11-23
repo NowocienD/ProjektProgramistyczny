@@ -15,7 +15,6 @@ const formikEnhancer = withFormik({
   }),
 
   handleSubmit: (values, { props }) => {
-    console.log("dosth");
     // TODO:backend
   }
 });
