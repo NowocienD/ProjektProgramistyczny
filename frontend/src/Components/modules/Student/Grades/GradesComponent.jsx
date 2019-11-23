@@ -5,23 +5,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Card, Paper, Typography, MenuItem } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
-const useStyles = makeStyles(() => ({
-  underline: {
-    borderBottom: "1px solid currentColor",
-    lineHeight: 2,
-    marginBottom: "2%",
-    marginTop: "0",
-  },
-  select: {
-    marginTop: "0%",
-    marginBottom: "4%",
-    width: "30%"
-  },
-}));
 const GradesComponent = (props) => {
   const rows = [
     {
@@ -37,17 +23,17 @@ const GradesComponent = (props) => {
       topic: "Sprawdzian z geometrii",
     },
   ];
-  const classes = useStyles();
+
   return (
-    <Card style={{ paddingLeft: "4%", paddingRight: "4%", paddingBottom: "4%" }}>
-      <Typography variant="h5" className={classes.underline}>
+  <Card className="component-container">
+      <Typography variant="h5" className="underline-title">
         Oceny
       </Typography>
       <InputLabel>Przedmiot</InputLabel>
       <Select
         value={props.subject}
         onChange={props.handleSelectChange}
-        className={classes.select}
+        className="select"
       >
         {props.subjects.map(item => (
           <MenuItem value={item}>

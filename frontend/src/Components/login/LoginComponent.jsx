@@ -1,12 +1,10 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Button, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 import { withFormik } from 'formik';
 import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Card } from '@material-ui/core';
-import styles from './../../layout';
 
 const formikEnhancer = withFormik({
   enableReinitialize: true,
@@ -24,45 +22,15 @@ const formikEnhancer = withFormik({
   }
 });
 
-const useStyles = makeStyles(theme => ({
-  background: {
-    background: styles.COLORS.primary,
-    height: "100%",
-    width: "100%",
-    position: "absolute",
-    paddingTop: "10%",
-  },
-
-  loginPanel: {
-    width: "30%",
-    background: "white",
-    marginLeft: "auto",
-    marginRight: "auto",
-    padding: "2%"
-  },
-  textfield: {
-    marginTop: "4%",
-    marginBottom: "4%",
-    width: "100%"
-  },
-  underline: {
-    borderBottom: "1px solid currentColor",
-    lineHeight: 2,
-    marginBottom: "2%",
-    marginTop: "0",
-  },
-}));
-
 const LoginComponent = (props) => {
   const {
     values,
   } = props;
-  const classes = useStyles();
 
   return (
-    <div className={classes.background}>
-      <Card className={classes.loginPanel}>
-          <Typography variant="h5" className={classes.underline} >
+    <div className="login-background">
+      <Card className="login-panel">
+          <Typography variant="h5" className="underline">
             Logowanie
       </Typography>
           <Grid container>
@@ -73,7 +41,7 @@ const LoginComponent = (props) => {
                   variant="outlined"
                   value={values.Login}
                   onChange={props.handleChange}
-                  className={classes.textfield}
+                  className="textfield"
                 />
               </Grid>
             <Grid item xs={12}>
@@ -83,15 +51,14 @@ const LoginComponent = (props) => {
                   variant="outlined"
                   type="password"
                   value={values.Password}
-                  className={classes.textfield}
+                  className="textfield"
                   onChange={props.handleChange}
                 />
               </Grid>
             <Grid item xs={12}>
                 <Button
                   variant="contained"
-                  style={styles.BUTTON}
-                  className={classes.textfield}
+                  className="button"
                   onClick={props.handleSubmit}
                 >
                   Zaloguj się
