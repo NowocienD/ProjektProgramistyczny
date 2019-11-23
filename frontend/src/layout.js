@@ -6,6 +6,14 @@ const styles = {
     background: "#123456",
     color: "white",
   },
+  inactiveButton: {
+    textDecoration: 'none',
+    color: 'black',
+  },
+  activeButton: {
+    textDecoration: 'none',
+    color: 'blue',
+  },
 };
 
 

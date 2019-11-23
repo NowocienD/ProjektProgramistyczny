@@ -60,9 +60,9 @@ const LoginComponent = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.background}>
-      <Card className={classes.loginPanel}>
-          <Typography variant="h5" className={classes.underline} >
+    <div className="login-background">
+      <Card className="login-panel">
+          <Typography variant="h5" className="underline">
             Logowanie
       </Typography>
           <Grid container>
@@ -73,7 +73,7 @@ const LoginComponent = (props) => {
                   variant="outlined"
                   value={values.Login}
                   onChange={props.handleChange}
-                  className={classes.textfield}
+                  className="textfield"
                 />
               </Grid>
             <Grid item xs={12}>
@@ -83,15 +83,14 @@ const LoginComponent = (props) => {
                   variant="outlined"
                   type="password"
                   value={values.Password}
-                  className={classes.textfield}
+                  className="textfield"
                   onChange={props.handleChange}
                 />
               </Grid>
             <Grid item xs={12}>
                 <Button
                   variant="contained"
-                  style={styles.BUTTON}
-                  className={classes.textfield}
+                  className="button"
                   onClick={props.handleSubmit}
                 >
                   Zaloguj się

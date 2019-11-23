@@ -112,9 +112,6 @@ const Layout = (props) => {
     setOpen(false);
   }
 
-
-  
-
   return (
     <div className={classes.root}>
       <CssBaseline />

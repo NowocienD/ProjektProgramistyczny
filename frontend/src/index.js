@@ -6,6 +6,7 @@ import Auth from "./Auth";
 import * as serviceWorker from "./serviceWorker";
 import { setAuthorizationToken } from "./Actions/auth";
 import LoginContainer from './Components/login/LoginContainer';
+import './layout/layout.scss';
 
 setAuthorizationToken(localStorage.getItem('Token'));
 
