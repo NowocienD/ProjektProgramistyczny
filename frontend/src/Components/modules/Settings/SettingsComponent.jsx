@@ -1,7 +1,6 @@
 import React from 'react';
 import { withFormik } from 'formik';
-import { TextField, Button, Typography } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
+import { TextField, Button, Typography, Card } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import styles from './../../../layout';
@@ -23,23 +22,6 @@ const formikEnhancer = withFormik({
   }
 });
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: "1%",
-  },
-  textfield: {
-    marginTop: "4%",
-    marginBottom: "4%",
-    width: "100%"
-  },
-  underline: {
-    borderBottom: "1px solid currentColor",
-    lineHeight: 2,
-    marginBottom: "2%",
-    marginTop: "0",
-  }
-}));
-
 const SettingsComponent = (props) => {
   const {
     values,
@@ -51,8 +33,8 @@ const SettingsComponent = (props) => {
   } = props;
   const classes = useStyles();
   return (
-    <Paper className={classes.root}>
-      <Typography variant="h5" className={classes.underline} >
+    <Card className="component-container">
+      <Typography variant="h5" className="underline-title" >
         Opcje konta
       </Typography>
       <Grid container>
@@ -64,7 +46,7 @@ const SettingsComponent = (props) => {
               variant="outlined"
               value={values.email}
               disabled
-              className={classes.textfield}
+              className="textfield"
             />
           </Grid>
         </Grid>
@@ -75,7 +57,7 @@ const SettingsComponent = (props) => {
               label="Hasło"
               variant="outlined"
               value={values.password}
-              className={classes.textfield}
+              className="textfield"
               onChange={props.handleChange}
             />
           </Grid>
@@ -87,8 +69,9 @@ const SettingsComponent = (props) => {
               id="newpassword"
               label="Nowe Hasło"
               variant="outlined"
+              type="password"
               value={values.newpassword}
-              className={classes.textfield}
+              className="textfield"
               onChange={props.handleChange}
             />
           </Grid>
@@ -100,8 +83,9 @@ const SettingsComponent = (props) => {
               id="newpasswordrepeat"
               label="Powtórz Nowe Hasło"
               variant="outlined"
+              type="password"
               value={values.newpasswordrepeat}
-              className={classes.textfield}
+              className="textfield"
               onChange={props.handleChange}
             />
           </Grid>
@@ -111,8 +95,7 @@ const SettingsComponent = (props) => {
           <Grid item xs={10} sm={3}>
             <Button
               variant="contained"
-              style={styles.BUTTON}
-              className={classes.textfield}
+              className="button"
             // onClick={}TODO
             >
               Zapisz
@@ -123,7 +106,7 @@ const SettingsComponent = (props) => {
 
       </Grid>
 
-    </Paper>
+    </Card>
   );
 }
 

@@ -51,7 +51,7 @@ class TimetableContainer extends Component {
 
   makeRows = (data) => {
     const days = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
-    let rows = new Array();
+    let rows = [];
 
     days.forEach(day => {
       const row = data.filter(element => element.day === day);
