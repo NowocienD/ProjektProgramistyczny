@@ -19,4 +19,8 @@ function setAuthorizationToken(token) {
   }
 }
 
-export { login, setAuthorizationToken };
+function logout() {
+  localStorage.removeItem('Token');
+}
+
+export { login, setAuthorizationToken, logout };

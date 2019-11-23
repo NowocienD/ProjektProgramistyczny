@@ -2,12 +2,23 @@ import React, { Component } from 'react';
 import './App.css';
 import Layout from './Components/navigation/Layout';
 import 'typeface-roboto'
+import { logout } from './Actions/auth';
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
 
   constructor() {
     super();
     this.createMenu();
+  }
+
+  logout = () => {
+    logout();
+    this.redirectToLoginPage();
+  }
+
+  redirectToLoginPage() {
+    this.props.history.push('/login');
   }
     
   createMenu = () => {
@@ -38,6 +49,7 @@ class App extends Component {
       <div className="Container">
         <Layout
           menu={this.menu}
+          logout={this.logout}
         />
       </div>
     );
@@ -45,4 +57,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default withRouter(App);
