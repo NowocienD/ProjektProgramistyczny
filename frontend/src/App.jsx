@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Layout from './Components/navigation/Layout';
 import 'typeface-roboto'
-import LoginContainer from './Components/login/LoginContainer';
-import axios from 'axios';
+import { logout } from './Actions/auth';
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
 
@@ -12,14 +12,15 @@ class App extends Component {
     this.createMenu();
   }
 
-  componentDidMount() {
-    axios.get("https://localhost:44306/controller/abc")
-      .then(res => {
-        console.log(res);
-      })
-    
-
+  logout = () => {
+    logout();
+    this.redirectToLoginPage();
   }
+
+  redirectToLoginPage() {
+    this.props.history.push('/login');
+  }
+    
   createMenu = () => {
     this.menu = [
       {
@@ -42,18 +43,18 @@ class App extends Component {
       },
     ]
   }
+  
   render() {
     return (
       <div className="Container">
         <Layout
           menu={this.menu}
+          logout={this.logout}
         />
-        {/* <LoginContainer /> */}
-
       </div>
     );
   }
 
 }
 
-export default App;
+export default withRouter(App);

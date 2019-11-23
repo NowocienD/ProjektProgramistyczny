@@ -20,9 +20,11 @@ import { NavLink, Route } from 'react-router-dom'
 import TimetableContainer from './../modules/Student/Timetable/TimetableContainer';
 import GradesContainer from './../modules/Student/Grades/GradesContainer';
 import AccountCircle from '@material-ui/icons/AccountCircle'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsContainer from './../modules/Settings/SettingsContainer';
 import PresenceContainer from './../modules/Student/PresenceContainer';
 import styles from './../../layout';
+
 
 const drawerWidth = 240;
 
@@ -104,11 +106,14 @@ const Layout = (props) => {
 
   const handleDrawerOpen = () => {
     setOpen(true);
-  };
+  }
 
   const handleDrawerClose = () => {
     setOpen(false);
-  };
+  }
+
+
+  
 
   return (
     <div className={classes.root}>
@@ -141,6 +146,10 @@ const Layout = (props) => {
               <AccountCircle />
             </NavLink>
           </IconButton>
+          <IconButton color="inherit" onClick={props.logout}>
+              <ExitToAppIcon />
+          </IconButton>
+
 
 
 

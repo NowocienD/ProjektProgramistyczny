@@ -12,13 +12,15 @@ const formikEnhancer = withFormik({
   enableReinitialize: true,
 
   mapPropsToValues: props => ({
-    email: '',
-    password: '',
+    Login: '',
+    Password: '',
   }),
 
   handleSubmit: (values, { props }) => {
-    console.log("dosth");
-    // TODO:backend
+    props.login(values)
+      .then(() => {
+        props.redirectToMainPage();
+      });
   }
 });
 
@@ -66,20 +68,21 @@ const LoginComponent = (props) => {
           <Grid container>
             <Grid item xs={12}>
                 <TextField
-                  id="email"
-                  label="E-mail"
+                  id="Login"
+                  label="Login"
                   variant="outlined"
-                  value={values.email}
+                  value={values.Login}
                   onChange={props.handleChange}
                   className={classes.textfield}
                 />
               </Grid>
             <Grid item xs={12}>
                 <TextField
-                  id="password"
+                  id="Password"
                   label="Hasło"
                   variant="outlined"
-                  value={values.password}
+                  type="password"
+                  value={values.Password}
                   className={classes.textfield}
                   onChange={props.handleChange}
                 />
@@ -89,7 +92,7 @@ const LoginComponent = (props) => {
                   variant="contained"
                   style={styles.BUTTON}
                   className={classes.textfield}
-                // onClick={}TODO
+                  onClick={props.handleSubmit}
                 >
                   Zaloguj się
               </Button>
