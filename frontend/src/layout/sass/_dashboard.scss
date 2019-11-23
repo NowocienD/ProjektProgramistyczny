@@ -1,0 +1,23 @@
+.dashboard-container {
+  display: flex;
+  .inactive-button {
+    text-decoration: none;
+    color: $inactiveButtonColor;
+  }
+  .active-button {
+    text-decoration: none;
+    color: $activeButtonColor;
+  }
+  .logo {
+    text-decoration: none;
+    color: $logoColor;
+    .title {
+      flex-grow: 1;
+      font-size: 150%;
+    }
+  }
+  .icon-button {
+    margin-right: 0%;
+    margin-left: auto;
+  }
+}

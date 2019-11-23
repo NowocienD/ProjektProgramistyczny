@@ -23,7 +23,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsContainer from './../modules/Settings/SettingsContainer';
 import PresenceContainer from './../modules/Student/PresenceContainer';
-import styles from './../../layout';
+import primaryColor from './../../color';
 
 
 const drawerWidth = 240;
@@ -116,10 +116,10 @@ const Layout = (props) => {
   
 
   return (
-    <div className={classes.root}>
+    <div className="dashboard-container">
       <CssBaseline />
       <AppBar
-        style={{ background: styles.COLORS.primary }}
+        style={{ background: primaryColor }}
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
@@ -135,13 +135,13 @@ const Layout = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <NavLink to="/" className={classes.logo}>
+          <NavLink to="/" className="logo">
 
-            <Typography variant="button" style={{ fontSize: "150%" }} className={classes.title}>
+            <Typography variant="button" className="title">
               e-dziennik
           </Typography>
           </NavLink>
-          <IconButton style={{ marginRight: '0%', marginLeft: 'auto' }} color="inherit">
+          <IconButton className="icon-button" color="inherit">
             <NavLink to="/me" style={{ color: 'inherit' }}>
               <AccountCircle />
             </NavLink>
@@ -176,8 +176,8 @@ const Layout = (props) => {
             return (
               <NavLink
                 to={item.to}
-                className={classes.inactiveButton}
-                activeClassName={classes.activeButton}
+                className="inactive-button"
+                activeClassName="active-button"
               >
                 <ListItem button key={item.key}>
                   <ListItemIcon>   <Icon> {item.icon} </Icon> </ListItemIcon>

@@ -1,12 +1,10 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Button, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 import { withFormik } from 'formik';
 import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Card } from '@material-ui/core';
-import styles from './../../layout';
 
 const formikEnhancer = withFormik({
   enableReinitialize: true,
