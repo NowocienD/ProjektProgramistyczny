@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20191215080756_InicialMigration.cs" />
+    <Compile Remove="Migrations\20191215080756_InicialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20191215093039_InicialMigration.cs" />
+    <Compile Remove="Migrations\20191215093039_InicialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20191215095616_NewTableClasses.cs" />
+    <Compile Remove="Migrations\20191215095616_NewTableClasses.Designer.cs" />
+    <Compile Remove="Migrations\20191215100919_NewTableClasses2.cs" />
+    <Compile Remove="Migrations\20191215100919_NewTableClasses2.Designer.cs" />
+    <Compile Remove="Migrations\20191215101257_NewTable Classes.cs" />
+    <Compile Remove="Migrations\20191215101257_NewTable Classes.Designer.cs" />
+    <Compile Remove="Migrations\20191215102528_NewTableGrades.cs" />
+    <Compile Remove="Migrations\20191215102528_NewTableGrades.Designer.cs" />
+    <Compile Remove="Migrations\20191215103451_NewTableAttendance.cs" />
+    <Compile Remove="Migrations\20191215103451_NewTableAttendance.Designer.cs" />
+    <Compile Remove="Migrations\20191215113100_NewTableStudentAndNote.cs" />
+    <Compile Remove="Migrations\20191215113100_NewTableStudentAndNote.Designer.cs" />
+    <Compile Remove="Migrations\20191215114942_NewTableTeacher.cs" />
+    <Compile Remove="Migrations\20191215114942_NewTableTeacher.Designer.cs" />
+    <Compile Remove="Migrations\20191215115925_NewTableAdmin.cs" />
+    <Compile Remove="Migrations\20191215115925_NewTableAdmin.Designer.cs" />
+    <Compile Remove="Migrations\20191215130423_ChangeListToICollection.cs" />
+    <Compile Remove="Migrations\20191215130423_ChangeListToICollection.Designer.cs" />
+    <Compile Remove="Migrations\20191215135419_ch.cs" />
+    <Compile Remove="Migrations\20191215135419_ch.Designer.cs" />
+    <Compile Remove="Migrations\20191215140401_ch1.cs" />
+    <Compile Remove="Migrations\20191215140401_ch1.Designer.cs" />
+    <Compile Remove="Migrations\20191215140516_ch2.cs" />
+    <Compile Remove="Migrations\20191215140516_ch2.Designer.cs" />
+    <Compile Remove="Migrations\20191215140715_ch3.cs" />
+    <Compile Remove="Migrations\20191215140715_ch3.Designer.cs" />
+    <Compile Remove="Migrations\20191215140836_ch4.cs" />
+    <Compile Remove="Migrations\20191215140836_ch4.Designer.cs" />
+    <Compile Remove="Migrations\20191215144208_inicial.cs" />
+    <Compile Remove="Migrations\20191215144208_inicial.Designer.cs" />
+    <Compile Remove="Migrations\20191215145857_migr2.cs" />
+    <Compile Remove="Migrations\20191215145857_migr2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OAuth" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.6.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.6.0" />
+  </ItemGroup>
+
+</Project>
