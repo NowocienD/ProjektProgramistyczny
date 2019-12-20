@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using GradebookBackend.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,9 +40,9 @@ namespace GradebookBackend
         {
             UserDataDTO dto = new UserDataDTO 
             { 
-                Imie = "Jan",
-                Nazwisko = "kowalski",
-                Rola = "admin",
+                Firstname = "Jan",
+                Surname = "kowalski",
+                Role = "admin",
             };
 
             return Ok(dto);
