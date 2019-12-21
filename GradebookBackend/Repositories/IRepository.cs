@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Repositories
 {
-    interface IRepository<T> where T:class
+    public interface IRepository<T> where T:class
     {
         T Get(int Id);
 

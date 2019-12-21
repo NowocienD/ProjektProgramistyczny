@@ -1,22 +1,25 @@
+using GradebookBackend.DTO;
+using GradebookBackend.Model;
+using GradebookBackend.Repositories;
 using System;
 
 namespace GradebookBackend
 {
     public class UserDataService : IUserDataService
     {
-        public int GetId(string userName)
+        private readonly IRepository<User> userRepository;
+
+        public UserDataService(IRepository<User> userRepository)
         {
-            throw new NotImplementedException();
+            this.userRepository = userRepository;
         }
-        
-        public string GetUsername(int id)
+        public UserDataDTO GetUserData(int id)
         {
-            throw new NotImplementedException();
-        }
-        
-        public string GetAccountType(int id)
-        {
-            throw new NotImplementedException();
+            UserDataDTO userDataDTO = new UserDataDTO();
+            userDataDTO.Firstname = userRepository.Get(id).Firstname;
+            userDataDTO.Surname = userRepository.Get(id).Surname;
+   //         userDataDTO.Role = userRepository.Get(3).
+            return userDataDTO;
         }
     }
 }

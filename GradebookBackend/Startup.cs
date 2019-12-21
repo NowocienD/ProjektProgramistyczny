@@ -33,6 +33,7 @@ namespace GradebookBackend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvc();
 
             DevelopmentSettings devSettings = new DevelopmentSettings();
             Configuration.GetSection("DevelopmentSettings").Bind(devSettings);
@@ -87,7 +88,6 @@ namespace GradebookBackend
                     ClockSkew = TimeSpan.FromMinutes(5),
                 };
             });
-
             services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
             services.AddTransient<IUserDataService, UserDataService>();
             services.AddTransient<IUserProvider, UserProvider>();
@@ -106,6 +106,9 @@ namespace GradebookBackend
             services.AddScoped<IRepository<Student>, StudentRepository>();
             services.AddScoped<IRepository<Teacher>, TeacherRepository>();
             services.AddScoped<IRepository<Admin>, AdminRepository>();
+            services.AddScoped<IRepository<Role>, RoleRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
+
         }
 
         public void Configure(IApplicationBuilder app)
