@@ -109,7 +109,6 @@ namespace GradebookBackend
             services.AddScoped<IRepository<Role>, RoleRepository>();
             services.AddScoped<IRepository<User>, UserRepository>();
 
-            services.AddTransient<IUserDataService, UserDataService>();
         }
 
         public void Configure(IApplicationBuilder app)
