@@ -7,10 +7,6 @@ namespace GradebookBackend.Model
 {
     public class Subject
     {
-       // public Subject()
-       // {
-       //     Classes = new List<Class>();
-        //}
         public int Id { get; set; }
         public string Name { get; set; }
 
