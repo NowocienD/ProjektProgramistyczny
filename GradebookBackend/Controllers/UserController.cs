@@ -1,4 +1,5 @@
 ﻿using GradebookBackend.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Controllers
 {
+    [ApiController]
     [Route("api")]
     public class UserController : Controller
     {
@@ -15,11 +17,11 @@ namespace GradebookBackend.Controllers
         {
             this.userDataService = userDataService;
         }
-        // GET api/values
-        [HttpGet("users/{userId}")]
-        public IActionResult GetEmpFromId(int id)
+        //[Authorize]
+        [HttpGet("users/{Id}")]
+        public IActionResult GetUserDataFromId(int Id)
         {
-            UserDataDTO userDataDTO = userDataService.GetUserData(id);
+            UserDataDTO userDataDTO = userDataService.GetUserData(Id);
 
             return Ok(userDataDTO);
         }

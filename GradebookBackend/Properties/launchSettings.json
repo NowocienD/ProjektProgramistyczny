@@ -1,17 +1,28 @@
-﻿{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/GradebookBackend",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:61290",
       "sslPort": 0
     }
   },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "GradeBook": {
       "commandName": "Project",
-      "launchBrowser": false
+      "launchBrowser": true
+    },
+    "DebugIss": {
+      "commandName": "IIS",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }

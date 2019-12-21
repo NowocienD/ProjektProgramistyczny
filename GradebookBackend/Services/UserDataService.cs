@@ -18,7 +18,7 @@ namespace GradebookBackend
             UserDataDTO userDataDTO = new UserDataDTO();
             userDataDTO.Firstname = userRepository.Get(id).Firstname;
             userDataDTO.Surname = userRepository.Get(id).Surname;
-            userDataDTO.Role = userRepository.Get(id).Role.name;
+   //         userDataDTO.Role = userRepository.Get(3).
             return userDataDTO;
         }
     }
