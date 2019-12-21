@@ -12,9 +12,15 @@ namespace GradebookBackend.Model
         public int LessonNumber { get; set; }
         public int DayOfTheWeek { get; set; }
 
-        public Subject Subject { get; set; }
-        public Class Class { get; set; }
         public List<Attendance> Attendances { get; set; }
+
+        public int SubjectId { get; set; }
+        public Subject Subject { get; set; }
+
+        public int ClassId { get; set; }
+        public Class Class { get; set; }
+
+        public int TeacherId { get; set; }
         public Teacher Teacher { get; set; }
     }
 }

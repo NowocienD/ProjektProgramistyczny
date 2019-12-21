@@ -1,4 +1,5 @@
 ﻿using GradebookBackend.DTO;
+using GradebookBackend.ServicesCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,14 +14,25 @@ namespace GradebookBackend.Controllers
     public class UserController : Controller
     {
         private readonly IUserDataService userDataService;
-        public UserController(IUserDataService userDataService)
+        private readonly IUserProvider userProvider;
+        public UserController(IUserDataService userDataService, IUserProvider userProvider)
         {
             this.userDataService = userDataService;
+            this.userProvider = userProvider;
         }
-        //[Authorize]
         [HttpGet("users/{Id}")]
         public IActionResult GetUserDataFromId(int Id)
         {
+            UserDataDTO userDataDTO = userDataService.GetUserData(Id);
+
+            return Ok(userDataDTO);
+        }
+
+        [Authorize]
+        [HttpGet("users")]
+        public IActionResult GetUserDataFromToken()
+        {
+            int Id = Int32.Parse(userProvider.GetUserId());
             UserDataDTO userDataDTO = userDataService.GetUserData(Id);
 
             return Ok(userDataDTO);
