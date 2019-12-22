@@ -20,6 +20,7 @@ namespace GradebookBackend.Controllers
             this.userDataService = userDataService;
             this.userProvider = userProvider;
         }
+
         [HttpGet("users/{Id}")]
         public IActionResult GetUserDataFromId(int Id)
         {

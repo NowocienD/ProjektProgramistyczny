@@ -1,6 +1,8 @@
-﻿using GradebookBackend.DTO;
+﻿using GradebookBackend.Controllers;
+using GradebookBackend.DTO;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
+using GradebookBackend.ServicesCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
-    public class StudentService
+    public class StudentService : IStudentService
     {
         private readonly IRepository<Student> studentRepository;
 
@@ -17,23 +19,38 @@ namespace GradebookBackend.Services
             this.studentRepository = studentRepository;
         }
 
-        public NoteListDTO GetStudentNotesByID(int id)
+        public NoteListDTO GetStudentNotesByID(int studentId)
         {
             NoteListDTO noteListDTO = new NoteListDTO();
-            List<Note> studentNoteList = studentRepository.Get(id).Notes;
+            List<Note> studentNoteList = studentRepository.Get(studentId).Notes;
 
             NoteDTO noteDTO;
             foreach(Note note in studentNoteList)
             {
                 noteDTO = new NoteDTO
                 {
-                    statement = note.statement,
+                    statement = note.Statement,
                     teacherFirstName = note.Teacher.User.Firstname,
                     teacherSurname = note.Teacher.User.Surname
                 };
                 noteListDTO.NoteDTOs.Add(noteDTO);
             }
             return noteListDTO;
+        }
+
+        public NoteListDTO GetStudentNotesByUserId(int userId)
+        {
+            IEnumerable<Student> students = studentRepository.GetAll();
+            int studentId;
+            foreach(Student student in students)
+            {
+                if(student.UserId == userId)
+                {
+                    studentId = student.Id;
+                    return GetStudentNotesByID(studentId);
+                } 
+            }
+            throw new KeyNotFoundException("there is no student with this userId");
         }
     }
 }
