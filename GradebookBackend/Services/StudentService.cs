@@ -19,10 +19,10 @@ namespace GradebookBackend.Services
             this.studentRepository = studentRepository;
         }
 
-        public NoteListDTO GetStudentNotesByID(int id)
+        public NoteListDTO GetStudentNotesByID(int studentId)
         {
             NoteListDTO noteListDTO = new NoteListDTO();
-            List<Note> studentNoteList = studentRepository.Get(id).Notes;
+            List<Note> studentNoteList = studentRepository.Get(studentId).Notes;
 
             NoteDTO noteDTO;
             foreach(Note note in studentNoteList)
@@ -36,6 +36,21 @@ namespace GradebookBackend.Services
                 noteListDTO.NoteDTOs.Add(noteDTO);
             }
             return noteListDTO;
+        }
+
+        public NoteListDTO GetStudentNotesByUserId(int userId)
+        {
+            IEnumerable<Student> students = studentRepository.GetAll();
+            int studentId;
+            foreach(Student student in students)
+            {
+                if(student.UserId == userId)
+                {
+                    studentId = student.Id;
+                    return GetStudentNotesByID(studentId);
+                } 
+            }
+            throw new KeyNotFoundException("there is no student with this userId");
         }
     }
 }
