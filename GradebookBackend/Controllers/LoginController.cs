@@ -34,8 +34,9 @@ namespace GradebookBackend
             {
                 return BadRequest();
             }
-            string token = tokenService.GenerateToken(8);
-            //string token = tokenService.GenerateToken(userDataService.GetId(dto.Login));
+            int userId = userDataService.GetUserId(dto.Login, dto.Password);
+            if(userId == 0) return BadRequest("Login failed. Wrong login or password");
+            string token = tokenService.GenerateToken(userId);
 
             return Ok(token); 
         }
@@ -58,16 +59,8 @@ namespace GradebookBackend
         [HttpGet("user/myProfile")]
         public IActionResult Get_MyProfile()
         {
-            UserDataDTO dto = new UserDataDTO 
-            { 
-                Firstname = "Jan",
-                Surname = "kowalski",
-                Role = "admin",
-            };
-
-            return Ok(dto);
+            UserDataDTO userDataDTO = userDataService.GetUserData(Int32.Parse(userProvider.GetUserId()));
+            return Ok(userDataDTO);
         }
-
-
     }
 }

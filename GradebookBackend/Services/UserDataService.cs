@@ -3,6 +3,7 @@ using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
 using System;
+using System.Collections.Generic;
 
 namespace GradebookBackend
 {
@@ -24,6 +25,19 @@ namespace GradebookBackend
             userDataDTO.Role = rolesRepository.Get(usersRepository.Get(Id).RoleId).Name;
 
             return userDataDTO;
+        }
+        public int GetUserId(string login, string password)
+        {
+            int Id = 0;
+            IEnumerable<UserDAO> users = usersRepository.GetAll();
+            foreach(UserDAO user in users)
+            {
+                if(user.Login == login && user.Password == password)
+                {
+                    Id = user.Id;
+                }
+            }
+            return Id;
         }
     }
 }

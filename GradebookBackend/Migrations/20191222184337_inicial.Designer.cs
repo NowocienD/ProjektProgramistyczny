@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GradebookBackend.Migrations
 {
     [DbContext(typeof(GradebookDbContext))]
-    [Migration("20191215151435_inicial")]
+    [Migration("20191222184337_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,14 +21,14 @@ namespace GradebookBackend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("GradebookBackend.Model.Admin", b =>
+            modelBuilder.Entity("GradebookBackend.Model.AdminDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -38,7 +38,7 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Admins");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Attendance", b =>
+            modelBuilder.Entity("GradebookBackend.Model.AttendanceDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,25 +48,25 @@ namespace GradebookBackend.Migrations
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LessonID")
+                    b.Property<int>("LessonId")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int?>("StudentDAOId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LessonID");
+                    b.HasIndex("LessonId");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("StudentDAOId");
 
                     b.ToTable("Attendances");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Class", b =>
+            modelBuilder.Entity("GradebookBackend.Model.ClassDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,7 +81,7 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Classes");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.ClassSubject", b =>
+            modelBuilder.Entity("GradebookBackend.Model.ClassSubjectDAO", b =>
                 {
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
@@ -96,10 +96,10 @@ namespace GradebookBackend.Migrations
 
                     b.HasIndex("ClassId1");
 
-                    b.ToTable("ClassSubject");
+                    b.ToTable("ClassSubjectDAO");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Grade", b =>
+            modelBuilder.Entity("GradebookBackend.Model.GradeDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,13 +112,13 @@ namespace GradebookBackend.Migrations
                     b.Property<int>("Importance")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int?>("StudentDAOId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectId")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.Property<string>("Topic")
@@ -129,7 +129,7 @@ namespace GradebookBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("StudentDAOId");
 
                     b.HasIndex("SubjectId");
 
@@ -138,14 +138,14 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Grades");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Lesson", b =>
+            modelBuilder.Entity("GradebookBackend.Model.LessonDAO", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClassId")
+                    b.Property<int>("ClassId")
                         .HasColumnType("int");
 
                     b.Property<int>("DayOfTheWeek")
@@ -154,10 +154,10 @@ namespace GradebookBackend.Migrations
                     b.Property<int>("LessonNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectId")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -171,17 +171,20 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Lessons");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Note", b =>
+            modelBuilder.Entity("GradebookBackend.Model.NoteDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("StudentId")
+                    b.Property<string>("Statement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -193,14 +196,14 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Role", b =>
+            modelBuilder.Entity("GradebookBackend.Model.RoleDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -208,17 +211,17 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Student", b =>
+            modelBuilder.Entity("GradebookBackend.Model.StudentDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ClassId")
+                    b.Property<int>("ClassId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -230,7 +233,7 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Subject", b =>
+            modelBuilder.Entity("GradebookBackend.Model.SubjectDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -245,14 +248,14 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Subjects");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Teacher", b =>
+            modelBuilder.Entity("GradebookBackend.Model.TeacherDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -262,7 +265,7 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.TeacherSubject", b =>
+            modelBuilder.Entity("GradebookBackend.Model.TeacherSubjectDAO", b =>
                 {
                     b.Property<int>("TeacherId")
                         .HasColumnType("int");
@@ -277,15 +280,18 @@ namespace GradebookBackend.Migrations
 
                     b.HasIndex("TeacherId1");
 
-                    b.ToTable("TeacherSubject");
+                    b.ToTable("TeacherSubjectDAO");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.User", b =>
+            modelBuilder.Entity("GradebookBackend.Model.UserDAO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Firstname")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");
@@ -293,8 +299,11 @@ namespace GradebookBackend.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -303,118 +312,144 @@ namespace GradebookBackend.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Admin", b =>
+            modelBuilder.Entity("GradebookBackend.Model.AdminDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.User", "User")
+                    b.HasOne("GradebookBackend.Model.UserDAO", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Attendance", b =>
+            modelBuilder.Entity("GradebookBackend.Model.AttendanceDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.Lesson", "Lesson")
+                    b.HasOne("GradebookBackend.Model.LessonDAO", "Lesson")
                         .WithMany("Attendances")
-                        .HasForeignKey("LessonID");
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("GradebookBackend.Model.Student", null)
+                    b.HasOne("GradebookBackend.Model.StudentDAO", null)
                         .WithMany("Attendances")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentDAOId");
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.ClassSubject", b =>
+            modelBuilder.Entity("GradebookBackend.Model.ClassSubjectDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.Subject", "Subject")
+                    b.HasOne("GradebookBackend.Model.SubjectDAO", "Subject")
                         .WithMany("ClassSubjects")
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GradebookBackend.Model.Class", "Class")
+                    b.HasOne("GradebookBackend.Model.ClassDAO", "Class")
                         .WithMany("ClassSubjects")
                         .HasForeignKey("ClassId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Grade", b =>
+            modelBuilder.Entity("GradebookBackend.Model.GradeDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.Student", null)
+                    b.HasOne("GradebookBackend.Model.StudentDAO", null)
                         .WithMany("Grades")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentDAOId");
 
-                    b.HasOne("GradebookBackend.Model.Subject", "Subject")
+                    b.HasOne("GradebookBackend.Model.SubjectDAO", "Subject")
                         .WithMany("Grades")
-                        .HasForeignKey("SubjectId");
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("GradebookBackend.Model.Teacher", "Teacher")
+                    b.HasOne("GradebookBackend.Model.TeacherDAO", "Teacher")
                         .WithMany("Grades")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Lesson", b =>
+            modelBuilder.Entity("GradebookBackend.Model.LessonDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.Class", "Class")
+                    b.HasOne("GradebookBackend.Model.ClassDAO", "Class")
                         .WithMany("Lessons")
-                        .HasForeignKey("ClassId");
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("GradebookBackend.Model.Subject", "Subject")
+                    b.HasOne("GradebookBackend.Model.SubjectDAO", "Subject")
                         .WithMany("Lessons")
-                        .HasForeignKey("SubjectId");
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("GradebookBackend.Model.Teacher", "Teacher")
+                    b.HasOne("GradebookBackend.Model.TeacherDAO", "Teacher")
                         .WithMany("Lessons")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Note", b =>
+            modelBuilder.Entity("GradebookBackend.Model.NoteDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.Student", "Student")
+                    b.HasOne("GradebookBackend.Model.StudentDAO", "Student")
                         .WithMany("Notes")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("GradebookBackend.Model.Teacher", "Teacher")
+                    b.HasOne("GradebookBackend.Model.TeacherDAO", "Teacher")
                         .WithMany("Notes")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Student", b =>
+            modelBuilder.Entity("GradebookBackend.Model.StudentDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.Class", "Class")
+                    b.HasOne("GradebookBackend.Model.ClassDAO", "Class")
                         .WithMany()
-                        .HasForeignKey("ClassId");
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("GradebookBackend.Model.User", "User")
+                    b.HasOne("GradebookBackend.Model.UserDAO", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.Teacher", b =>
+            modelBuilder.Entity("GradebookBackend.Model.TeacherDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.User", "User")
+                    b.HasOne("GradebookBackend.Model.UserDAO", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.TeacherSubject", b =>
+            modelBuilder.Entity("GradebookBackend.Model.TeacherSubjectDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.Subject", "Subject")
+                    b.HasOne("GradebookBackend.Model.SubjectDAO", "Subject")
                         .WithMany("TeacherSubjects")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GradebookBackend.Model.Teacher", "Teacher")
+                    b.HasOne("GradebookBackend.Model.TeacherDAO", "Teacher")
                         .WithMany("TeacherSubjects")
                         .HasForeignKey("TeacherId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GradebookBackend.Model.User", b =>
+            modelBuilder.Entity("GradebookBackend.Model.UserDAO", b =>
                 {
-                    b.HasOne("GradebookBackend.Model.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId");
+                    b.HasOne("GradebookBackend.Model.RoleDAO", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
