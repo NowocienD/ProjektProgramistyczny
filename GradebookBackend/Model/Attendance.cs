@@ -11,7 +11,7 @@ namespace GradebookBackend.Model
         public string Date { get; set; }
         public string State { get; set; }
 
-        public int IdLesson { get; set; }
+        public int LessonId { get; set; }
         public Lesson Lesson { get; set; }
     }
 }

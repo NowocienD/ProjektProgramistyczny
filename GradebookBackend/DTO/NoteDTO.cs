@@ -7,9 +7,9 @@ namespace GradebookBackend.DTO
 {
     public class NoteDTO
     {
-        public string statement { get; set; }
-        public string teacherFirstName { get; set; }
-        public string teacherSurname { get; set; }
+        public string Statement { get; set; }
+        public string TeacherFirstName { get; set; }
+        public string TeacherSurname { get; set; }
 
     }
 }
