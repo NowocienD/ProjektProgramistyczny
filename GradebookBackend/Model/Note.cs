@@ -8,7 +8,7 @@ namespace GradebookBackend.Model
     public class Note
     {
         public int Id { get; set; }
-        string Statement { get; set; }
+        public string Statement { get; set; }
 
         public int StudentId { get; set; }
         public Student Student { get; set; }

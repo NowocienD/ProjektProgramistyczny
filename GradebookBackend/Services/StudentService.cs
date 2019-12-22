@@ -27,7 +27,7 @@ namespace GradebookBackend.Services
             {
                 noteDTO = new NoteDTO
                 {
-                    statement = note.statement,
+                    statement = note.Statement,
                     teacherFirstName = note.Teacher.User.Firstname,
                     teacherSurname = note.Teacher.User.Surname
                 };
