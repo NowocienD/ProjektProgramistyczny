@@ -50,7 +50,7 @@ namespace GradebookBackend.Services
                     return GetStudentNotesByID(studentId);
                 } 
             }
-            throw new KeyNotFoundException("there is no student with this userId");
+            throw new KeyNotFoundException("There is no student with this userId");
         }
     }
 }

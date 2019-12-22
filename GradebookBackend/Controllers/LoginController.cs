@@ -30,9 +30,9 @@ namespace GradebookBackend
         [HttpPost("login")]
         public IActionResult GetToken([FromBody] UserLoginCommandDto dto)
         {
-            if (dto == null | string.IsNullOrWhiteSpace(dto.Login) | string.IsNullOrEmpty(dto.Password))
+            if (dto == null || string.IsNullOrWhiteSpace(dto.Login) || string.IsNullOrEmpty(dto.Password))
             {
-                return BadRequest();
+                return BadRequest("Invalid dto");
             }
             int userId = userDataService.GetUserId(dto.Login, dto.Password);
             if(userId == 0) return BadRequest("Login failed. Wrong login or password");
