@@ -1,6 +1,8 @@
-﻿using GradebookBackend.DTO;
+﻿using GradebookBackend.Controllers;
+using GradebookBackend.DTO;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
+using GradebookBackend.ServicesCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
-    public class StudentService
+    public class StudentService : IStudentService
     {
         private readonly IRepository<Student> studentRepository;
 

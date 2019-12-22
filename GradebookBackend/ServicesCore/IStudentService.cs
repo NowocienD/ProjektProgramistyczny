@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.ServicesCore
 {
-    interface IStudentService
+    public interface IStudentService
     {
         public NoteListDTO GetStudentNotesByID(int id);
     }
