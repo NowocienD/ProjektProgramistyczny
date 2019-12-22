@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Model
 {
-    public class Lesson
+    public class LessonDAO
     {
         public int ID { get; set; }
         public int LessonNumber { get; set; }
         public int DayOfTheWeek { get; set; }
 
-        public List<Attendance> Attendances { get; set; }
+        public List<AttendanceDAO> Attendances { get; set; }
 
         public int SubjectId { get; set; }
-        public Subject Subject { get; set; }
+        public SubjectDAO Subject { get; set; }
 
         public int ClassId { get; set; }
-        public Class Class { get; set; }
+        public ClassDAO Class { get; set; }
 
         public int TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
+        public TeacherDAO Teacher { get; set; }
     }
 }

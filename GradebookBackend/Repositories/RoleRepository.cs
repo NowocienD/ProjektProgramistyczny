@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Repositories
 {
-    public class RoleRepository : IRepository<Role>
+    public class RoleRepository : IRepository<RoleDAO>
     {
         private readonly GradebookDbContext context;
 
@@ -14,16 +14,16 @@ namespace GradebookBackend.Repositories
         {
             this.context = context;
         }
-        public Role Add(Role tObject)
+        public RoleDAO Add(RoleDAO tObject)
         {
             this.context.Roles.Add(tObject);
             this.context.SaveChanges();
             return tObject;
         }
 
-        public Role Delete(int Id)
+        public RoleDAO Delete(int Id)
         {
-            Role tObject = this.context.Roles.Find(Id);
+            RoleDAO tObject = this.context.Roles.Find(Id);
             if (tObject != null)
             {
                 this.context.Roles.Remove(tObject);
@@ -33,17 +33,17 @@ namespace GradebookBackend.Repositories
             return tObject;
         }
 
-        public Role Get(int Id)
+        public RoleDAO Get(int Id)
         {
             return this.context.Roles.Find(Id);
         }
 
-        public IEnumerable<Role> GetAll()
+        public IEnumerable<RoleDAO> GetAll()
         {
             return this.context.Roles;
         }
 
-        public Role Update(Role tObjectChanges)
+        public RoleDAO Update(RoleDAO tObjectChanges)
         {
             var tObject = this.context.Roles.Attach(tObjectChanges);
             tObject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;

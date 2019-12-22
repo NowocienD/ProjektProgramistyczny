@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Model
 {
-    public class User
+    public class UserDAO
     {
         public int Id { get; set; }
         public string Login { get; set; }
@@ -14,6 +14,6 @@ namespace GradebookBackend.Model
         public string Surname { get; set; }
 
         public int RoleId { get; set; }
-        public Role Role { get; set; }
+        public RoleDAO Role { get; set; }
     }
 }

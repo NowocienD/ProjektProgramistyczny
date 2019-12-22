@@ -8,10 +8,10 @@ namespace GradebookBackend
 {
     public class UserDataService : IUserDataService
     {
-        private readonly IRepository<User> usersRepository;
-        private readonly IRepository<Role> rolesRepository;
+        private readonly IRepository<UserDAO> usersRepository;
+        private readonly IRepository<RoleDAO> rolesRepository;
 
-        public UserDataService(IRepository<User> usersRepository, IRepository<Role> rolesRepository)
+        public UserDataService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository)
         {
             this.usersRepository = usersRepository;
             this.rolesRepository = rolesRepository;

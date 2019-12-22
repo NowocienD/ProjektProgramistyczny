@@ -12,9 +12,9 @@ namespace GradebookBackend.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly IRepository<Student> studentRepository;
+        private readonly IRepository<StudentDAO> studentRepository;
 
-        public StudentService(IRepository<Student> studentRepository)
+        public StudentService(IRepository<StudentDAO> studentRepository)
         {
             this.studentRepository = studentRepository;
         }
@@ -22,10 +22,10 @@ namespace GradebookBackend.Services
         public NoteListDTO GetStudentNotesByID(int studentId)
         {
             NoteListDTO noteListDTO = new NoteListDTO();
-            List<Note> studentNoteList = studentRepository.Get(studentId).Notes;
+            List<NoteDAO> studentNoteList = studentRepository.Get(studentId).Notes;
 
             NoteDTO noteDTO;
-            foreach(Note note in studentNoteList)
+            foreach(NoteDAO note in studentNoteList)
             {
                 noteDTO = new NoteDTO
                 {
@@ -40,9 +40,9 @@ namespace GradebookBackend.Services
 
         public NoteListDTO GetStudentNotesByUserId(int userId)
         {
-            IEnumerable<Student> students = studentRepository.GetAll();
+            IEnumerable<StudentDAO> students = studentRepository.GetAll();
             int studentId;
-            foreach(Student student in students)
+            foreach(StudentDAO student in students)
             {
                 if(student.UserId == userId)
                 {

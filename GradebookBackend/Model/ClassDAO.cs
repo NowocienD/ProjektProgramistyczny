@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Model
 {
-    public class Role
+    public class ClassDAO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public List<User> Users { get; set; }
+        
+        public virtual ICollection<ClassSubjectDAO> ClassSubjects { get; set; }
+        public List<LessonDAO> Lessons { get; set; }
     }
 }

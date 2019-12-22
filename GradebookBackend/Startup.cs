@@ -97,17 +97,17 @@ namespace GradebookBackend
             services.AddSingleton<IDevelopmentSettings>(devSettings);
 
             services.AddDbContextPool<GradebookDbContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("GradebookDBConnection")));
-            services.AddScoped<IRepository<Lesson>, LessonRepository>();
-            services.AddScoped<IRepository<Subject>, SubjectRepository>();
-            services.AddScoped<IRepository<Class>, ClassRepository>();
-            services.AddScoped<IRepository<Grade>, GradeRepository>();
-            services.AddScoped<IRepository<Attendance>, AttendanceRepository>();
-            services.AddScoped<IRepository<Note>, NoteRepository>();
-            services.AddScoped<IRepository<Student>, StudentRepository>();
-            services.AddScoped<IRepository<Teacher>, TeacherRepository>();
-            services.AddScoped<IRepository<Admin>, AdminRepository>();
-            services.AddScoped<IRepository<Role>, RoleRepository>();
-            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<LessonDAO>, LessonRepository>();
+            services.AddScoped<IRepository<SubjectDAO>, SubjectRepository>();
+            services.AddScoped<IRepository<ClassDAO>, ClassRepository>();
+            services.AddScoped<IRepository<GradeDAO>, GradeRepository>();
+            services.AddScoped<IRepository<AttendanceDAO>, AttendanceRepository>();
+            services.AddScoped<IRepository<NoteDAO>, NoteRepository>();
+            services.AddScoped<IRepository<StudentDAO>, StudentRepository>();
+            services.AddScoped<IRepository<TeacherDAO>, TeacherRepository>();
+            services.AddScoped<IRepository<AdminDAO>, AdminRepository>();
+            services.AddScoped<IRepository<RoleDAO>, RoleRepository>();
+            services.AddScoped<IRepository<UserDAO>, UserRepository>();
 
         }
 

@@ -6,7 +6,7 @@ using GradebookBackend.Model;
 
 namespace GradebookBackend.Repositories
 {
-    public class AttendanceRepository : IRepository<Attendance>
+    public class AttendanceRepository : IRepository<AttendanceDAO>
     {
         private readonly GradebookDbContext context;
 
@@ -14,16 +14,16 @@ namespace GradebookBackend.Repositories
         {
             this.context = context;
         }
-        public Attendance Add(Attendance tObject)
+        public AttendanceDAO Add(AttendanceDAO tObject)
         {
             this.context.Attendances.Add(tObject);
             this.context.SaveChanges();
             return tObject;
         }
 
-        public Attendance Delete(int Id)
+        public AttendanceDAO Delete(int Id)
         {
-            Attendance tObject = this.context.Attendances.Find(Id);
+            AttendanceDAO tObject = this.context.Attendances.Find(Id);
             if (tObject != null)
             {
                 this.context.Attendances.Remove(tObject);
@@ -33,17 +33,17 @@ namespace GradebookBackend.Repositories
             return tObject;
         }
 
-        public Attendance Get(int Id)
+        public AttendanceDAO Get(int Id)
         {
             return this.context.Attendances.Find(Id);
         }
 
-        public IEnumerable<Attendance> GetAll()
+        public IEnumerable<AttendanceDAO> GetAll()
         {
             return this.context.Attendances;
         }
 
-        public Attendance Update(Attendance tObjectChanges)
+        public AttendanceDAO Update(AttendanceDAO tObjectChanges)
         {
             var tObject = this.context.Attendances.Attach(tObjectChanges);
             tObject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;

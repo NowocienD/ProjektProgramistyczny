@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Model
 {
-    public class Note
+    public class NoteDAO
     {
         public int Id { get; set; }
         public string Statement { get; set; }
 
         public int StudentId { get; set; }
-        public Student Student { get; set; }
+        public StudentDAO Student { get; set; }
 
         public int TeacherId { get; set; }
-        public Teacher Teacher { get; set; }
+        public TeacherDAO Teacher { get; set; }
     }
 }

@@ -9,41 +9,41 @@ namespace GradebookBackend.Repositories
 {
     public class GradebookDbContext : DbContext
     {
-        public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
-        public DbSet<Class> Classes { get; set; }
-        public DbSet<Grade> Grades { get; set; }
-        public DbSet<Attendance> Attendances { get; set; }
-        public DbSet<Note> Notes { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<LessonDAO> Lessons { get; set; }
+        public DbSet<SubjectDAO> Subjects { get; set; }
+        public DbSet<ClassDAO> Classes { get; set; }
+        public DbSet<GradeDAO> Grades { get; set; }
+        public DbSet<AttendanceDAO> Attendances { get; set; }
+        public DbSet<NoteDAO> Notes { get; set; }
+        public DbSet<StudentDAO> Students { get; set; }
+        public DbSet<TeacherDAO> Teachers { get; set; }
+        public DbSet<AdminDAO> Admins { get; set; }
+        public DbSet<UserDAO> Users { get; set; }
+        public DbSet<RoleDAO> Roles { get; set; }
 
         public GradebookDbContext(DbContextOptions<GradebookDbContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ClassSubject>()
+            modelBuilder.Entity<ClassSubjectDAO>()
                 .HasKey(bc => new { bc.ClassId, bc.SubjectId });
-            modelBuilder.Entity<ClassSubject>()
+            modelBuilder.Entity<ClassSubjectDAO>()
                 .HasOne(bc => bc.Subject)
                 .WithMany(b => b.ClassSubjects)
                 .HasForeignKey(bc => bc.SubjectId);
-            modelBuilder.Entity<ClassSubject>()
+            modelBuilder.Entity<ClassSubjectDAO>()
                 .HasOne(bc => bc.Subject)
                 .WithMany(c => c.ClassSubjects)
                 .HasForeignKey(bc => bc.ClassId);
 
-            modelBuilder.Entity<TeacherSubject>()
+            modelBuilder.Entity<TeacherSubjectDAO>()
     .HasKey(bc => new { bc.TeacherId, bc.SubjectId });
-            modelBuilder.Entity<TeacherSubject>()
+            modelBuilder.Entity<TeacherSubjectDAO>()
                 .HasOne(bc => bc.Subject)
                 .WithMany(b => b.TeacherSubjects)
                 .HasForeignKey(bc => bc.SubjectId);
-            modelBuilder.Entity<TeacherSubject>()
+            modelBuilder.Entity<TeacherSubjectDAO>()
                 .HasOne(bc => bc.Subject)
                 .WithMany(c => c.TeacherSubjects)
                 .HasForeignKey(bc => bc.TeacherId);

@@ -6,7 +6,7 @@ using GradebookBackend.Model;
 
 namespace GradebookBackend.Repositories
 {
-    public class ClassRepository : IRepository<Class>
+    public class ClassRepository : IRepository<ClassDAO>
     {
         private readonly GradebookDbContext context;
 
@@ -14,16 +14,16 @@ namespace GradebookBackend.Repositories
         {
             this.context = context;
         }
-        public Class Add(Class tObject)
+        public ClassDAO Add(ClassDAO tObject)
         {
             this.context.Classes.Add(tObject);
             this.context.SaveChanges();
             return tObject;
         }
 
-        public Class Delete(int Id)
+        public ClassDAO Delete(int Id)
         {
-            Class tObject = this.context.Classes.Find(Id);
+            ClassDAO tObject = this.context.Classes.Find(Id);
             if (tObject != null)
             {
                 this.context.Classes.Remove(tObject);
@@ -33,17 +33,17 @@ namespace GradebookBackend.Repositories
             return tObject;
         }
 
-        public Class Get(int Id)
+        public ClassDAO Get(int Id)
         {
             return this.context.Classes.Find(Id);
         }
 
-        public IEnumerable<Class> GetAll()
+        public IEnumerable<ClassDAO> GetAll()
         {
             return this.context.Classes;
         }
 
-        public Class Update(Class tObjectChanges)
+        public ClassDAO Update(ClassDAO tObjectChanges)
         {
             var tObject = this.context.Classes.Attach(tObjectChanges);
             tObject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Model
 {
-    public class ClassSubject
+    public class ClassSubjectDAO
     {
         public int ClassId { get; set; }
-        public virtual Class Class { get; set; }
+        public virtual ClassDAO Class { get; set; }
 
         public int SubjectId { get; set; }
-        public virtual Subject Subject{ get; set; }
+        public virtual SubjectDAO Subject{ get; set; }
     }
 }

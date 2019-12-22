@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Repositories
 {
-    public class SubjectRepository : IRepository<Subject>
+    public class SubjectRepository : IRepository<SubjectDAO>
     {
         private readonly GradebookDbContext context;
 
@@ -15,16 +15,16 @@ namespace GradebookBackend.Repositories
             this.context = context;
         }
 
-        public Subject Add(Subject subject)
+        public SubjectDAO Add(SubjectDAO subject)
         {
             this.context.Subjects.Add(subject);
             this.context.SaveChanges();
             return subject;
         }
 
-        public Subject Delete(int Id)
+        public SubjectDAO Delete(int Id)
         {
-            Subject subject = this.context.Subjects.Find(Id);
+            SubjectDAO subject = this.context.Subjects.Find(Id);
             if (subject != null)
             {
                 this.context.Subjects.Remove(subject);
@@ -34,17 +34,17 @@ namespace GradebookBackend.Repositories
             return subject;
         }
 
-        public Subject Get(int Id)
+        public SubjectDAO Get(int Id)
         {
             return this.context.Subjects.Find(Id);
         }
 
-        public IEnumerable<Subject> GetAll()
+        public IEnumerable<SubjectDAO> GetAll()
         {
             return this.context.Subjects;
         }
 
-        public Subject Update(Subject subjectChanges)
+        public SubjectDAO Update(SubjectDAO subjectChanges)
         {
             var subject = this.context.Subjects.Attach(subjectChanges);
             subject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
