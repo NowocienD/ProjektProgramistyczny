@@ -1,6 +1,6 @@
 using GradebookBackend.DTO;
 
-namespace GradebookBackend
+namespace GradebookBackend.ServicesCore
 {
     public interface IUserDataService
     {

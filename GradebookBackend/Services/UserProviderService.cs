@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GradebookBackend.ServicesCore;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace GradebookBackend.ServicesCore
+namespace GradebookBackend.Services
 {
-    public class UserProvider : IUserProvider
+    public class UserProviderService : IUserProviderService
     {
         private readonly IHttpContextAccessor context;
 
-        public UserProvider(IHttpContextAccessor context)
+        public UserProviderService(IHttpContextAccessor context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
