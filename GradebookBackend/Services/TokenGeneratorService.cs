@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace GradebookBackend
+namespace GradebookBackend.Services
 {
     public class TokenGeneratorService : ITokenGeneratorService
     {

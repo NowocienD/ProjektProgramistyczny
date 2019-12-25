@@ -12,17 +12,24 @@ namespace GradebookBackend.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly IRepository<StudentDAO> studentRepository;
+        private readonly IRepository<StudentDAO> studentsRepository;
+        private readonly IRepository<GradeDAO> gradesRepository;
+        private readonly IRepository<TeacherDAO> teachersRepository;
+        private readonly IRepository<UserDAO> usersRepository;
 
-        public StudentService(IRepository<StudentDAO> studentRepository)
+        public StudentService(IRepository<StudentDAO> studentsRepository, IRepository<GradeDAO> gradesRepository,
+            IRepository<TeacherDAO> teachersRepository, IRepository<UserDAO> usersRepository)
         {
-            this.studentRepository = studentRepository;
+            this.studentsRepository = studentsRepository;
+            this.gradesRepository = gradesRepository;
+            this.teachersRepository = teachersRepository;
+            this.usersRepository = usersRepository;
         }
 
         public NoteListDTO GetStudentGradesByID(int studentId)
         {
             NoteListDTO noteListDTO = new NoteListDTO();
-            List<NoteDAO> studentNoteList = studentRepository.Get(studentId).Notes;
+            List<NoteDAO> studentNoteList = studentsRepository.Get(studentId).Notes;
 
             NoteDTO noteDTO;
             foreach(NoteDAO note in studentNoteList)
@@ -40,7 +47,7 @@ namespace GradebookBackend.Services
 
         public NoteListDTO GetStudentNotesByUserId(int userId)
         {
-            IEnumerable<StudentDAO> students = studentRepository.GetAll();
+            IEnumerable<StudentDAO> students = studentsRepository.GetAll();
             int studentId;
             foreach(StudentDAO student in students)
             {
@@ -51,6 +58,29 @@ namespace GradebookBackend.Services
                 } 
             }
             throw new KeyNotFoundException("There is no student with this userId");
+        }
+
+        public GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId)
+        {
+            IEnumerable<GradeDAO> grades = gradesRepository.GetAll();
+            GradeListDTO gradeListDTO = new GradeListDTO();
+            int studentelo = studentId;
+            foreach (GradeDAO grade in grades)
+            {
+                if (grade.StudentId == studentId && grade.SubjectId == subjectId)
+                {
+                    gradeListDTO.GradeDTOs.Add(new GradeDTO
+                    {
+                        Value = grade.Value,
+                        Importance = grade.Importance,
+                        Topic = grade.Topic,
+                        Date = grade.Date,
+                        TeacherFirstname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Firstname,
+                        TeacherSurname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Surname
+                }); 
+                }
+            }
+            return gradeListDTO; 
         }
     }
 }
