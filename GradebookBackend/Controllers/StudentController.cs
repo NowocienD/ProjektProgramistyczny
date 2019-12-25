@@ -13,11 +13,11 @@ namespace GradebookBackend.Controllers
     [Route("api")]
     public class StudentController : Controller
     {
-        private readonly IUserProvider userProvider;
+        private readonly IUserProviderService userProvider;
         private readonly IStudentService studentService;
         private readonly IUserDataService userDataService;
 
-        public StudentController(IUserProvider userProvider, IStudentService studentService,
+        public StudentController(IUserProviderService userProvider, IStudentService studentService,
             IUserDataService userDataService)
         {
             this.userProvider = userProvider;

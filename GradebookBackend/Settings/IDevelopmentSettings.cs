@@ -1,4 +1,4 @@
-﻿namespace GradebookBackend
+﻿namespace GradebookBackend.Settings
 {
     public interface IDevelopmentSettings
     {

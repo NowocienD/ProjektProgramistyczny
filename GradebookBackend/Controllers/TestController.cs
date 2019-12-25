@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace GradebookBackend
+namespace GradebookBackend.Controllers
 {
     [ApiController]
     [Route("api")]
