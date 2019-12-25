@@ -13,5 +13,8 @@ namespace GradebookBackend.Model
 
         public int LessonId { get; set; }
         public LessonDAO Lesson { get; set; }
+
+        public int StudentId { get; set; }
+        public StudentDAO Student { get; set; }
     }
 }

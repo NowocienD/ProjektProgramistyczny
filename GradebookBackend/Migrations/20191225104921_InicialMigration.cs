@@ -2,7 +2,7 @@
 
 namespace GradebookBackend.Migrations
 {
-    public partial class inicial : Migration
+    public partial class InicialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,7 +69,7 @@ namespace GradebookBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClassSubjectDAO",
+                name: "ClassesSubjects",
                 columns: table => new
                 {
                     ClassId = table.Column<int>(nullable: false),
@@ -78,15 +78,15 @@ namespace GradebookBackend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClassSubjectDAO", x => new { x.ClassId, x.SubjectId });
+                    table.PrimaryKey("PK_ClassesSubjects", x => new { x.ClassId, x.SubjectId });
                     table.ForeignKey(
-                        name: "FK_ClassSubjectDAO_Subjects_ClassId",
+                        name: "FK_ClassesSubjects_Subjects_ClassId",
                         column: x => x.ClassId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ClassSubjectDAO_Classes_ClassId1",
+                        name: "FK_ClassesSubjects_Classes_ClassId1",
                         column: x => x.ClassId1,
                         principalTable: "Classes",
                         principalColumn: "Id",
@@ -168,18 +168,18 @@ namespace GradebookBackend.Migrations
                     Value = table.Column<int>(nullable: false),
                     Topic = table.Column<string>(nullable: true),
                     SubjectId = table.Column<int>(nullable: false),
-                    TeacherId = table.Column<int>(nullable: false),
-                    StudentDAOId = table.Column<int>(nullable: true)
+                    StudentId = table.Column<int>(nullable: false),
+                    TeacherId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Grades", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Grades_Students_StudentDAOId",
-                        column: x => x.StudentDAOId,
+                        name: "FK_Grades_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Grades_Subjects_SubjectId",
                         column: x => x.SubjectId,
@@ -191,7 +191,7 @@ namespace GradebookBackend.Migrations
                         column: x => x.TeacherId,
                         principalTable: "Teachers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -257,7 +257,7 @@ namespace GradebookBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TeacherSubjectDAO",
+                name: "TeachersSubjects",
                 columns: table => new
                 {
                     TeacherId = table.Column<int>(nullable: false),
@@ -266,15 +266,15 @@ namespace GradebookBackend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TeacherSubjectDAO", x => new { x.TeacherId, x.SubjectId });
+                    table.PrimaryKey("PK_TeachersSubjects", x => new { x.TeacherId, x.SubjectId });
                     table.ForeignKey(
-                        name: "FK_TeacherSubjectDAO_Subjects_TeacherId",
+                        name: "FK_TeachersSubjects_Subjects_TeacherId",
                         column: x => x.TeacherId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TeacherSubjectDAO_Teachers_TeacherId1",
+                        name: "FK_TeachersSubjects_Teachers_TeacherId1",
                         column: x => x.TeacherId1,
                         principalTable: "Teachers",
                         principalColumn: "Id",
@@ -290,7 +290,7 @@ namespace GradebookBackend.Migrations
                     Date = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
                     LessonId = table.Column<int>(nullable: false),
-                    StudentDAOId = table.Column<int>(nullable: true)
+                    StudentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -302,11 +302,11 @@ namespace GradebookBackend.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Attendances_Students_StudentDAOId",
-                        column: x => x.StudentDAOId,
+                        name: "FK_Attendances_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -320,19 +320,19 @@ namespace GradebookBackend.Migrations
                 column: "LessonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attendances_StudentDAOId",
+                name: "IX_Attendances_StudentId",
                 table: "Attendances",
-                column: "StudentDAOId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClassSubjectDAO_ClassId1",
-                table: "ClassSubjectDAO",
+                name: "IX_ClassesSubjects_ClassId1",
+                table: "ClassesSubjects",
                 column: "ClassId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Grades_StudentDAOId",
+                name: "IX_Grades_StudentId",
                 table: "Grades",
-                column: "StudentDAOId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Grades_SubjectId",
@@ -385,8 +385,8 @@ namespace GradebookBackend.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeacherSubjectDAO_TeacherId1",
-                table: "TeacherSubjectDAO",
+                name: "IX_TeachersSubjects_TeacherId1",
+                table: "TeachersSubjects",
                 column: "TeacherId1");
 
             migrationBuilder.CreateIndex(
@@ -404,7 +404,7 @@ namespace GradebookBackend.Migrations
                 name: "Attendances");
 
             migrationBuilder.DropTable(
-                name: "ClassSubjectDAO");
+                name: "ClassesSubjects");
 
             migrationBuilder.DropTable(
                 name: "Grades");
@@ -413,7 +413,7 @@ namespace GradebookBackend.Migrations
                 name: "Notes");
 
             migrationBuilder.DropTable(
-                name: "TeacherSubjectDAO");
+                name: "TeachersSubjects");
 
             migrationBuilder.DropTable(
                 name: "Lessons");

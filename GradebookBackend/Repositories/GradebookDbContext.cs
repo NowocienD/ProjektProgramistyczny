@@ -20,6 +20,8 @@ namespace GradebookBackend.Repositories
         public DbSet<AdminDAO> Admins { get; set; }
         public DbSet<UserDAO> Users { get; set; }
         public DbSet<RoleDAO> Roles { get; set; }
+        public DbSet<TeacherSubjectDAO> TeachersSubjects { get; set; }
+        public DbSet<ClassSubjectDAO> ClassesSubjects { get; set; }
 
         public GradebookDbContext(DbContextOptions<GradebookDbContext> options) : base(options)
         {

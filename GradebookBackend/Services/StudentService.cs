@@ -19,7 +19,7 @@ namespace GradebookBackend.Services
             this.studentRepository = studentRepository;
         }
 
-        public NoteListDTO GetStudentNotesByID(int studentId)
+        public NoteListDTO GetStudentGradesByID(int studentId)
         {
             NoteListDTO noteListDTO = new NoteListDTO();
             List<NoteDAO> studentNoteList = studentRepository.Get(studentId).Notes;
@@ -47,7 +47,7 @@ namespace GradebookBackend.Services
                 if(student.UserId == userId)
                 {
                     studentId = student.Id;
-                    return GetStudentNotesByID(studentId);
+                    return GetStudentGradesByID(studentId);
                 } 
             }
             throw new KeyNotFoundException("There is no student with this userId");

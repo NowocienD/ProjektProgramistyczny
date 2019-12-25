@@ -16,6 +16,9 @@ namespace GradebookBackend.Model
         public int SubjectId { get; set; }
         public SubjectDAO Subject { get; set; }
 
+        public int StudentId { get; set; }
+        public StudentDAO Student { get; set; }
+
         public int TeacherId { get; set; }
         public TeacherDAO Teacher { get; set; }
     }
