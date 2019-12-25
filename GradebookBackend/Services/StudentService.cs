@@ -53,7 +53,6 @@ namespace GradebookBackend.Services
         {
             IEnumerable<GradeDAO> grades = gradesRepository.GetAll();
             GradeListDTO gradeListDTO = new GradeListDTO();
-            int studentelo = studentId;
             foreach (GradeDAO grade in grades)
             {
                 if (grade.StudentId == studentId && grade.SubjectId == subjectId)

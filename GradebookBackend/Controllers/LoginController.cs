@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using GradebookBackend.ServicesCore;
 
-namespace GradebookBackend
+namespace GradebookBackend.Controllers
 {
     [Route("api")]
     public class LoginController : ControllerBase
@@ -15,12 +15,12 @@ namespace GradebookBackend
 
         private readonly IUserDataService userDataService;
 
-        private readonly IUserProvider userProvider;
+        private readonly IUserProviderService userProvider;
 
         public LoginController(
             ITokenGeneratorService tokenService,
             IUserDataService userDataService,
-            IUserProvider userProvider)
+            IUserProviderService userProvider)
         {
             this.tokenService = tokenService;
             this.userDataService = userDataService;

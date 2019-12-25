@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.ServicesCore
 {
-    public interface IUserProvider
+    public interface IUserProviderService
     {        
         string GetUserId();
     }
