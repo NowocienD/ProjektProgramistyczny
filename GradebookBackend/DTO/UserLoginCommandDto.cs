@@ -1,4 +1,4 @@
-namespace GradebookBackend
+namespace GradebookBackend.DTO
 {
     public class UserLoginCommandDto
     {

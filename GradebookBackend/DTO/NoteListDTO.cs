@@ -7,6 +7,6 @@ namespace GradebookBackend.DTO
 {
     public class NoteListDTO
     {
-        public List<NoteDTO> NoteDTOs { get; set; }
+        public List<NoteDTO> NoteDTOs { get; set; } = new List<NoteDTO>();
     }
 }
