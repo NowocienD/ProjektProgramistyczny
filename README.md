@@ -1,16 +1,16 @@
 # Założenia
- - nie wrzucamy na gita kodu który się nie kompiluje. Puknt dotyczy również poszczególnych commitów
- - dbamy o styleCop i jego warrningi
+ - nie wrzucamy na gita kodu który się nie kompiluje. Punkt dotyczy również poszczególnych commitów
  - pełna zgodność z REST API
- - używamy tylko camelCase lub PascalCase 
- - robimy API wiec każdy kontroler ma ustowiony route na api/*. 
+ - robimy API wiec każdy kontroler ma ustawiony route na api/*.
+ - projekt ASP.NET Core
  - baza danych SQL Server z Entity Framework Core
  - nowe zadanie = nowy branch  
  - klasy z modelem zawierają w nazwie słowo DAO np. AttendaceDAO,
  - klasy kontrolerów zawierają w nazwie słowo Controller np. AccountController,
+ - tak samo Serwisy, Repozytoria jak i DTO
  - interfejsy zacznają nazwę od I
  - wszystkie potrzebne nugety powinny juz być w projekcie
- - zachowujcie strukturę folderów i nie mieszajcie ich funckvji (każdy folder to też inny namespace):
+ - zachowujcie strukturę folderów i nie mieszajcie ich funkcji (każdy folder to też inny namespace):
  
 
 # Branche i zadania
@@ -47,6 +47,11 @@ Jak naprawić konflikty pojawiające sie przy merge requestach?
 
 5. W plikach pojawią się błędy (konflikty), nalezy je naprawić, zacommitować i pushnąć zmiany
 
+# #Backend
+# Uruchamianie i kompilowanie rozwiazania 
+Zielona strzałka w Visual Studio
+
+ponizej instrukcja jezeli chcesz to robic skryptami
 
 # Skrypty
  - prawy przycisk myszy na skrypcie -> run with PowerShell
@@ -60,7 +65,7 @@ PowerShell run as Administrator
 $ Set-ExecutionPolicy unrestricted
 $ Y
 ```
-# Uruchamianie rozwiazania 
+
 zawsze kolejnosc: przywracanie -> budowanie -> uruchamianie
 przywracanie jest konieczne tylko po dodaniu jakiejś NuGetowej paczki co nie bedzie bardzo czeste ale moze się zdarzać lub referencji na projekt.
 
