@@ -4,24 +4,14 @@
  - pełna zgodność z REST API
  - używamy tylko camelCase lub PascalCase 
  - robimy API wiec każdy kontroler ma ustowiony route na api/*. 
- - baza danych SQL Express z nHibernate chyba ze macie lepszy pomysł albo chęci i umiejetności na zabawę z czymś innym
+ - baza danych SQL Server z Entity Framework Core
  - nowe zadanie = nowy branch  
- - klasy z modelem zawierają w nazwie słowo Models np. AccountModels,
+ - klasy z modelem zawierają w nazwie słowo DAO np. AttendaceDAO,
  - klasy kontrolerów zawierają w nazwie słowo Controller np. AccountController,
  - interfejsy zacznają nazwę od I
- - dodajac paczki z NuGeta uważajcie co robicie bo potrafią zasyfiac pliki csproj. Polecam ręczne robienie albo przynajmniej zweryfikowanie zawartości!
- - zachowujcie strukturę folderów i nie mieszajcie ich funckji (każdy folder to też inny namespace):
+ - wszystkie potrzebne nugety powinny juz być w projekcie
+ - zachowujcie strukturę folderów i nie mieszajcie ich funckvji (każdy folder to też inny namespace):
  
-  |folder|zastosowanie|
-  |-----|------|
-  | GradeBook.API | tylko dla kontrolerów i bliskiej okolicy 
-  |Gradebook.Services | logika |
-  | Gradebook.Services/Helpers | helpery |
-  | Gradebook.Services.Core | interfejsy |
-  | Gradebook.Services.Core/DTO | dto | 
-  | GgradeBook.Models | powiazania z baza danych |
-  | GgradeBook.Models.Core | interfejsy bazy danych |
-  | GradeBook*.Tests | testy jednostkowe |
 
 # Branche i zadania
 
@@ -57,15 +47,6 @@ Jak naprawić konflikty pojawiające sie przy merge requestach?
 
 5. W plikach pojawią się błędy (konflikty), nalezy je naprawić, zacommitować i pushnąć zmiany
 
-
-# #Backend
-
-# Uwagi
- - plik sln jest dla Api. Reszte otwieramy używajac opcji otworz folder. Macie ochote stworzcie sobie reszte slnów 
- - jak ktoś nie ma Windowsa 10 to niech wypierdala
- - jak ktoś nie ma x64 to niech wypierdala
- - jak komuś nie działa vs2019 to niech wypierdala
- - jak ktoś chce pisać w javie to niech wypierdala
 
 # Skrypty
  - prawy przycisk myszy na skrypcie -> run with PowerShell
