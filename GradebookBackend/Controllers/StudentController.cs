@@ -30,7 +30,7 @@ namespace GradebookBackend.Controllers
         public IActionResult GetStudentNotes()
         {
             int userId = int.Parse(userProvider.GetUserId());
-            NoteListDTO noteListDTO = studentService.GetStudentNotesByUserId(userId);
+            NoteListDTO noteListDTO = studentService.GetStudentNotesByStuedntId(userDataService.GetStudentIdByUserId(userId));
             return Ok(noteListDTO);
         }
 

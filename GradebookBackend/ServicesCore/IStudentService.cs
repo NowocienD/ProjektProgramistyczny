@@ -8,8 +8,7 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IStudentService
     {
-        public NoteListDTO GetStudentGradesByID(int studentId);
-        public NoteListDTO GetStudentNotesByUserId(int userId);
+        public NoteListDTO GetStudentNotesByStuedntId(int studentId);
         public GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId);
     }
 }

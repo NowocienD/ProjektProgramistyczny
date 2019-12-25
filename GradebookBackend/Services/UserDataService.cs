@@ -46,15 +46,14 @@ namespace GradebookBackend.Services
         public int GetStudentIdByUserId(int userId)
         {
             IEnumerable<StudentDAO> students = studentsRepository.GetAll();
-            int studentId = 0;
             foreach (StudentDAO student in students)
             {
                 if (student.UserId == userId)
                 {
-                    studentId = student.UserId;
+                    return student.UserId;
                 }
             }
-            return studentId;
+            throw new KeyNotFoundException("Nie znaleziono studenta z takim numerem uzytkownika");
         }
     }
 }
