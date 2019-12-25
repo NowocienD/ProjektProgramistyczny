@@ -18,6 +18,7 @@ using GradebookBackend.Model;
 using Microsoft.EntityFrameworkCore;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
+using GradebookBackend.Services;
 
 namespace GradebookBackend
 {
@@ -90,6 +91,7 @@ namespace GradebookBackend
             });
             services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
             services.AddTransient<IUserDataService, UserDataService>();
+            services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<IUserProvider, UserProvider>();
             services.AddHttpContextAccessor();
 
