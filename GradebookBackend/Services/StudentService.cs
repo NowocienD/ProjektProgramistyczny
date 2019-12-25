@@ -16,33 +16,37 @@ namespace GradebookBackend.Services
         private readonly IRepository<GradeDAO> gradesRepository;
         private readonly IRepository<TeacherDAO> teachersRepository;
         private readonly IRepository<UserDAO> usersRepository;
+        private readonly IRepository<NoteDAO> notesRepository;
 
         public StudentService(IRepository<StudentDAO> studentsRepository, IRepository<GradeDAO> gradesRepository,
-            IRepository<TeacherDAO> teachersRepository, IRepository<UserDAO> usersRepository)
+            IRepository<TeacherDAO> teachersRepository, IRepository<UserDAO> usersRepository, IRepository<NoteDAO> notesRepository)
         {
             this.studentsRepository = studentsRepository;
             this.gradesRepository = gradesRepository;
             this.teachersRepository = teachersRepository;
             this.usersRepository = usersRepository;
+            this.notesRepository = notesRepository;
         }
 
         public NoteListDTO GetStudentNotesByStuedntId(int studentId)
         {
-            NoteListDTO noteListDTO = new NoteListDTO();
-            List<NoteDAO> studentNoteList = studentsRepository.Get(studentId).Notes;
-
-            NoteDTO noteDTO;
-            foreach(NoteDAO note in studentNoteList)
+            NoteListDTO studentNotesDTO = new NoteListDTO();
+            IEnumerable<NoteDAO> allNotesDAO = notesRepository.GetAll();
+            foreach(NoteDAO note in allNotesDAO)
             {
-                noteDTO = new NoteDTO
+                if(note.StudentId == studentId)
                 {
-                    Statement = note.Statement,
-                    TeacherFirstName = note.Teacher.User.Firstname,
-                    TeacherSurname = note.Teacher.User.Surname
-                };
-                noteListDTO.NoteDTOs.Add(noteDTO);
+                    NoteDTO noteDTO = new NoteDTO
+                    {
+                        Statement = note.Statement,
+                        TeacherFirstName = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Firstname,
+                        TeacherSurname = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Surname
+                    };
+                    studentNotesDTO.NoteDTOs.Add(noteDTO);
+                }
             }
-            return noteListDTO;
+            return studentNotesDTO;
+
         }
 
         public GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId)
