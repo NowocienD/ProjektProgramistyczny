@@ -8,7 +8,7 @@ namespace GradebookBackend.Model
 {
     public class LessonDAO
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int LessonNumber { get; set; }
         public int DayOfTheWeek { get; set; }
 

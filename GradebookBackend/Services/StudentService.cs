@@ -70,5 +70,10 @@ namespace GradebookBackend.Services
             }
             return gradeListDTO; 
         }
+
+        public int GetStudentClassIdByStudentId(int studentId)
+        {
+            return studentsRepository.Get(studentId).ClassId;
+        }
     }
 }
