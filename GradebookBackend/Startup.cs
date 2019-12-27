@@ -94,6 +94,7 @@ namespace GradebookBackend
             services.AddTransient<IUserDataService, UserDataService>();
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<ILessonService, LessonService>();
+            services.AddTransient<ISubjectService, SubjectService>();
             services.AddTransient<IUserProviderService, UserProviderService>();
             services.AddHttpContextAccessor();
 
@@ -112,6 +113,7 @@ namespace GradebookBackend
             services.AddScoped<IRepository<AdminDAO>, AdminRepository>();
             services.AddScoped<IRepository<RoleDAO>, RoleRepository>();
             services.AddScoped<IRepository<UserDAO>, UserRepository>();
+            services.AddScoped<IRepository<ClassSubjectDAO>, ClassSubjectRepository>();
 
         }
 
