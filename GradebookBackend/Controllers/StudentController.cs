@@ -17,14 +17,16 @@ namespace GradebookBackend.Controllers
         private readonly IStudentService studentService;
         private readonly IUserDataService userDataService;
         private readonly ILessonService lessonService;
+        private readonly ISubjectService subjectService;
 
         public StudentController(IUserProviderService userProvider, IStudentService studentService,
-            IUserDataService userDataService, ILessonService lessonService)
+            IUserDataService userDataService, ILessonService lessonService, ISubjectService subjectService)
         {
             this.userProvider = userProvider;
             this.studentService = studentService;
             this.userDataService = userDataService;
             this.lessonService = lessonService;
+            this.subjectService = subjectService;
         }
 
         [Authorize]
@@ -43,6 +45,15 @@ namespace GradebookBackend.Controllers
             int userId = int.Parse(userProvider.GetUserId());
             GradeListDTO gradeListDTO = studentService.GetStudentGradesByStudentId(userDataService.GetStudentIdByUserId(userId), subjectId);
             return Ok(gradeListDTO);
+        }
+        [Authorize]
+        [HttpGet("student/mySubjects")]
+        public IActionResult GetStudentSubjects()
+        {
+            int userId = int.Parse(userProvider.GetUserId());
+            SubjectListDTO subjectListDTO = subjectService.GetSubjectListByClassId(
+                studentService.GetStudentClassIdByStudentId(userDataService.GetStudentIdByUserId(userId)));
+            return Ok(subjectListDTO);
         }
 
         [Authorize]
