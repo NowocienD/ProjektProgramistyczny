@@ -9,5 +9,6 @@ namespace GradebookBackend.ServicesCore
     public interface ISubjectService
     {
         public SubjectListDTO GetSubjectListByClassId(int classId);
+        public SubjectListDTO GetAllSubjects();
     }
 }
