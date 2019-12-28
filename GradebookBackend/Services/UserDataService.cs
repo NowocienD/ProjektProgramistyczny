@@ -12,14 +12,17 @@ namespace GradebookBackend.Services
         private readonly IRepository<UserDAO> usersRepository;
         private readonly IRepository<RoleDAO> rolesRepository;
         private readonly IRepository<StudentDAO> studentsRepository;
+        private readonly IRepository<AdminDAO> adminRepository;
 
-        public UserDataService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository,
-            IRepository<StudentDAO> studentsRepository)
+        public UserDataService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository, 
+            IRepository<StudentDAO> studentsRepository, IRepository<AdminDAO> adminRepository)
         {
             this.usersRepository = usersRepository;
             this.rolesRepository = rolesRepository;
             this.studentsRepository = studentsRepository;
+            this.adminRepository = adminRepository;
         }
+
         public UserDataDTO GetUserData(int Id)
         {
             UserDataDTO userDataDTO = new UserDataDTO();
@@ -32,7 +35,7 @@ namespace GradebookBackend.Services
         // uzywane tylko do tworzenia tokenu
         public int GetUserId(string login, string password)
         {
-            int userId = 0; // nie powinno tak byc ze domyslnie jest 0
+            int userId = 0;
             IEnumerable<UserDAO> users = usersRepository.GetAll();
             foreach(UserDAO user in users)
             {
@@ -53,7 +56,21 @@ namespace GradebookBackend.Services
                     return student.UserId;
                 }
             }
-            throw new KeyNotFoundException("Nie znaleziono studenta z takim numerem uzytkownika");
+            return -1;
         }
+
+        public bool IsAdmin(int userId)
+        {
+            IEnumerable<AdminDAO> listOfAdmins = adminRepository.GetAll();
+            foreach(AdminDAO admin in listOfAdmins)
+            {
+                if(admin.UserId == userId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

@@ -25,19 +25,18 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("/subjects")]
+        [HttpGet("subjects")]
         public IActionResult GetAllSubjects()
         {
             int userId = int.Parse(userProvider.GetUserId());
-            string userRole = userDataService.GetUserData(userId).Role;
-            if(userRole == "Admin")
+            if(userDataService.IsAdmin(userId))
             {
                 SubjectListDTO subjectListDTO = subjectService.GetAllSubjects();
                 return Ok(subjectListDTO);
             }
             else
             {
-                throw new UnauthorizedAccessException("Brak uprawnien do dostepu");
+                return Forbid();
             }
 
         }
