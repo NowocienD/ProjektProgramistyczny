@@ -32,7 +32,7 @@ namespace GradebookBackend.Services
         // uzywane tylko do tworzenia tokenu
         public int GetUserId(string login, string password)
         {
-            int userId = 0;
+            int userId = 0; // nie powinno tak byc ze domyslnie jest 0
             IEnumerable<UserDAO> users = usersRepository.GetAll();
             foreach(UserDAO user in users)
             {
