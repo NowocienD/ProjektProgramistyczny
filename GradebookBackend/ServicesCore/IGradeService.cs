@@ -8,6 +8,7 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IGradeService
     {
-        public void AddGradeToStudent(NewGradeDTO newGradeDTO, int teacherId, int studentId);
+        public void AddGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId);
+        public void DeleteGrade(int gradeId);
     }
 }

@@ -12,11 +12,12 @@ namespace GradebookBackend.Services
     public class GradeService : IGradeService
     {
         private readonly IRepository<GradeDAO> gradesRepository;
+
         public GradeService(IRepository<GradeDAO> gradesRepository)
         {
             this.gradesRepository = gradesRepository;
         }
-        public void AddGradeToStudent(NewGradeDTO newGradeDTO, int teacherId, int studentId )
+        public void AddGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId )
         {
             GradeDAO newGradeDAO = new GradeDAO
             {
@@ -29,6 +30,10 @@ namespace GradebookBackend.Services
                 TeacherId = teacherId
             };
             gradesRepository.Add(newGradeDAO);
+        }
+        public void DeleteGrade(int gradeId)
+        {
+            gradesRepository.Delete(gradeId);
         }
     }
 }
