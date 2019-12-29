@@ -95,6 +95,7 @@ namespace GradebookBackend
             services.AddTransient<IStudentService, StudentService>();
             services.AddTransient<ILessonService, LessonService>();
             services.AddTransient<ISubjectService, SubjectService>();
+            services.AddTransient<IGradeService, GradeService>();
             services.AddTransient<IUserProviderService, UserProviderService>();
             services.AddHttpContextAccessor();
 

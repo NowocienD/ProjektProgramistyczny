@@ -12,15 +12,18 @@ namespace GradebookBackend.Services
         private readonly IRepository<UserDAO> usersRepository;
         private readonly IRepository<RoleDAO> rolesRepository;
         private readonly IRepository<StudentDAO> studentsRepository;
-        private readonly IRepository<AdminDAO> adminRepository;
+        private readonly IRepository<TeacherDAO> teachersRepository;
+        private readonly IRepository<AdminDAO> adminsRepository;
 
         public UserDataService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository, 
-            IRepository<StudentDAO> studentsRepository, IRepository<AdminDAO> adminRepository)
+            IRepository<StudentDAO> studentsRepository, IRepository<AdminDAO> adminsRepository,
+            IRepository<TeacherDAO> teachersRepository)
         {
             this.usersRepository = usersRepository;
             this.rolesRepository = rolesRepository;
             this.studentsRepository = studentsRepository;
-            this.adminRepository = adminRepository;
+            this.teachersRepository = teachersRepository;
+            this.adminsRepository = adminsRepository;
         }
 
         public UserDataDTO GetUserData(int Id)
@@ -32,19 +35,17 @@ namespace GradebookBackend.Services
 
             return userDataDTO;
         }
-        // uzywane tylko do tworzenia tokenu
-        public int GetUserId(string login, string password)
+        public int GetUserIdByLoginAndPassword(string login, string password)
         {
-            int userId = 0;
             IEnumerable<UserDAO> users = usersRepository.GetAll();
             foreach(UserDAO user in users)
             {
                 if(user.Login == login && user.Password == password)
                 {
-                    userId = user.Id;
+                    return user.Id;
                 }
             }
-            return userId;
+            throw new GradebookException("User with this login and password don't exists");
         }
         public int GetStudentIdByUserId(int userId)
         {
@@ -56,12 +57,24 @@ namespace GradebookBackend.Services
                     return student.UserId;
                 }
             }
-            return -1;
+            throw new GradebookException("Student with this userId don't exist");
+        }
+        public int GetTeacherIdByUserId(int userId)
+        {
+            IEnumerable<TeacherDAO> teachers = teachersRepository.GetAll();
+            foreach (TeacherDAO teacher in teachers)
+            {
+                if (teacher.UserId == userId)
+                {
+                    return teacher.UserId;
+                }
+            }
+            throw new GradebookException("Teacher with this userId don't exist");
         }
 
         public bool IsAdmin(int userId)
         {
-            IEnumerable<AdminDAO> listOfAdmins = adminRepository.GetAll();
+            IEnumerable<AdminDAO> listOfAdmins = adminsRepository.GetAll();
             foreach(AdminDAO admin in listOfAdmins)
             {
                 if(admin.UserId == userId)

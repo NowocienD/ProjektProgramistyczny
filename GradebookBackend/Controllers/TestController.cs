@@ -10,7 +10,7 @@ namespace GradebookBackend.Controllers
         [Route("test")]
         public IActionResult Get()
         {
-            return BadRequest("Wlascnie zwróciłem badRequest");
+            return BadRequest("Wlasnie zwróciłem badRequest");
         }
     }
 }
