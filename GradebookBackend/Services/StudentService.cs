@@ -28,6 +28,7 @@ namespace GradebookBackend.Services
             this.notesRepository = notesRepository;
         }
 
+        //przeniesc do serwisu NotesService
         public NoteListDTO GetStudentNotesByStuedntId(int studentId)
         {
             NoteListDTO studentNotesDTO = new NoteListDTO();
@@ -49,6 +50,7 @@ namespace GradebookBackend.Services
 
         }
 
+        //przeniesc do serwisu GradeService
         public GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId)
         {
             IEnumerable<GradeDAO> grades = gradesRepository.GetAll();
