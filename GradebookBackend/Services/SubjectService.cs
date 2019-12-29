@@ -11,12 +11,12 @@ namespace GradebookBackend.Services
 {
     public class SubjectService : ISubjectService
     {
-        public IRepository<SubjectDAO> subjectsRepository;
+        public IRepository<SubjectDAO> subjectRepository;
         public IRepository<ClassSubjectDAO> classSubjectRepository;
 
         public SubjectService(IRepository<SubjectDAO> subjectsRepository, IRepository<ClassSubjectDAO> classSubjectRepository)
         {
-            this.subjectsRepository = subjectsRepository;
+            this.subjectRepository = subjectsRepository;
             this.classSubjectRepository = classSubjectRepository;
         }
         public SubjectListDTO GetSubjectListByClassId(int classId)
@@ -30,12 +30,28 @@ namespace GradebookBackend.Services
                     subjectListDTO.SubjectList.Add(new SubjectDTO
                     {
                         Id = classSubject.SubjectId,
-                        Name = subjectsRepository.Get(classSubject.SubjectId).Name
+                        Name = subjectRepository.Get(classSubject.SubjectId).Name
                     }
                     );
                 }            
             }
             return subjectListDTO;
+        }
+
+        public SubjectListDTO GetAllSubjects()
+        {
+            IEnumerable<SubjectDAO> subjects = subjectRepository.GetAll();
+            SubjectListDTO subjectsDTO = new SubjectListDTO();
+            foreach(SubjectDAO subject in subjects)
+            {
+                SubjectDTO subjectDTO = new SubjectDTO()
+                {
+                    Id = subject.Id,
+                    Name = subject.Name
+                };
+                subjectsDTO.SubjectList.Add(subjectDTO);
+            }
+            return subjectsDTO;
         }
     }
 }
