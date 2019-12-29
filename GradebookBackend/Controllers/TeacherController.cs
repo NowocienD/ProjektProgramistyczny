@@ -41,7 +41,7 @@ namespace GradebookBackend.Controllers
                 int teacherId = userDataService.GetTeacherIdByUserId(userId);
                 gradeService.AddGradeToStudent(newGradeDTO, teacherId, studentId);
             }
-            catch(GradebookException exception)
+            catch(GradebookServerException exception)
             {
                 return Forbid(exception.Message);
             }

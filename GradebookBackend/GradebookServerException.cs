@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend
 {
-    public class GradebookException : Exception
+    public class GradebookServerException : Exception
     {
-        public GradebookException(string statement) : base(statement)
+        public GradebookServerException(string statement) : base(statement)
         {
 
         }

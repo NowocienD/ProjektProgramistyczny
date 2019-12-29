@@ -27,7 +27,7 @@ namespace GradebookBackend.Services
             {
                 //TODO do decyzji co lepsze.
                 //return string.Empty;
-                throw new GradebookException(exception.Message);
+                throw new GradebookServerException(exception.Message);
             }
         }
     }

@@ -40,7 +40,7 @@ namespace GradebookBackend.Controllers
                 string token = tokenService.GenerateToken(userId);
                 return Ok(token);
             }
-            catch(GradebookException exception)
+            catch(GradebookServerException exception)
             {
                 return BadRequest(exception.Message);
             }

@@ -45,7 +45,7 @@ namespace GradebookBackend.Services
                     return user.Id;
                 }
             }
-            throw new GradebookException("User with this login and password don't exists");
+            throw new GradebookServerException("User with this login and password don't exists");
         }
         public int GetStudentIdByUserId(int userId)
         {
@@ -57,7 +57,7 @@ namespace GradebookBackend.Services
                     return student.UserId;
                 }
             }
-            throw new GradebookException("Student with this userId don't exist");
+            throw new GradebookServerException("Student with this userId don't exist");
         }
         public int GetTeacherIdByUserId(int userId)
         {
@@ -69,7 +69,7 @@ namespace GradebookBackend.Services
                     return teacher.UserId;
                 }
             }
-            throw new GradebookException("Teacher with this userId don't exist");
+            throw new GradebookServerException("Teacher with this userId don't exist");
         }
 
         public bool IsAdmin(int userId)
