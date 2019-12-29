@@ -28,7 +28,7 @@ namespace GradebookBackend.Controllers
 
         [Authorize]
         [HttpPost("teacher/addGrade/{studentId}")]
-        public IActionResult AddNewGradeToStudent([FromBody] NewGradeDTO newGradeDTO, int studentId)
+        public IActionResult AddNewGrade([FromBody] NewGradeDTO newGradeDTO, int studentId)
         {
             if (newGradeDTO == null || string.IsNullOrWhiteSpace(newGradeDTO.Date) || string.IsNullOrWhiteSpace(newGradeDTO.Topic)
                 || newGradeDTO.SubjectId <= 0 || newGradeDTO.Value <= 0 || newGradeDTO.Importance < 0 || studentId <= 0)
@@ -39,13 +39,33 @@ namespace GradebookBackend.Controllers
             {
                 int userId = int.Parse(userProvider.GetUserId());
                 int teacherId = userDataService.GetTeacherIdByUserId(userId);
-                gradeService.AddGradeToStudent(newGradeDTO, teacherId, studentId);
+                gradeService.AddGrade(newGradeDTO, teacherId, studentId);
             }
             catch(GradebookServerException exception)
             {
                 return Forbid(exception.Message);
             }
             return Ok("Grade has been added");
+        }
+
+        [Authorize]
+        [HttpPost("teacher/deleteGrade/{gradeId}")]
+        public IActionResult DeleteGrade(int gradeId)
+        {
+            try
+            {
+                int userId = int.Parse(userProvider.GetUserId());
+                if (userDataService.IsTeacher(userId))
+                {
+                    gradeService.DeleteGrade(gradeId);
+                }
+                else return Forbid("Logged user is not a teacher");
+            }
+            catch (GradebookServerException exception)
+            {
+                return Forbid(exception.Message);
+            }
+            return Ok("Grade has been deleted");
         }
     }
 }

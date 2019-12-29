@@ -26,12 +26,12 @@ namespace GradebookBackend.Services
             this.adminsRepository = adminsRepository;
         }
 
-        public UserDataDTO GetUserData(int Id)
+        public UserDataDTO GetUserDataByUserId(int userId)
         {
             UserDataDTO userDataDTO = new UserDataDTO();
-            userDataDTO.Firstname = usersRepository.Get(Id).Firstname;
-            userDataDTO.Surname = usersRepository.Get(Id).Surname;
-            userDataDTO.Role = rolesRepository.Get(usersRepository.Get(Id).RoleId).Name;
+            userDataDTO.Firstname = usersRepository.Get(userId).Firstname;
+            userDataDTO.Surname = usersRepository.Get(userId).Surname;
+            userDataDTO.Role = rolesRepository.Get(usersRepository.Get(userId).RoleId).Name;
 
             return userDataDTO;
         }
@@ -78,6 +78,18 @@ namespace GradebookBackend.Services
             foreach(AdminDAO admin in listOfAdmins)
             {
                 if(admin.UserId == userId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool IsTeacher(int userId)
+        {
+            IEnumerable<TeacherDAO> teachers = teachersRepository.GetAll();
+            foreach (TeacherDAO teacher in teachers)
+            {
+                if (teacher.UserId == userId)
                 {
                     return true;
                 }

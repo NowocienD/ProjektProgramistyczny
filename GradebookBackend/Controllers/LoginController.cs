@@ -62,7 +62,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("user/myProfile")]
         public IActionResult Get_MyProfile()
         {
-            UserDataDTO userDataDTO = userDataService.GetUserData(Int32.Parse(userProvider.GetUserId()));
+            UserDataDTO userDataDTO = userDataService.GetUserDataByUserId(Int32.Parse(userProvider.GetUserId()));
             return Ok(userDataDTO);
         }
     }
