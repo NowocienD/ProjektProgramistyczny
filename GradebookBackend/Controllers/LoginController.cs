@@ -34,11 +34,16 @@ namespace GradebookBackend.Controllers
             {
                 return BadRequest("Invalid dto");
             }
-            int userId = userDataService.GetUserId(dto.Login, dto.Password);
-            if(userId == 0) return BadRequest("Login failed. Wrong login or password");
-            string token = tokenService.GenerateToken(userId);
-
-            return Ok(token); 
+            try
+            {
+                int userId = userDataService.GetUserIdByLoginAndPassword(dto.Login, dto.Password);
+                string token = tokenService.GenerateToken(userId);
+                return Ok(token);
+            }
+            catch(GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
 
         [Authorize]
@@ -46,12 +51,10 @@ namespace GradebookBackend.Controllers
         public IActionResult ReturnIdFromToken()
         {
             string userId = userProvider.GetUserId();
-
             if (userId.Equals(string.Empty))
             {
                 return BadRequest("niepoprawny token, pusty token albo inny chuj strzelił metode wyciagajaca id z tokenu");
             }
-
             return Ok(userId);
         }
 

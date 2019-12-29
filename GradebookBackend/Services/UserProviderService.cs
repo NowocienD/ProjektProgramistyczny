@@ -26,8 +26,8 @@ namespace GradebookBackend.Services
             catch (Exception exception)
             {
                 //TODO do decyzji co lepsze.
-                return string.Empty;
-                throw new Exception(exception.Message);
+                //return string.Empty;
+                throw new GradebookServerException(exception.Message);
             }
         }
     }
