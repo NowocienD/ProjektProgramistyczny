@@ -35,5 +35,21 @@ namespace GradebookBackend.Services
         {
             gradesRepository.Delete(gradeId);
         }
+
+        public void UpdateGrade(NewGradeDTO updatedGradeDTO, int teacherId, int studentId)
+        {
+            GradeDAO updatedGradeDAO = new GradeDAO
+            {
+                Id = updatedGradeDTO.Id,
+                Date = updatedGradeDTO.Date,
+                Importance = updatedGradeDTO.Importance,
+                Topic = updatedGradeDTO.Topic,
+                Value = updatedGradeDTO.Value,
+                SubjectId = updatedGradeDTO.SubjectId,
+                StudentId = studentId,
+                TeacherId = teacherId
+            };
+            gradesRepository.Update(updatedGradeDAO);
+        }
     }
 }

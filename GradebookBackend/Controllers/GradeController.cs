@@ -11,19 +11,18 @@ namespace GradebookBackend.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class TeacherController : Controller
+    public class GradeController : Controller
     {
         private readonly IUserProviderService userProvider;
         private readonly IUserDataService userDataService;
         private readonly IGradeService gradeService;
 
-        public TeacherController(IUserProviderService userProvider, IUserDataService userDataService,
+        public GradeController(IUserProviderService userProvider, IUserDataService userDataService,
             IGradeService gradeService)
         {
             this.gradeService = gradeService;
             this.userDataService = userDataService;
             this.userProvider = userProvider;
-
         }
 
         [Authorize]
@@ -66,6 +65,22 @@ namespace GradebookBackend.Controllers
                 return Forbid(exception.Message);
             }
             return Ok("Grade has been deleted");
+        }
+        [Authorize]
+        [HttpPost("teacher/updateGrade/{studentId}")]
+        public IActionResult UpdateGrade([FromBody] NewGradeDTO updatedGradeDTO, int studentId)
+        {
+            try
+            {
+                int userId = int.Parse(userProvider.GetUserId());
+                int teacherId = userDataService.GetTeacherIdByUserId(userId);
+                gradeService.UpdateGrade(updatedGradeDTO, teacherId, studentId);
+            }
+            catch (GradebookServerException exception)
+            {
+                return Forbid(exception.Message);
+            }
+            return Ok("Grade has been updated");
         }
     }
 }
