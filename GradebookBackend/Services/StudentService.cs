@@ -33,9 +33,9 @@ namespace GradebookBackend.Services
         {
             NoteListDTO studentNotesDTO = new NoteListDTO();
             IEnumerable<NoteDAO> allNotesDAO = notesRepository.GetAll();
-            foreach(NoteDAO note in allNotesDAO)
+            foreach (NoteDAO note in allNotesDAO)
             {
-                if(note.StudentId == studentId)
+                if (note.StudentId == studentId)
                 {
                     NoteDTO noteDTO = new NoteDTO
                     {
@@ -67,10 +67,30 @@ namespace GradebookBackend.Services
                         Date = grade.Date,
                         TeacherFirstname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Firstname,
                         TeacherSurname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Surname
-                }); 
+                    });
                 }
             }
-            return gradeListDTO; 
+            return gradeListDTO;
+        }
+
+        public StudentListDTO GetStudentsByClassId(int classId)
+        {
+            IEnumerable<StudentDAO> students = studentsRepository.GetAll();
+            StudentListDTO studentListDTO = new StudentListDTO();
+            foreach(StudentDAO student in students)
+            {
+                if(student.ClassId == classId)
+                {
+                    StudentDTO studentToAdd = new StudentDTO()
+                    {
+                        Id = student.Id,
+                        Name = usersRepository.Get(student.UserId).Firstname,
+                        Surname = usersRepository.Get(student.UserId).Surname
+                    };
+                    studentListDTO.studentList.Add(studentToAdd);
+                }
+            }
+            return studentListDTO;
         }
 
         public int GetStudentClassIdByStudentId(int studentId)
