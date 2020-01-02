@@ -90,12 +90,13 @@ namespace GradebookBackend
                     ClockSkew = TimeSpan.FromMinutes(5),
                 };
             });
+            services.AddTransient<IClassService, ClassService>();
+            services.AddTransient<IGradeService, GradeService>();
+            services.AddTransient<ILessonService, LessonService>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ISubjectService, SubjectService>();
             services.AddTransient<ITokenGeneratorService, TokenGeneratorService>();
             services.AddTransient<IUserDataService, UserDataService>();
-            services.AddTransient<IStudentService, StudentService>();
-            services.AddTransient<ILessonService, LessonService>();
-            services.AddTransient<ISubjectService, SubjectService>();
-            services.AddTransient<IGradeService, GradeService>();
             services.AddTransient<IUserProviderService, UserProviderService>();
             services.AddHttpContextAccessor();
 

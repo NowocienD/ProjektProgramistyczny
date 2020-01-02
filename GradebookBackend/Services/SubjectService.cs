@@ -14,9 +14,9 @@ namespace GradebookBackend.Services
         public IRepository<SubjectDAO> subjectRepository;
         public IRepository<ClassSubjectDAO> classSubjectRepository;
 
-        public SubjectService(IRepository<SubjectDAO> subjectsRepository, IRepository<ClassSubjectDAO> classSubjectRepository)
+        public SubjectService(IRepository<SubjectDAO> subjectRepository, IRepository<ClassSubjectDAO> classSubjectRepository)
         {
-            this.subjectRepository = subjectsRepository;
+            this.subjectRepository = subjectRepository;
             this.classSubjectRepository = classSubjectRepository;
         }
         public SubjectListDTO GetSubjectListByClassId(int classId)
