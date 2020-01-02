@@ -65,5 +65,21 @@ namespace GradebookBackend.Controllers
                 studentService.GetStudentClassIdByStudentId(userDataService.GetStudentIdByUserId(userId)));
             return Ok(lessonPlanDTO);
         }
+
+        [Authorize]
+        [HttpGet("students/class/{classId}")]
+        public IActionResult GetAllStudentsByClassId(int classId)
+        {
+            int userId = int.Parse(userProvider.GetUserId());
+            if(userDataService.IsAdmin(userId) || userDataService.IsTeacher(userId))
+            {
+                StudentListDTO studentListDTO = studentService.GetStudentsByClassId(classId);
+                return Ok(studentListDTO);
+            }
+            else
+            {
+                return Forbid("Brak uprawnien do listy studentow");
+            }
+        }
     }
 }
