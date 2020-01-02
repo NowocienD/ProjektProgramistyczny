@@ -84,7 +84,7 @@ namespace GradebookBackend.Services
                     StudentDTO studentToAdd = new StudentDTO()
                     {
                         Id = student.Id,
-                        Name = usersRepository.Get(student.UserId).Firstname,
+                        Firstname = usersRepository.Get(student.UserId).Firstname,
                         Surname = usersRepository.Get(student.UserId).Surname
                     };
                     studentListDTO.studentList.Add(studentToAdd);
