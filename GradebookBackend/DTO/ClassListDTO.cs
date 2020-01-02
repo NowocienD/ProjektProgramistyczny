@@ -7,11 +7,11 @@ namespace GradebookBackend.DTO
 {
     public class ClassListDTO
     {
-        public List<ClassDTO> ClassDTOs { get; set; }
+        public List<ClassDTO> ClassList { get; set; }
 
         public ClassListDTO()
         {
-            ClassDTOs = new List<ClassDTO>();
+            ClassList = new List<ClassDTO>();
         }
     }
 }
