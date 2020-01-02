@@ -44,6 +44,20 @@ namespace GradebookBackend.Services
             newUserDAO.Password = passwordHasher.HashPassword(newUserDTO.Password);
             usersRepository.Add(newUserDAO);
         }
+        public void UpdateUser(NewUserDTO updatedUserDTO, int userId)
+        {
+            UserDAO updatedUserDAO = new UserDAO
+            {
+                Id = userId,
+                Login = updatedUserDTO.Login,
+                Email = updatedUserDTO.Email,
+                Firstname = updatedUserDTO.Firstname,
+                Surname = updatedUserDTO.Surname,
+                RoleId = updatedUserDTO.RoleId
+            };
+            updatedUserDAO.Password = passwordHasher.HashPassword(updatedUserDTO.Password);
+            usersRepository.Update(updatedUserDAO);
+        }
         public void DeleteUser(int userId)
         {
             usersRepository.Delete(userId);
@@ -119,6 +133,5 @@ namespace GradebookBackend.Services
             }
             return false;
         }
-
     }
 }

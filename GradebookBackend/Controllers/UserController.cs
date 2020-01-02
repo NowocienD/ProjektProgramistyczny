@@ -82,6 +82,21 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
+        [HttpPost("admin/updateUser/{userId}")]
+        public IActionResult UpdatedUser([FromBody] NewUserDTO newUserDTO, int userId)
+        {
+            if (userDataService.IsAdmin(Int32.Parse(userProvider.GetUserId())))
+            {
+                userDataService.UpdateUser(newUserDTO, userId);
+                return Ok("User has been updated");
+            }
+            else
+            {
+                return BadRequest("Logged user is not a admin");
+            }
+        }
+
+        [Authorize]
         [HttpPost("admin/deleteUser/{userId}")]
         public IActionResult DeleteUser(int userId)
         {
