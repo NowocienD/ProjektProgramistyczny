@@ -78,7 +78,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return Forbid("Brak uprawnien do listy studentow");
+                return BadRequest("Brak uprawnien do listy studentow");
             }
         }
     }
