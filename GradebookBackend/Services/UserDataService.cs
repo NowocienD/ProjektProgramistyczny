@@ -2,6 +2,8 @@ using GradebookBackend.DTO;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +17,8 @@ namespace GradebookBackend.Services
         private readonly IRepository<TeacherDAO> teachersRepository;
         private readonly IRepository<AdminDAO> adminsRepository;
 
+        private readonly PasswordHasher passwordHasher;
+
         public UserDataService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository, 
             IRepository<StudentDAO> studentsRepository, IRepository<AdminDAO> adminsRepository,
             IRepository<TeacherDAO> teachersRepository)
@@ -24,6 +28,21 @@ namespace GradebookBackend.Services
             this.studentsRepository = studentsRepository;
             this.teachersRepository = teachersRepository;
             this.adminsRepository = adminsRepository;
+
+            this.passwordHasher = new PasswordHasher();
+        }
+        public void AddUser(NewUserDTO newUserDTO)
+        {
+            UserDAO newUserDAO = new UserDAO
+            {
+                Login = newUserDTO.Login,
+                Email = newUserDTO.Email,
+                Firstname = newUserDTO.Firstname,
+                Surname = newUserDTO.Surname,
+                RoleId = newUserDTO.RoleId
+            };
+            newUserDAO.Password = passwordHasher.HashPassword(newUserDTO.Password);
+            usersRepository.Add(newUserDAO);
         }
 
         public UserDataDTO GetUserDataByUserId(int userId)
@@ -40,7 +59,7 @@ namespace GradebookBackend.Services
             IEnumerable<UserDAO> users = usersRepository.GetAll();
             foreach(UserDAO user in users)
             {
-                if(user.Login == login && user.Password == password)
+                if(user.Login == login && passwordHasher.VerifyHashedPassword(user.Password, password) == Microsoft.AspNet.Identity.PasswordVerificationResult.Success)
                 {
                     return user.Id;
                 }

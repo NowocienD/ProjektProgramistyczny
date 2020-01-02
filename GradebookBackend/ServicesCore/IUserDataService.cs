@@ -4,6 +4,7 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IUserDataService
     {
+        public void AddUser(NewUserDTO newUserDTO);
         UserDataDTO GetUserDataByUserId(int userId);
         public int GetUserIdByLoginAndPassword(string login, string password);
         public int GetStudentIdByUserId(int userId);
