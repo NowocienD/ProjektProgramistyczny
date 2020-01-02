@@ -44,6 +44,10 @@ namespace GradebookBackend.Services
             newUserDAO.Password = passwordHasher.HashPassword(newUserDTO.Password);
             usersRepository.Add(newUserDAO);
         }
+        public void DeleteUser(int userId)
+        {
+            usersRepository.Delete(userId);
+        }
 
         public UserDataDTO GetUserDataByUserId(int userId)
         {
