@@ -2,7 +2,7 @@ using GradebookBackend.DTO;
 
 namespace GradebookBackend.ServicesCore
 {
-    public interface IUserDataService
+    public interface IUserService
     {
         public void AddUser(NewUserDTO newUserDTO);
         public void UpdateUser(NewUserDTO newUserDTO, int userId);

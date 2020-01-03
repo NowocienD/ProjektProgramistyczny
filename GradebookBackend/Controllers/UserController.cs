@@ -13,13 +13,13 @@ namespace GradebookBackend.Controllers
     {
         private readonly ITokenGeneratorService tokenService;
 
-        private readonly IUserDataService userDataService;
+        private readonly IUserService userDataService;
 
         private readonly IUserProviderService userProvider;
 
         public UserController(
             ITokenGeneratorService tokenService,
-            IUserDataService userDataService,
+            IUserService userDataService,
             IUserProviderService userProvider)
         {
             this.tokenService = tokenService;

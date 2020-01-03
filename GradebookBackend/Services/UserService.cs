@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace GradebookBackend.Services
 {
-    public class UserDataService : IUserDataService
+    public class UserService : IUserService
     {
         private readonly IRepository<UserDAO> usersRepository;
         private readonly IRepository<RoleDAO> rolesRepository;
@@ -19,7 +19,7 @@ namespace GradebookBackend.Services
 
         private readonly PasswordHasher passwordHasher;
 
-        public UserDataService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository, 
+        public UserService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository, 
             IRepository<StudentDAO> studentsRepository, IRepository<AdminDAO> adminsRepository,
             IRepository<TeacherDAO> teachersRepository)
         {
@@ -44,6 +44,30 @@ namespace GradebookBackend.Services
             };
             newUserDAO.Password = passwordHasher.HashPassword(newUserDTO.Password);
             usersRepository.Add(newUserDAO);
+
+            if (newUserDAO.RoleId == 1) studentsRepository.Add(new StudentDAO
+            {
+                UserId = GetUserIdByLoginAndPassword(newUserDAO.Login, newUserDTO.Password),
+                ClassId = newUserDTO.ClassId
+            });
+            else if (newUserDAO.RoleId == 2)
+            {
+                teachersRepository.Add(new TeacherDAO
+                {
+                    UserId = GetUserIdByLoginAndPassword(newUserDAO.Login, newUserDTO.Password)
+                });
+            }
+            else if (newUserDAO.RoleId == 3)
+            {
+                adminsRepository.Add(new AdminDAO
+                {
+                    UserId = GetUserIdByLoginAndPassword(newUserDAO.Login, newUserDTO.Password)
+                });
+            }
+            else
+            {
+                throw new GradebookServerException("Not valid roleId");
+            }
         }
         public void UpdateUser(NewUserDTO updatedUserDTO, int userId)
         {

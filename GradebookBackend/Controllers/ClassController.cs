@@ -14,10 +14,10 @@ namespace GradebookBackend.Controllers
     public class ClassController : Controller
     {
         private readonly IUserProviderService userProvider;
-        private readonly IUserDataService userDataService;
+        private readonly IUserService userDataService;
         private readonly IClassService classService;
 
-        public ClassController(IUserProviderService userProvider, IUserDataService userDataService, IClassService classService)
+        public ClassController(IUserProviderService userProvider, IUserService userDataService, IClassService classService)
         {
             this.userProvider = userProvider;
             this.userDataService = userDataService;

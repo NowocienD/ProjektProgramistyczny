@@ -12,5 +12,6 @@ namespace GradebookBackend.ServicesCore
         public GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId);
         public int GetStudentClassIdByStudentId(int studentId);
         public StudentListDTO GetStudentsByClassId(int classId);
+        public void AddStudent(int userId, int classId);
     }
 }

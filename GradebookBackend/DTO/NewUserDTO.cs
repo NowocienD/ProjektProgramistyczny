@@ -15,5 +15,7 @@ namespace GradebookBackend.DTO
         public string Surname { get; set; }
         public bool IsActive { get; set; }
         public int RoleId { get; set; }
+        //wypelnic tylko w przypadku studenta
+        public int ClassId { get; set; }
     }
 }

@@ -97,5 +97,15 @@ namespace GradebookBackend.Services
         {
             return studentsRepository.Get(studentId).ClassId;
         }
+
+        public void AddStudent(int userId, int classId)
+        {
+            StudentDAO newStudentDAO = new StudentDAO
+            {
+                UserId = userId,
+                ClassId = classId
+            };
+            studentsRepository.Add(newStudentDAO);
+        }
     }
 }
