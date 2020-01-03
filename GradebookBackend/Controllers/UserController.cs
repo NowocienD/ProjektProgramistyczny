@@ -12,19 +12,17 @@ namespace GradebookBackend.Controllers
     public class UserController : ControllerBase
     {
         private readonly ITokenGeneratorService tokenService;
-
-        private readonly IUserService userDataService;
-
-        private readonly IUserProviderService userProvider;
+        private readonly IUserService userService;
+        private readonly IUserProviderService userProviderService;
 
         public UserController(
             ITokenGeneratorService tokenService,
-            IUserService userDataService,
-            IUserProviderService userProvider)
+            IUserService userService,
+            IUserProviderService userProviderService)
         {
             this.tokenService = tokenService;
-            this.userDataService = userDataService;
-            this.userProvider = userProvider;// ?? throw new ArgumentNullException(nameof(userProvider));
+            this.userService = userService;
+            this.userProviderService = userProviderService;// ?? throw new ArgumentNullException(nameof(userProvider));
         }
 
         [HttpPost("login")]
@@ -36,7 +34,7 @@ namespace GradebookBackend.Controllers
             }
             try
             {
-                int userId = userDataService.GetUserIdByLoginAndPassword(dto.Login, dto.Password);
+                int userId = userService.GetUserIdByLoginAndPassword(dto.Login, dto.Password);
                 string token = tokenService.GenerateToken(userId);
                 return Ok(token);
             }
@@ -50,7 +48,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("user/myId")]
         public IActionResult GetIdFromToken()
         {
-            string userId = userProvider.GetUserId();
+            string userId = userProviderService.GetUserId();
             if (userId.Equals(string.Empty))
             {
                 return BadRequest("niepoprawny token, pusty token albo inny chuj strzelił metode wyciagajaca id z tokenu");
@@ -62,7 +60,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("user/myProfile")]
         public IActionResult GetUserData()
         {
-            UserDataDTO userDataDTO = userDataService.GetUserDataByUserId(Int32.Parse(userProvider.GetUserId()));
+            UserDataDTO userDataDTO = userService.GetUserDataByUserId(Int32.Parse(userProviderService.GetUserId()));
             return Ok(userDataDTO);
         }
 
@@ -70,11 +68,11 @@ namespace GradebookBackend.Controllers
         [HttpPost("admin/addUser")]
         public IActionResult AddUser([FromBody] NewUserDTO newUserDTO)
         {
-            if (userDataService.IsAdmin(Int32.Parse(userProvider.GetUserId())))
+            if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
             {
                 try
                 {
-                    userDataService.AddUser(newUserDTO);
+                    userService.AddUser(newUserDTO);
                     return Ok("User has been added");
                 }
                 catch (GradebookServerException exception)
@@ -92,10 +90,18 @@ namespace GradebookBackend.Controllers
         [HttpPost("admin/updateUser/{userId}")]
         public IActionResult UpdatedUser([FromBody] NewUserDTO newUserDTO, int userId)
         {
-            if (userDataService.IsAdmin(Int32.Parse(userProvider.GetUserId())))
+            if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
             {
-                userDataService.UpdateUser(newUserDTO, userId);
-                return Ok("User has been updated");
+                try
+                {
+
+                        userService.UpdateUser(newUserDTO, userId);
+                        return Ok("User has been updated");
+                }
+                catch (GradebookServerException exception)
+                {
+                    return BadRequest(exception.Message);
+                }
             }
             else
             {
