@@ -13,14 +13,14 @@ namespace GradebookBackend.Controllers
     [Route("api")]
     public class SubjectController : Controller
     {
-        private readonly IUserProviderService userProvider;
-        private readonly IUserService userDataService;
+        private readonly IUserProviderService userProviderService;
+        private readonly IUserService userService;
         private readonly ISubjectService subjectService;
 
-        public SubjectController(IUserProviderService userProvider, IUserService userDataService, ISubjectService subjectService)
+        public SubjectController(IUserProviderService userProviderService, IUserService userService, ISubjectService subjectService)
         {
-            this.userProvider = userProvider;
-            this.userDataService = userDataService;
+            this.userProviderService = userProviderService;
+            this.userService = userService;
             this.subjectService = subjectService;
         }
 
@@ -28,8 +28,8 @@ namespace GradebookBackend.Controllers
         [HttpGet("subjects")]
         public IActionResult GetAllSubjects()
         {
-            int userId = int.Parse(userProvider.GetUserId());
-            if(userDataService.IsAdmin(userId))
+            int userId = int.Parse(userProviderService.GetUserId());
+            if(userService.IsAdmin(userId))
             {
                 SubjectListDTO subjectListDTO = subjectService.GetAllSubjects();
                 return Ok(subjectListDTO);
