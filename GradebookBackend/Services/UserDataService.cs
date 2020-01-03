@@ -2,6 +2,8 @@ using GradebookBackend.DTO;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +17,8 @@ namespace GradebookBackend.Services
         private readonly IRepository<TeacherDAO> teachersRepository;
         private readonly IRepository<AdminDAO> adminsRepository;
 
+        private readonly PasswordHasher passwordHasher;
+
         public UserDataService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository, 
             IRepository<StudentDAO> studentsRepository, IRepository<AdminDAO> adminsRepository,
             IRepository<TeacherDAO> teachersRepository)
@@ -24,6 +28,37 @@ namespace GradebookBackend.Services
             this.studentsRepository = studentsRepository;
             this.teachersRepository = teachersRepository;
             this.adminsRepository = adminsRepository;
+
+            this.passwordHasher = new PasswordHasher();
+        }
+        public void AddUser(NewUserDTO newUserDTO)
+        {
+            UserDAO newUserDAO = new UserDAO
+            {
+                Login = newUserDTO.Login,
+                Email = newUserDTO.Email,
+                Firstname = newUserDTO.Firstname,
+                Surname = newUserDTO.Surname,
+                RoleId = newUserDTO.RoleId,
+                IsActive = newUserDTO.IsActive
+            };
+            newUserDAO.Password = passwordHasher.HashPassword(newUserDTO.Password);
+            usersRepository.Add(newUserDAO);
+        }
+        public void UpdateUser(NewUserDTO updatedUserDTO, int userId)
+        {
+            UserDAO updatedUserDAO = new UserDAO
+            {
+                Id = userId,
+                Login = updatedUserDTO.Login,
+                Email = updatedUserDTO.Email,
+                Firstname = updatedUserDTO.Firstname,
+                Surname = updatedUserDTO.Surname,
+                RoleId = updatedUserDTO.RoleId,
+                IsActive = updatedUserDTO.IsActive
+            };
+            updatedUserDAO.Password = passwordHasher.HashPassword(updatedUserDTO.Password);
+            usersRepository.Update(updatedUserDAO);
         }
 
         public UserDataDTO GetUserDataByUserId(int userId)
@@ -40,12 +75,30 @@ namespace GradebookBackend.Services
             IEnumerable<UserDAO> users = usersRepository.GetAll();
             foreach(UserDAO user in users)
             {
-                if(user.Login == login && user.Password == password)
+                if(user.Login == login)
                 {
-                    return user.Id;
+                    if (user.IsActive == true)
+                    {
+                        if (passwordHasher.VerifyHashedPassword(user.Password, password) == Microsoft.AspNet.Identity.PasswordVerificationResult.Success)
+                        {
+                            return user.Id;
+                        }
+                        else if (passwordHasher.VerifyHashedPassword(user.Password, password) == Microsoft.AspNet.Identity.PasswordVerificationResult.SuccessRehashNeeded)
+                        {
+                            throw new GradebookServerException("Password should be rehash");
+                        }
+                        else
+                        {
+                            throw new GradebookServerException("Wrong password");
+                        }
+                    }
+                    else
+                    {
+                        throw new GradebookServerException("User with this login isn't active");
+                    }
                 }
             }
-            throw new GradebookServerException("User with this login and password doesn't exists");
+            throw new GradebookServerException("User with this login doesn't exists");
         }
         public int GetStudentIdByUserId(int userId)
         {
@@ -96,6 +149,5 @@ namespace GradebookBackend.Services
             }
             return false;
         }
-
     }
 }

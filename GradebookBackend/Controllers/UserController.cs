@@ -9,7 +9,7 @@ using GradebookBackend.ServicesCore;
 namespace GradebookBackend.Controllers
 {
     [Route("api")]
-    public class LoginController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly ITokenGeneratorService tokenService;
 
@@ -17,7 +17,7 @@ namespace GradebookBackend.Controllers
 
         private readonly IUserProviderService userProvider;
 
-        public LoginController(
+        public UserController(
             ITokenGeneratorService tokenService,
             IUserDataService userDataService,
             IUserProviderService userProvider)
@@ -47,8 +47,8 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("user/id")]
-        public IActionResult ReturnIdFromToken()
+        [HttpGet("user/myId")]
+        public IActionResult GetIdFromToken()
         {
             string userId = userProvider.GetUserId();
             if (userId.Equals(string.Empty))
@@ -60,10 +60,40 @@ namespace GradebookBackend.Controllers
 
         [Authorize]
         [HttpGet("user/myProfile")]
-        public IActionResult Get_MyProfile()
+        public IActionResult GetUserData()
         {
             UserDataDTO userDataDTO = userDataService.GetUserDataByUserId(Int32.Parse(userProvider.GetUserId()));
             return Ok(userDataDTO);
+        }
+
+        [Authorize]
+        [HttpPost("admin/addUser")]
+        public IActionResult AddUser([FromBody] NewUserDTO newUserDTO)
+        {
+            if (userDataService.IsAdmin(Int32.Parse(userProvider.GetUserId())))
+            {
+                userDataService.AddUser(newUserDTO);
+                return Ok("User has been added");
+            }
+            else
+            {
+                return BadRequest("Logged user is not a admin");
+            }
+        }
+
+        [Authorize]
+        [HttpPost("admin/updateUser/{userId}")]
+        public IActionResult UpdatedUser([FromBody] NewUserDTO newUserDTO, int userId)
+        {
+            if (userDataService.IsAdmin(Int32.Parse(userProvider.GetUserId())))
+            {
+                userDataService.UpdateUser(newUserDTO, userId);
+                return Ok("User has been updated");
+            }
+            else
+            {
+                return BadRequest("Logged user is not a admin");
+            }
         }
     }
 }
