@@ -3,14 +3,16 @@ using GradebookBackend.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GradebookBackend.Migrations
 {
     [DbContext(typeof(GradebookDbContext))]
-    partial class GradebookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200103094959_addIsActiveAttributeToUser")]
+    partial class addIsActiveAttributeToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

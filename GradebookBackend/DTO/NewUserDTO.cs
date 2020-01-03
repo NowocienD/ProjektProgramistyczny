@@ -13,6 +13,7 @@ namespace GradebookBackend.DTO
         public string Password { get; set; }
         public string Firstname { get; set; }
         public string Surname { get; set; }
+        public bool IsActive { get; set; }
         public int RoleId { get; set; }
     }
 }

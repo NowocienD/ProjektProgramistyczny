@@ -95,20 +95,5 @@ namespace GradebookBackend.Controllers
                 return BadRequest("Logged user is not a admin");
             }
         }
-
-        [Authorize]
-        [HttpPost("admin/deleteUser/{userId}")]
-        public IActionResult DeleteUser(int userId)
-        {
-            if (userDataService.IsAdmin(Int32.Parse(userProvider.GetUserId())))
-            {
-                userDataService.DeleteUser(userId);
-                return Ok("User has been deleted");
-            }
-            else
-            {
-                return BadRequest("Logged user is not a admin");
-            }
-        }
     }
 }
