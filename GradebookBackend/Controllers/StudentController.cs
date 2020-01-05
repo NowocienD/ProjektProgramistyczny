@@ -19,10 +19,11 @@ namespace GradebookBackend.Controllers
         private readonly ILessonService lessonService;
         private readonly ISubjectService subjectService;
         private readonly IGradeService gradeService;
+        private readonly INoteService noteService;
 
         public StudentController(IUserProviderService userProviderService, IStudentService studentService,
             IUserService userService, ILessonService lessonService, ISubjectService subjectService,
-            IGradeService gradeService)
+            IGradeService gradeService, INoteService noteService)
         {
             this.userProviderService = userProviderService;
             this.studentService = studentService;
@@ -30,6 +31,7 @@ namespace GradebookBackend.Controllers
             this.lessonService = lessonService;
             this.subjectService = subjectService;
             this.gradeService = gradeService;
+            this.noteService = noteService;
         }
 
         [Authorize]
@@ -37,7 +39,7 @@ namespace GradebookBackend.Controllers
         public IActionResult GetStudentNotes()
         {
             int userId = int.Parse(userProviderService.GetUserId());
-            NoteListDTO noteListDTO = studentService.GetStudentNotesByStuedntId(userService.GetStudentIdByUserId(userId));
+            NoteListDTO noteListDTO = noteService.GetStudentNotesByStudentId(userService.GetStudentIdByUserId(userId));
             return Ok(noteListDTO);
         }
 

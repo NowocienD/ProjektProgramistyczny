@@ -10,7 +10,6 @@ namespace GradebookBackend.Model
     public class AttendanceDAO
     {
         public int Id { get; set; }
-
         [Column(TypeName = "Date")]
         public DateTime Date { get; set; }
         public string State { get; set; }

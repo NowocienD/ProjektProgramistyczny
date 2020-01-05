@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.ServicesCore
 {
-    public interface IStudentService
+    public interface INoteService
     {
-        public int GetStudentClassIdByStudentId(int studentId);
-        public StudentListDTO GetStudentsByClassId(int classId);
+        public NoteListDTO GetStudentNotesByStudentId(int studentId);
     }
 }
