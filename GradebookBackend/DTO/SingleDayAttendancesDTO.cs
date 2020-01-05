@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.DTO
 {
-    public class SingleDayAttendances
+    public class SingleDayAttendancesDTO
     {
         private readonly int maxNumberOfLessonForDay = 8;
 
@@ -13,7 +13,7 @@ namespace GradebookBackend.DTO
         public int DayOfTheWeek { get; set; }
         public List<string> Attendances { get; set; }
 
-        public SingleDayAttendance()
+        public SingleDayAttendancesDTO()
         {
             Attendances = new List<string>();
             for(int i = 0; i < maxNumberOfLessonForDay; i++)

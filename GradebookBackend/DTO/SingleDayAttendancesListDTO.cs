@@ -5,7 +5,13 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.DTO
 {
-    public class SingleDayAttendancesList
+    public class SingleDayAttendancesListDTO
     {
+        List<SingleDayAttendancesDTO> AttendancesPlan;
+
+        public SingleDayAttendancesListDTO()
+        {
+            AttendancesPlan = new List<SingleDayAttendancesDTO>();
+        }
     }
 }

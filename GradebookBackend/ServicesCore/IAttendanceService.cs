@@ -7,5 +7,6 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IAttendanceService
     {
+        public void GetAttendancesByStudentId(int studentId);
     }
 }
