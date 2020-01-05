@@ -13,16 +13,16 @@ namespace GradebookBackend.Controllers
     [Route("api")]
     public class GradeController : Controller
     {
-        private readonly IUserProviderService userProvider;
-        private readonly IUserService userDataService;
+        private readonly IUserProviderService userProviderService;
+        private readonly IUserService userService;
         private readonly IGradeService gradeService;
 
-        public GradeController(IUserProviderService userProvider, IUserService userDataService,
+        public GradeController(IUserProviderService userProviderService, IUserService userService,
             IGradeService gradeService)
         {
             this.gradeService = gradeService;
-            this.userDataService = userDataService;
-            this.userProvider = userProvider;
+            this.userService = userService;
+            this.userProviderService = userProviderService;
         }
 
         [Authorize]
@@ -31,8 +31,8 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProvider.GetUserId());
-                int teacherId = userDataService.GetTeacherIdByUserId(userId);
+                int userId = int.Parse(userProviderService.GetUserId());
+                int teacherId = userService.GetTeacherIdByUserId(userId);
                 gradeService.AddGrade(newGradeDTO, teacherId, studentId);
             }
             catch(GradebookServerException exception)
@@ -48,8 +48,8 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProvider.GetUserId());
-                if (userDataService.IsTeacher(userId))
+                int userId = int.Parse(userProviderService.GetUserId());
+                if (userService.IsTeacher(userId))
                 {
                     gradeService.DeleteGrade(gradeId);
                 }
@@ -67,8 +67,8 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProvider.GetUserId());
-                int teacherId = userDataService.GetTeacherIdByUserId(userId);
+                int userId = int.Parse(userProviderService.GetUserId());
+                int teacherId = userService.GetTeacherIdByUserId(userId);
                 gradeService.UpdateGrade(updatedGradeDTO, teacherId, studentId);
             }
             catch (GradebookServerException exception)

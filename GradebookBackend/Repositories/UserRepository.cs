@@ -45,6 +45,7 @@ namespace GradebookBackend.Repositories
 
         public UserDAO Update(UserDAO tObjectChanges)
         {
+            context.Entry(tObjectChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             var tObject = this.context.Users.Attach(tObjectChanges);
             tObject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             this.context.SaveChanges();

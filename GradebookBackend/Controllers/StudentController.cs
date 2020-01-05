@@ -13,20 +13,20 @@ namespace GradebookBackend.Controllers
     [Route("api")]
     public class StudentController : Controller
     {
-        private readonly IUserProviderService userProvider;
+        private readonly IUserProviderService userProviderService;
         private readonly IStudentService studentService;
-        private readonly IUserService userDataService;
+        private readonly IUserService userService;
         private readonly ILessonService lessonService;
         private readonly ISubjectService subjectService;
         private readonly IGradeService gradeService;
 
-        public StudentController(IUserProviderService userProvider, IStudentService studentService,
-            IUserService userDataService, ILessonService lessonService, ISubjectService subjectService,
+        public StudentController(IUserProviderService userProviderService, IStudentService studentService,
+            IUserService userService, ILessonService lessonService, ISubjectService subjectService,
             IGradeService gradeService)
         {
-            this.userProvider = userProvider;
+            this.userProviderService = userProviderService;
             this.studentService = studentService;
-            this.userDataService = userDataService;
+            this.userService = userService;
             this.lessonService = lessonService;
             this.subjectService = subjectService;
             this.gradeService = gradeService;
@@ -36,8 +36,8 @@ namespace GradebookBackend.Controllers
         [HttpGet("student/myNotes")]
         public IActionResult GetStudentNotes()
         {
-            int userId = int.Parse(userProvider.GetUserId());
-            NoteListDTO noteListDTO = studentService.GetStudentNotesByStuedntId(userDataService.GetStudentIdByUserId(userId));
+            int userId = int.Parse(userProviderService.GetUserId());
+            NoteListDTO noteListDTO = studentService.GetStudentNotesByStuedntId(userService.GetStudentIdByUserId(userId));
             return Ok(noteListDTO);
         }
 
@@ -45,17 +45,17 @@ namespace GradebookBackend.Controllers
         [HttpGet("student/myGrades/{subjectId}")]
         public IActionResult GetStudentGrades(int subjectId)
         {
-            int userId = int.Parse(userProvider.GetUserId());
-            GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(userDataService.GetStudentIdByUserId(userId), subjectId);
+            int userId = int.Parse(userProviderService.GetUserId());
+            GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(userService.GetStudentIdByUserId(userId), subjectId);
             return Ok(gradeListDTO);
         }
         [Authorize]
         [HttpGet("student/mySubjects")]
         public IActionResult GetStudentSubjects()
         {
-            int userId = int.Parse(userProvider.GetUserId());
+            int userId = int.Parse(userProviderService.GetUserId());
             SubjectListDTO subjectListDTO = subjectService.GetSubjectListByClassId(
-                studentService.GetStudentClassIdByStudentId(userDataService.GetStudentIdByUserId(userId)));
+                studentService.GetStudentClassIdByStudentId(userService.GetStudentIdByUserId(userId)));
             return Ok(subjectListDTO);
         }
 
@@ -63,9 +63,9 @@ namespace GradebookBackend.Controllers
         [HttpGet("student/myLessonPlan")]
         public IActionResult GetStudentLessonPlan()
         {
-            int userId = int.Parse(userProvider.GetUserId());
+            int userId = int.Parse(userProviderService.GetUserId());
             LessonPlanDTO lessonPlanDTO = lessonService.GetLessonPlanByClassId(
-                studentService.GetStudentClassIdByStudentId(userDataService.GetStudentIdByUserId(userId)));
+                studentService.GetStudentClassIdByStudentId(userService.GetStudentIdByUserId(userId)));
             return Ok(lessonPlanDTO);
         }
 
@@ -73,8 +73,8 @@ namespace GradebookBackend.Controllers
         [HttpGet("students/class/{classId}")]
         public IActionResult GetAllStudentsByClassId(int classId)
         {
-            int userId = int.Parse(userProvider.GetUserId());
-            if(userDataService.IsAdmin(userId) || userDataService.IsTeacher(userId))
+            int userId = int.Parse(userProviderService.GetUserId());
+            if(userService.IsAdmin(userId) || userService.IsTeacher(userId))
             {
                 StudentListDTO studentListDTO = studentService.GetStudentsByClassId(classId);
                 return Ok(studentListDTO);

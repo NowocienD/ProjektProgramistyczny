@@ -31,8 +31,13 @@ namespace GradebookBackend.Services
 
             this.passwordHasher = new PasswordHasher();
         }
+
         public void AddUser(NewUserDTO newUserDTO)
         {
+            if (!CheckIfNewUserLoginIsUnique(newUserDTO.Login))
+            {
+                throw new GradebookServerException("New user login is not unique");
+            }
             UserDAO newUserDAO = new UserDAO
             {
                 Login = newUserDTO.Login,
@@ -69,8 +74,13 @@ namespace GradebookBackend.Services
                 throw new GradebookServerException("Not valid roleId");
             }
         }
+
         public void UpdateUser(NewUserDTO updatedUserDTO, int userId)
         {
+            if (!CheckIfUpdatedUserLoginIsUnique(updatedUserDTO.Login, userId))
+            {
+                throw new GradebookServerException("Updated user login is not unique");
+            }
             UserDAO updatedUserDAO = new UserDAO
             {
                 Id = userId,
@@ -85,6 +95,33 @@ namespace GradebookBackend.Services
             usersRepository.Update(updatedUserDAO);
         }
 
+        public bool CheckIfNewUserLoginIsUnique(string newUserLogin)
+        {
+            IEnumerable<UserDAO> users = usersRepository.GetAll();
+            foreach (UserDAO user in users)
+            {
+                if (user.Login == newUserLogin)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool CheckIfUpdatedUserLoginIsUnique(string updatedUserLogin, int userId)
+        {
+            if (usersRepository.Get(userId).Login == updatedUserLogin) return true;
+            IEnumerable<UserDAO> users = usersRepository.GetAll();
+            foreach (UserDAO user in users)
+            {
+                if (user.Login == updatedUserLogin)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public UserDataDTO GetUserDataByUserId(int userId)
         {
             UserDataDTO userDataDTO = new UserDataDTO();
@@ -94,6 +131,7 @@ namespace GradebookBackend.Services
 
             return userDataDTO;
         }
+
         public int GetUserIdByLoginAndPassword(string login, string password)
         {
             IEnumerable<UserDAO> users = usersRepository.GetAll();
@@ -124,6 +162,7 @@ namespace GradebookBackend.Services
             }
             throw new GradebookServerException("User with this login doesn't exists");
         }
+
         public int GetStudentIdByUserId(int userId)
         {
             IEnumerable<StudentDAO> students = studentsRepository.GetAll();
@@ -136,6 +175,7 @@ namespace GradebookBackend.Services
             }
             throw new GradebookServerException("Student with this userId doesn't exist");
         }
+
         public int GetTeacherIdByUserId(int userId)
         {
             IEnumerable<TeacherDAO> teachers = teachersRepository.GetAll();
@@ -161,6 +201,7 @@ namespace GradebookBackend.Services
             }
             return false;
         }
+
         public bool IsTeacher(int userId)
         {
             IEnumerable<TeacherDAO> teachers = teachersRepository.GetAll();

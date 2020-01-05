@@ -13,14 +13,14 @@ namespace GradebookBackend.Controllers
     [Route("api")]
     public class ClassController : Controller
     {
-        private readonly IUserProviderService userProvider;
-        private readonly IUserService userDataService;
+        private readonly IUserProviderService userProviderService;
+        private readonly IUserService userService;
         private readonly IClassService classService;
 
-        public ClassController(IUserProviderService userProvider, IUserService userDataService, IClassService classService)
+        public ClassController(IUserProviderService userProviderService, IUserService userService, IClassService classService)
         {
-            this.userProvider = userProvider;
-            this.userDataService = userDataService;
+            this.userProviderService = userProviderService;
+            this.userService = userService;
             this.classService = classService;
         }
 
@@ -28,8 +28,8 @@ namespace GradebookBackend.Controllers
         [HttpGet("classes")]
         public IActionResult GetAllClasses()
         {
-            int userId = int.Parse(userProvider.GetUserId());
-            if (userDataService.IsAdmin(userId))
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
             {
                 ClassListDTO classListDTO = classService.GetAllClasses();
                 return Ok(classListDTO);
