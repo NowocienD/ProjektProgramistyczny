@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GradebookBackend.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,6 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IAttendanceService
     {
-        public void GetAttendancesByStudentId(int studentId);
+        public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, DatesDTO datesDTO);
     }
 }

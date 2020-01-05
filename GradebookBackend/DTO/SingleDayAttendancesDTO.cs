@@ -7,16 +7,12 @@ namespace GradebookBackend.DTO
 {
     public class SingleDayAttendancesDTO
     {
-        private readonly int maxNumberOfLessonForDay = 8;
-
-        public string Date { get; set; }
-        public int DayOfTheWeek { get; set; }
         public List<string> Attendances { get; set; }
 
         public SingleDayAttendancesDTO()
         {
             Attendances = new List<string>();
-            for(int i = 0; i < maxNumberOfLessonForDay; i++)
+            for(int i = 0; i < 8; i++)
             {
                 Attendances.Add("Not entered");
             }

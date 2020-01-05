@@ -7,11 +7,15 @@ namespace GradebookBackend.DTO
 {
     public class SingleDayAttendancesListDTO
     {
-        List<SingleDayAttendancesDTO> AttendancesPlan;
+        public List<SingleDayAttendancesDTO> AttendancesPlan { get; set; }
 
         public SingleDayAttendancesListDTO()
         {
             AttendancesPlan = new List<SingleDayAttendancesDTO>();
+            for (int i = 0; i < 5; i++)
+            {
+                AttendancesPlan.Add(new SingleDayAttendancesDTO());
+            }
         }
     }
 }

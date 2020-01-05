@@ -1,4 +1,5 @@
-﻿using GradebookBackend.Services;
+﻿using GradebookBackend.DTO;
+using GradebookBackend.Services;
 using GradebookBackend.ServicesCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,19 +26,20 @@ namespace GradebookBackend.Controllers
         }
         [Authorize]
         [HttpGet("student/myAttendances")]
-        public IActionResult GetStudentAttendances()
+        public IActionResult GetStudentAttendances([FromBody] DatesDTO datesDTO )
         {
+            int studentId;
             try
             {
                 int userId = int.Parse(userProviderService.GetUserId());
-                int studentId = userService.GetStudentIdByUserId(userId);
-                attendanceService.GetAttendancesByStudentId(studentId);
+                 studentId = userService.GetStudentIdByUserId(userId);
             }
             catch(GradebookServerException exception)
             {
                 return BadRequest(exception.Message);
             }
-            return Ok("elos");
+            SingleDayAttendancesListDTO singleDayAttendancesListDTO = attendanceService.GetAttendancesByStudentId(studentId, datesDTO);
+            return Ok(singleDayAttendancesListDTO);
         }
     }
 }

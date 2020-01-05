@@ -170,7 +170,7 @@ namespace GradebookBackend.Services
             {
                 if (student.UserId == userId)
                 {
-                    return student.UserId;
+                    return student.Id;
                 }
             }
             throw new GradebookServerException("Student with this userId doesn't exist");
