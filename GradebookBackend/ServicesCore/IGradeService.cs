@@ -11,5 +11,6 @@ namespace GradebookBackend.ServicesCore
         public void AddGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId);
         public void DeleteGrade(int gradeId);
         public void UpdateGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId);
+        public GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId);
     }
 }

@@ -13,16 +13,14 @@ namespace GradebookBackend.Services
     public class StudentService : IStudentService
     {
         private readonly IRepository<StudentDAO> studentsRepository;
-        private readonly IRepository<GradeDAO> gradesRepository;
         private readonly IRepository<TeacherDAO> teachersRepository;
         private readonly IRepository<UserDAO> usersRepository;
         private readonly IRepository<NoteDAO> notesRepository;
 
-        public StudentService(IRepository<StudentDAO> studentsRepository, IRepository<GradeDAO> gradesRepository,
+        public StudentService(IRepository<StudentDAO> studentsRepository,
             IRepository<TeacherDAO> teachersRepository, IRepository<UserDAO> usersRepository, IRepository<NoteDAO> notesRepository)
         {
             this.studentsRepository = studentsRepository;
-            this.gradesRepository = gradesRepository;
             this.teachersRepository = teachersRepository;
             this.usersRepository = usersRepository;
             this.notesRepository = notesRepository;
@@ -50,29 +48,6 @@ namespace GradebookBackend.Services
 
         }
 
-        //przeniesc do serwisu GradeService
-        public GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId)
-        {
-            IEnumerable<GradeDAO> grades = gradesRepository.GetAll();
-            GradeListDTO gradeListDTO = new GradeListDTO();
-            foreach (GradeDAO grade in grades)
-            {
-                if (grade.StudentId == studentId && grade.SubjectId == subjectId)
-                {
-                    gradeListDTO.GradeDTOs.Add(new GradeDTO
-                    {
-                        Value = grade.Value,
-                        Importance = grade.Importance,
-                        Topic = grade.Topic,
-                        Date = grade.Date,
-                        TeacherFirstname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Firstname,
-                        TeacherSurname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Surname
-                    });
-                }
-            }
-            return gradeListDTO;
-        }
-
         public StudentListDTO GetStudentsByClassId(int classId)
         {
             IEnumerable<StudentDAO> students = studentsRepository.GetAll();
@@ -96,16 +71,6 @@ namespace GradebookBackend.Services
         public int GetStudentClassIdByStudentId(int studentId)
         {
             return studentsRepository.Get(studentId).ClassId;
-        }
-
-        public void AddStudent(int userId, int classId)
-        {
-            StudentDAO newStudentDAO = new StudentDAO
-            {
-                UserId = userId,
-                ClassId = classId
-            };
-            studentsRepository.Add(newStudentDAO);
         }
     }
 }

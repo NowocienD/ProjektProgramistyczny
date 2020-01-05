@@ -53,6 +53,12 @@
     <Compile Remove="Migrations\20191222184337_inicial.Designer.cs" />
     <Compile Remove="Migrations\20191225104616_nameChanges.cs" />
     <Compile Remove="Migrations\20191225104616_nameChanges.Designer.cs" />
+    <Compile Remove="Migrations\20200105100741_dateFormatUpdated.cs" />
+    <Compile Remove="Migrations\20200105100741_dateFormatUpdated.Designer.cs" />
+    <Compile Remove="Migrations\20200105102930_changeDateType.cs" />
+    <Compile Remove="Migrations\20200105102930_changeDateType.Designer.cs" />
+    <Compile Remove="Migrations\20200105103632_changeDataType.cs" />
+    <Compile Remove="Migrations\20200105103632_changeDataType.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -29,11 +29,6 @@ namespace GradebookBackend.Controllers
         [HttpPost("teacher/addGrade/{studentId}")]
         public IActionResult AddNewGrade([FromBody] NewGradeDTO newGradeDTO, int studentId)
         {
-            if (newGradeDTO == null || string.IsNullOrWhiteSpace(newGradeDTO.Date) || string.IsNullOrWhiteSpace(newGradeDTO.Topic)
-                || newGradeDTO.SubjectId <= 0 || newGradeDTO.Value <= 0 || newGradeDTO.Importance < 0 || studentId <= 0)
-            {
-                return Forbid("Invalid dto");
-            }
             try
             {
                 int userId = int.Parse(userProvider.GetUserId());
@@ -42,7 +37,7 @@ namespace GradebookBackend.Controllers
             }
             catch(GradebookServerException exception)
             {
-                return Forbid(exception.Message);
+                return BadRequest(exception.Message);
             }
             return Ok("Grade has been added");
         }
@@ -58,11 +53,11 @@ namespace GradebookBackend.Controllers
                 {
                     gradeService.DeleteGrade(gradeId);
                 }
-                else return Forbid("Logged user is not a teacher");
+                else return BadRequest("Logged user is not a teacher");
             }
             catch (GradebookServerException exception)
             {
-                return Forbid(exception.Message);
+                return BadRequest(exception.Message);
             }
             return Ok("Grade has been deleted");
         }
@@ -78,7 +73,7 @@ namespace GradebookBackend.Controllers
             }
             catch (GradebookServerException exception)
             {
-                return Forbid(exception.Message);
+                return BadRequest(exception.Message);
             }
             return Ok("Grade has been updated");
         }
