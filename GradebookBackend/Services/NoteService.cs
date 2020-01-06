@@ -34,6 +34,7 @@ namespace GradebookBackend.Services
                     NoteDTO noteDTO = new NoteDTO
                     {
                         Statement = note.Statement,
+                        Date = note.Date.ToString(),
                         TeacherFirstName = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Firstname,
                         TeacherSurname = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Surname
                     };
