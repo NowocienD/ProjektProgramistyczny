@@ -8,7 +8,8 @@ function login(data) {
     }).then(res => {
       const token = res.data;
       localStorage.setItem('Token', token);
-    });
+      setAuthorizationToken(token);
+    })
 }
 
 function setAuthorizationToken(token) {

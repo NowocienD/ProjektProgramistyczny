@@ -26,9 +26,9 @@ const GradesComponent = (props) => {
           <TableBody>
             {props.notes.map(row => (
               <TableRow>
-                <TableCell align="center">{row.via}</TableCell>
+                <TableCell align="center">{row.teacherFirstName} {row.teacherSurname}</TableCell>
                 <TableCell align="center">{row.date}</TableCell>
-                <TableCell align="center">{row.content}</TableCell>
+                <TableCell align="center">{row.statement}</TableCell>
               </TableRow>
             ))}
           </TableBody>
