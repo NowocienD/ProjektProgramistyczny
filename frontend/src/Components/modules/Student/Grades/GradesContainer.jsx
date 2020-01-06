@@ -17,7 +17,6 @@ class GradesContainer extends Component {
   componentDidMount = () => {
     getMySubjects()
       .then(res => {
-        console.log(res)
         this.setState({
           subjects: res.data.subjectList,
           subject: res.data.subjectList[0],
@@ -31,7 +30,6 @@ class GradesContainer extends Component {
   updateGrades = () => {
     getMyGrades(this.state.subject.id)
       .then(res => {
-        console.log(res);
         this.setState({
           grades: res.data.gradeDTOs,
         });
@@ -42,40 +40,8 @@ class GradesContainer extends Component {
     this.setState({
       subject: event.target.value,
     }, () => {
-      if (Object.keys(event.target.value).length === 0) {
-        this.setState({
-          grades: [],
-        })
-      } else {
-        this.setState({
-          grades: [
-            {
-              grade: 5,
-              weight: 2,
-              teacher: "Kowalski",
-              topic: "Sprawdzian1",
-            },
-            {
-              grade: 3,
-              weight: 1,
-              teacher: "Kowalski",
-              topic: "Sprawdzian2",
-            },
-            {
-              grade: 4,
-              weight: 2,
-              teacher: "Kowalski",
-              topic: "Sprawdzian3",
-            },
-          ]
-        })
-      }
-
-      // }, () => {
-      //   this.updateGrades();
-      // });
-    }
-    );
+      this.updateGrades();
+    });
   }
 
   render() {

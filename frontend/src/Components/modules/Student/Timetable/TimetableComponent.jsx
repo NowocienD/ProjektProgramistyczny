@@ -39,7 +39,8 @@ const TimetableComponent = (props) => {
               <TableRow>
                 <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
                 {row.lessons.map((element, index) => {
-                    return <TableCell align="center">{element}</TableCell>
+                    let name = element === "no lesson" ? '-': element ;
+                    return <TableCell align="center">{name}</TableCell>
                 })}
               </TableRow>
             ))}
