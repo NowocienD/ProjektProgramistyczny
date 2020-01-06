@@ -35,7 +35,7 @@ namespace GradebookBackend.Repositories
                 .WithMany(b => b.ClassSubjects)
                 .HasForeignKey(bc => bc.SubjectId);
             modelBuilder.Entity<ClassSubjectDAO>()
-                .HasOne(bc => bc.Subject)
+                .HasOne(bc => bc.Class)
                 .WithMany(c => c.ClassSubjects)
                 .HasForeignKey(bc => bc.ClassId);
 
@@ -46,7 +46,7 @@ namespace GradebookBackend.Repositories
                 .WithMany(b => b.TeacherSubjects)
                 .HasForeignKey(bc => bc.SubjectId);
             modelBuilder.Entity<TeacherSubjectDAO>()
-                .HasOne(bc => bc.Subject)
+                .HasOne(bc => bc.Teacher)
                 .WithMany(c => c.TeacherSubjects)
                 .HasForeignKey(bc => bc.TeacherId);
         }
