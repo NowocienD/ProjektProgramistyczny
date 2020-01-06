@@ -19,11 +19,10 @@ namespace GradebookBackend.Controllers
         private readonly ILessonService lessonService;
         private readonly ISubjectService subjectService;
         private readonly IGradeService gradeService;
-        private readonly INoteService noteService;
 
         public StudentController(IUserProviderService userProviderService, IStudentService studentService,
             IUserService userService, ILessonService lessonService, ISubjectService subjectService,
-            IGradeService gradeService, INoteService noteService)
+            IGradeService gradeService)
         {
             this.userProviderService = userProviderService;
             this.studentService = studentService;
@@ -31,16 +30,6 @@ namespace GradebookBackend.Controllers
             this.lessonService = lessonService;
             this.subjectService = subjectService;
             this.gradeService = gradeService;
-            this.noteService = noteService;
-        }
-
-        [Authorize]
-        [HttpGet("student/myNotes")]
-        public IActionResult GetStudentNotes()
-        {
-            int userId = int.Parse(userProviderService.GetUserId());
-            NoteListDTO noteListDTO = noteService.GetStudentNotesByStudentId(userService.GetStudentIdByUserId(userId));
-            return Ok(noteListDTO);
         }
 
         [Authorize]
@@ -83,7 +72,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return BadRequest("Brak uprawnien do listy studentow");
+                return BadRequest("Logged user is not a admin");
             }
         }
     }

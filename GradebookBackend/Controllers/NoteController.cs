@@ -24,6 +24,23 @@ namespace GradebookBackend.Controllers
             this.userProviderService = userProviderService;
             this.userService = userService;
         }
+
+        [Authorize]
+        [HttpGet("student/myNotes")]
+        public IActionResult GetStudentNotes()
+        {
+            try
+            {
+                int userId = int.Parse(userProviderService.GetUserId());
+                NoteListDTO noteListDTO = noteService.GetStudentNotesByStudentId(userService.GetStudentIdByUserId(userId));
+                return Ok(noteListDTO);
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
         [Authorize]
         [HttpPost("teacher/addNewNote/{studentId}")]
         public IActionResult AddNewNote([FromBody]NoteDTO newNoteDTO, int studentId)
