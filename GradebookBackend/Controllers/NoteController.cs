@@ -11,7 +11,7 @@ namespace GradebookBackend.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class NoteController : Controller
+    public class NoteController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
         private readonly IUserService userService;

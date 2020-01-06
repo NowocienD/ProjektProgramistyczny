@@ -12,7 +12,7 @@ namespace GradebookBackend.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class AttendanceController : Controller
+    public class AttendanceController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
         private readonly IUserService userService;
