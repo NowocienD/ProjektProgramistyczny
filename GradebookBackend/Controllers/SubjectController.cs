@@ -36,7 +36,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return Forbid();
+                return BadRequest("Brak uprawnien administratora");
             }
 
         }
