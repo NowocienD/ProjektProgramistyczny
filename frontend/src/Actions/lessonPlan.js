@@ -1,10 +1,10 @@
 import axiosDefault from "./axiosDefault";
 
-function getMyNotes() {
+function getMyLessonPlan() {
   return axiosDefault({
     method: "GET",
-    url: "/api/student/myNotes"
+    url: "/api/student/myLessonPlan",
   });
 }
 
-export { getMyNotes };
+export { getMyLessonPlan };

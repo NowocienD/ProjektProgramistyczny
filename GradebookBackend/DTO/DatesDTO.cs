@@ -8,6 +8,5 @@ namespace GradebookBackend.DTO
     public class DatesDTO
     {
         public string FirstDate { get; set; }
-        public string SecondDate { get; set; }
     }
 }

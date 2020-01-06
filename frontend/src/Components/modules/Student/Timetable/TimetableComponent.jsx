@@ -6,6 +6,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Card, Paper, Typography } from '@material-ui/core';
 
+const days = [
+  'Poniedziałek',
+  'Wtorek',
+  'Środa',
+  'Czwartek',
+  'Piątek',
+];
 const TimetableComponent = (props) => {
   return (
     <Card className="component-container">
@@ -16,7 +23,8 @@ const TimetableComponent = (props) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="center"></TableCell>
+            <TableCell align="center"></TableCell>
+              <TableCell align="center">8:00-8:45</TableCell>
               <TableCell align="center">9:00-9:45</TableCell>
               <TableCell align="center">10:00 - 10:45</TableCell>
               <TableCell align="center">11:00 - 11:45</TableCell>
@@ -27,14 +35,11 @@ const TimetableComponent = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.timetable.map(row => (
+            {props.timetable.map((row, index) => (
               <TableRow>
-                {row.map((element, index) => {
-                  if (index === 0) {
-                    return <TableCell style={{ fontWeight: "bold" }} align="left">{element.name}</TableCell>
-                  } else {
-                    return <TableCell align="center">{element.name}</TableCell>
-                  }
+                <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
+                {row.lessons.map((element, index) => {
+                    return <TableCell align="center">{element}</TableCell>
                 })}
               </TableRow>
             ))}

@@ -8,6 +8,14 @@ import { Card, Paper, Typography, MenuItem } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
+const days = [
+  'Poniedziałek',
+  'Wtorek',
+  'Środa',
+  'Czwartek',
+  'Piątek',
+];
+
 const PresenceComponent = (props) => {
   return (
     <Card className="component-container">
@@ -22,40 +30,31 @@ const PresenceComponent = (props) => {
       >
         {props.weeks.map(item => (
           <MenuItem value={item}>
-            {item.name}
+            {item.begin} - {item.end}
           </MenuItem>
         ))}
       </Select>
       <Paper>
-        <Table>
+      <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="center"></TableCell>
+            <TableCell align="center"></TableCell>
+              <TableCell align="center">8:00-8:45</TableCell>
               <TableCell align="center">9:00-9:45</TableCell>
-              <TableCell align="center">10:00-10:45</TableCell>
-              <TableCell align="center">11:00-11:45</TableCell>
-              <TableCell align="center">12:00-12:45</TableCell>
-              <TableCell align="center">13:00-13:45</TableCell>
-              <TableCell align="center">14:00-14:45</TableCell>
-              <TableCell align="center">15:00-15:45</TableCell>
+              <TableCell align="center">10:00 - 10:45</TableCell>
+              <TableCell align="center">11:00 - 11:45</TableCell>
+              <TableCell align="center">12:00 - 12:45</TableCell>
+              <TableCell align="center">13:00 - 13:45</TableCell>
+              <TableCell align="center">14:00 - 14:45</TableCell>
+              <TableCell align="center">15:00 - 15:45</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.presence.map(row => (
+            {props.presence.map((row, index) => (
               <TableRow>
-                {row.map((element, index) => {
-                  if (index === 0) {
-                    return <TableCell style={{ fontWeight: "bold" }} align="left">{element.name}</TableCell>
-                  } else {
-                    if (element.state === 'Obecny') {
-                      return <TableCell style={{color: 'green'}} align="center">{element.name}: <b>{element.state}</b> </TableCell>
-                    } else if (element.state === "Nieobecny") {
-                      return <TableCell style={{color: 'red'}} align="center">{element.name}: <b>{element.state}</b> </TableCell>
-                    } else {
-                      return <TableCell style={{color: 'orange'}} align="center">{element.name}: <b>{element.state}</b> </TableCell>
-                    }
-
-                  }
+                <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
+                {row.lessons.map((element, index) => {
+                    return <TableCell align="center">{element}</TableCell>
                 })}
               </TableRow>
             ))}

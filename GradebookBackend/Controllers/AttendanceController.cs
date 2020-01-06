@@ -24,7 +24,7 @@ namespace GradebookBackend.Controllers
             this.userService = userService;
             this.attendanceService = attendanceService;
         }
-        [Authorize]
+       // [Authorize]
         [HttpGet("student/myAttendances")]
         public IActionResult GetStudentAttendances([FromBody] DatesDTO datesDTO )
         {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NotesComponent from './NotesComponent';
-import { getNotes } from './../../../../Actions/notes';
+import { getMyNotes } from './../../../../Actions/notes';
 
 class NotesContainer extends Component {
   constructor() {
@@ -8,11 +8,10 @@ class NotesContainer extends Component {
     this.state = {
       notes: [],
     };
-
   }
 
   componentDidMount = () => {
-    getNotes()
+    getMyNotes()
       .then(res => {
         this.setState({
           notes: res.data.noteDTOs,

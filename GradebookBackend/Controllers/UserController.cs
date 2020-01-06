@@ -64,7 +64,7 @@ namespace GradebookBackend.Controllers
             return Ok(userDataDTO);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("admin/addUser")]
         public IActionResult AddUser([FromBody] NewUserDTO newUserDTO)
         {
