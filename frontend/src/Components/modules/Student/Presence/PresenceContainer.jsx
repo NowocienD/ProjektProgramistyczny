@@ -15,10 +15,7 @@ class PresenceContainer extends Component {
   }
 
   updatePresence = () => {
-    const values = {
-      FirstDate: this.state.week.begin,
-    };
-    getMyPresence(values)
+    getMyPresence(this.state.week.begin)
       .then((res) => {
         this.setState({
           presence: res.data.AttendancesPlan,

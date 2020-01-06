@@ -1,7 +1,9 @@
-import axios from 'axios';
+import axiosDefault from "./axiosDefault";
 
-function getGrades(subject) {
-  return axios.get(`http://localhost:3000/subjects/${subject}/grades`);
+function getMyGrades(subjectId) {
+  return axiosDefault({
+    method: "GET",
+    url: `/api/student/myGrades/${subjectId}`,
+  });
 }
-
-export { getGrades };
+export { getMyGrades };

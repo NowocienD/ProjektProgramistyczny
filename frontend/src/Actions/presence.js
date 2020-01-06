@@ -1,10 +1,9 @@
 import axiosDefault from "./axiosDefault";
 
-function getMyPresence(dates) {
+function getMyPresence(date) {
   return axiosDefault({
     method: "GET",
-    url: "/api/student/myAttendances",
-    data: dates,
+    url: `/api/student/myAttendances/${date}`,
   });
 }
 
