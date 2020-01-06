@@ -41,6 +41,12 @@ class App extends Component {
         icon: 'bookmark',
         to: '/presence',
       },
+      {
+        key: 'notes',
+        name: "Uwagi",
+        icon: 'warning',
+        to: '/notes',
+      },
     ]
   }
   
@@ -50,6 +56,7 @@ class App extends Component {
         <Layout
           menu={this.menu}
           logout={this.logout}
+          user={this.props.user}
         />
       </div>
     );

@@ -14,16 +14,28 @@ const TimetableComponent = (props) => {
       </Typography>
       <Paper>
         <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell align="center"></TableCell>
+              <TableCell align="center">9:00-9:45</TableCell>
+              <TableCell align="center">10:00 - 10:45</TableCell>
+              <TableCell align="center">11:00 - 11:45</TableCell>
+              <TableCell align="center">12:00 - 12:45</TableCell>
+              <TableCell align="center">13:00 - 13:45</TableCell>
+              <TableCell align="center">14:00 - 14:45</TableCell>
+              <TableCell align="center">15:00 - 15:45</TableCell>
+            </TableRow>
+          </TableHead>
           <TableBody>
             {props.timetable.map(row => (
               <TableRow>
-                {row.length !== 0 && (
-                  <TableCell style={{fontWeight: "bold"}} align="left">{row[0].day}</TableCell>
-                  )}
-                  {row.map(element => (
-                    <TableCell align="left">{element.start + ' - '  + element.end + ' ' + element.name}</TableCell>
-                  ))}
-
+                {row.map((element, index) => {
+                  if (index === 0) {
+                    return <TableCell style={{ fontWeight: "bold" }} align="left">{element.name}</TableCell>
+                  } else {
+                    return <TableCell align="center">{element.name}</TableCell>
+                  }
+                })}
               </TableRow>
             ))}
           </TableBody>

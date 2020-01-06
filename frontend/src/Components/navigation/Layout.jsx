@@ -22,8 +22,9 @@ import GradesContainer from './../modules/Student/Grades/GradesContainer';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsContainer from './../modules/Settings/SettingsContainer';
-import PresenceContainer from './../modules/Student/PresenceContainer';
+import PresenceContainer from './../modules/Student/Presence/PresenceContainer';
 import primaryColor from './../../color';
+import NotesContainer from './../modules/Student/Notes/NotesContainer';
 
 
 const drawerWidth = 240;
@@ -112,9 +113,6 @@ const Layout = (props) => {
     setOpen(false);
   }
 
-
-  
-
   return (
     <div className="dashboard-container">
       <CssBaseline />
@@ -147,7 +145,7 @@ const Layout = (props) => {
             </NavLink>
           </IconButton>
           <IconButton color="inherit" onClick={props.logout}>
-              <ExitToAppIcon />
+            <ExitToAppIcon />
           </IconButton>
 
 
@@ -165,12 +163,18 @@ const Layout = (props) => {
         }}
       >
         <div className={classes.drawerHeader}>
+          <h2 style={{ marginLeft: '5%', marginRight: 'auto' }}>
+            {props.user.imie 
+            && props.user.nazwisko
+             && (`${props.user.imie} ${props.user.nazwisko}`)}
+          </h2>
+
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
         <Divider />
-        <List>
+        <List >
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           {props.menu.map(item => {
             return (
@@ -199,6 +203,7 @@ const Layout = (props) => {
           <Route path="/timetable" exact component={TimetableContainer} />
           <Route path="/grades" exact component={GradesContainer} />
           <Route path="/presence" exact component={PresenceContainer} />
+          <Route path="/notes" exact component={NotesContainer} />
           <Route path="/me" exact component={SettingsContainer} />
         </div>
       </main>

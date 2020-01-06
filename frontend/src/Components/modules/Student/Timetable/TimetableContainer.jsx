@@ -3,42 +3,141 @@ import { Typography, Paper } from '@material-ui/core';
 import TimetableComponent from './TimetableComponent';
 
 const timetable = [
-  {
-    day: "Poniedziałek",
-    name: "Matematyka",
-    start: "9:00",
-    end: "9:45",
-  },
-  {
-    day: "Poniedziałek",
-    name: "Angielski",
-    start: "10:00",
-    end: "10:45",
-  },
-  {
-    day: "Poniedziałek",
-    name: "Angielski",
-    start: "11:00",
-    end: "11:45",
-  },
-  {
-    day: "Poniedziałek",
-    name: "Angielski",
-    start: "12:00",
-    end: "12:45",
-  },
-  {
-    day: "Wtorek",
-    name: "Polski",
-    start: "10:00",
-    end: "10:45",
-  },
-  {
-    day: "Wtorek",
-    name: "Historia",
-    start: "11:00",
-    end: "11:45",
-  }
+  [
+    {
+      name: "Poniedziałek",
+      day: true,
+    },
+    {
+      name: "Matematyka",
+    },
+    {
+      name: "Angielski",
+    },
+    {
+      name: "Biologia",
+    },
+    {
+      name: "Chemia",
+    },
+    {
+      name: "Polski",
+    },
+    {
+      name: "Historia",
+    },
+    {
+      name: "Chemia",
+    }
+  ],
+  [
+    {
+      name: "Wtorek",
+      day: true,
+    },
+    {
+      name: "Matematyka",
+    },
+    {
+      name: "Angielski",
+    },
+    {
+      name: "Biologia",
+    },
+    {
+      name: "Chemia",
+    },
+    {
+      name: "Polski",
+    },
+    {
+      name: "Historia",
+    },
+    {
+      name: "Chemia",
+    }
+  ],
+  [
+    {
+      name: "Środa",
+      day: true,
+    },
+    {
+      name: "Matematyka",
+    },
+    {
+      name: "Angielski",
+    },
+    {
+      name: "Biologia",
+    },
+    {
+      name: "Chemia",
+    },
+    {
+      name: "Polski",
+    },
+    {
+      name: "Historia",
+    },
+    {
+      name: "Chemia",
+    }
+  ],
+  [
+    {
+      name: "Czwartek",
+      day: true,
+    },
+    {
+      name: "Matematyka",
+    },
+    {
+      name: "Angielski",
+    },
+    {
+      name: "Biologia",
+    },
+    {
+      name: "Chemia",
+    },
+    {
+      name: "Polski",
+    },
+    {
+      name: "Historia",
+    },
+    {
+      name: "Chemia",
+    }
+  ],
+  [
+    {
+      name: "Piątek",
+      day: true,
+    },
+    {
+      name: "Matematyka",
+    },
+    {
+      name: "Angielski",
+    },
+    {
+      name: "Biologia",
+    },
+    {
+      name: "Chemia",
+    },
+    {
+      name: "Polski",
+    },
+    {
+      name: "Historia",
+    },
+    {
+      name: "Chemia",
+    }
+  ],
 ]
 
 class TimetableContainer extends Component {
@@ -50,7 +149,7 @@ class TimetableContainer extends Component {
   }
 
   makeRows = (data) => {
-    const days = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+    const days = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"];
     let rows = [];
 
     days.forEach(day => {
@@ -69,7 +168,8 @@ class TimetableContainer extends Component {
     return (
       <div>
         <TimetableComponent
-          timetable={this.state.data}
+          // timetable={this.state.data}
+          timetable={timetable}
         />
       </div>
     );

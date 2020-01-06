@@ -8,40 +8,74 @@ class GradesContainer extends Component {
   constructor() {
     super();
     this.state = {
-      subjects: [],
+      subjects: [{ name: "Matematyka" }, { name: "Polski" }, { name: "Biologia" }, { name: "Chemia" }],
       subject: {},
       grades: [],
     };
   }
 
-  componentDidMount = () => {
-    getSubjects()
-      .then(res => {
-        this.setState({
-          subjects: res.data,
-          subject: res.data[0],
-        }, () => {
-          this.updateGrades();
-        });
-      })
-  }
+  // componentDidMount = () => {
+  //   getSubjects()
+  //     .then(res => {
+  //       this.setState({
+  //         subjects: res.data,
+  //         subject: res.data[0],
+  //       }, () => {
+  //         this.updateGrades();
+  //       });
+  //     })
+  // }
 
-  updateGrades = () => {
-    getGrades(this.state.subject.id)
-      .then(res => {
-        this.setState({
-          grades: res.data,
-        });
-      });
-  }
+
+  // updateGrades = () => {
+  //   getGrades(this.state.subject.id)
+  //     .then(res => {
+  //       this.setState({
+  //         grades: res.data,
+  //       });
+  //     });
+  // }
 
   handleSelectChange = (event) => {
     this.setState({
       subject: event.target.value,
     }, () => {
-      this.updateGrades();
-    });
+      if (Object.keys(event.target.value).length === 0) {
+        this.setState({
+          grades: [],
+        })
+      } else {
+        this.setState({
+          grades: [
+            {
+              grade: 5,
+              weight: 2,
+              teacher: "Kowalski",
+              topic: "Sprawdzian1",
+            },
+            {
+              grade: 3,
+              weight: 1,
+              teacher: "Kowalski",
+              topic: "Sprawdzian2",
+            },
+            {
+              grade: 4,
+              weight: 2,
+              teacher: "Kowalski",
+              topic: "Sprawdzian3",
+            },
+          ]
+        })
+      }
+
+      // }, () => {
+      //   this.updateGrades();
+      // });
+    }
+    );
   }
+
   render() {
     return (
       <div>

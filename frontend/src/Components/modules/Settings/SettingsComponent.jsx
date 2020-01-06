@@ -53,6 +53,7 @@ const SettingsComponent = (props) => {
               id="password"
               label="Hasło"
               variant="outlined"
+              type="password"
               value={values.password}
               className="textfield"
               onChange={props.handleChange}
