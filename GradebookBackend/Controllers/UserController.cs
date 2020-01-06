@@ -94,7 +94,6 @@ namespace GradebookBackend.Controllers
             {
                 try
                 {
-
                         userService.UpdateUser(newUserDTO, userId);
                         return Ok("User has been updated");
                 }

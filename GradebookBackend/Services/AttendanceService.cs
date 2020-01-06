@@ -21,11 +21,11 @@ namespace GradebookBackend.Services
             this.attendanceRepository = attendanceRepository;
             this.lessonRepository = lessonRepository;
         }
-        public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, DatesDTO datesDTO)
+        public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, string date)
         {
             IEnumerable<AttendanceDAO> attendances = attendanceRepository.GetAll();
             SingleDayAttendancesListDTO attendancesPlanDTO = new SingleDayAttendancesListDTO();
-            DateTime firstDate = DateTime.ParseExact(datesDTO.FirstDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime firstDate = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             DateTime secondDate = firstDate.AddDays(5);
                 foreach(AttendanceDAO attendance in attendances)
                 {

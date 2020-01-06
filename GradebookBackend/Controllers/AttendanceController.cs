@@ -12,7 +12,7 @@ namespace GradebookBackend.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class AttendanceController : Controller
+    public class AttendanceController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
         private readonly IUserService userService;
@@ -24,22 +24,22 @@ namespace GradebookBackend.Controllers
             this.userService = userService;
             this.attendanceService = attendanceService;
         }
-       // [Authorize]
-        [HttpGet("student/myAttendances")]
-        public IActionResult GetStudentAttendances([FromBody] DatesDTO datesDTO )
+
+        [Authorize]
+        [HttpGet("student/myAttendances/{date}")]
+        public IActionResult GetStudentAttendances(string date)
         {
-            int studentId;
             try
             {
                 int userId = int.Parse(userProviderService.GetUserId());
-                 studentId = userService.GetStudentIdByUserId(userId);
+                int studentId = userService.GetStudentIdByUserId(userId);
+                SingleDayAttendancesListDTO singleDayAttendancesListDTO = attendanceService.GetAttendancesByStudentId(studentId, date);
+                return Ok(singleDayAttendancesListDTO);
             }
             catch(GradebookServerException exception)
             {
                 return BadRequest(exception.Message);
             }
-            SingleDayAttendancesListDTO singleDayAttendancesListDTO = attendanceService.GetAttendancesByStudentId(studentId, datesDTO);
-            return Ok(singleDayAttendancesListDTO);
         }
     }
 }

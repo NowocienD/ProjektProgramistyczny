@@ -11,7 +11,7 @@ namespace GradebookBackend.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class ClassController : Controller
+    public class ClassController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
         private readonly IUserService userService;
@@ -36,7 +36,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return Forbid("Brak Uprawnien administratora");
+                return BadRequest("Brak Uprawnien administratora");
             }
         }
     }

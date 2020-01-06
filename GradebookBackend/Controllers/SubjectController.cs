@@ -11,7 +11,7 @@ namespace GradebookBackend.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class SubjectController : Controller
+    public class SubjectController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
         private readonly IUserService userService;
@@ -36,7 +36,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return Forbid();
+                return BadRequest("Logged user is not a admin");
             }
 
         }
