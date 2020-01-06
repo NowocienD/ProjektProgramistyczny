@@ -26,14 +26,14 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("student/myAttendances/{date}")]
-        public IActionResult GetStudentAttendances(string date)
+        [HttpGet("student/myAttendances")]
+        public IActionResult GetStudentAttendances([FromQuery] int day, [FromQuery] int month, [FromQuery] int year)
         {
             try
             {
                 int userId = int.Parse(userProviderService.GetUserId());
                 int studentId = userService.GetStudentIdByUserId(userId);
-                SingleDayAttendancesListDTO singleDayAttendancesListDTO = attendanceService.GetAttendancesByStudentId(studentId, date);
+                SingleDayAttendancesListDTO singleDayAttendancesListDTO = attendanceService.GetAttendancesByStudentId(studentId, day, month, year);
                 return Ok(singleDayAttendancesListDTO);
             }
             catch(GradebookServerException exception)
