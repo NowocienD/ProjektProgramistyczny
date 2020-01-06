@@ -21,11 +21,15 @@ namespace GradebookBackend.Services
             this.attendanceRepository = attendanceRepository;
             this.lessonRepository = lessonRepository;
         }
-        public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, string date)
+        public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, int day, int month, int year)
         {
+            if(day == 0 || month == 0 || year == 0)
+            {
+                throw new GradebookServerException("day, month and year can't be equal 0");
+            }
             IEnumerable<AttendanceDAO> attendances = attendanceRepository.GetAll();
             SingleDayAttendancesListDTO attendancesPlanDTO = new SingleDayAttendancesListDTO();
-            DateTime firstDate = DateTime.ParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            DateTime firstDate = new DateTime(year, month, day);
             DateTime secondDate = firstDate.AddDays(5);
                 foreach(AttendanceDAO attendance in attendances)
                 {
