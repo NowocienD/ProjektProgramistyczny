@@ -8,6 +8,6 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IAttendanceService
     {
-        public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, DatesDTO datesDTO);
+        public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, string date);
     }
 }
