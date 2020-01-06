@@ -18,13 +18,12 @@ class PresenceContainer extends Component {
     getMyPresence(this.state.week.begin)
       .then((res) => {
         this.setState({
-          presence: res.data.AttendancesPlan,
+          presence: res.data.attendancesPlan,
         });
       });
   }
 
   handleSelectChange = (event) => {
-    console.log(event.target.value);
     this.setState({
       week: event.target.value,
     }, () => {

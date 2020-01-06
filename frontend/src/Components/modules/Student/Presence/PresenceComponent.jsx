@@ -7,6 +7,9 @@ import TableRow from '@material-ui/core/TableRow';
 import { Card, Paper, Typography, MenuItem } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 
 const days = [
   'Poniedziałek',
@@ -35,10 +38,10 @@ const PresenceComponent = (props) => {
         ))}
       </Select>
       <Paper>
-      <Table>
+        <Table>
           <TableHead>
             <TableRow>
-            <TableCell align="center"></TableCell>
+              <TableCell align="center" ></TableCell>
               <TableCell align="center">8:00-8:45</TableCell>
               <TableCell align="center">9:00-9:45</TableCell>
               <TableCell align="center">10:00 - 10:45</TableCell>
@@ -53,8 +56,16 @@ const PresenceComponent = (props) => {
             {props.presence.map((row, index) => (
               <TableRow>
                 <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
-                {row.lessons.map((element, index) => {
-                    return <TableCell align="center">{element}</TableCell>
+                {row.attendances.map((element, index) => {
+                  console.log(element);
+                  if (element === 'Not entered') {
+                    return <TableCell align="center" style={{ color: 'red' }}><CloseIcon />Nieobecny</TableCell>
+                  } else if (element === 'Obecny') {
+                    return <TableCell align="center" style={{ color: 'green' }}><CheckIcon />Obecny</TableCell>
+                  } else {
+                    return <TableCell align="center" style={{ color: 'orange' }}><PlaylistAddCheckIcon />Usprawiedliwiony</TableCell>
+                  }
+
                 })}
               </TableRow>
             ))}
