@@ -25,21 +25,20 @@ namespace GradebookBackend.Controllers
             this.attendanceService = attendanceService;
         }
         [Authorize]
-        [HttpGet("student/myAttendances")]
-        public IActionResult GetStudentAttendances([FromBody] DatesDTO datesDTO )
+        [HttpGet("student/myAttendances/{date}")]
+        public IActionResult GetStudentAttendances(string date)
         {
-            int studentId;
             try
             {
                 int userId = int.Parse(userProviderService.GetUserId());
-                 studentId = userService.GetStudentIdByUserId(userId);
+                int studentId = userService.GetStudentIdByUserId(userId);
+                SingleDayAttendancesListDTO singleDayAttendancesListDTO = attendanceService.GetAttendancesByStudentId(studentId, date);
+                return Ok(singleDayAttendancesListDTO);
             }
             catch(GradebookServerException exception)
             {
                 return BadRequest(exception.Message);
             }
-            SingleDayAttendancesListDTO singleDayAttendancesListDTO = attendanceService.GetAttendancesByStudentId(studentId, datesDTO);
-            return Ok(singleDayAttendancesListDTO);
         }
     }
 }
