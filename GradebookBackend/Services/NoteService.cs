@@ -4,6 +4,7 @@ using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,6 +43,18 @@ namespace GradebookBackend.Services
                 }
             }
             return studentNotesDTO;
+        }
+
+        public void AddNewNote(NoteDTO newNoteDTO, int teacherId, int studentId)
+        {
+            NoteDAO newNoteDAO = new NoteDAO
+            {
+                Statement = newNoteDTO.Statement,
+                Date = DateTime.ParseExact(newNoteDTO.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                StudentId = studentId,
+                TeacherId = teacherId
+            };
+            notesRepository.Add(newNoteDAO);
         }
     }
 }
