@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import NotesComponent from './NotesComponent';
+import StudentNotesComponent from './StudentNotesComponent';
 import { getMyNotes } from './../../../../Actions/notes';
 
-class NotesContainer extends Component {
+class StudentNotesContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,6 +13,7 @@ class NotesContainer extends Component {
   componentDidMount = () => {
     getMyNotes()
       .then(res => {
+        console.log(res);
         this.setState({
           notes: res.data.noteDTOs,
         });
@@ -22,11 +23,11 @@ class NotesContainer extends Component {
   render() {
     return (
       <div>
-        <NotesComponent
+        <StudentNotesComponent
           notes={this.state.notes}
         />
       </div>
     );
   };
 }
-export default NotesContainer;
+export default StudentNotesContainer;

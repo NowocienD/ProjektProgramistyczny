@@ -9,6 +9,7 @@ class Auth extends Component {
     super();
     this.state = {
       user: {},
+      appEnable: false,
     }
   }
 
@@ -31,6 +32,10 @@ class Auth extends Component {
         .then(res => {
           this.setState({
             user: res.data,
+          }, () => {
+            this.setState({
+              appEnable: true,
+            })
           })
         })
     }
@@ -38,9 +43,9 @@ class Auth extends Component {
 
   render() {
     return (
-      <App
+      (this.state.appEnable && <App
         user={this.state.user}
-      />
+      />)
     )
   }
 }

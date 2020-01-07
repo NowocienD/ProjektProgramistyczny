@@ -19,7 +19,7 @@ const days = [
   'Piątek',
 ];
 
-const PresenceComponent = (props) => {
+const StudentPresenceComponent = (props) => {
   return (
     <Card className="component-container">
       <Typography variant="h5" className="underline-title">
@@ -77,4 +77,4 @@ const PresenceComponent = (props) => {
 
 };
 
-export default PresenceComponent;
+export default StudentPresenceComponent;

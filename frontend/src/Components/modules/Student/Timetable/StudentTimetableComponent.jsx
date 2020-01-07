@@ -13,7 +13,7 @@ const days = [
   'Czwartek',
   'Piątek',
 ];
-const TimetableComponent = (props) => {
+const StudentTimetableComponent = (props) => {
   return (
     <Card className="component-container">
       <Typography variant="h5" className="underline-title">
@@ -52,4 +52,4 @@ const TimetableComponent = (props) => {
 
 };
 
-export default TimetableComponent;
+export default StudentTimetableComponent;

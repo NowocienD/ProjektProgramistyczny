@@ -6,7 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Card, Paper, Typography } from '@material-ui/core';
 
-const GradesComponent = (props) => {
+const StudentNotesComponent = (props) => {
 
   return (
   <Card className="component-container">
@@ -39,4 +39,4 @@ const GradesComponent = (props) => {
 
 };
 
-export default GradesComponent;
+export default StudentNotesComponent;
