@@ -87,7 +87,7 @@ namespace GradebookBackend
                     ValidateAudience = false,
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
-                    ClockSkew = TimeSpan.FromMinutes(5),
+                    ClockSkew = TimeSpan.FromHours(5),
                 };
             });
             services.AddTransient<IClassService, ClassService>();
