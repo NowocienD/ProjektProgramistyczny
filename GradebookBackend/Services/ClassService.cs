@@ -49,9 +49,26 @@ namespace GradebookBackend.Services
                         Id = lesson.ClassId,
                         Name = classRepository.Get(lesson.ClassId).Name
                     };
+                    if (!IsClassAlreadyInClassList(classListDTO, newClass))
+                    {
+                        classListDTO.ClassList.Add(newClass);
+                    }
                 }
             }
             return classListDTO;
+        }
+
+        public bool IsClassAlreadyInClassList(ClassListDTO classListDTO, ClassDTO classDTO)
+        {
+            bool isAlready = false;
+            foreach(ClassDTO checkedClass in classListDTO.ClassList)
+            {
+                if(checkedClass.Id == classDTO.Id)
+                {
+                    isAlready = true;
+                }
+            }
+            return isAlready;
         }
     }
 }
