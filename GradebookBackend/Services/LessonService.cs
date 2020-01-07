@@ -20,7 +20,7 @@ namespace GradebookBackend.Services
             this.subjectRepository = subjectRepository;
         }
 
-        public LessonPlanDTO GetLessonPlanByClassId(int classId)
+        public LessonPlanDTO GetStudentLessonPlanByClassId(int classId)
         {
             LessonPlanDTO lessonPlanDTO = new LessonPlanDTO();
             IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
@@ -28,6 +28,20 @@ namespace GradebookBackend.Services
             foreach (LessonDAO lesson in lessons)
             {
                 if (lesson.ClassId == classId)
+                {
+                    lessonPlanDTO.LessonPlan[lesson.DayOfTheWeek].Lessons[lesson.LessonNumber] = subjectRepository.Get(lesson.SubjectId).Name;
+                }
+            }
+            return lessonPlanDTO;
+        }
+        public LessonPlanDTO GetTeacherLessonPlanByTeacherId(int teacherId)
+        {
+            LessonPlanDTO lessonPlanDTO = new LessonPlanDTO();
+            IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
+
+            foreach (LessonDAO lesson in lessons)
+            {
+                if (lesson.TeacherId == teacherId)
                 {
                     lessonPlanDTO.LessonPlan[lesson.DayOfTheWeek].Lessons[lesson.LessonNumber] = subjectRepository.Get(lesson.SubjectId).Name;
                 }
