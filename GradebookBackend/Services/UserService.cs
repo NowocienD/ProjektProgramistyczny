@@ -95,6 +95,20 @@ namespace GradebookBackend.Services
             usersRepository.Update(updatedUserDAO);
         }
 
+        public void UpdateUserPassword(UserPasswordChangeDTO userPasswordChangeDTO, int userId)
+        {
+            UserDAO userDAO = usersRepository.Get(userId);
+            if(passwordHasher.VerifyHashedPassword(userDAO.Password, userPasswordChangeDTO.OldPassword) == Microsoft.AspNet.Identity.PasswordVerificationResult.Success)
+            {
+                userDAO.Password = passwordHasher.HashPassword(userPasswordChangeDTO.NewPassword);
+            }
+            else
+            {
+                throw new GradebookServerException("Old password is not valid");
+            }
+            usersRepository.Update(userDAO);
+        }
+
         public bool CheckIfNewUserLoginIsUnique(string newUserLogin)
         {
             IEnumerable<UserDAO> users = usersRepository.GetAll();
