@@ -24,8 +24,8 @@ const TimetableComponent = (props) => {
           <TableHead>
             <TableRow>
             <TableCell align="center"></TableCell>
-              <TableCell align="center">8:00-8:45</TableCell>
-              <TableCell align="center">9:00-9:45</TableCell>
+              <TableCell align="center">8:00 - 8:45</TableCell>
+              <TableCell align="center">9:00 - 9:45</TableCell>
               <TableCell align="center">10:00 - 10:45</TableCell>
               <TableCell align="center">11:00 - 11:45</TableCell>
               <TableCell align="center">12:00 - 12:45</TableCell>

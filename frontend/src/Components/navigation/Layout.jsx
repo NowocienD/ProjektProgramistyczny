@@ -164,9 +164,9 @@ const Layout = (props) => {
       >
         <div className={classes.drawerHeader}>
           <h2 style={{ marginLeft: '5%', marginRight: 'auto' }}>
-            {props.user.imie 
-            && props.user.nazwisko
-             && (`${props.user.imie} ${props.user.nazwisko}`)}
+            {props.user.firstname 
+            && props.user.surname
+             && (`${props.user.firstname} ${props.user.surname}`)}
           </h2>
 
           <IconButton onClick={handleDrawerClose}>

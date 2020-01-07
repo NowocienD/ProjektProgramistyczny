@@ -23,5 +23,4 @@ function setAuthorizationToken(token) {
 function logout() {
   localStorage.removeItem('Token');
 }
-
 export { login, setAuthorizationToken, logout };

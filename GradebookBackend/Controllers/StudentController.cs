@@ -11,7 +11,7 @@ namespace GradebookBackend.Controllers
 {
     [ApiController]
     [Route("api")]
-    public class StudentController : ControllerBase
+    public class StudentController : Controller
     {
         private readonly IUserProviderService userProviderService;
         private readonly IStudentService studentService;
@@ -19,10 +19,11 @@ namespace GradebookBackend.Controllers
         private readonly ILessonService lessonService;
         private readonly ISubjectService subjectService;
         private readonly IGradeService gradeService;
+        private readonly INoteService noteService;
 
         public StudentController(IUserProviderService userProviderService, IStudentService studentService,
             IUserService userService, ILessonService lessonService, ISubjectService subjectService,
-            IGradeService gradeService)
+            IGradeService gradeService, INoteService noteService)
         {
             this.userProviderService = userProviderService;
             this.studentService = studentService;
@@ -30,6 +31,7 @@ namespace GradebookBackend.Controllers
             this.lessonService = lessonService;
             this.subjectService = subjectService;
             this.gradeService = gradeService;
+            this.noteService = noteService;
         }
 
         [Authorize]
@@ -72,7 +74,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return BadRequest("Logged user is not a admin");
+                return BadRequest("Brak uprawnien do listy studentow");
             }
         }
     }
