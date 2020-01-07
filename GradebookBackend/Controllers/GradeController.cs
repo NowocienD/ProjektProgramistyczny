@@ -26,6 +26,15 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
+        [HttpGet("student/myGrades/{subjectId}")]
+        public IActionResult GetStudentGrades(int subjectId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(userService.GetStudentIdByUserId(userId), subjectId);
+            return Ok(gradeListDTO);
+        }
+
+        [Authorize]
         [HttpPost("teacher/addGrade/{studentId}")]
         public IActionResult AddNewGrade([FromBody] NewGradeDTO newGradeDTO, int studentId)
         {
