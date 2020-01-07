@@ -3,7 +3,7 @@ import axiosDefault from "./axiosDefault";
 function getMyNotes() {
   return axiosDefault({
     method: "GET",
-    url: "/api/student/myNotes"
+    url: "/api/note/student/myNotes"
   });
 }
 

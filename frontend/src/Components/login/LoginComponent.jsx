@@ -29,44 +29,46 @@ const LoginComponent = (props) => {
 
   return (
     <div className="login-background">
-      <Card className="login-panel">
+      <form>
+        <Card className="login-panel">
           <Typography variant="h5" className="underline">
             Logowanie
       </Typography>
           <Grid container>
             <Grid item xs={12}>
-                <TextField
-                  id="Login"
-                  label="Login"
-                  variant="outlined"
-                  value={values.Login}
-                  onChange={props.handleChange}
-                  className="textfield"
-                />
-              </Grid>
-            <Grid item xs={12}>
-                <TextField
-                  id="Password"
-                  label="Hasło"
-                  variant="outlined"
-                  type="password"
-                  value={values.Password}
-                  className="textfield"
-                  onChange={props.handleChange}
-                />
-              </Grid>
-            <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  className="button"
-                  onClick={props.handleSubmit}
-                >
-                  Zaloguj się
-              </Button>
-              </Grid>
+              <TextField
+                id="Login"
+                label="Login"
+                variant="outlined"
+                value={values.Login}
+                onChange={props.handleChange}
+                className="textfield"
+              />
             </Grid>
-      </Card>
-
+            <Grid item xs={12}>
+              <TextField
+                id="Password"
+                label="Hasło"
+                variant="outlined"
+                type="password"
+                value={values.Password}
+                className="textfield"
+                onChange={props.handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                className="button"
+                onClick={props.handleSubmit}
+                type="submit"
+              >
+                Zaloguj się
+              </Button>
+            </Grid>
+          </Grid>
+        </Card>
+      </form>
     </div>
   )
 }

@@ -45,7 +45,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPost("teacher/myLessonPlan")]
+        [HttpGet("teacher/myLessonPlan")]
         public IActionResult GetTeacherLessonPlan()
         {
             try

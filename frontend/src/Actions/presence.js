@@ -3,7 +3,7 @@ import axiosDefault from "./axiosDefault";
 function getMyPresence(date) {
   return axiosDefault({
     method: "GET",
-    url: "/api/student/myAttendances",
+    url: "/api/attendance/student/myAttendances",
     params: {
       day: date.slice(0,2),
       month: date.slice(3,5),

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import StudentTimetableComponent from './StudentTimetableComponent';
-import { getStudentLessonPlan } from '../../../../Actions/lessonPlan';
+import TeacherTimetableComponent from './TeacherTimetableComponent';
+import { getTeacherLessonPlan } from '../../../../Actions/lessonPlan';
 
-class StudentTimetableContainer extends Component {
+class TeacherTimetableContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -11,7 +11,7 @@ class StudentTimetableContainer extends Component {
   }
 
   componentDidMount = () => {
-    getStudentLessonPlan()
+    getTeacherLessonPlan()
       .then((res) => {
         this.setState({
           lessonPlan: res.data.lessonPlan,
@@ -22,11 +22,11 @@ class StudentTimetableContainer extends Component {
   render() {
     return (
       <div>
-        <StudentTimetableComponent
+        <TeacherTimetableComponent
           timetable={this.state.lessonPlan}
         />
       </div>
     );
   };
 }
-export default StudentTimetableContainer;
+export default TeacherTimetableContainer;

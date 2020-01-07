@@ -3,7 +3,7 @@ import axiosDefault from "./axiosDefault";
 function getMyGrades(subjectId) {
   return axiosDefault({
     method: "GET",
-    url: `/api/student/myGrades/${subjectId}`,
+    url: `/api/grade/student/myGrades/${subjectId}`,
   });
 }
 export { getMyGrades };
