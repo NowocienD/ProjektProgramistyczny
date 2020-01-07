@@ -8,7 +8,7 @@ using GradebookBackend.ServicesCore;
 
 namespace GradebookBackend.Controllers
 {
-    [Route("api")]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         private readonly ITokenGeneratorService tokenService;
@@ -45,7 +45,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("user/myId")]
+        [HttpGet("myId")]
         public IActionResult GetIdFromToken()
         {
             string userId = userProviderService.GetUserId();
@@ -57,7 +57,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("user/myProfile")]
+        [HttpGet("myProfile")]
         public IActionResult GetUserData()
         {
             UserDataDTO userDataDTO = userService.GetUserDataByUserId(Int32.Parse(userProviderService.GetUserId()));
@@ -110,7 +110,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPost("user/updateMyPassword")]
+        [HttpPost("updateMyPassword")]
         public IActionResult UpdatedUserPassword([FromBody] UserPasswordChangeDTO userPasswordChangeDTO)
         {
             try

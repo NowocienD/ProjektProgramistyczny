@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GradebookBackend.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/lesson")]
     public class LessonController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;

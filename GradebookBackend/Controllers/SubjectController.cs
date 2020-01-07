@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GradebookBackend.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/subject")]
     public class SubjectController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
@@ -38,7 +38,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("subjects")]
+        [HttpGet("allSubjects")]
         public IActionResult GetAllSubjects()
         {
             int userId = int.Parse(userProviderService.GetUserId());
