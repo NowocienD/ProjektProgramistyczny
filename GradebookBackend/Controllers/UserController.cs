@@ -109,7 +109,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPost("updateMyPassword")]
+        [HttpPost("user/updateMyPassword")]
         public IActionResult UpdatedUserPassword([FromBody] UserPasswordChangeDTO userPasswordChangeDTO)
         {
                 try

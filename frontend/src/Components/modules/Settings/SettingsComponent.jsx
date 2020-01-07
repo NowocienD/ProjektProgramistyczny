@@ -1,34 +1,40 @@
+/* eslint-disable no-template-curly-in-string */
 import React from 'react';
 import { withFormik } from 'formik';
 import { TextField, Button, Typography, Card } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import SnackbarComponent from './../../navigation/SnackbarComponent';
 
 const formikEnhancer = withFormik({
   enableReinitialize: true,
 
   mapPropsToValues: props => ({
-    id: props.user ? props.user.id : 0,
-    email: props.user ? props.user.email : 'email@email.com',
+    //email: props.user ? props.user.email,
     password: '',
     newpassword: '',
     newpasswordrepeat: '',
   }),
 
   handleSubmit: (values, { props }) => {
-    // TODO:backend
+    if (values.newpassword !== values.newpasswordrepeat) {
+      props.showSnackbar("Hasła nie zgadzają się");
+    } else {
+      const data = {
+        OldPassword: values.password,
+        NewPassword: values.newpassword,
+      };
+      props.onSubmit(data)
+        .then(res => {
+          props.showSnackbar(res.data)
+        })
+        .catch(error => {
+          props.showSnackbar(error.response.data);
+        });
+    }
   }
 });
 
 const SettingsComponent = (props) => {
-  const {
-    values,
-    touched,
-    errors,
-    status,
-    handleChange,
-    handleBlur,
-  } = props;
-
   return (
     <Card className="component-container">
       <Typography variant="h5" className="underline-title" >
@@ -36,16 +42,16 @@ const SettingsComponent = (props) => {
       </Typography>
       <Grid container>
         <Grid item xs={12}>
-          <Grid item xs={10} sm={3}>
+          {/* <Grid item xs={10} sm={3}>
             <TextField
               id="email"
               label="E-mail"
               variant="outlined"
-              value={values.email}
+              value={props.values.email}
               disabled
               className="textfield"
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         <Grid item xs={12}>
           <Grid item xs={10} sm={3}>
@@ -53,7 +59,8 @@ const SettingsComponent = (props) => {
               id="password"
               label="Hasło"
               variant="outlined"
-              value={values.password}
+              type="password"
+              value={props.values.password}
               className="textfield"
               onChange={props.handleChange}
             />
@@ -67,7 +74,7 @@ const SettingsComponent = (props) => {
               label="Nowe Hasło"
               variant="outlined"
               type="password"
-              value={values.newpassword}
+              value={props.values.newpassword}
               className="textfield"
               onChange={props.handleChange}
             />
@@ -81,7 +88,7 @@ const SettingsComponent = (props) => {
               label="Powtórz Nowe Hasło"
               variant="outlined"
               type="password"
-              value={values.newpasswordrepeat}
+              value={props.values.newpasswordrepeat}
               className="textfield"
               onChange={props.handleChange}
             />
@@ -93,7 +100,7 @@ const SettingsComponent = (props) => {
             <Button
               variant="contained"
               className="button"
-            // onClick={}TODO
+              onClick={props.handleSubmit}
             >
               Zapisz
               </Button>
@@ -102,7 +109,12 @@ const SettingsComponent = (props) => {
 
 
       </Grid>
-
+      <SnackbarComponent
+        onClose={props.hideSnackbar}
+        message={props.message}
+        open={props.open}
+        type={props.type}
+      />
     </Card>
   );
 }

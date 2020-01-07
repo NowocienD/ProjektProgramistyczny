@@ -24,6 +24,7 @@ namespace GradebookBackend.Controllers
             this.userService = userService;
             this.attendanceService = attendanceService;
         }
+
         [Authorize]
         [HttpGet("student/myAttendances")]
         public IActionResult GetStudentAttendances([FromQuery] int day, [FromQuery] int month, [FromQuery] int year)

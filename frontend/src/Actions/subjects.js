@@ -1,7 +1,10 @@
-import axios from 'axios';
+import axiosDefault from "./axiosDefault";
 
-function getSubjects() {
-    return axios.get('http://localhost:3000/subjects');
-}
+function getMySubjects() {
+    return axiosDefault({
+      method: "GET",
+      url: "/api/student/mySubjects",
+    });
+  }
 
-export { getSubjects };
+export { getMySubjects };
