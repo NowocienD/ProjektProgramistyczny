@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GradebookBackend.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/grade")]
     public class GradeController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
@@ -23,6 +23,15 @@ namespace GradebookBackend.Controllers
             this.gradeService = gradeService;
             this.userService = userService;
             this.userProviderService = userProviderService;
+        }
+
+        [Authorize]
+        [HttpGet("student/myGrades/{subjectId}")]
+        public IActionResult GetStudentGrades(int subjectId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(userService.GetStudentIdByUserId(userId), subjectId);
+            return Ok(gradeListDTO);
         }
 
         [Authorize]

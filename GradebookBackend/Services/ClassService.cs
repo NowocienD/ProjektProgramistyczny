@@ -12,10 +12,12 @@ namespace GradebookBackend.Services
     public class ClassService : IClassService
     {
         private readonly IRepository<ClassDAO> classRepository;
+        private readonly IRepository<LessonDAO> lessonRepository;
 
-        public ClassService(IRepository<ClassDAO> classRepository)
+        public ClassService(IRepository<ClassDAO> classRepository, IRepository<LessonDAO> lessonRepository)
         {
             this.classRepository = classRepository;
+            this.lessonRepository = lessonRepository;
         }
 
         public ClassListDTO GetAllClasses()
@@ -32,6 +34,41 @@ namespace GradebookBackend.Services
                 classesDTO.ClassList.Add(classDTO);
             }
             return classesDTO;
+        }
+
+        public ClassListDTO GetAllClassesOfTeacher(int teacherId)
+        {
+            ClassListDTO classListDTO = new ClassListDTO();
+            IEnumerable<LessonDAO> lessons = lessonRepository.GetAll();
+            foreach(LessonDAO lesson in lessons)
+            {
+                if(lesson.TeacherId == teacherId)
+                {
+                    ClassDTO newClass = new ClassDTO()
+                    {
+                        Id = lesson.ClassId,
+                        Name = classRepository.Get(lesson.ClassId).Name
+                    };
+                    if (!IsClassAlreadyInClassList(classListDTO, newClass))
+                    {
+                        classListDTO.ClassList.Add(newClass);
+                    }
+                }
+            }
+            return classListDTO;
+        }
+
+        public bool IsClassAlreadyInClassList(ClassListDTO classListDTO, ClassDTO classDTO)
+        {
+            bool isAlready = false;
+            foreach(ClassDTO checkedClass in classListDTO.ClassList)
+            {
+                if(checkedClass.Id == classDTO.Id)
+                {
+                    isAlready = true;
+                }
+            }
+            return isAlready;
         }
     }
 }

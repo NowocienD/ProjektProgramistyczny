@@ -10,22 +10,35 @@ using System.Threading.Tasks;
 namespace GradebookBackend.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/subject")]
     public class SubjectController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
         private readonly IUserService userService;
+        private readonly IStudentService studentService;
         private readonly ISubjectService subjectService;
 
-        public SubjectController(IUserProviderService userProviderService, IUserService userService, ISubjectService subjectService)
+        public SubjectController(IUserProviderService userProviderService, IUserService userService,
+            ISubjectService subjectService, IStudentService studentService)
         {
             this.userProviderService = userProviderService;
             this.userService = userService;
             this.subjectService = subjectService;
+            this.studentService = studentService;
         }
 
         [Authorize]
-        [HttpGet("subjects")]
+        [HttpGet("student/mySubjects")]
+        public IActionResult GetStudentSubjects()
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            SubjectListDTO subjectListDTO = subjectService.GetSubjectListByClassId(
+                studentService.GetStudentClassIdByStudentId(userService.GetStudentIdByUserId(userId)));
+            return Ok(subjectListDTO);
+        }
+
+        [Authorize]
+        [HttpGet("allSubjects")]
         public IActionResult GetAllSubjects()
         {
             int userId = int.Parse(userProviderService.GetUserId());

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace GradebookBackend.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/attendance")]
     public class AttendanceController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
