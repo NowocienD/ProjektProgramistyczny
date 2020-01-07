@@ -64,7 +64,7 @@ namespace GradebookBackend.Controllers
             return Ok(userDataDTO);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost("admin/addUser")]
         public IActionResult AddUser([FromBody] NewUserDTO newUserDTO)
         {
@@ -109,7 +109,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPost("updateMyPassword")]
+        [HttpPost("user/updateMyPassword")]
         public IActionResult UpdatedUserPassword([FromBody] UserPasswordChangeDTO userPasswordChangeDTO)
         {
                 try

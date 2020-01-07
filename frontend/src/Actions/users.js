@@ -7,4 +7,12 @@ function getLoggedUserData() {
   });
 }
 
-export { getLoggedUserData };
+function changeMyPassword(data) {
+  return axiosDefault({
+    method: 'POST',
+    url: "/api/user/updateMyPassword",
+    data: data,
+  })
+}
+
+export { getLoggedUserData, changeMyPassword };
