@@ -26,7 +26,7 @@ namespace GradebookBackend.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult GetToken([FromBody] UserLoginCommandDto dto)
+        public IActionResult GetToken([FromBody] UserLoginCommandDTO dto)
         {
             if (dto == null || string.IsNullOrWhiteSpace(dto.Login) || string.IsNullOrEmpty(dto.Password))
             {
@@ -106,6 +106,23 @@ namespace GradebookBackend.Controllers
             {
                 return BadRequest("Logged user is not a admin");
             }
+        }
+
+        [Authorize]
+        [HttpPost("updateMyPassword")]
+        public IActionResult UpdatedUserPassword([FromBody] UserPasswordChangeDTO userPasswordChangeDTO)
+        {
+                try
+                {
+                    int userId = Int32.Parse(userProviderService.GetUserId());
+                    userService.UpdateUserPassword(userPasswordChangeDTO, userId);
+                    return Ok("User password has been updated");
+                }
+                catch (GradebookServerException exception)
+                {
+                    return BadRequest(exception.Message);
+                }
+            
         }
     }
 }
