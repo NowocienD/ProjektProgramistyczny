@@ -39,5 +39,24 @@ namespace GradebookBackend.Controllers
                 return BadRequest("Brak Uprawnien administratora");
             }
         }
+
+        [Authorize]
+        [HttpGet("teacher/myClasses")]
+        public IActionResult GetAllClassesByTeacherId()
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            try
+            {
+                int teacherId = userService.GetTeacherIdByUserId(userId);
+                ClassListDTO classListDTO = classService.GetAllClassesOfTeacher(teacherId);
+                return Ok(classListDTO);
+
+            } catch (GradebookServerException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
     }
 }

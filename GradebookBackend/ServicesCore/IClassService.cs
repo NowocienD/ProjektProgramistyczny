@@ -9,5 +9,6 @@ namespace GradebookBackend.ServicesCore
     public interface IClassService
     {
         public ClassListDTO GetAllClasses();
+        public ClassListDTO GetAllClassesOfTeacher(int teacherId);
     }
 }

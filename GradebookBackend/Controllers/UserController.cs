@@ -38,7 +38,7 @@ namespace GradebookBackend.Controllers
                 string token = tokenService.GenerateToken(userId);
                 return Ok(token);
             }
-            catch(GradebookServerException exception)
+            catch (GradebookServerException exception)
             {
                 return BadRequest(exception.Message);
             }
@@ -94,8 +94,9 @@ namespace GradebookBackend.Controllers
             {
                 try
                 {
-                        userService.UpdateUser(newUserDTO, userId);
-                        return Ok("User has been updated");
+                    userService.UpdateUser(newUserDTO, userId);
+                    return Ok("User has been updated");
+
                 }
                 catch (GradebookServerException exception)
                 {
@@ -112,17 +113,17 @@ namespace GradebookBackend.Controllers
         [HttpPost("user/updateMyPassword")]
         public IActionResult UpdatedUserPassword([FromBody] UserPasswordChangeDTO userPasswordChangeDTO)
         {
-                try
-                {
-                    int userId = Int32.Parse(userProviderService.GetUserId());
-                    userService.UpdateUserPassword(userPasswordChangeDTO, userId);
-                    return Ok("User password has been updated");
-                }
-                catch (GradebookServerException exception)
-                {
-                    return BadRequest(exception.Message);
-                }
-            
+            try
+            {
+                int userId = Int32.Parse(userProviderService.GetUserId());
+                userService.UpdateUserPassword(userPasswordChangeDTO, userId);
+                return Ok("User password has been updated");
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
         }
     }
 }
