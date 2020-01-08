@@ -35,6 +35,30 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
+        [HttpGet("teacher/grades/{subjectId}/{studentId}")]
+        public IActionResult GetGrades(int subjectId, int studentId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            try
+            {
+                if (userService.IsTeacher(userId))
+                {
+                    GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(studentId, subjectId);
+                    return Ok(gradeListDTO);
+                }
+                else
+                {
+                    return BadRequest("Logged user is not teacher");
+                }
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
+        }
+
+        [Authorize]
         [HttpPost("teacher/addGrade/{studentId}")]
         public IActionResult AddNewGrade([FromBody] NewGradeDTO newGradeDTO, int studentId)
         {

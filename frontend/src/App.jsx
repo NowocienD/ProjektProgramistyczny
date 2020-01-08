@@ -11,6 +11,7 @@ import StudentNotesContainer from './Components/modules/Student/Notes/StudentNot
 
 import TeacherTimetableContainer from './Components/modules/Teacher/Timetable/TeacherTimetableContainer';
 import TeacherNotesContainer from './Components/modules/Teacher/Notes/TeacherNotesContainer';
+import TeacherGradesContainer from './Components/modules/Teacher/Grades/TeacherGradesContainer';
 
 class App extends Component {
 
@@ -73,7 +74,7 @@ class App extends Component {
       } 
     } else if (role === 'Teacher') {
       this.components = {
-        //GradesContainer: TeacherGradesContainer,
+        GradesContainer: TeacherGradesContainer,
         NotesContainer: TeacherNotesContainer,
         //PresenceContainer: TeacherPresenceContainer,
         TimetableContainer: TeacherTimetableContainer,

@@ -1,17 +1,16 @@
 import React from 'react';
 import { Card, Typography, Select, InputLabel, MenuItem, Grid } from '@material-ui/core';
 import MaterialTable from 'material-table';
-import AddNoteDialog from './AddNoteDialog';
+import AddGradeDialog from './AddGradeDialog';
 
-const TeacherNotesComponent = (props) => {
+const TeacherGradesComponent = (props) => {
   return (
-
     <Card className="component-container">
       <Typography variant="h5" className="underline-title">
         Oceny
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <InputLabel>Klasa</InputLabel>
           <Select
             value={props.class}
@@ -25,7 +24,7 @@ const TeacherNotesComponent = (props) => {
             ))}
           </Select>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <InputLabel>Uczeń</InputLabel>
           <Select
             value={props.student}
@@ -39,27 +38,41 @@ const TeacherNotesComponent = (props) => {
             ))}
           </Select>
         </Grid>
+        <Grid item xs={4}>
+          <InputLabel>Przedmiot</InputLabel>
+          <Select
+            value={props.subject}
+            onChange={props.handleStudentChange}
+            className="select-fluid"
+          >
+            {props.subjects.map(item => (
+              <MenuItem value={item}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </Grid>
       </Grid>
       <MaterialTable
         columns={props.columns}
-        data={props.notes}
+        data={props.grades}
         actions={props.actions}
-        title="Uwagi"
+        title="Oceny"
         options={
           {
             emptyRowsWhenPaging: false,
           }
         }
       />
-      <AddNoteDialog
+      <AddGradeDialog
         dialogVisible={props.dialogVisible}
         hideDialog={props.hideDialog}
-        getNotes={props.getNotes}
-        onAddNote={props.onAddNote}
+        getGrades={props.getGrades}
+        onAddGrade={props.onAddGrade}
       />
     </Card>
   );
 }
 
-export default TeacherNotesComponent;
+export default TeacherGradesComponent;
 

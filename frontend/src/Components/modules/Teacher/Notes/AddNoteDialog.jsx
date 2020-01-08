@@ -31,7 +31,7 @@ const formikEnhancer = withFormik({
   }
 });
 
-const SettingsComponent = (props) => {
+const AddNoteDialog = (props) => {
   return (
     <Dialog
       open={props.dialogVisible}
@@ -81,4 +81,4 @@ const SettingsComponent = (props) => {
   );
 }
 
-export default formikEnhancer(SettingsComponent); 
+export default formikEnhancer(AddNoteDialog); 

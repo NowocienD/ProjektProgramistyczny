@@ -7,4 +7,11 @@ function getMySubjects() {
     });
   }
 
-export { getMySubjects };
+  function getClassSubjects(classId) {
+    return axiosDefault({
+      method: "GET",
+      url: `/api/subject/subjectsFromClass/${classId}`,
+    })
+  }
+
+export { getMySubjects, getClassSubjects };

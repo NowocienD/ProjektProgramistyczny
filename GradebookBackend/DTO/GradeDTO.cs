@@ -13,5 +13,6 @@ namespace GradebookBackend.DTO
         public string Topic { get; set; }
         public string TeacherFirstname { get; set; }
         public string TeacherSurname { get; set; }
+        public string TeacherFullname { get; set; }
     }
 }

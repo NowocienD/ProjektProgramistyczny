@@ -1,18 +1,21 @@
 import React from 'react';
-import TeacherNotesComponent from './TeacherNotesComponent';
+import TeacherGradesComponent from './TeacherGradesComponent';
 import { getTeacherClasses } from '../../../../Actions/class';
 import { getStudentsFromClass } from '../../../../Actions/student';
-import { getStudentNotes, addNote } from '../../../../Actions/notes';
+import { getClassSubjects } from '../../../../Actions/subjects';
+import { getStudentGrades, addGrade } from '../../../../Actions/grades';
 
-class TeacherNotesContainer extends React.Component {
+class TeacherGradesContainer extends React.Component {
   constructor() {
     super();
-    this.state= {
+    this.state = {
       classes: [],
       class: {},
       students: [],
       student: {},
-      notes: [],
+      subjects: [],
+      subject: {},
+      grades: [],
       dialogVisible: false,
     };
   }
@@ -24,19 +27,27 @@ class TeacherNotesContainer extends React.Component {
           classes: res.data.classList,
           class: res.data.classList ? res.data.classList[0] : {},
         }, () => {
-          this.getStudents();
+          this.updateAll();
         });
       })
   }
 
-  getStudents = () => {
+  updateAll = () => {
     getStudentsFromClass(this.state.class.id)
       .then(res => {
         this.setState({
           students: res.data.studentList,
           student: res.data.studentList ? res.data.studentList[0] : {},
         }, () => {
-          this.getNotes();
+          getClassSubjects(this.state.class.id)
+            .then(res => {
+              this.setState({
+                subjects: res.data.subjectList,
+                subject: res.data.subjectList ? res.data.subjectList[0] : {},
+              }, () => {
+                this.getGrades();
+              });
+            });
         });
       })
   }
@@ -46,6 +57,7 @@ class TeacherNotesContainer extends React.Component {
       class: event.target.value,
     }, () => {
       this.getStudents();
+      this.getSubjects();
     })
   }
 
@@ -53,17 +65,22 @@ class TeacherNotesContainer extends React.Component {
     this.setState({
       student: event.target.value,
     }, () => {
-     this.getNotes();
+      this.getGrades();
     })
   }
 
-  getNotes = () => {
-    getStudentNotes(this.state.student.id)
-    .then(res => {
-      this.setState({
-        notes: res.data.noteDTOs,
+  getSubjects = () => {
+    getClassSubjects(this.state.class.id)
+
+  }
+
+  getGrades = () => {
+    getStudentGrades(this.state.student.id, this.state.subject.id)
+      .then(res => {
+        this.setState({
+          grades: res.data.gradeDTOs,
+        });
       });
-    });
   }
 
   hideDialog = () => {
@@ -78,36 +95,48 @@ class TeacherNotesContainer extends React.Component {
     })
   }
 
-  onAddNote = (data) => addNote(data, this.state.student.id);
+  onAddGrade = (data) => {
+    const dt = {
+      subjectId: this.state.subject.id,
+      ...data,
+    };
+    return addGrade(dt, this.state.student.id);
+  }
 
   render() {
     return (
-      <TeacherNotesComponent
+      <TeacherGradesComponent
         classes={this.state.classes}
         class={this.state.class}
         student={this.state.student}
         students={this.state.students}
+        subject={this.state.subject}
+        subjects={this.state.subjects}
         handleClassChange={this.state.handleClassChange}
         handleStudentChange={this.state.handleStudentChange}
-        notes={this.state.notes}
+        grades={this.state.grades}
         columns={[
           {
-            title: 'Treść',
-            field: 'statement'
+            title: 'Ocena',
+            field: 'value',
           },
           {
-            title: 'Data',
-            field: 'date'
+            title: 'Waga',
+            field: 'importance',
+          },
+          {
+            title: 'Temat',
+            field: 'topic',
           },
           {
             title: 'Wpisana przez',
-            field: 'firstNameAndSurname'
+            field: 'teacherFullname',
           },
         ]}
         actions={[
           {
             icon: 'add',
-            toolTip: 'Dodaj uwagę',
+            toolTip: 'Dodaj ocenę',
             isFreeAction: true,
             onClick: this.showDialog,
           }
@@ -115,11 +144,11 @@ class TeacherNotesContainer extends React.Component {
         dialogVisible={this.state.dialogVisible}
         showDialog={this.showDialog}
         hideDialog={this.hideDialog}
-        getNotes={this.getNotes}
-        onAddNote={this.onAddNote}
+        getGrades={this.getGrades}
+        onAddGrade={this.onAddGrade}
       />
     );
   }
 }
 
-export default TeacherNotesContainer;
+export default TeacherGradesContainer;
