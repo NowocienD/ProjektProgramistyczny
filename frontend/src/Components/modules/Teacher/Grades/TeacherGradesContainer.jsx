@@ -121,11 +121,11 @@ class TeacherGradesContainer extends React.Component {
       importance: event.target.value,
     })
   }
-  onUpdateGrade = (data, isCorrection) => {
+  onUpdateGrade = (data) => {
     let newGrade = this.state.value;
     let newImportance = this.state.importance
-    if (isCorrection) {
-      newGrade = Math.round((this.state.grade.value *+ data.value) / 2);
+    if (data.correction) {
+      newGrade = Math.round((this.state.grade.value + this.state.value) / 2);
       newImportance = this.state.grade.importance;
     } 
     const dt = {
@@ -135,6 +135,7 @@ class TeacherGradesContainer extends React.Component {
       importance: newImportance,
       ...data,
     };
+    console.log(dt);
     return updateGrade(dt, this.state.student.id);
   }
 
