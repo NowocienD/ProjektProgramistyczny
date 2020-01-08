@@ -37,7 +37,7 @@ namespace GradebookBackend.Services
                     NoteDTO noteDTO = new NoteDTO
                     {
                         Statement = note.Statement,
-                        Date = note.Date.ToString(),
+                        Date = note.Date.ToString("yyyy-MM-dd"),
                         TeacherFirstName = teacherFirstName,
                         TeacherSurname = teacherSurname,
                         FirstNameAndSurname = teacherFirstName + " " + teacherSurname
