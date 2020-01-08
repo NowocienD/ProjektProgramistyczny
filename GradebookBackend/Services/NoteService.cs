@@ -32,12 +32,16 @@ namespace GradebookBackend.Services
             {
                 if (note.StudentId == studentId)
                 {
+                    string teacherFirstName = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Firstname;
+                    string teacherSurname = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Surname;
                     NoteDTO noteDTO = new NoteDTO
                     {
                         Statement = note.Statement,
                         Date = note.Date.ToString(),
-                        TeacherFirstName = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Firstname,
-                        TeacherSurname = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Surname
+                        TeacherFirstName = teacherFirstName,
+                        TeacherSurname = teacherSurname,
+                        FirstNameAndSurname = teacherFirstName + " " + teacherSurname
+                        
                     };
                     studentNotesDTO.NoteDTOs.Add(noteDTO);
                 }
