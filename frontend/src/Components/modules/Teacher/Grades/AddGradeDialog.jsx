@@ -12,34 +12,40 @@ import {
   MenuItem,
   InputLabel,
   Grid,
+  Checkbox,
 } from '@material-ui/core';
 
 const formikEnhancer = withFormik({
   enableReinitialize: true,
 
   mapPropsToValues: props => ({
-    value: 5,
-    importance: 5,
-    date: new Date(),
-    topic: '',
+    date: props.grade && props.grade.date ? props.grade.date : '',
+    topic: props.grade && props.grade.topic ? props.grade.topic : '',
+    correction: true,
   }),
 
   handleSubmit: (values, { props }) => {
-    props.onAddGrade(values)
+    const onSubmit = props.grade && props.grade.value ? props.onUpdateGrade : props.onAddGrade;
+    onSubmit(values)
       .then(() => {
         props.getGrades()
       })
       .then(props.hideDialog)
       .then(() => {
         values.topic = '';
-        values.date = new Date();
-        values.value = 5;
-        values.importance = 5;
+        values.date = '';
       })
   }
 });
+const grades = [1, 2, 3, 4, 5];
 
 const AddGradeDialog = (props) => {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleCheckbox = event => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <Dialog
       open={props.dialogVisible}
@@ -53,14 +59,12 @@ const AddGradeDialog = (props) => {
           <Grid item xs={12} sm={2}>
             <InputLabel>Ocena</InputLabel>
             <Select
-              id="value"
-              value={props.values.value}
-              onChange={props.handleChange}
-              maxWidth
+              value={props.value}
+              onChange={props.handleValue}
               margin="normal"
             >
-              {[1, 2, 3, 4, 5].map(item => (
-                <MenuItem value={item}>
+              {grades.map(item => (
+                <MenuItem key={item} value={item}>
                   {item}
                 </MenuItem>
               ))}
@@ -69,20 +73,30 @@ const AddGradeDialog = (props) => {
           <Grid item xs={12} sm={2}>
             <InputLabel>Waga</InputLabel>
             <Select
-              id="importance"
-              value={props.values.importance}
-              onChange={props.handleChange}
-              autoWidth
+              disabled={checked}
+              value={checked && props.grade && props.grade.importance ? props.grade.importance : props.importance}
+              onChange={props.handleImportance}
               margin="normal"
             >
-              {[1, 2, 3, 4, 5].map(item => (
-                <MenuItem value={item}>
+              {grades.map(item => (
+                <MenuItem key={item} value={item}>
                   {item}
                 </MenuItem>
               ))}
             </Select>
           </Grid>
-          <Grid item xs={12} sm={8}>
+          {props.grade && props.grade.value &&
+            <Grid item xs={12} sm={2}>
+              <InputLabel>Poprawa</InputLabel>
+              <Checkbox
+                defaultValue="false"
+                checked={checked}
+                value="secondary"
+                onChange={handleCheckbox}
+              />
+            </Grid>
+          }
+          <Grid item xs={12} sm={props.grade && props.grade.value ? 6 : 8}>
             <TextField
               fullWidth
               id="date"
@@ -95,12 +109,13 @@ const AddGradeDialog = (props) => {
                 shrink: true,
               }}
             />
-          </Grid> 
+          </Grid>
           <Grid item xs={12}>
             <TextField
               id="topic"
               label="Temat"
-              value={props.values.topic}
+              value={checked && props.grade && props.grade.topic ? props.grade.topic : props.values.topic}
+              disabled={checked}
               variant="outlined"
               onChange={props.handleChange}
               fullWidth

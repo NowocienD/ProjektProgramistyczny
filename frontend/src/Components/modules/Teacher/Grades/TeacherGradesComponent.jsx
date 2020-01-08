@@ -18,7 +18,7 @@ const TeacherGradesComponent = (props) => {
             className="select-fluid"
           >
             {props.classes.map(item => (
-              <MenuItem value={item}>
+              <MenuItem key={item.name} value={item}>
                 {item.name}
               </MenuItem>
             ))}
@@ -32,7 +32,7 @@ const TeacherGradesComponent = (props) => {
             className="select-fluid"
           >
             {props.students.map(item => (
-              <MenuItem value={item}>
+              <MenuItem key={item.id} value={item}>
                 {item.firstname} {item.surname}
               </MenuItem>
             ))}
@@ -46,7 +46,7 @@ const TeacherGradesComponent = (props) => {
             className="select-fluid"
           >
             {props.subjects.map(item => (
-              <MenuItem value={item}>
+              <MenuItem key={item.id} value={item}>
                 {item.name}
               </MenuItem>
             ))}
@@ -63,12 +63,26 @@ const TeacherGradesComponent = (props) => {
             emptyRowsWhenPaging: false,
           }
         }
+        localization={{
+            header: {
+              actions: 'Akcje',
+            },
+            body: {
+              emptyDataSourceMessage: 'Brak danych do wyświetlenia',
+            }
+        }}
       />
       <AddGradeDialog
         dialogVisible={props.dialogVisible}
         hideDialog={props.hideDialog}
         getGrades={props.getGrades}
         onAddGrade={props.onAddGrade}
+        onUpdateGrade={props.onUpdateGrade}
+        grade={props.grade}
+        handleValue={props.handleValue}
+        handleImportance={props.handleImportance}
+        value={props.value}
+        importance={props.importance}
       />
     </Card>
   );

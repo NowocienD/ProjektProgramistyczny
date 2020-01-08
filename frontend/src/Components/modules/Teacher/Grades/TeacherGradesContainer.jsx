@@ -3,20 +3,23 @@ import TeacherGradesComponent from './TeacherGradesComponent';
 import { getTeacherClasses } from '../../../../Actions/class';
 import { getStudentsFromClass } from '../../../../Actions/student';
 import { getClassSubjects } from '../../../../Actions/subjects';
-import { getStudentGrades, addGrade } from '../../../../Actions/grades';
+import { getStudentGrades, addGrade, updateGrade } from '../../../../Actions/grades';
 
 class TeacherGradesContainer extends React.Component {
   constructor() {
     super();
     this.state = {
       classes: [],
-      class: {},
+      class: '',
       students: [],
-      student: {},
+      student: '',
       subjects: [],
-      subject: {},
+      subject: '',
       grades: [],
+      grade: undefined,
       dialogVisible: false,
+      value: 5,
+      importance: 5,
     };
   }
 
@@ -86,21 +89,53 @@ class TeacherGradesContainer extends React.Component {
   hideDialog = () => {
     this.setState({
       dialogVisible: false,
+      grade: undefined,
     })
   }
 
-  showDialog = () => {
+  showDialog = (event, rowData) => {
     this.setState({
       dialogVisible: true,
+      grade: rowData,
     })
   }
 
   onAddGrade = (data) => {
     const dt = {
+      value: this.state.value,
+      importance: this.state.importance,
       subjectId: this.state.subject.id,
       ...data,
     };
     return addGrade(dt, this.state.student.id);
+  }
+
+  handleValue = (event) => {
+    this.setState({
+      value: event.target.value,
+    })
+  }
+
+  handleImportance = (event) => {
+    this.setState({
+      importance: event.target.value,
+    })
+  }
+  onUpdateGrade = (data, isCorrection) => {
+    let newGrade = this.state.value;
+    let newImportance = this.state.importance
+    if (isCorrection) {
+      newGrade = Math.round((this.state.grade.value *+ data.value) / 2);
+      newImportance = this.state.grade.importance;
+    } 
+    const dt = {
+      id: this.state.grade.id,
+      subjectId: this.state.subject.id,
+      value: newGrade,
+      importance: newImportance,
+      ...data,
+    };
+    return updateGrade(dt, this.state.student.id);
   }
 
   render() {
@@ -115,6 +150,7 @@ class TeacherGradesContainer extends React.Component {
         handleClassChange={this.state.handleClassChange}
         handleStudentChange={this.state.handleStudentChange}
         grades={this.state.grades}
+        grade={this.state.grade}
         columns={[
           {
             title: 'Ocena',
@@ -139,6 +175,11 @@ class TeacherGradesContainer extends React.Component {
             toolTip: 'Dodaj ocenę',
             isFreeAction: true,
             onClick: this.showDialog,
+          },
+          {
+            icon: 'edit',
+            toolTip: 'Edytuj ocenę',
+            onClick: (event, rowData) => this.showDialog(event, rowData),
           }
         ]}
         dialogVisible={this.state.dialogVisible}
@@ -146,6 +187,11 @@ class TeacherGradesContainer extends React.Component {
         hideDialog={this.hideDialog}
         getGrades={this.getGrades}
         onAddGrade={this.onAddGrade}
+        onUpdateGrade={this.onUpdateGrade}
+        handleValue={this.handleValue}
+        handleImportance={this.handleImportance}
+        value={this.state.value}
+        importance={this.state.importance}
       />
     );
   }

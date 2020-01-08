@@ -21,4 +21,12 @@ function addGrade(data, studentId) {
     data: data,
   })
 }
-export { getMyGrades, getStudentGrades, addGrade };
+
+function updateGrade(data, studentId) {
+  return axiosDefault({
+    method: "POST",
+    url: `/api/grade/teacher/updateGrade/${studentId}`,
+    data: data,
+  })
+}
+export { getMyGrades, getStudentGrades, addGrade, updateGrade };

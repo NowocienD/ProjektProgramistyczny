@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import React from 'react';
 import { withFormik } from 'formik';
-import { TextField, Button, Typography, Card, ButtonBase } from '@material-ui/core';
+import { TextField, Button, Typography, Card } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import SnackbarComponent from './../../navigation/SnackbarComponent';
 

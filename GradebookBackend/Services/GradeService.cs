@@ -90,6 +90,7 @@ namespace GradebookBackend.Services
                 {
                     gradeListDTO.GradeDTOs.Add(new GradeDTO
                     {
+                        Id = grade.Id,
                         Value = grade.Value,
                         Importance = grade.Importance,
                         Topic = grade.Topic,
