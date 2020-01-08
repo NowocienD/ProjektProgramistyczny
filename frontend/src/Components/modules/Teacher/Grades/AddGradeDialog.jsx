@@ -51,9 +51,17 @@ const AddGradeDialog = (props) => {
       open={props.dialogVisible}
       onClose={props.hideDialog}
     >
-      <DialogTitle>
-        Dodawanie oceny
-        </DialogTitle>
+      {props.grade && props.grade.value && 
+       <DialogTitle>
+         Edycja oceny
+       </DialogTitle>
+      }
+        {!(props.grade && props.grade.value) && 
+       <DialogTitle>
+         Dodawanie oceny
+       </DialogTitle>
+      }
+     
       <DialogContent>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={2}>
@@ -129,7 +137,7 @@ const AddGradeDialog = (props) => {
           Anuluj
           </Button>
         <Button onClick={props.handleSubmit} color="primary">
-          Dodaj
+          Zapisz
         </Button>
       </DialogActions>
     </Dialog>
