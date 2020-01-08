@@ -54,7 +54,7 @@ namespace GradebookBackend.Services
             NoteDAO newNoteDAO = new NoteDAO
             {
                 Statement = newNoteDTO.Statement,
-                Date = DateTime.ParseExact(newNoteDTO.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Date = DateTime.ParseExact(newNoteDTO.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 StudentId = studentId,
                 TeacherId = teacherId
             };

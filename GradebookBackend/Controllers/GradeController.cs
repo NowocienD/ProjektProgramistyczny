@@ -26,7 +26,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("stttudent/myGrades/{subjectId}")]
+        [HttpGet("student/myGrades/{subjectId}")]
         public IActionResult GetStudentGrades(int subjectId)
         {
             int userId = int.Parse(userProviderService.GetUserId());
