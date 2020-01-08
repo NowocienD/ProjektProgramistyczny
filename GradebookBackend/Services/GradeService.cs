@@ -45,7 +45,7 @@ namespace GradebookBackend.Services
             }
             GradeDAO newGradeDAO = new GradeDAO
             {
-                Date = DateTime.ParseExact(newGradeDTO.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Date = DateTime.ParseExact(newGradeDTO.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 Importance = newGradeDTO.Importance,
                 Topic = newGradeDTO.Topic,
                 Value = newGradeDTO.Value,
@@ -69,7 +69,7 @@ namespace GradebookBackend.Services
             GradeDAO updatedGradeDAO = new GradeDAO
             {
                 Id = updatedGradeDTO.Id,
-                Date = DateTime.ParseExact(updatedGradeDTO.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Date = DateTime.ParseExact(updatedGradeDTO.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 Importance = updatedGradeDTO.Importance,
                 Topic = updatedGradeDTO.Topic,
                 Value = updatedGradeDTO.Value,
@@ -93,7 +93,7 @@ namespace GradebookBackend.Services
                         Value = grade.Value,
                         Importance = grade.Importance,
                         Topic = grade.Topic,
-                        Date = grade.Date.ToString(),
+                        Date = grade.Date.ToString("yyyy-MM-dd"),
                         TeacherFirstname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Firstname,
                         TeacherSurname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Surname
                     });

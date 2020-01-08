@@ -37,7 +37,7 @@ namespace GradebookBackend.Services
                     NoteDTO noteDTO = new NoteDTO
                     {
                         Statement = note.Statement,
-                        Date = note.Date.ToString(),
+                        Date = note.Date.ToString("yyyy-MM-dd"),
                         TeacherFirstName = teacherFirstName,
                         TeacherSurname = teacherSurname,
                         FirstNameAndSurname = teacherFirstName + " " + teacherSurname
@@ -54,7 +54,7 @@ namespace GradebookBackend.Services
             NoteDAO newNoteDAO = new NoteDAO
             {
                 Statement = newNoteDTO.Statement,
-                Date = DateTime.ParseExact(newNoteDTO.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Date = DateTime.ParseExact(newNoteDTO.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 StudentId = studentId,
                 TeacherId = teacherId
             };
