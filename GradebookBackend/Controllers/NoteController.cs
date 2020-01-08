@@ -57,5 +57,20 @@ namespace GradebookBackend.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
+        [Authorize]
+        [HttpGet("teacher/studentNotes/{studentId}")]
+        public IActionResult GetStudentNotesByStudentId(int studentId)
+        {
+            try
+            {
+                NoteListDTO noteListDTO = noteService.GetStudentNotesByStudentId(studentId);
+                return Ok(noteListDTO);
+            }
+            catch(GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }
