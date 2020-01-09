@@ -72,6 +72,7 @@ namespace GradebookBackend.Services
                             {
                                 StudentId = student.Id,
                                 Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
+                                AttendanceStatusId = attendance.AttendanceStatusId,
                                 AttendanceStatus = attendanceStatusRepository.Get(attendance.AttendanceStatusId).Name
                             });
                             attendanceEntered = true;
@@ -84,7 +85,7 @@ namespace GradebookBackend.Services
                         {
                             StudentId = student.Id,
                             Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
-                            AttendanceStatus = "Not entered"
+                            AttendanceStatus = "nie wpisano"
                         });
                     }
                     attendanceEntered = false;
