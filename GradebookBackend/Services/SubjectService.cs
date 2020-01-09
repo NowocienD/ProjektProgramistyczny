@@ -65,7 +65,26 @@ namespace GradebookBackend.Services
 
         public void DeleteSubject(int subjectId)
         {
-            subjectRepository.Delete(subjectId);
+            if (IsSubjectRepositoryContaining(subjectId))
+            {
+                subjectRepository.Delete(subjectId);
+            }
+            else
+            {
+                throw new GradebookServerException("Nie ma przedmiotu o podanym Id");
+            }
+        }
+
+        public bool IsSubjectRepositoryContaining(int subjectId)
+        {
+            foreach(SubjectDAO checkedSubject in subjectRepository.GetAll())
+            {
+                if(checkedSubject.Id == subjectId)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
