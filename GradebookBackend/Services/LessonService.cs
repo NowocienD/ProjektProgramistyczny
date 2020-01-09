@@ -48,5 +48,17 @@ namespace GradebookBackend.Services
             }
             return lessonPlanDTO;
         }
+        public int GetLessonId(int lessonNumber, int dayOfTheWeek, int classId)
+        {
+            IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
+            foreach(LessonDAO lesson in lessons)
+            {
+                if (lesson.LessonNumber == lessonNumber && lesson.DayOfTheWeek == dayOfTheWeek && lesson.ClassId == classId)
+                {
+                    return lesson.Id;
+                }
+            }
+            throw new GradebookServerException("Nie znaleziono lekcji o przekazanych danych");
+        }
     }
 }
