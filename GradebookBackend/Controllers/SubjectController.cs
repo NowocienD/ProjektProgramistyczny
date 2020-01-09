@@ -68,5 +68,31 @@ namespace GradebookBackend.Controllers
             }
         }
 
+        [Authorize]
+        [HttpDelete("admin/deleteSubject/{subjectId}")]
+        public IActionResult DeleteSubject(int subjectId)
+        {
+            try
+            {
+                int userId = int.Parse(userProviderService.GetUserId());
+                if (userService.IsAdmin(userId))
+                {
+                    subjectService.DeleteSubject(subjectId);
+                    return Ok("Pomyslnie usunieto przedmiot");
+                }
+                else
+                {
+                    return BadRequest("Zalogowany uzytkownik nie jest administratorem");
+                }
+
+            }catch(GradebookServerException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+
     }
 }

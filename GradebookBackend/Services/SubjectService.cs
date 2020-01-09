@@ -63,5 +63,10 @@ namespace GradebookBackend.Services
             subjectRepository.Add(newSubject);
         }
 
+        public void DeleteSubject(int subjectId)
+        {
+            subjectRepository.Delete(subjectId);
+        }
+
     }
 }
