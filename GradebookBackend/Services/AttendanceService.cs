@@ -14,12 +14,17 @@ namespace GradebookBackend.Services
     {
         private readonly IRepository<AttendanceDAO> attendanceRepository;
         private readonly IRepository<LessonDAO> lessonRepository;
+        private readonly IRepository<StudentDAO> studentRepository;
+        private readonly IRepository<UserDAO> userRepository;
 
 
-        public AttendanceService(IRepository<AttendanceDAO> attendanceRepository, IRepository<LessonDAO> lessonRepository)
+        public AttendanceService(IRepository<AttendanceDAO> attendanceRepository, IRepository<LessonDAO> lessonRepository,
+            IRepository<StudentDAO> studentRepository, IRepository<UserDAO> userRepository)
         {
             this.attendanceRepository = attendanceRepository;
             this.lessonRepository = lessonRepository;
+            this.studentRepository = studentRepository;
+            this.userRepository = userRepository;
         }
         public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, int day, int month, int year)
         {
@@ -41,6 +46,49 @@ namespace GradebookBackend.Services
                     }
                 }
             return attendancesPlanDTO;
+        }
+        public SingleLessonAttendancesListDTO  GetClassAttendances(int teacherId, int classId, int lessonId, int day, int month, int year)
+        {
+            if (day == 0 || month == 0 || year == 0 || classId == 0 || lessonId == 0)
+            {
+                throw new GradebookServerException("day, month, year, classId and lessonId can't be equal 0");
+            }
+            SingleLessonAttendancesListDTO singleLessonAttendancesListDTO = new SingleLessonAttendancesListDTO();
+            DateTime date = new DateTime(year, month, day);
+            IEnumerable<StudentDAO> students = studentRepository.GetAll();
+            IEnumerable<AttendanceDAO> attendances = attendanceRepository.GetAll();
+            bool attendanceEntered = false;
+            foreach (StudentDAO student in students)
+            {
+                if(student.ClassId == classId)
+                {
+                    foreach(AttendanceDAO attendance in attendances)
+                    {
+                        if(attendance.StudentId == student.Id && attendance.LessonId == lessonId && attendance.Date == date)
+                        {
+                            singleLessonAttendancesListDTO.SingleLessonAttendances.Add(new SingleLessonAttendanceDTO
+                            {
+                                Id = student.Id,
+                                Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
+                                Attendance = attendance.State
+                            });
+                            attendanceEntered = true;
+                            break;
+                        }
+                    }
+                    if (!attendanceEntered)
+                    {
+                        singleLessonAttendancesListDTO.SingleLessonAttendances.Add(new SingleLessonAttendanceDTO
+                        {
+                            Id = student.Id,
+                            Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
+                            Attendance = "not entered"
+                        });
+                    }
+                    attendanceEntered = false;
+                }
+            }
+            return singleLessonAttendancesListDTO;
         }
     }
 }
