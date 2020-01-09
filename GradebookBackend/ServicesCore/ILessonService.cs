@@ -10,5 +10,6 @@ namespace GradebookBackend.ServicesCore
     {
         public LessonPlanDTO GetStudentLessonPlanByClassId(int classId);
         public LessonPlanDTO GetTeacherLessonPlanByTeacherId(int teacherId);
+        public int GetLessonId(int lessonNumber, int dayOfTheWeek, int classId);
     }
 }
