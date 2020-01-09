@@ -9,6 +9,8 @@ import {
   Grid,
 } from '@material-ui/core';
 
+import { MaterialTable } from 'material-table';
+
 const TeacherPresenceComponent = (props) => {
   return (
     <Card className="component-container">
@@ -55,6 +57,24 @@ const TeacherPresenceComponent = (props) => {
           />
         </Grid>
       </Grid>
+      <MaterialTable
+        columns={props.columns}
+        data={props.data}
+        title="Oceny"
+        options={
+          {
+            emptyRowsWhenPaging: false,
+          }
+        }
+        localization={{
+          header: {
+            actions: 'Akcje',
+          },
+          body: {
+            emptyDataSourceMessage: 'Brak danych do wyświetlenia',
+          }
+        }}
+      />
     </Card>
   )
 }

@@ -11,18 +11,24 @@ class TeacherPresenceContainer extends React.Component {
       date: new Date().toISOString().slice(0,10),
       class: '',
       lesson: 1,
+      data: [],
     }
   }
 
   componentDidMount() {
-    console.log(this.state.date);
     getTeacherClasses()
       .then(res => {
         this.setState({
           classes: res.data.classList,
           class: res.data.classList ? res.data.classList[0] : '',
+        }, () => {
+          this.getData();
         });
       })
+  }
+
+  getData = () => {
+    
   }
 
   handleDateChange = (event) => {
