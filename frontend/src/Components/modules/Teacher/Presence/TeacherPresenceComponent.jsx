@@ -9,7 +9,7 @@ import {
   Grid,
 } from '@material-ui/core';
 
-import { MaterialTable } from 'material-table';
+import MaterialTable from 'material-table';
 
 const TeacherPresenceComponent = (props) => {
   return (
@@ -60,7 +60,8 @@ const TeacherPresenceComponent = (props) => {
       <MaterialTable
         columns={props.columns}
         data={props.data}
-        title="Oceny"
+        title="Obecności"
+        editable={props.editable}
         options={
           {
             emptyRowsWhenPaging: false,
