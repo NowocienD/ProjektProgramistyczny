@@ -16,15 +16,17 @@ namespace GradebookBackend.Services
         private readonly IRepository<LessonDAO> lessonRepository;
         private readonly IRepository<StudentDAO> studentRepository;
         private readonly IRepository<UserDAO> userRepository;
-
+        private readonly IRepository<AttendanceStatusDAO> attendanceStatusRepository;
 
         public AttendanceService(IRepository<AttendanceDAO> attendanceRepository, IRepository<LessonDAO> lessonRepository,
-            IRepository<StudentDAO> studentRepository, IRepository<UserDAO> userRepository)
+            IRepository<StudentDAO> studentRepository, IRepository<UserDAO> userRepository,
+            IRepository<AttendanceStatusDAO> attendanceStatusRepository)
         {
             this.attendanceRepository = attendanceRepository;
             this.lessonRepository = lessonRepository;
             this.studentRepository = studentRepository;
             this.userRepository = userRepository;
+            this.attendanceStatusRepository = attendanceStatusRepository;
         }
         public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, int day, int month, int year)
         {
@@ -42,7 +44,7 @@ namespace GradebookBackend.Services
                     {
                         int dayOfTheWeek = lessonRepository.Get(attendance.LessonId).DayOfTheWeek;
                         int lessonNumber = lessonRepository.Get(attendance.LessonId).LessonNumber;
-                        attendancesPlanDTO.AttendancesPlan[dayOfTheWeek].Attendances[lessonNumber] = attendance.AttendanceStatusId.ToString();
+                        attendancesPlanDTO.AttendancesPlan[dayOfTheWeek].Attendances[lessonNumber] = attendanceStatusRepository.Get(attendance.AttendanceStatusId).Name;
                     }
                 }
             return attendancesPlanDTO;
@@ -70,7 +72,7 @@ namespace GradebookBackend.Services
                             {
                                 StudentId = student.Id,
                                 Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
-                                AttendanceStatusId = attendance.AttendanceStatusId //TODO
+                                AttendanceStatus = attendanceStatusRepository.Get(attendance.AttendanceStatusId).Name
                             });
                             attendanceEntered = true;
                             break;
@@ -82,7 +84,7 @@ namespace GradebookBackend.Services
                         {
                             StudentId = student.Id,
                             Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
-                            AttendanceStatusId = 0 //TODO
+                            AttendanceStatus = "Not entered"
                         });
                     }
                     attendanceEntered = false;
