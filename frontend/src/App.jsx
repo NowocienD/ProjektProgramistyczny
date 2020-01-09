@@ -12,6 +12,7 @@ import StudentNotesContainer from './Components/modules/Student/Notes/StudentNot
 import TeacherTimetableContainer from './Components/modules/Teacher/Timetable/TeacherTimetableContainer';
 import TeacherNotesContainer from './Components/modules/Teacher/Notes/TeacherNotesContainer';
 import TeacherGradesContainer from './Components/modules/Teacher/Grades/TeacherGradesContainer';
+import TeacherPresenceContainer from './Components/modules/Teacher/Presence/TeacherPresenceContainer';
 
 class App extends Component {
 
@@ -76,7 +77,7 @@ class App extends Component {
       this.components = {
         GradesContainer: TeacherGradesContainer,
         NotesContainer: TeacherNotesContainer,
-        //PresenceContainer: TeacherPresenceContainer,
+        PresenceContainer: TeacherPresenceContainer,
         TimetableContainer: TeacherTimetableContainer,
       }  
     }

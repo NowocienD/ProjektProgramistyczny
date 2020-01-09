@@ -87,8 +87,8 @@ class TeacherNotesContainer extends React.Component {
         class={this.state.class}
         student={this.state.student}
         students={this.state.students}
-        handleClassChange={this.state.handleClassChange}
-        handleStudentChange={this.state.handleStudentChange}
+        handleClassChange={this.handleClassChange}
+        handleStudentChange={this.handleStudentChange}
         notes={this.state.notes}
         columns={[
           {

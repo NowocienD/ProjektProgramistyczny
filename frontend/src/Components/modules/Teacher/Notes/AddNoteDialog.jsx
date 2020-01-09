@@ -61,9 +61,8 @@ const AddNoteDialog = (props) => {
           variant="outlined"
           onChange={props.handleChange}
           type="date"
-          format="dd/MM/yyy"
           fullWidth
-          margin="normal"x
+          margin="normal"
           InputLabelProps={{
             shrink: true,
           }}

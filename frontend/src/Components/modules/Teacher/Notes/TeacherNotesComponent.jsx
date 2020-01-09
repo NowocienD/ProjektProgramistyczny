@@ -8,7 +8,7 @@ const TeacherNotesComponent = (props) => {
 
     <Card className="component-container">
       <Typography variant="h5" className="underline-title">
-        Oceny
+        Uwagi
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={6}>
