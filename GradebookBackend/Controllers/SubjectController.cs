@@ -68,7 +68,7 @@ namespace GradebookBackend.Controllers
                 }
                 else
                 {
-                    return BadRequest("User is not admin");
+                    return BadRequest("Uzytkownik nie jest administratorem");
                 }
 
             } catch(GradebookServerException ex)

@@ -60,6 +60,13 @@ namespace GradebookBackend.Services
             {
                 Name = newSubjectDTO.Name
             };
+            foreach(SubjectDAO checkedSubject in subjectRepository.GetAll())
+            {
+                if (checkedSubject.Name.Equals(newSubject.Name))
+                {
+                    throw new GradebookServerException("Proba dodania przedmiotu, którzy juz istnieje");
+                }
+            }
             subjectRepository.Add(newSubject);
         }
 
