@@ -66,6 +66,7 @@ class TeacherGradesContainer extends React.Component {
   }
 
   handleStudentChange = (event) => {
+    console.log("adsa")
     this.setState({
       student: event.target.value,
     }, () => {
@@ -73,9 +74,16 @@ class TeacherGradesContainer extends React.Component {
     })
   }
 
+  handleSubjectChange = (event) => {
+    this.setState({
+      subject: event.target.value,
+    }, () => {
+      this.getGrades();
+    })
+  }
+
   getSubjects = () => {
     getClassSubjects(this.state.class.id)
-
   }
 
   getGrades = () => {
@@ -179,6 +187,7 @@ class TeacherGradesContainer extends React.Component {
         subjects={this.state.subjects}
         handleClassChange={this.handleClassChange}
         handleStudentChange={this.handleStudentChange}
+        handleSubjectChange={this.handleSubjectChange}
         grades={this.state.grades}
         grade={this.state.grade}
         columns={[

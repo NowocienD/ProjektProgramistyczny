@@ -43,7 +43,7 @@ const TeacherGradesComponent = (props) => {
           <InputLabel>Przedmiot</InputLabel>
           <Select
             value={props.subject}
-            onChange={props.handleStudentChange}
+            onChange={props.handleSubjectChange}
             className="select-fluid"
           >
             {props.subjects.map(item => (
