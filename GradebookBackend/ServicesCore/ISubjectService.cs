@@ -10,5 +10,6 @@ namespace GradebookBackend.ServicesCore
     {
         public SubjectListDTO GetSubjectListByClassId(int classId);
         public SubjectListDTO GetAllSubjects();
+        public void AddNewSubject(SubjectDTO newSubjectDTO);
     }
 }
