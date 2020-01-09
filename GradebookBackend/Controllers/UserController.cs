@@ -64,12 +64,12 @@ namespace GradebookBackend.Controllers
             return Ok(userDataDTO);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("admin/addUser")]
         public IActionResult AddUser([FromBody] NewUserDTO newUserDTO)
         {
-            if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
-            {
+            //if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
+           // {
                 try
                 {
                     userService.AddUser(newUserDTO);
@@ -79,11 +79,11 @@ namespace GradebookBackend.Controllers
                 {
                     return BadRequest(exception.Message);
                 }
-            }
-            else
-            {
-                return BadRequest("Logged user is not a admin");
-            }
+            //}
+            //else
+           // {
+               // return BadRequest("Logged user is not a admin");
+            //}
         }
 
         [Authorize]

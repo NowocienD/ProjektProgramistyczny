@@ -61,8 +61,7 @@ class TeacherGradesContainer extends React.Component {
     this.setState({
       class: event.target.value,
     }, () => {
-      this.getStudents();
-      this.getSubjects();
+      this.updateAll();
     })
   }
 
@@ -178,8 +177,8 @@ class TeacherGradesContainer extends React.Component {
         students={this.state.students}
         subject={this.state.subject}
         subjects={this.state.subjects}
-        handleClassChange={this.state.handleClassChange}
-        handleStudentChange={this.state.handleStudentChange}
+        handleClassChange={this.handleClassChange}
+        handleStudentChange={this.handleStudentChange}
         grades={this.state.grades}
         grade={this.state.grade}
         columns={[

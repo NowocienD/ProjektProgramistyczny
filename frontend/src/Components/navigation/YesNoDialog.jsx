@@ -15,12 +15,12 @@ const YesNoDialog = (props) => {
       maxWidth='xs'
       fullWidth
     >
-        <DialogTitle>
-          {props.title}
-       </DialogTitle>
-       <DialogContentText style={{textAlign: 'center'}}>
-         {props.content}
-       </DialogContentText>
+      <DialogTitle>
+        {props.title}
+      </DialogTitle>
+      <DialogContentText style={{ textAlign: 'center' }}>
+        {props.content}
+      </DialogContentText>
       <DialogActions>
         <Button onClick={props.onHide} color="primary">
           Nie
