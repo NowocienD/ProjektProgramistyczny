@@ -36,13 +36,14 @@ const formikEnhancer = withFormik({
 
 const SettingsComponent = (props) => {
   return (
-    <Card className="component-container">
-      <Typography variant="h5" className="underline-title" >
-        Opcje konta
+    <form onSubmit={props.handleSubmit}>
+      <Card className="component-container">
+        <Typography variant="h5" className="underline-title" >
+          Opcje konta
       </Typography>
-      <Grid container>
-        <Grid item xs={12}>
-          {/* <Grid item xs={10} sm={3}>
+        <Grid container>
+          <Grid item xs={12}>
+            {/* <Grid item xs={10} sm={3}>
             <TextField
               id="email"
               label="E-mail"
@@ -52,70 +53,72 @@ const SettingsComponent = (props) => {
               className="textfield"
             />
           </Grid> */}
-        </Grid>
-        <Grid item xs={12}>
-          <Grid item xs={10} sm={3}>
-            <TextField
-              id="password"
-              label="Hasło"
-              variant="outlined"
-              type="password"
-              value={props.values.password}
-              className="textfield"
-              onChange={props.handleChange}
-            />
           </Grid>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Grid item xs={10} sm={3}>
-            <TextField
-              id="newpassword"
-              label="Nowe Hasło"
-              variant="outlined"
-              type="password"
-              value={props.values.newpassword}
-              className="textfield"
-              onChange={props.handleChange}
-            />
+          <Grid item xs={12}>
+            <Grid item xs={10} sm={3}>
+              <TextField
+                id="password"
+                label="Hasło"
+                variant="outlined"
+                type="password"
+                value={props.values.password}
+                className="textfield"
+                onChange={props.handleChange}
+              />
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Grid item xs={12}>
-          <Grid item xs={10} sm={3}>
-            <TextField
-              id="newpasswordrepeat"
-              label="Powtórz Nowe Hasło"
-              variant="outlined"
-              type="password"
-              value={props.values.newpasswordrepeat}
-              className="textfield"
-              onChange={props.handleChange}
-            />
+          <Grid item xs={12}>
+            <Grid item xs={10} sm={3}>
+              <TextField
+                id="newpassword"
+                label="Nowe Hasło"
+                variant="outlined"
+                type="password"
+                value={props.values.newpassword}
+                className="textfield"
+                onChange={props.handleChange}
+              />
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Grid item xs={12}>
-          <Grid item xs={10} sm={3}>
-            <Button
-              variant="contained"
-              className="button"
-              onClick={props.handleSubmit}
-            >
-              Zapisz
+          <Grid item xs={12}>
+            <Grid item xs={10} sm={3}>
+              <TextField
+                id="newpasswordrepeat"
+                label="Powtórz Nowe Hasło"
+                variant="outlined"
+                type="password"
+                value={props.values.newpasswordrepeat}
+                className="textfield"
+                onChange={props.handleChange}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Grid item xs={10} sm={3}>
+              <Button
+                variant="contained"
+                className="button"
+                onClick={props.handleSubmit}
+                type="submit"
+              >
+                Zapisz
               </Button>
+            </Grid>
           </Grid>
+
+
         </Grid>
-
-
-      </Grid>
-      <SnackbarComponent
-        onClose={props.hideSnackbar}
-        message={props.message}
-        open={props.open}
-        type={props.type}
-      />
-    </Card>
+        <SnackbarComponent
+          onClose={props.hideSnackbar}
+          message={props.message}
+          open={props.open}
+          type={props.type}
+        />
+      </Card>
+    </form>
   );
 }
 

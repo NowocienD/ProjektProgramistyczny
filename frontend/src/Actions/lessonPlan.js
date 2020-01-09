@@ -1,10 +1,17 @@
 import axiosDefault from "./axiosDefault";
 
-function getMyLessonPlan() {
+function getStudentLessonPlan() {
   return axiosDefault({
     method: "GET",
-    url: "/api/student/myLessonPlan",
+    url: "/api/lesson/student/myLessonPlan",
   });
 }
 
-export { getMyLessonPlan };
+function getTeacherLessonPlan() {
+  return axiosDefault({
+    method: "GET",
+    url: "/api/lesson/teacher/myLessonPlan",
+  });
+}
+
+export { getStudentLessonPlan, getTeacherLessonPlan  };

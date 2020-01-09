@@ -68,6 +68,7 @@ namespace GradebookBackend.Controllers
         [HttpPost("admin/addUser")]
         public IActionResult AddUser([FromBody] NewUserDTO newUserDTO)
         {
+
             if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
             {
                try

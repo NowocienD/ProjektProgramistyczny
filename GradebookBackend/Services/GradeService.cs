@@ -90,12 +90,15 @@ namespace GradebookBackend.Services
                 {
                     gradeListDTO.GradeDTOs.Add(new GradeDTO
                     {
+                        Id = grade.Id,
                         Value = grade.Value,
                         Importance = grade.Importance,
                         Topic = grade.Topic,
                         Date = grade.Date.ToString("yyyy-MM-dd"),
                         TeacherFirstname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Firstname,
-                        TeacherSurname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Surname
+                        TeacherSurname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Surname,
+                        TeacherFullname = usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Firstname
+                        + " " + usersRepository.Get(teachersRepository.Get(grade.TeacherId).UserId).Surname
                     });
                 }
             }

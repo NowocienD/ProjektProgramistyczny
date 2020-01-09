@@ -83,7 +83,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("teacher/addAttendance/{studentId}")]
+        [HttpPost("teacher/addAttendance/{studentId}")]
         public IActionResult AddAttendance([FromBody] NewAttendanceDTO newAttendanceDTO, int studentId)
         {
             try

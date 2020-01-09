@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import GradesComponent from './GradesComponent';
+import StudentGradesComponent from './StudentGradesComponent';
 import { getMySubjects } from './../../../../Actions/subjects';
 import { getMyGrades } from './../../../../Actions/grades';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-class GradesContainer extends Component {
+class StudentGradesContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -47,7 +46,7 @@ class GradesContainer extends Component {
   render() {
     return (
       <div>
-        <GradesComponent
+        <StudentGradesComponent
           subjects={this.state.subjects}
           handleSelectChange={this.handleSelectChange}
           subject={this.state.subject}
@@ -57,4 +56,4 @@ class GradesContainer extends Component {
     );
   };
 }
-export default GradesContainer;
+export default StudentGradesContainer;

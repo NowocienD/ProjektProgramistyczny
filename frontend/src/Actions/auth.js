@@ -3,7 +3,7 @@ import axiosDefault from "./axiosDefault";
 function login(data) {
     return axiosDefault({
       method: "POST",
-      url: "/api/login",
+      url: "/api/user/login",
       data: data,
     }).then(res => {
       const token = res.data;

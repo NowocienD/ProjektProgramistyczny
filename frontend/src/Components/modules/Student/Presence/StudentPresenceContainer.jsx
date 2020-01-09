@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import PresenceComponent from './PresenceComponent';
+import StudentPresenceComponent from './StudentPresenceComponent';
 import { getWeeks } from './../../../../Actions/weekDictionary';
 import { getMyPresence } from './../../../../Actions/presence';
 
 
-class PresenceContainer extends Component {
+class StudentPresenceContainer extends Component {
   constructor() {
     super();
     this.state = {
@@ -35,7 +35,7 @@ class PresenceContainer extends Component {
   render() {
     return (
       <div>
-        <PresenceComponent
+        <StudentPresenceComponent
           weeks={this.state.weeks}
           handleSelectChange={this.handleSelectChange}
           week={this.state.week}
@@ -45,4 +45,4 @@ class PresenceContainer extends Component {
     );
   };
 }
-export default PresenceContainer;
+export default StudentPresenceContainer;

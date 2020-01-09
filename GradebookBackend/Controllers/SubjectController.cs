@@ -38,6 +38,23 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
+        [HttpGet("subjectsFromClass/{classId}")]
+        public IActionResult GetClassSubjects(int classId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsTeacher(userId) || userService.IsAdmin(userId))
+            {
+                SubjectListDTO subjectListDTO = subjectService.GetSubjectListByClassId(classId);
+                return Ok(subjectListDTO);
+            }
+            else
+            {
+                return BadRequest("Logged user is not teacher or admin");
+            }
+        }
+
+
+        [Authorize]
         [HttpGet("allSubjects")]
         public IActionResult GetAllSubjects()
         {
@@ -49,7 +66,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return BadRequest("Logged user is not a admin");
+                return BadRequest("Logged user is not admin");
             }
 
         }

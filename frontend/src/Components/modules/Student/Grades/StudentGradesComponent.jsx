@@ -8,7 +8,7 @@ import { Card, Paper, Typography, MenuItem } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
-const GradesComponent = (props) => {
+const StudentGradesComponent = (props) => {
   return (
   <Card className="component-container">
       <Typography variant="h5" className="underline-title">
@@ -55,4 +55,4 @@ const GradesComponent = (props) => {
 
 };
 
-export default GradesComponent;
+export default StudentGradesComponent;

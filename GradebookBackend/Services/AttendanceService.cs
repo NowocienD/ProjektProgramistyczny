@@ -61,7 +61,7 @@ namespace GradebookBackend.Services
                             singleLessonAttendancesListDTO.SingleLessonAttendances.Add(new SingleLessonAttendanceDTO
                             {
                                 StudentId = student.Id,
-                                Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
+                                Name = userRepository.Get(student.UserId).Firstname + " " + userRepository.Get(student.UserId).Surname,
                                 AttendanceStatusId = attendance.AttendanceStatusId,
                                 AttendanceStatus = attendanceStatusRepository.Get(attendance.AttendanceStatusId).Name
                             });
@@ -74,7 +74,7 @@ namespace GradebookBackend.Services
                         singleLessonAttendancesListDTO.SingleLessonAttendances.Add(new SingleLessonAttendanceDTO
                         {
                             StudentId = student.Id,
-                            Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
+                            Name = userRepository.Get(student.UserId).Firstname + " " + userRepository.Get(student.UserId).Surname,
                             AttendanceStatus = "nie wpisano"
                         });
                     }
