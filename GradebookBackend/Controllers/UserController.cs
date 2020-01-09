@@ -70,15 +70,15 @@ namespace GradebookBackend.Controllers
         {
             if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
             {
-                try
+               try
                 {
                     userService.AddUser(newUserDTO);
                     return Ok("User has been added");
                 }
                 catch (GradebookServerException exception)
-                {
+               {
                     return BadRequest(exception.Message);
-                }
+               }
             }
             else
             {
