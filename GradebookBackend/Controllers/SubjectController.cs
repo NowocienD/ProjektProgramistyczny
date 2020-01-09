@@ -77,8 +77,17 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                subjectService.AddNewSubject(newSubjectDTO);
-                return Ok("Pomyslnie dodano przedmiot");
+                int userId = int.Parse(userProviderService.GetUserId());
+                if (userService.IsAdmin(userId))
+                {
+                    subjectService.AddNewSubject(newSubjectDTO);
+                    return Ok("Pomyslnie dodano przedmiot");
+                }
+                else
+                {
+                    return BadRequest("Uzytkownik nie jest administratorem");
+                }
+
             } catch(GradebookServerException ex)
             {
                 return BadRequest(ex.Message);
