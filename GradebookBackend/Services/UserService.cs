@@ -48,7 +48,7 @@ namespace GradebookBackend.Services
                 IsActive = newUserDTO.IsActive
             };
             newUserDAO.Password = passwordHasher.HashPassword(newUserDTO.Password);
-
+            usersRepository.Add(newUserDAO);
             if (newUserDAO.RoleId == 1) studentsRepository.Add(new StudentDAO
             {
                 UserId = GetUserIdByLoginAndPassword(newUserDAO.Login, newUserDTO.Password),
@@ -72,7 +72,6 @@ namespace GradebookBackend.Services
             {
                 throw new GradebookServerException("Not valid roleId");
             }
-            usersRepository.Add(newUserDAO);
         }
 
         public void UpdateUser(NewUserDTO updatedUserDTO, int userId)

@@ -111,6 +111,7 @@ namespace GradebookBackend
             services.AddScoped<IRepository<ClassDAO>, ClassRepository>();
             services.AddScoped<IRepository<GradeDAO>, GradeRepository>();
             services.AddScoped<IRepository<AttendanceDAO>, AttendanceRepository>();
+            services.AddScoped<IRepository<AttendanceStatusDAO>, AttendanceStatusRepository>();
             services.AddScoped<IRepository<NoteDAO>, NoteRepository>();
             services.AddScoped<IRepository<StudentDAO>, StudentRepository>();
             services.AddScoped<IRepository<TeacherDAO>, TeacherRepository>();

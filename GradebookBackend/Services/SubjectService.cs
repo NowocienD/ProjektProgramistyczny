@@ -53,5 +53,15 @@ namespace GradebookBackend.Services
             }
             return subjectsDTO;
         }
+
+        public void AddNewSubject(SubjectDTO newSubjectDTO)
+        {
+            SubjectDAO newSubject = new SubjectDAO
+            {
+                Name = newSubjectDTO.Name
+            };
+            subjectRepository.Add(newSubject);
+        }
+
     }
 }

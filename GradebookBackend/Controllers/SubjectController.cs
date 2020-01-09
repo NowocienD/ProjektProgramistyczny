@@ -59,7 +59,7 @@ namespace GradebookBackend.Controllers
         public IActionResult GetAllSubjects()
         {
             int userId = int.Parse(userProviderService.GetUserId());
-            if(userService.IsAdmin(userId))
+            if (userService.IsAdmin(userId))
             {
                 SubjectListDTO subjectListDTO = subjectService.GetAllSubjects();
                 return Ok(subjectListDTO);
@@ -69,6 +69,20 @@ namespace GradebookBackend.Controllers
                 return BadRequest("Logged user is not admin");
             }
 
+        }
+
+        [Authorize]
+        [HttpPost("admin/addNewSubject")]
+        public IActionResult AddNewSubject([FromBody]SubjectDTO newSubjectDTO)
+        {
+            try
+            {
+                subjectService.AddNewSubject(newSubjectDTO);
+                return Ok("Pomyslnie dodano przedmiot");
+            } catch(GradebookServerException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }
