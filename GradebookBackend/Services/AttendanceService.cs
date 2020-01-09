@@ -42,7 +42,7 @@ namespace GradebookBackend.Services
                     {
                         int dayOfTheWeek = lessonRepository.Get(attendance.LessonId).DayOfTheWeek;
                         int lessonNumber = lessonRepository.Get(attendance.LessonId).LessonNumber;
-                        attendancesPlanDTO.AttendancesPlan[dayOfTheWeek].Attendances[lessonNumber] = attendance.State;
+                        attendancesPlanDTO.AttendancesPlan[dayOfTheWeek].Attendances[lessonNumber] = attendance.AttendanceStatusId.ToString();
                     }
                 }
             return attendancesPlanDTO;
@@ -68,9 +68,9 @@ namespace GradebookBackend.Services
                         {
                             singleLessonAttendancesListDTO.SingleLessonAttendances.Add(new SingleLessonAttendanceDTO
                             {
-                                Id = student.Id,
+                                StudentId = student.Id,
                                 Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
-                                Attendance = attendance.State
+                                AttendanceStatusId = attendance.AttendanceStatusId //TODO
                             });
                             attendanceEntered = true;
                             break;
@@ -80,9 +80,9 @@ namespace GradebookBackend.Services
                     {
                         singleLessonAttendancesListDTO.SingleLessonAttendances.Add(new SingleLessonAttendanceDTO
                         {
-                            Id = student.Id,
+                            StudentId = student.Id,
                             Name = userRepository.Get(student.UserId).Firstname + userRepository.Get(student.UserId).Surname,
-                            Attendance = "not entered"
+                            AttendanceStatusId = 0 //TODO
                         });
                     }
                     attendanceEntered = false;

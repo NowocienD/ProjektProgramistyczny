@@ -58,5 +58,22 @@ namespace GradebookBackend.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
+        [Authorize]
+        [HttpGet("teacher/addAttendance")]
+        public IActionResult AddAttendance([FromQuery] int classId, [FromQuery] int lessonId, [FromQuery] int day, [FromQuery] int month, [FromQuery] int year)
+        {
+            try
+            {
+                int userId = int.Parse(userProviderService.GetUserId());
+                int teacherId = userService.GetTeacherIdByUserId(userId);
+                SingleLessonAttendancesListDTO singleLessonAttendancesListDTO = attendanceService.GetClassAttendances(teacherId, classId, lessonId, day, month, year);
+                return Ok(singleLessonAttendancesListDTO);
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace GradebookBackend.Repositories
         public DbSet<ClassDAO> Classes { get; set; }
         public DbSet<GradeDAO> Grades { get; set; }
         public DbSet<AttendanceDAO> Attendances { get; set; }
+        public DbSet<AttendanceStatusDAO> AttendancesStatus { get; set; }
         public DbSet<NoteDAO> Notes { get; set; }
         public DbSet<StudentDAO> Students { get; set; }
         public DbSet<TeacherDAO> Teachers { get; set; }

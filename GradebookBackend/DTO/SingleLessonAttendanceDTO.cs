@@ -7,8 +7,8 @@ namespace GradebookBackend.DTO
 {
     public class SingleLessonAttendanceDTO
     {
-        public int Id { get; set; }
+        public int StudentId { get; set; }
         public string Name { get; set; }
-        public string Attendance { get; set; }
+        public int AttendanceStatusId { get; set; }
     }
 }
