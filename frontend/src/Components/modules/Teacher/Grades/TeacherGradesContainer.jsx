@@ -3,7 +3,7 @@ import TeacherGradesComponent from './TeacherGradesComponent';
 import { getTeacherClasses } from '../../../../Actions/class';
 import { getStudentsFromClass } from '../../../../Actions/student';
 import { getClassSubjects } from '../../../../Actions/subjects';
-import { getStudentGrades, addGrade, updateGrade } from '../../../../Actions/grades';
+import { getStudentGrades, addGrade, updateGrade, deleteGrade } from '../../../../Actions/grades';
 
 class TeacherGradesContainer extends React.Component {
   constructor() {
@@ -20,6 +20,8 @@ class TeacherGradesContainer extends React.Component {
       dialogVisible: false,
       value: 5,
       importance: 5,
+      deleteDialogVisible: false,
+      checked: false,
     };
   }
 
@@ -97,7 +99,29 @@ class TeacherGradesContainer extends React.Component {
     this.setState({
       dialogVisible: true,
       grade: rowData,
+      value: rowData.value,
+      importance: rowData.importance,
     })
+  }
+
+  hideDeleteDialog = () => {
+    this.setState({
+      deleteDialogVisible: false,
+      grade: undefined,
+    })
+  }
+
+  showDeleteDialog = (event, rowData) => {
+    this.setState({
+      deleteDialogVisible: true,
+      grade: rowData,
+    })
+  }
+
+  onDelete = () => {
+    return deleteGrade(this.state.grade.id)
+      .then(this.hideDeleteDialog)
+      .then(this.getGrades);
   }
 
   onAddGrade = (data) => {
@@ -121,13 +145,20 @@ class TeacherGradesContainer extends React.Component {
       importance: event.target.value,
     })
   }
+
+  handleChecked = (event) => {
+    this.setState({
+      checked: event.target.checked,
+    });
+  }
+
   onUpdateGrade = (data) => {
     let newGrade = this.state.value;
     let newImportance = this.state.importance
-    if (data.correction) {
+    if (this.state.checked) {
       newGrade = Math.round((this.state.grade.value + this.state.value) / 2);
       newImportance = this.state.grade.importance;
-    } 
+    }
     const dt = {
       id: this.state.grade.id,
       subjectId: this.state.subject.id,
@@ -135,7 +166,6 @@ class TeacherGradesContainer extends React.Component {
       importance: newImportance,
       ...data,
     };
-    console.log(dt);
     return updateGrade(dt, this.state.student.id);
   }
 
@@ -181,6 +211,11 @@ class TeacherGradesContainer extends React.Component {
             icon: 'edit',
             toolTip: 'Edytuj ocenę',
             onClick: (event, rowData) => this.showDialog(event, rowData),
+          },
+          {
+            icon: 'delete',
+            toolTip: 'Usuń ocenę',
+            onClick: (event, rowData) => this.showDeleteDialog(event, rowData),
           }
         ]}
         dialogVisible={this.state.dialogVisible}
@@ -193,6 +228,11 @@ class TeacherGradesContainer extends React.Component {
         handleImportance={this.handleImportance}
         value={this.state.value}
         importance={this.state.importance}
+        hideDeleteDialog={this.hideDeleteDialog}
+        deleteDialogVisible={this.state.deleteDialogVisible}
+        onSubmitDeleteDialog={this.onDelete}
+        checked={this.state.checked}
+        handleChecked={this.handleChecked}
       />
     );
   }

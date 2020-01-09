@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Typography, Select, InputLabel, MenuItem, Grid } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import AddGradeDialog from './AddGradeDialog';
+import YesNoDialog from './../../../navigation/YesNoDialog';
 
 const TeacherGradesComponent = (props) => {
   return (
@@ -64,12 +65,12 @@ const TeacherGradesComponent = (props) => {
           }
         }
         localization={{
-            header: {
-              actions: 'Akcje',
-            },
-            body: {
-              emptyDataSourceMessage: 'Brak danych do wyświetlenia',
-            }
+          header: {
+            actions: 'Akcje',
+          },
+          body: {
+            emptyDataSourceMessage: 'Brak danych do wyświetlenia',
+          }
         }}
       />
       <AddGradeDialog
@@ -83,6 +84,15 @@ const TeacherGradesComponent = (props) => {
         handleImportance={props.handleImportance}
         value={props.value}
         importance={props.importance}
+        checked={props.checked}
+        handleChecked={props.handleChecked}
+      />
+      <YesNoDialog
+        onHide={props.hideDeleteDialog}
+        onSubmit={props.onSubmitDeleteDialog}
+        visible={props.deleteDialogVisible}
+        title="Usuwanie oceny"
+        content="Czy na pewno chcesz usunąć tę ocenę?"
       />
     </Card>
   );

@@ -76,7 +76,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPost("teacher/deleteGrade/{gradeId}")]
+        [HttpDelete("teacher/deleteGrade/{gradeId}")]
         public IActionResult DeleteGrade(int gradeId)
         {
             try
@@ -95,7 +95,7 @@ namespace GradebookBackend.Controllers
             return Ok("Grade has been deleted");
         }
         [Authorize]
-        [HttpPost("teacher/updateGrade/{studentId}")]
+        [HttpPut("teacher/updateGrade/{studentId}")]
         public IActionResult UpdateGrade([FromBody] NewGradeDTO updatedGradeDTO, int studentId)
         {
             try

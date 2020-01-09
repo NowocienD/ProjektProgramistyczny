@@ -21,7 +21,6 @@ const formikEnhancer = withFormik({
   mapPropsToValues: props => ({
     date: props.grade && props.grade.date ? props.grade.date : '',
     topic: props.grade && props.grade.topic ? props.grade.topic : '',
-    correction: true,
   }),
 
   handleSubmit: (values, { props }) => {
@@ -40,12 +39,6 @@ const formikEnhancer = withFormik({
 const grades = [1, 2, 3, 4, 5];
 
 const AddGradeDialog = (props) => {
-  const [checked, setChecked] = React.useState(false);
-
-  const handleCheckbox = event => {
-    setChecked(event.target.checked);
-  };
-
   return (
     <Dialog
       open={props.dialogVisible}
@@ -81,8 +74,8 @@ const AddGradeDialog = (props) => {
           <Grid item xs={12} sm={2}>
             <InputLabel>Waga</InputLabel>
             <Select
-              disabled={checked}
-              value={checked && props.grade && props.grade.importance ? props.grade.importance : props.importance}
+              disabled={props.checked}
+              value={props.checked && props.grade && props.grade.importance ? props.grade.importance : props.importance}
               onChange={props.handleImportance}
               margin="normal"
             >
@@ -97,10 +90,9 @@ const AddGradeDialog = (props) => {
             <Grid item xs={12} sm={2}>
               <InputLabel>Poprawa</InputLabel>
               <Checkbox
-                defaultValue="false"
-                checked={checked}
+                checked={props.checked}
                 value="secondary"
-                onChange={handleCheckbox}
+                onChange={props.handleChecked}
               />
             </Grid>
           }
@@ -122,8 +114,8 @@ const AddGradeDialog = (props) => {
             <TextField
               id="topic"
               label="Temat"
-              value={checked && props.grade && props.grade.topic ? props.grade.topic : props.values.topic}
-              disabled={checked}
+              value={props.checked && props.grade && props.grade.topic ? props.grade.topic : props.values.topic}
+              disabled={props.checked}
               variant="outlined"
               onChange={props.handleChange}
               fullWidth
