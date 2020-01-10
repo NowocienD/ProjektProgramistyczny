@@ -93,7 +93,7 @@ namespace GradebookBackend.Controllers
                 int teacherId = userService.GetTeacherIdByUserId(userId);
                 int classId = studentService.GetStudentClassIdByStudentId(studentId);
                 int lessonId = lessonService.GetLessonId(newAttendanceDTO.LessonNumber, (int)date.DayOfWeek - 1, classId);
-                attendanceService.AddOrUpdateAttendance(date, newAttendanceDTO.AttendanceStatusId, lessonId, studentId);
+                attendanceService.AddUpdateDeleteAttendance(date, newAttendanceDTO.AttendanceStatusId, lessonId, studentId);
                 return Ok("Obecnosc zostala dodana");
             }
             catch (GradebookServerException exception)
