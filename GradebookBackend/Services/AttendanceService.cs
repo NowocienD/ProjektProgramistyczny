@@ -83,8 +83,25 @@ namespace GradebookBackend.Services
             }
             return singleLessonAttendancesListDTO;
         }
-        public void AddAttendance(DateTime date, int attendanceStatusId, int lessonId, int studentId)
+        public void AddOrUpdateAttendance(DateTime date, int attendanceStatusId, int lessonId, int studentId)
         {
+            IEnumerable<AttendanceDAO> attendances = attendanceRepository.GetAll();
+            foreach(AttendanceDAO attendance in attendances)
+            {
+                if(attendance.Date == date && attendance.LessonId == lessonId && attendance.StudentId == studentId)
+                {
+                    AttendanceDAO updatedAttendanceDAO = new AttendanceDAO
+                    {
+                        Id = attendance.Id,
+                        AttendanceStatusId = attendanceStatusId,
+                        StudentId = studentId,
+                        LessonId = lessonId,
+                        Date = date
+                    };
+                    attendanceRepository.Update(updatedAttendanceDAO);
+                    return;
+                }
+            }
             AttendanceDAO newAttendanceDAO = new AttendanceDAO 
             {
                 AttendanceStatusId = attendanceStatusId,
