@@ -10,6 +10,6 @@ namespace GradebookBackend.ServicesCore
     {
         public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, DateTime firstDate);
         public SingleLessonAttendancesListDTO GetClassAttendances(int classId, int lessonId, DateTime date);
-        public void AddAttendance(DateTime date, int attendanceStatusId, int lessonId, int studentId);
+        public void AddOrUpdateAttendance(DateTime date, int attendanceStatusId, int lessonId, int studentId);
     }
 }
