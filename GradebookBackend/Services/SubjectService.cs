@@ -70,6 +70,24 @@ namespace GradebookBackend.Services
             subjectRepository.Add(newSubject);
         }
 
+        public void UpdateSubject(SubjectDTO updatedSubjectDTO, int subjectId)
+        {
+            if (IsSubjectRepositoryContaining(subjectId))
+            {
+                SubjectDAO updatedSubjectDAO = new SubjectDAO
+                {
+                    Id = subjectId,
+                    Name = updatedSubjectDTO.Name
+                };
+                subjectRepository.Update(updatedSubjectDAO);
+            }
+            else
+            {
+                throw new GradebookServerException("Nie ma przedmiotu o tym numerze Id");
+            }
+
+        }
+
         public void DeleteSubject(int subjectId)
         {
             if (IsSubjectRepositoryContaining(subjectId))
