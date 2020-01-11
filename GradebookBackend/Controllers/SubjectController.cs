@@ -88,7 +88,8 @@ namespace GradebookBackend.Controllers
                     return BadRequest("Uzytkownik nie jest administratorem");
                 }
 
-            } catch(GradebookServerException ex)
+            }
+            catch (GradebookServerException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -111,12 +112,35 @@ namespace GradebookBackend.Controllers
                     return BadRequest("Zalogowany uzytkownik nie jest administratorem");
                 }
 
-            }catch(GradebookServerException ex)
+            }
+            catch (GradebookServerException ex)
             {
                 return BadRequest(ex.Message);
             }
         }
 
+        [Authorize]
+        [HttpPut("admin/updateSubject/{subjectId}")]
+        public IActionResult UpdateSubject([FromBody] SubjectDTO updatedSubjectDTO, int subjectId)
+        {
+            try
+            {
+                int userId = int.Parse(userProviderService.GetUserId());
+                if (userService.IsAdmin(userId))
+                {
+                    subjectService.UpdateSubject(updatedSubjectDTO, subjectId);
+                    return Ok("Pomyslnie zaktualizowano przedmiot");
+                }
+                else
+                {
+                    return BadRequest("Zalogowany uzytkownik nie jest administratorem");
+                }
+            }
+            catch (GradebookServerException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
 

@@ -46,6 +46,7 @@ namespace GradebookBackend.Repositories
 
         public SubjectDAO Update(SubjectDAO subjectChanges)
         {
+            context.Entry(subjectChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             var subject = this.context.Subjects.Attach(subjectChanges);
             subject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             this.context.SaveChanges();

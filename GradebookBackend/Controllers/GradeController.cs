@@ -94,6 +94,7 @@ namespace GradebookBackend.Controllers
             }
             return Ok("Grade has been deleted");
         }
+
         [Authorize]
         [HttpPut("teacher/updateGrade/{studentId}")]
         public IActionResult UpdateGrade([FromBody] NewGradeDTO updatedGradeDTO, int studentId)
