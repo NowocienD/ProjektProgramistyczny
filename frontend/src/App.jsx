@@ -14,6 +14,7 @@ import TeacherNotesContainer from './Components/modules/Teacher/Notes/TeacherNot
 import TeacherGradesContainer from './Components/modules/Teacher/Grades/TeacherGradesContainer';
 import TeacherPresenceContainer from './Components/modules/Teacher/Presence/TeacherPresenceContainer';
 import AdminSubjectsContainer from './Components/modules/Admin/AdminSubjectsContainer';
+import AddTeacherSubjectContainer from './Components/modules/Admin/AddTeacherSubjectContainer';
 
 class App extends Component {
 
@@ -93,6 +94,7 @@ class App extends Component {
     } else if (role === 'Admin') {
       this.components = {
         SubjectsContainer: AdminSubjectsContainer,
+        TeacherSubjectContainer: AddTeacherSubjectContainer,
       }
     }
   }

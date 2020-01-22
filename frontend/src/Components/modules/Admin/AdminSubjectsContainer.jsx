@@ -9,12 +9,11 @@ class AdminSubjectsContainer extends React.Component {
     this.state = {
       subjects: [],
       dialogVisible: false,
-      subjectId: {},
+      subjectId: '',
     };
   }
 
   showDialog = (event, data) => {
-    console.log(data.id);
     this.setState({
       dialogVisible: true,
       subjectId: data.id,
@@ -24,7 +23,7 @@ class AdminSubjectsContainer extends React.Component {
   hideDialog = () => {
     this.setState({
       dialogVisible: false,
-      subject: {},
+      subjectId: '',
     })
   }
 
@@ -62,7 +61,6 @@ class AdminSubjectsContainer extends React.Component {
       this.props.showMessage(res.data)
     })
 
-
   render() {
     return (
       <AdminSubjectsComponent
@@ -74,7 +72,7 @@ class AdminSubjectsContainer extends React.Component {
           {
             icon: 'edit',
             toolTip: 'Dodaj nauczyciela',
-            //onClick: (event, rowData) => this.showDialog(event, rowData),
+            onClick: (event, rowData) =>{this.props.history.push(`/subjects/${rowData.id}`)}
           },
           {
             icon: 'delete',
@@ -91,9 +89,13 @@ class AdminSubjectsContainer extends React.Component {
         hideDialog={this.hideDialog}
         onDelete={this.onDeleteSubject}
         dialogVisible={this.state.dialogVisible}
+
+        hideAddDialog={this.hideAddDialog}
+        onSave={this.onSave}
+        addDialogVisible={this.state.addDialogVisible}
       />
     );
   }
 }
 
-export default withSnackbar(AdminSubjectsContainer);
+export default (withSnackbar(AdminSubjectsContainer))

@@ -30,11 +30,17 @@ function getMySubjects() {
   }
 
   function deleteSubject(id) {
-    console.log(id);
     return axiosDefault({
       method: "DELETE",
       url: `/api/subject/admin/deleteSubject/${id}`,
     });
   }
 
-export { getMySubjects, getClassSubjects, getAllSubjects, addSubject, deleteSubject };
+  function getSubjectTeachers(id) {
+    return axiosDefault({
+      method: "GET",
+      url: `/api/teachersubject/admin/allteachersubject/${id}`,
+    });
+  }
+
+export { getMySubjects, getClassSubjects, getAllSubjects, addSubject, deleteSubject, getSubjectTeachers };
