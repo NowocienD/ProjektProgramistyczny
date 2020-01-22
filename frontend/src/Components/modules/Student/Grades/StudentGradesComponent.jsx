@@ -4,7 +4,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Card, Paper, Typography, MenuItem } from '@material-ui/core';
+import { Card, Paper, Typography, MenuItem, Grid } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
@@ -28,7 +28,9 @@ const StudentGradesComponent = (props) => {
           </MenuItem>
         ))}
       </Select>
-      <Paper>
+      <Grid container>
+        <Grid xs={12}>
+<Paper>
         <Table>
           <TableHead>
             <TableRow>
@@ -52,6 +54,9 @@ const StudentGradesComponent = (props) => {
           </TableBody>
         </Table>
       </Paper>
+        </Grid>
+      </Grid>
+      
     </Card>
   )
 
