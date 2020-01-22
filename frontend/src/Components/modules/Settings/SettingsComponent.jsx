@@ -3,7 +3,7 @@ import React from 'react';
 import { withFormik } from 'formik';
 import { TextField, Button, Typography, Card } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-import SnackbarComponent from './../../navigation/SnackbarComponent';
+import { withSnackbar } from './../../navigation/SnackbarContext';
 
 const formikEnhancer = withFormik({
   enableReinitialize: true,
@@ -17,7 +17,7 @@ const formikEnhancer = withFormik({
 
   handleSubmit: (values, { props }) => {
     if (values.newpassword !== values.newpasswordrepeat) {
-      props.showSnackbar("Hasła nie zgadzają się");
+      props.showMessage("Hasła nie zgadzają się");
     } else {
       const data = {
         OldPassword: values.password,
@@ -25,10 +25,10 @@ const formikEnhancer = withFormik({
       };
       props.onSubmit(data)
         .then(res => {
-          props.showSnackbar(res.data)
+          props.showMessage(res.data)
         })
         .catch(error => {
-          props.showSnackbar(error.response.data);
+          props.showMessage(error.response.data);
         });
     }
   }
@@ -111,15 +111,9 @@ const SettingsComponent = (props) => {
 
 
         </Grid>
-        <SnackbarComponent
-          onClose={props.hideSnackbar}
-          message={props.message}
-          open={props.open}
-          type={props.type}
-        />
       </Card>
     </form>
   );
 }
 
-export default formikEnhancer(SettingsComponent); 
+export default withSnackbar(formikEnhancer(SettingsComponent)); 

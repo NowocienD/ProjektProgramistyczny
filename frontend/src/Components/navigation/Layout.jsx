@@ -175,12 +175,13 @@ const Layout = (props) => {
           {props.menu.map(item => {
             return (
               <NavLink
+                key={item.to}
                 to={item.to}
                 className="inactive-button"
                 activeClassName="active-button"
               >
                 <ListItem button key={item.key}>
-                  <ListItemIcon>   <Icon> {item.icon} </Icon> </ListItemIcon>
+                  <ListItemIcon key={item.icon}>  <Icon> {item.icon} </Icon> </ListItemIcon>
                   <ListItemText primary={item.name} />
                 </ListItem>
               </NavLink>

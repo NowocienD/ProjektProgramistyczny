@@ -1,22 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import Auth from "./Auth";
 import * as serviceWorker from "./serviceWorker";
 import { setAuthorizationToken } from "./Actions/auth";
-import LoginContainer from './Components/login/LoginContainer';
-import './layout/layout.scss';
+import LoginContainer from "./Components/login/LoginContainer";
+import "./layout/layout.scss";
+import { SnackbarProvider } from "./../src/Components/navigation/SnackbarContext";
 
-setAuthorizationToken(localStorage.getItem('Token'));
-
+setAuthorizationToken(localStorage.getItem("Token"));
 
 ReactDOM.render(
   <BrowserRouter>
-  <Switch>
-    <Route path='/login' component={LoginContainer} />
-    <Auth />
-  </Switch>
+    <SnackbarProvider>
+      <Switch>
+        <Route path="/login" component={LoginContainer} />
+        <Auth />
+      </Switch>
+    </SnackbarProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );

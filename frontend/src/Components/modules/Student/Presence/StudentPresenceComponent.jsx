@@ -57,13 +57,12 @@ const StudentPresenceComponent = (props) => {
               <TableRow>
                 <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
                 {row.attendances.map((element, index) => {
-                  console.log(element);
                   if (element === 'Not entered') {
-                    return <TableCell align="center" style={{ color: 'red' }}><CloseIcon />Nieobecny</TableCell>
+                    return <TableCell align="center" style={{ color: 'red' }}><CloseIcon />NO</TableCell>
                   } else if (element === 'Obecny') {
-                    return <TableCell align="center" style={{ color: 'green' }}><CheckIcon />Obecny</TableCell>
+                    return <TableCell align="center" style={{ color: 'green' }}><CheckIcon />O</TableCell>
                   } else {
-                    return <TableCell align="center" style={{ color: 'orange' }}><PlaylistAddCheckIcon />Usprawiedliwiony</TableCell>
+                    return <TableCell align="center" style={{ color: 'orange' }}><PlaylistAddCheckIcon />USP</TableCell>
                   }
 
                 })}

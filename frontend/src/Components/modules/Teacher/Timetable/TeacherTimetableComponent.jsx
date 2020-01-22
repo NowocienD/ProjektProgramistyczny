@@ -36,11 +36,11 @@ const TeacherTimetableComponent = (props) => {
           </TableHead>
           <TableBody>
             {props.timetable.map((row, index) => (
-              <TableRow>
+              <TableRow key={index}>
                 <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
                 {row.lessons.map((element, index) => {
                     let name = element === "no lesson" ? '-': element ;
-                    return <TableCell align="center">{name}</TableCell>
+                    return <TableCell key={index} align="center">{name}</TableCell>
                 })}
               </TableRow>
             ))}

@@ -9,9 +9,9 @@ class TeacherNotesContainer extends React.Component {
     super();
     this.state= {
       classes: [],
-      class: {},
+      class: '',
       students: [],
-      student: {},
+      student: '',
       notes: [],
       dialogVisible: false,
     };

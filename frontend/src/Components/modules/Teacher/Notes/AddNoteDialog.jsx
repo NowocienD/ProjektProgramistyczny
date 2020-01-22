@@ -9,6 +9,7 @@ import {
   DialogActions,
   Button,
 } from '@material-ui/core';
+import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 const formikEnhancer = withFormik({
   enableReinitialize: true,
@@ -20,6 +21,12 @@ const formikEnhancer = withFormik({
 
   handleSubmit: (values, { props }) => {
     props.onAddNote(values)
+      .catch(error => {
+        props.showMessage(error.response.data);
+      })
+      .then(res => {
+        props.showMessage(res.data)
+      })
       .then(() => {
         props.getNotes()
       })
@@ -36,7 +43,7 @@ const AddNoteDialog = (props) => {
     <Dialog
       open={props.dialogVisible}
       onClose={props.hideDialog}
-      fullWidth='50%'
+      fullWidth
     >
       <DialogTitle>
         Dodawanie uwagi
@@ -80,4 +87,4 @@ const AddNoteDialog = (props) => {
   );
 }
 
-export default formikEnhancer(AddNoteDialog); 
+export default withSnackbar(formikEnhancer(AddNoteDialog)); 
