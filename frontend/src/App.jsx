@@ -13,6 +13,7 @@ import TeacherTimetableContainer from './Components/modules/Teacher/Timetable/Te
 import TeacherNotesContainer from './Components/modules/Teacher/Notes/TeacherNotesContainer';
 import TeacherGradesContainer from './Components/modules/Teacher/Grades/TeacherGradesContainer';
 import TeacherPresenceContainer from './Components/modules/Teacher/Presence/TeacherPresenceContainer';
+import AdminSubjectsContainer from './Components/modules/Admin/AdminSubjectsContainer';
 
 class App extends Component {
 
@@ -60,8 +61,17 @@ class App extends Component {
             to: '/notes',
           },
         ]
+      } else if (role === 'Admin') {
+        this.menu = [
+          {
+            key: 'subjects',
+            name: "Przedmioty",
+            icon: 'subject',
+            to: '/subjects'
+          }
+        ]
       }
-    }
+    } 
   }
 
   createComponents = (role) => {
@@ -80,6 +90,10 @@ class App extends Component {
         PresenceContainer: TeacherPresenceContainer,
         TimetableContainer: TeacherTimetableContainer,
       }  
+    } else if (role === 'Admin') {
+      this.components = {
+        SubjectsContainer: AdminSubjectsContainer,
+      }
     }
   }
 
