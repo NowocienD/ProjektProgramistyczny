@@ -11,10 +11,10 @@ namespace GradebookBackend.Services
 {
     public class TeacherSubjectService : ITeacherSubjectService
     {
-        public IRepository<TeacherSubjectDAO> teacherSubjectRepository;
+        public IRepositoryRelation<TeacherSubjectDAO> teacherSubjectRepository;
         public IRepository<TeacherDAO> teacherRepository;
         public IRepository<UserDAO> userRepository;
-        public TeacherSubjectService(IRepository<TeacherSubjectDAO> teacherSubjectRepository,
+        public TeacherSubjectService(IRepositoryRelation<TeacherSubjectDAO> teacherSubjectRepository,
             IRepository<TeacherDAO> teacherRepository, IRepository<UserDAO> userRepository)
         {
             this.teacherSubjectRepository = teacherSubjectRepository;
@@ -37,6 +37,21 @@ namespace GradebookBackend.Services
                 }
             }
             return teacherSubjectListDTO;
+        }
+        
+        public void AddTeacherSubject(int teacherId, int subjectId)
+        {
+            TeacherSubjectDAO newTeacherSubject = new TeacherSubjectDAO
+            {
+                TeacherId = teacherId,
+                SubjectId = subjectId
+            };
+            teacherSubjectRepository.Add(newTeacherSubject);
+        }
+
+        public void DeleteTeacherSubject(int teacherId, int subjectId)
+        {
+            teacherSubjectRepository.Delete(teacherId, subjectId);
         }
     }
 }

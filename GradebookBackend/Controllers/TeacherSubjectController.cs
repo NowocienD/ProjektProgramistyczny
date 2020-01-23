@@ -39,5 +39,37 @@ namespace GradebookBackend.Controllers
                 return BadRequest("Brak uprawnien administratora");
             }        
         }
+
+        [Authorize]
+        [HttpGet("admin/addteachersubject")]
+        public IActionResult AddTeacherSubjects([FromQuery] int teacherId, [FromQuery] int subjectId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
+            {
+                teacherSubjectService.AddTeacherSubject(teacherId, subjectId);
+                return Ok("Pomyslnie dodano powiazanie");
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
+
+        [Authorize]
+        [HttpGet("admin/deleteteachersubject")]
+        public IActionResult DeleteTeacherSubjects([FromQuery] int teacherId, [FromQuery] int subjectId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
+            {
+                teacherSubjectService.DeleteTeacherSubject(teacherId, subjectId);
+                return Ok("Pomyslnie usunieto powiazanie");
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
     }
 }
