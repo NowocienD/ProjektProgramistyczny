@@ -1,17 +1,19 @@
 import React from 'react';
-import AddTeacherSubjectComponent from './AdminSubjectsComponent';
-import {  getSubjectTeachers } from '../../../Actions/subjects';
+import AddTeacherSubjectComponent from './AddTeacherSubjectComponent';
+import {  getSubjectTeachers, deleteSubjectTeacher, addSubjectTeacher } from '../../../Actions/subjects';
+import {  geAllTeachers, getAllTeachers } from '../../../Actions/teacher';
 import { withSnackbar } from '../../navigation/SnackbarContext';
 
 class AddTeacherSubjectContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allTeachers: [],
+      leftTeachers: [],
       selectedTeachers: [],
       dialogVisible: false,
       subjectId: props.match.params.subjectId,
-      teacherId: '',
+      teacher: '',
+      addDialogVisible: false,
     };
   }
 
@@ -22,46 +24,80 @@ class AddTeacherSubjectContainer extends React.Component {
   showDialog = (event, data) => {
     this.setState({
       dialogVisible: true,
-      teacherId: data.id,
+      teacher: data,
     })
   }
 
   hideDialog = () => {
     this.setState({
       dialogVisible: false,
-      teacherId: '',
+      teacher: '',
     })
   }
 
-  // onDeleteTeacher = () => deleteSubjectTeacher(this.state.subjectId)
-  //   .catch(error => {
-  //     this.props.showMessage(error.response.data);
-  //     this.hideDialog();
-  //   })
-  //   .then(res => {
-  //     this.update();
-  //     this.props.showMessage(res.data)
-  //     this.hideDialog();
-  //   })
+  showAddDialog = (event, data) => {
+    this.setState({
+      addDialogVisible: true,
+    })
+  }
+
+  hideAddDialog = () => {
+    this.setState({
+      addDialogVisible: false,
+    })
+  }
+
+  onDeleteTeacher = () => deleteSubjectTeacher(this.state.subjectId, this.state.teacher.id)
+    .catch(error => {
+      this.props.showMessage(error.response.data);
+      this.hideDialog();
+    })
+    .then(res => {
+      this.update();
+      this.props.showMessage(res.data)
+      this.hideDialog();
+    })
 
 
-  // onAddTeacher = data => addSubjectTeacher(data)
-  //   .catch(error => {
-  //     this.props.showMessage(error.response.data);
-  //   })
-  //   .then(res => {
-  //     this.update();
-  //     this.props.showMessage(res.data)
-  //   })
+  onAddTeacher = () => addSubjectTeacher(this.state.subjectId, this.state.teacher.id)
+    .catch(error => {
+      this.props.showMessage(error.response.data);
+      this.hideAddDialog();
+    })
+    .then(res => {
+      this.update();
+      this.hideAddDialog();
+      this.props.showMessage(res.data)
+    })
 
   update = () => {
     getSubjectTeachers(this.state.subjectId)
       .then(res => {
-        console.log(res.data);
         this.setState({
           selectedTeachers: res.data.teacherSubjects,
+        }, () => {
+          getAllTeachers()
+            .then(res => {
+              const temp = res.data.teachers.filter(n => {
+                for (let i=0; i < this.state.selectedTeachers.length; i++) {
+                  if (this.state.selectedTeachers[i].id === n.id) {
+                    return false;
+                  }
+                }
+                return true;
+              });
+              this.setState({
+                leftTeachers: temp,
+              });
+            })
         });
       });
+  }
+
+  handleTeacherChange = (event) => {
+    this.setState({
+      teacher: event.target.value,
+    });
   }
 
   render() {
@@ -71,25 +107,33 @@ class AddTeacherSubjectContainer extends React.Component {
         actions={[
           {
             icon: 'add',
-            toolTip: 'Dodaj ocenę',
+            toolTip: 'Dodaj nauczyciela',
             isFreeAction: true,
-            //onClick: (event, rowData) => this.showAddDialog(event, rowData),
+            onClick: this.showAddDialog,
           },
           {
             icon: 'delete',
-            toolTip: 'Usuń przedmiot',
+            toolTip: 'Usuń nauczyciela',
             onClick: (event, rowData) => this.showDialog(event, rowData),
           }
         ]}
         columns={[
           {
             title: 'Nauczyciel',
-            field: 'teacherFirstnameSurname',
+            field: 'firstnameSurname',
           },
         ]}
         hideDialog={this.hideDialog}
-        onDelete={this.onDeleteSubject}
+        onDelete={this.onDeleteTeacher}
         dialogVisible={this.state.dialogVisible}
+
+        leftTeachers={this.state.leftTeachers}
+        teacher={this.state.teacher}
+        handleTeacherChange={this.handleTeacherChange}
+        hideAddDialog={this.hideAddDialog}
+        showAddDialog={this.showAddDialog}
+        addDialogVisible={this.state.addDialogVisible}
+        onAddTeacher={this.onAddTeacher}
       />
     );
   }
