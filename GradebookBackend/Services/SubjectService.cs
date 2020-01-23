@@ -12,9 +12,9 @@ namespace GradebookBackend.Services
     public class SubjectService : ISubjectService
     {
         public IRepository<SubjectDAO> subjectRepository;
-        public IRepository<ClassSubjectDAO> classSubjectRepository;
+        public IRepositoryRelation<ClassSubjectDAO> classSubjectRepository;
 
-        public SubjectService(IRepository<SubjectDAO> subjectRepository, IRepository<ClassSubjectDAO> classSubjectRepository)
+        public SubjectService(IRepository<SubjectDAO> subjectRepository, IRepositoryRelation<ClassSubjectDAO> classSubjectRepository)
         {
             this.subjectRepository = subjectRepository;
             this.classSubjectRepository = classSubjectRepository;
