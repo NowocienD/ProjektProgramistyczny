@@ -121,8 +121,8 @@ namespace GradebookBackend
             services.AddScoped<IRepository<AdminDAO>, AdminRepository>();
             services.AddScoped<IRepository<RoleDAO>, RoleRepository>();
             services.AddScoped<IRepository<UserDAO>, UserRepository>();
-            services.AddScoped<IRepository<ClassSubjectDAO>, ClassSubjectRepository>();
-            services.AddScoped<IRepository<TeacherSubjectDAO>, TeacherSubjectRepository>();
+            services.AddScoped<IRepositoryRelation<ClassSubjectDAO>, ClassSubjectRepository>();
+            services.AddScoped<IRepositoryRelation<TeacherSubjectDAO>, TeacherSubjectRepository>();
 
         }
 
