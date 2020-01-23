@@ -15,10 +15,10 @@ namespace GradebookBackend.Services
         private readonly IRepository<GradeDAO> gradesRepository;
         private readonly IRepository<UserDAO> usersRepository;
         private readonly IRepository<TeacherDAO> teachersRepository;
-        private readonly IRepository<TeacherSubjectDAO> teacherSubjectsRepository;
+        private readonly IRepositoryRelation<TeacherSubjectDAO> teacherSubjectsRepository;
 
         public GradeService(IRepository<GradeDAO> gradesRepository, IRepository<UserDAO> usersRepository,
-            IRepository<TeacherDAO> teachersRepository, IRepository<TeacherSubjectDAO> teacherSubjectsRepository)
+            IRepository<TeacherDAO> teachersRepository, IRepositoryRelation<TeacherSubjectDAO> teacherSubjectsRepository)
         {
             this.gradesRepository = gradesRepository;
             this.usersRepository = usersRepository;
