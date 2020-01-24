@@ -8,7 +8,7 @@ using GradebookBackend.ServicesCore;
 
 namespace GradebookBackend.Controllers
 {
-    [Route("api")]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         private readonly ITokenGeneratorService tokenService;
@@ -38,14 +38,14 @@ namespace GradebookBackend.Controllers
                 string token = tokenService.GenerateToken(userId);
                 return Ok(token);
             }
-            catch(GradebookServerException exception)
+            catch (GradebookServerException exception)
             {
                 return BadRequest(exception.Message);
             }
         }
 
         [Authorize]
-        [HttpGet("user/myId")]
+        [HttpGet("myId")]
         public IActionResult GetIdFromToken()
         {
             string userId = userProviderService.GetUserId();
@@ -57,7 +57,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("user/myProfile")]
+        [HttpGet("myProfile")]
         public IActionResult GetUserData()
         {
             UserDataDTO userDataDTO = userService.GetUserDataByUserId(Int32.Parse(userProviderService.GetUserId()));
@@ -68,17 +68,18 @@ namespace GradebookBackend.Controllers
         [HttpPost("admin/addUser")]
         public IActionResult AddUser([FromBody] NewUserDTO newUserDTO)
         {
+
             if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
             {
-                try
-                {
+               try
+               {
                     userService.AddUser(newUserDTO);
                     return Ok("User has been added");
-                }
+               }
                 catch (GradebookServerException exception)
-                {
+               {
                     return BadRequest(exception.Message);
-                }
+               }
             }
             else
             {
@@ -94,8 +95,9 @@ namespace GradebookBackend.Controllers
             {
                 try
                 {
-                        userService.UpdateUser(newUserDTO, userId);
-                        return Ok("User has been updated");
+                    userService.UpdateUser(newUserDTO, userId);
+                    return Ok("User has been updated");
+
                 }
                 catch (GradebookServerException exception)
                 {
@@ -112,17 +114,32 @@ namespace GradebookBackend.Controllers
         [HttpPost("updateMyPassword")]
         public IActionResult UpdatedUserPassword([FromBody] UserPasswordChangeDTO userPasswordChangeDTO)
         {
-                try
-                {
-                    int userId = Int32.Parse(userProviderService.GetUserId());
-                    userService.UpdateUserPassword(userPasswordChangeDTO, userId);
-                    return Ok("User password has been updated");
-                }
-                catch (GradebookServerException exception)
-                {
-                    return BadRequest(exception.Message);
-                }
-            
+            try
+            {
+                int userId = Int32.Parse(userProviderService.GetUserId());
+                userService.UpdateUserPassword(userPasswordChangeDTO, userId);
+                return Ok("User password has been updated");
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("admin/allusers")]
+        public IActionResult GetAllUsers()
+        {
+            int userId = Int32.Parse(userProviderService.GetUserId());
+            if(userService.IsAdmin(userId))
+            {
+                UserDataListDTO userDataListDTO = userService.GetAllUsers();
+                return Ok(userDataListDTO);
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
         }
     }
 }
