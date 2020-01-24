@@ -15,11 +15,11 @@ namespace GradebookBackend.Repositories
             this.context = context;
         }
 
-        public LessonDAO Add(LessonDAO lesson)
+        public LessonDAO Add(LessonDAO tObjectChanges)
         {
-            this.context.Lessons.Add(lesson);
+            this.context.Lessons.Add(tObjectChanges);
             this.context.SaveChanges();
-            return lesson;
+            return tObjectChanges;
         }
 
         public LessonDAO Delete(int Id)
@@ -44,12 +44,13 @@ namespace GradebookBackend.Repositories
             return this.context.Lessons;
         }
 
-        public LessonDAO Update(LessonDAO lessonChanges)
+        public LessonDAO Update(LessonDAO tObjectChanges)
         {
-            var lesson = this.context.Lessons.Attach(lessonChanges);
+            context.Entry(tObjectChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            var lesson = this.context.Lessons.Attach(tObjectChanges);
             lesson.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             this.context.SaveChanges();
-            return lessonChanges;
+            return tObjectChanges;
         }
     }
 }

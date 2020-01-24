@@ -13,5 +13,7 @@ namespace GradebookBackend.ServicesCore
         public SingleDayLessonPlanDTO GetSingleDayLessonPlanByDayOfTheWeekAndClassId(int dayOfTheWeek, int classId);
         public int GetLessonId(int lessonNumber, int dayOfTheWeek, int classId);
         public bool CheckIfLessonExists(int lessonNumber, int dayOfTheWeek, int classId);
+        public void AddNewLesson(NewLessonDTO newLessonDTO);
+        public void UpdateLesson(NewLessonDTO updatedLessonDTO, int lessonId);
     }
 }
