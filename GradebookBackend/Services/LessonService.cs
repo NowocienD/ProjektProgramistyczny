@@ -64,7 +64,7 @@ namespace GradebookBackend.Services
         public int GetLessonId(int lessonNumber, int dayOfTheWeek, int classId)
         {
             IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
-            foreach(LessonDAO lesson in lessons)
+            foreach (LessonDAO lesson in lessons)
             {
                 if (lesson.LessonNumber == lessonNumber && lesson.DayOfTheWeek == dayOfTheWeek && lesson.ClassId == classId)
                 {
@@ -85,7 +85,7 @@ namespace GradebookBackend.Services
             }
             return false;
         }
-        public void AddNewLesson(NewLessonDTO newLessonDTO)
+        public void AddLesson(NewLessonDTO newLessonDTO)
         {
             LessonDAO newLessonDAO = new LessonDAO
             {
@@ -109,6 +109,10 @@ namespace GradebookBackend.Services
                 TeacherId = updatedLessonDTO.TeacherId,
             };
             lessonsRepository.Update(newLessonDAO);
+        }
+        public void DeleteLesson(int lessonId)
+        {
+            lessonsRepository.Delete(lessonId);
         }
     }
 }
