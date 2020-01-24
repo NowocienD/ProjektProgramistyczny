@@ -43,25 +43,42 @@ namespace GradebookBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AttendanceStatusId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("Date");
 
                     b.Property<int>("LessonId")
                         .HasColumnType("int");
 
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttendanceStatusId");
 
                     b.HasIndex("LessonId");
 
                     b.HasIndex("StudentId");
 
                     b.ToTable("Attendances");
+                });
+
+            modelBuilder.Entity("GradebookBackend.Model.AttendanceStatusDAO", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AttendancesStatus");
                 });
 
             modelBuilder.Entity("GradebookBackend.Model.ClassDAO", b =>
@@ -324,6 +341,12 @@ namespace GradebookBackend.Migrations
 
             modelBuilder.Entity("GradebookBackend.Model.AttendanceDAO", b =>
                 {
+                    b.HasOne("GradebookBackend.Model.AttendanceStatusDAO", "AttendanceStatus")
+                        .WithMany("Attendances")
+                        .HasForeignKey("AttendanceStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GradebookBackend.Model.LessonDAO", "Lesson")
                         .WithMany("Attendances")
                         .HasForeignKey("LessonId")

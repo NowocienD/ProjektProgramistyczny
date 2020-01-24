@@ -10,6 +10,7 @@ import './layout/layout.scss';
 
 setAuthorizationToken(localStorage.getItem('Token'));
 
+
 ReactDOM.render(
   <BrowserRouter>
   <Switch>

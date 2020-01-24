@@ -1,36 +1,36 @@
 import React, { Component } from 'react';
-import GradesComponent from './GradesComponent';
-import { getSubjects } from './../../../../Actions/subjects';
-import { getGrades } from './../../../../Actions/grades';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import StudentGradesComponent from './StudentGradesComponent';
+import { getMySubjects } from './../../../../Actions/subjects';
+import { getMyGrades } from './../../../../Actions/grades';
 
-class GradesContainer extends Component {
+class StudentGradesContainer extends Component {
   constructor() {
     super();
     this.state = {
-      subjects: [],
+      subjects: [{ name: "Matematyka" }, { name: "Polski" }, { name: "Biologia" }, { name: "Chemia" }],
       subject: {},
       grades: [],
     };
   }
 
   componentDidMount = () => {
-    getSubjects()
+    getMySubjects()
       .then(res => {
         this.setState({
-          subjects: res.data,
-          subject: res.data[0],
+          subjects: res.data.subjectList,
+          subject: res.data.subjectList[0],
         }, () => {
           this.updateGrades();
         });
       })
   }
 
+
   updateGrades = () => {
-    getGrades(this.state.subject.id)
+    getMyGrades(this.state.subject.id)
       .then(res => {
         this.setState({
-          grades: res.data,
+          grades: res.data.gradeDTOs,
         });
       });
   }
@@ -42,10 +42,11 @@ class GradesContainer extends Component {
       this.updateGrades();
     });
   }
+
   render() {
     return (
       <div>
-        <GradesComponent
+        <StudentGradesComponent
           subjects={this.state.subjects}
           handleSelectChange={this.handleSelectChange}
           subject={this.state.subject}
@@ -55,4 +56,4 @@ class GradesContainer extends Component {
     );
   };
 }
-export default GradesContainer;
+export default StudentGradesContainer;

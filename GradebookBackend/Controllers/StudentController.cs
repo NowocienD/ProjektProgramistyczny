@@ -10,58 +10,23 @@ using System.Threading.Tasks;
 namespace GradebookBackend.Controllers
 {
     [ApiController]
-    [Route("api")]
-    public class StudentController : ControllerBase
+    [Route("api/student")]
+    public class StudentController : Controller
     {
         private readonly IUserProviderService userProviderService;
         private readonly IStudentService studentService;
         private readonly IUserService userService;
-        private readonly ILessonService lessonService;
-        private readonly ISubjectService subjectService;
-        private readonly IGradeService gradeService;
 
         public StudentController(IUserProviderService userProviderService, IStudentService studentService,
-            IUserService userService, ILessonService lessonService, ISubjectService subjectService,
-            IGradeService gradeService)
+            IUserService userService)
         {
             this.userProviderService = userProviderService;
             this.studentService = studentService;
             this.userService = userService;
-            this.lessonService = lessonService;
-            this.subjectService = subjectService;
-            this.gradeService = gradeService;
         }
 
         [Authorize]
-        [HttpGet("student/myGrades/{subjectId}")]
-        public IActionResult GetStudentGrades(int subjectId)
-        {
-            int userId = int.Parse(userProviderService.GetUserId());
-            GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(userService.GetStudentIdByUserId(userId), subjectId);
-            return Ok(gradeListDTO);
-        }
-        [Authorize]
-        [HttpGet("student/mySubjects")]
-        public IActionResult GetStudentSubjects()
-        {
-            int userId = int.Parse(userProviderService.GetUserId());
-            SubjectListDTO subjectListDTO = subjectService.GetSubjectListByClassId(
-                studentService.GetStudentClassIdByStudentId(userService.GetStudentIdByUserId(userId)));
-            return Ok(subjectListDTO);
-        }
-
-        [Authorize]
-        [HttpGet("student/myLessonPlan")]
-        public IActionResult GetStudentLessonPlan()
-        {
-            int userId = int.Parse(userProviderService.GetUserId());
-            LessonPlanDTO lessonPlanDTO = lessonService.GetLessonPlanByClassId(
-                studentService.GetStudentClassIdByStudentId(userService.GetStudentIdByUserId(userId)));
-            return Ok(lessonPlanDTO);
-        }
-
-        [Authorize]
-        [HttpGet("students/class/{classId}")]
+        [HttpGet("studentsFromClass/{classId}")]
         public IActionResult GetAllStudentsByClassId(int classId)
         {
             int userId = int.Parse(userProviderService.GetUserId());
@@ -72,7 +37,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return BadRequest("Logged user is not a admin");
+                return BadRequest("Brak uprawnien do listy studentow");
             }
         }
     }

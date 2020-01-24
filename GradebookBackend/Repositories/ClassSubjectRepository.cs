@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.Repositories
 {
-    public class ClassSubjectRepository : IRepository<ClassSubjectDAO>
+    public class ClassSubjectRepository : IRepositoryRelation<ClassSubjectDAO>
     {
         private readonly GradebookDbContext context;
 
@@ -21,9 +21,9 @@ namespace GradebookBackend.Repositories
             return tObject;
         }
 
-        public ClassSubjectDAO Delete(int Id)
+        public ClassSubjectDAO Delete(int classId, int subjectId)
         {
-            ClassSubjectDAO tObject = this.context.ClassesSubjects.Find(Id);
+            ClassSubjectDAO tObject = this.context.ClassesSubjects.Find(classId, subjectId);
             if (tObject != null)
             {
                 this.context.ClassesSubjects.Remove(tObject);
@@ -33,9 +33,9 @@ namespace GradebookBackend.Repositories
             return tObject;
         }
 
-        public ClassSubjectDAO Get(int Id)
+        public ClassSubjectDAO Get(int classId, int subjectId)
         {
-            return this.context.ClassesSubjects.Find(Id);
+            return this.context.ClassesSubjects.Find(classId, subjectId);
         }
 
         public IEnumerable<ClassSubjectDAO> GetAll()

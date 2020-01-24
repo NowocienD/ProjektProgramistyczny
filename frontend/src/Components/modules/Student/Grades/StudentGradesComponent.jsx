@@ -8,22 +8,7 @@ import { Card, Paper, Typography, MenuItem } from '@material-ui/core';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 
-const GradesComponent = (props) => {
-  const rows = [
-    {
-      grade: 5,
-      weight: 2,
-      teacher: "Kowalski",
-      topic: "Sprawdzian z ułamków",
-    },
-    {
-      grade: 3,
-      weight: 1,
-      teacher: "Kowalski",
-      topic: "Sprawdzian z geometrii",
-    },
-  ];
-
+const StudentGradesComponent = (props) => {
   return (
   <Card className="component-container">
       <Typography variant="h5" className="underline-title">
@@ -49,15 +34,17 @@ const GradesComponent = (props) => {
               <TableCell align="center">Waga</TableCell>
               <TableCell align="center">Wystawiona przez</TableCell>
               <TableCell align="center">Temat</TableCell>
+              <TableCell align="center">Data</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.grades.map(row => (
               <TableRow>
-                <TableCell align="center">{row.grade}</TableCell>
-                <TableCell align="center">{row.weight}</TableCell>
-                <TableCell align="center">{row.teacher}</TableCell>
+                <TableCell align="center">{row.value}</TableCell>
+                <TableCell align="center">{row.importance}</TableCell>
+                <TableCell align="center">{row.teacherFirstname} {row.teacherSurname}</TableCell>
                 <TableCell align="center">{row.topic}</TableCell>
+                <TableCell align="center">{row.date}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -68,4 +55,4 @@ const GradesComponent = (props) => {
 
 };
 
-export default GradesComponent;
+export default StudentGradesComponent;

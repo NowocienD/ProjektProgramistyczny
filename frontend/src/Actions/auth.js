@@ -3,12 +3,13 @@ import axiosDefault from "./axiosDefault";
 function login(data) {
     return axiosDefault({
       method: "POST",
-      url: "/api/login",
+      url: "/api/user/login",
       data: data,
     }).then(res => {
       const token = res.data;
       localStorage.setItem('Token', token);
-    });
+      setAuthorizationToken(token);
+    })
 }
 
 function setAuthorizationToken(token) {
@@ -22,5 +23,4 @@ function setAuthorizationToken(token) {
 function logout() {
   localStorage.removeItem('Token');
 }
-
 export { login, setAuthorizationToken, logout };

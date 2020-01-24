@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GradebookBackend.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/note")]
     public class NoteController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
@@ -51,6 +51,21 @@ namespace GradebookBackend.Controllers
                 int teacherId = userService.GetTeacherIdByUserId(userId);
                 noteService.AddNewNote(newNoteDTO, teacherId, studentId);
                 return Ok("Note has been added");
+            }
+            catch(GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("teacher/studentNotes/{studentId}")]
+        public IActionResult GetStudentNotesByStudentId(int studentId)
+        {
+            try
+            {
+                NoteListDTO noteListDTO = noteService.GetStudentNotesByStudentId(studentId);
+                return Ok(noteListDTO);
             }
             catch(GradebookServerException exception)
             {

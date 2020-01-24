@@ -45,6 +45,7 @@ namespace GradebookBackend.Repositories
 
         public AttendanceDAO Update(AttendanceDAO tObjectChanges)
         {
+            context.Entry(tObjectChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             var tObject = this.context.Attendances.Attach(tObjectChanges);
             tObject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             this.context.SaveChanges();

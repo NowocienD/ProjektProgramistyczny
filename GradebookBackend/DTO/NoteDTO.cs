@@ -11,6 +11,7 @@ namespace GradebookBackend.DTO
         public string Date { get; set; }
         public string TeacherFirstName { get; set; }
         public string TeacherSurname { get; set; }
+        public string FirstNameAndSurname { get; set; }
 
     }
 }

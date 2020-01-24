@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace GradebookBackend.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("api/grade")]
     public class GradeController : ControllerBase
     {
         private readonly IUserProviderService userProviderService;
@@ -23,6 +23,39 @@ namespace GradebookBackend.Controllers
             this.gradeService = gradeService;
             this.userService = userService;
             this.userProviderService = userProviderService;
+        }
+
+        [Authorize]
+        [HttpGet("student/myGrades/{subjectId}")]
+        public IActionResult GetStudentGrades(int subjectId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(userService.GetStudentIdByUserId(userId), subjectId);
+            return Ok(gradeListDTO);
+        }
+
+        [Authorize]
+        [HttpGet("teacher/grades/{subjectId}/{studentId}")]
+        public IActionResult GetGrades(int subjectId, int studentId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            try
+            {
+                if (userService.IsTeacher(userId))
+                {
+                    GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(studentId, subjectId);
+                    return Ok(gradeListDTO);
+                }
+                else
+                {
+                    return BadRequest("Logged user is not teacher");
+                }
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
         }
 
         [Authorize]
@@ -43,7 +76,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPost("teacher/deleteGrade/{gradeId}")]
+        [HttpDelete("teacher/deleteGrade/{gradeId}")]
         public IActionResult DeleteGrade(int gradeId)
         {
             try
@@ -61,8 +94,9 @@ namespace GradebookBackend.Controllers
             }
             return Ok("Grade has been deleted");
         }
+
         [Authorize]
-        [HttpPost("teacher/updateGrade/{studentId}")]
+        [HttpPut("teacher/updateGrade/{studentId}")]
         public IActionResult UpdateGrade([FromBody] NewGradeDTO updatedGradeDTO, int studentId)
         {
             try

@@ -17,12 +17,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Icon from '@material-ui/core/Icon';
 import { NavLink, Route } from 'react-router-dom'
-import TimetableContainer from './../modules/Student/Timetable/TimetableContainer';
-import GradesContainer from './../modules/Student/Grades/GradesContainer';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsContainer from './../modules/Settings/SettingsContainer';
-import PresenceContainer from './../modules/Student/PresenceContainer';
 import primaryColor from './../../color';
 
 
@@ -112,9 +109,6 @@ const Layout = (props) => {
     setOpen(false);
   }
 
-
-  
-
   return (
     <div className="dashboard-container">
       <CssBaseline />
@@ -147,7 +141,7 @@ const Layout = (props) => {
             </NavLink>
           </IconButton>
           <IconButton color="inherit" onClick={props.logout}>
-              <ExitToAppIcon />
+            <ExitToAppIcon />
           </IconButton>
 
 
@@ -165,12 +159,18 @@ const Layout = (props) => {
         }}
       >
         <div className={classes.drawerHeader}>
+          <h2 style={{ marginLeft: '5%', marginRight: 'auto' }}>
+            {props.user.firstname 
+            && props.user.surname
+             && (`${props.user.firstname} ${props.user.surname}`)}
+          </h2>
+
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </div>
         <Divider />
-        <List>
+        <List >
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           {props.menu.map(item => {
             return (
@@ -196,9 +196,10 @@ const Layout = (props) => {
       >
         <div className={classes.drawerHeader} />
         <div className="content">
-          <Route path="/timetable" exact component={TimetableContainer} />
-          <Route path="/grades" exact component={GradesContainer} />
-          <Route path="/presence" exact component={PresenceContainer} />
+          <Route path="/timetable" exact component={props.components.TimetableContainer } />
+          <Route path="/grades" exact component={props.components.GradesContainer} />
+          <Route path="/presence" exact component={props.components.PresenceContainer} />
+          <Route path="/notes" exact component={props.components.NotesContainer} />
           <Route path="/me" exact component={SettingsContainer} />
         </div>
       </main>

@@ -12,9 +12,9 @@ namespace GradebookBackend.Services
     public class SubjectService : ISubjectService
     {
         public IRepository<SubjectDAO> subjectRepository;
-        public IRepository<ClassSubjectDAO> classSubjectRepository;
+        public IRepositoryRelation<ClassSubjectDAO> classSubjectRepository;
 
-        public SubjectService(IRepository<SubjectDAO> subjectRepository, IRepository<ClassSubjectDAO> classSubjectRepository)
+        public SubjectService(IRepository<SubjectDAO> subjectRepository, IRepositoryRelation<ClassSubjectDAO> classSubjectRepository)
         {
             this.subjectRepository = subjectRepository;
             this.classSubjectRepository = classSubjectRepository;
@@ -53,5 +53,64 @@ namespace GradebookBackend.Services
             }
             return subjectsDTO;
         }
+
+        public void AddNewSubject(SubjectDTO newSubjectDTO)
+        {
+            SubjectDAO newSubject = new SubjectDAO
+            {
+                Name = newSubjectDTO.Name
+            };
+            foreach(SubjectDAO checkedSubject in subjectRepository.GetAll())
+            {
+                if (checkedSubject.Name.Equals(newSubject.Name))
+                {
+                    throw new GradebookServerException("Proba dodania przedmiotu, którzy juz istnieje");
+                }
+            }
+            subjectRepository.Add(newSubject);
+        }
+
+        public void UpdateSubject(SubjectDTO updatedSubjectDTO, int subjectId)
+        {
+            if (IsSubjectRepositoryContaining(subjectId))
+            {
+                SubjectDAO updatedSubjectDAO = new SubjectDAO
+                {
+                    Id = subjectId,
+                    Name = updatedSubjectDTO.Name
+                };
+                subjectRepository.Update(updatedSubjectDAO);
+            }
+            else
+            {
+                throw new GradebookServerException("Nie ma przedmiotu o tym numerze Id");
+            }
+
+        }
+
+        public void DeleteSubject(int subjectId)
+        {
+            if (IsSubjectRepositoryContaining(subjectId))
+            {
+                subjectRepository.Delete(subjectId);
+            }
+            else
+            {
+                throw new GradebookServerException("Nie ma przedmiotu o podanym Id");
+            }
+        }
+
+        public bool IsSubjectRepositoryContaining(int subjectId)
+        {
+            foreach(SubjectDAO checkedSubject in subjectRepository.GetAll())
+            {
+                if(checkedSubject.Id == subjectId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

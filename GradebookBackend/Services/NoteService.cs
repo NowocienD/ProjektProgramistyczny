@@ -32,12 +32,16 @@ namespace GradebookBackend.Services
             {
                 if (note.StudentId == studentId)
                 {
+                    string teacherFirstName = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Firstname;
+                    string teacherSurname = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Surname;
                     NoteDTO noteDTO = new NoteDTO
                     {
                         Statement = note.Statement,
-                        Date = note.Date.ToString(),
-                        TeacherFirstName = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Firstname,
-                        TeacherSurname = usersRepository.Get(teachersRepository.Get(note.TeacherId).UserId).Surname
+                        Date = note.Date.ToString("yyyy-MM-dd"),
+                        TeacherFirstName = teacherFirstName,
+                        TeacherSurname = teacherSurname,
+                        FirstNameAndSurname = teacherFirstName + " " + teacherSurname
+                        
                     };
                     studentNotesDTO.NoteDTOs.Add(noteDTO);
                 }
@@ -50,7 +54,7 @@ namespace GradebookBackend.Services
             NoteDAO newNoteDAO = new NoteDAO
             {
                 Statement = newNoteDTO.Statement,
-                Date = DateTime.ParseExact(newNoteDTO.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Date = DateTime.ParseExact(newNoteDTO.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 StudentId = studentId,
                 TeacherId = teacherId
             };
