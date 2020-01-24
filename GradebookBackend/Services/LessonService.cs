@@ -48,6 +48,19 @@ namespace GradebookBackend.Services
             }
             return lessonPlanDTO;
         }
+        public SingleDayLessonPlanDTO GetSingleDayLessonPlanByDayOfTheWeekAndClassId(int dayOfTheWeek, int classId)
+        {
+            SingleDayLessonPlanDTO singleDayLessonPlanDTO = new SingleDayLessonPlanDTO();
+            IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
+            foreach (LessonDAO lesson in lessons)
+            {
+                if (lesson.ClassId == classId && lesson.DayOfTheWeek == dayOfTheWeek)
+                {
+                    singleDayLessonPlanDTO.Lessons[lesson.LessonNumber] = subjectRepository.Get(lesson.SubjectId).Name;
+                }
+            }
+            return singleDayLessonPlanDTO;
+        }
         public int GetLessonId(int lessonNumber, int dayOfTheWeek, int classId)
         {
             IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
@@ -59,6 +72,18 @@ namespace GradebookBackend.Services
                 }
             }
             throw new GradebookServerException("Nie znaleziono lekcji o przekazanych danych");
+        }
+        public bool CheckIfLessonExists(int lessonNumber, int dayOfTheWeek, int classId)
+        {
+            IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
+            foreach (LessonDAO lesson in lessons)
+            {
+                if (lesson.LessonNumber == lessonNumber && lesson.DayOfTheWeek == dayOfTheWeek && lesson.ClassId == classId)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
