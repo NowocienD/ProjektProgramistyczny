@@ -60,5 +60,21 @@ namespace GradebookBackend.Controllers
                 return BadRequest(exception.Message);
             }
         }
+        [Authorize]
+        [HttpGet("admin/LessonPlan")]
+        public IActionResult GetLessonPlan([FromQuery] int dayOfTheWeek, [FromQuery] int classId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
+            {
+                SingleDayLessonPlanDTO singleDaylessonPlanDTO = lessonService.
+                    GetSingleDayLessonPlanByDayOfTheWeekAndClassId(dayOfTheWeek, classId);
+                return Ok(singleDaylessonPlanDTO);
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
     }
 }
