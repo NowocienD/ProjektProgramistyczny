@@ -124,7 +124,22 @@ namespace GradebookBackend.Controllers
             {
                 return BadRequest(exception.Message);
             }
+        }
 
+        [Authorize]
+        [HttpGet("admin/allusers")]
+        public IActionResult GetAllUsers()
+        {
+            int userId = Int32.Parse(userProviderService.GetUserId());
+            if(userService.IsAdmin(userId))
+            {
+                UserDataListDTO userDataListDTO = userService.GetAllUsers();
+                return Ok(userDataListDTO);
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
         }
     }
 }
