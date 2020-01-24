@@ -85,5 +85,30 @@ namespace GradebookBackend.Services
             }
             return false;
         }
+        public void AddNewLesson(NewLessonDTO newLessonDTO)
+        {
+            LessonDAO newLessonDAO = new LessonDAO
+            {
+                LessonNumber = newLessonDTO.LessonNumber,
+                DayOfTheWeek = newLessonDTO.DayOfTheWeek,
+                ClassId = newLessonDTO.ClassId,
+                SubjectId = newLessonDTO.SubjectId,
+                TeacherId = newLessonDTO.TeacherId,
+            };
+            lessonsRepository.Add(newLessonDAO);
+        }
+        public void UpdateLesson(NewLessonDTO updatedLessonDTO, int lessonId)
+        {
+            LessonDAO newLessonDAO = new LessonDAO
+            {
+                Id = lessonId,
+                LessonNumber = updatedLessonDTO.LessonNumber,
+                DayOfTheWeek = updatedLessonDTO.DayOfTheWeek,
+                ClassId = updatedLessonDTO.ClassId,
+                SubjectId = updatedLessonDTO.SubjectId,
+                TeacherId = updatedLessonDTO.TeacherId,
+            };
+            lessonsRepository.Update(newLessonDAO);
+        }
     }
 }

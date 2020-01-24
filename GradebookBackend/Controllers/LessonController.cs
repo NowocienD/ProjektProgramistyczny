@@ -76,5 +76,30 @@ namespace GradebookBackend.Controllers
                 return BadRequest("Brak uprawnien administratora");
             }
         }
+
+        [Authorize]
+        [HttpPost("admin/addlesson")]
+        public IActionResult AddLesson([FromBody] NewLessonDTO newLessonDTO)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
+            {
+                if (lessonService.CheckIfLessonExists(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId))
+                {
+                    int lessonId = lessonService.GetLessonId(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId);
+                    lessonService.UpdateLesson(newLessonDTO, lessonId);
+                    return Ok("Pomyslnie zaktualizowano istniejaca lekcje");
+                }
+                else
+                {
+                    lessonService.AddNewLesson(newLessonDTO);
+                    return Ok("Pomyslnie dodano nowa lekcje");
+                }
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
     }
 }
