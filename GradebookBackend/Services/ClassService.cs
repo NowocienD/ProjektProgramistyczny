@@ -70,5 +70,21 @@ namespace GradebookBackend.Services
             }
             return isAlready;
         }
+
+
+
+        public void DeleteClassWithId(int classId)
+        {
+            IEnumerable<ClassDAO> classes = classRepository.GetAll();
+            foreach(ClassDAO checkedClass in classes.ToList())
+            {
+                if(checkedClass.Id == classId)
+                {
+                    classRepository.Delete(classId);
+                    return;
+                }
+            }
+            throw new GradebookServerException("Nie ma klasy o takim numerze Id");
+        }
     }
 }

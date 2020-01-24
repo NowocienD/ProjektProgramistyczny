@@ -55,8 +55,28 @@ namespace GradebookBackend.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
 
-
+        [Authorize]
+        [HttpDelete("admin/deleteClass/{classId}")]
+        public IActionResult DeleteClassByClassId(int classId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            try
+            {
+                if (userService.IsAdmin(userId))
+                {
+                    classService.DeleteClassWithId(classId);
+                    return Ok("Udalo sie usunac podana klase");
+                } 
+                else
+                {
+                    return BadRequest("Brak uprawnien administratora do wykonania tej operacji");
+                }
+            } catch (GradebookServerException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
