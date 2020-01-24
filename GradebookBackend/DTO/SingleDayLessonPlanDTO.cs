@@ -15,7 +15,7 @@ namespace GradebookBackend.DTO
             Lessons = new List<string>();
             for (int i = 0; i < maxNumberOfLessonForDay; i++)
             {
-                Lessons.Add("no lesson");
+                Lessons.Add("brak lekcji");
             }
         }
     }
