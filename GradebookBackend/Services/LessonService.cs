@@ -13,11 +13,16 @@ namespace GradebookBackend.Services
     {
         private readonly IRepository<LessonDAO> lessonsRepository;
         private readonly IRepository<SubjectDAO> subjectRepository;
+        private readonly IRepository<UserDAO> usersRepository;
+        private readonly IRepository<TeacherDAO> teachersRepository;
 
-        public LessonService(IRepository<LessonDAO> lessonsRepository, IRepository<SubjectDAO> subjectRepository)
+        public LessonService(IRepository<LessonDAO> lessonsRepository, IRepository<SubjectDAO> subjectRepository,
+            IRepository<UserDAO> usersRepository, IRepository<TeacherDAO> teachersRepository)
         {
             this.lessonsRepository = lessonsRepository;
             this.subjectRepository = subjectRepository;
+            this.usersRepository = usersRepository;
+            this.teachersRepository = teachersRepository;
         }
 
         public LessonPlanDTO GetStudentLessonPlanByClassId(int classId)
@@ -48,15 +53,18 @@ namespace GradebookBackend.Services
             }
             return lessonPlanDTO;
         }
-        public SingleDayLessonPlanDTO GetSingleDayLessonPlanByDayOfTheWeekAndClassId(int dayOfTheWeek, int classId)
+        public SingleDayLessonPlanExtendedDTO GetSingleDayLessonPlanByDayOfTheWeekAndClassId(int dayOfTheWeek, int classId)
         {
-            SingleDayLessonPlanDTO singleDayLessonPlanDTO = new SingleDayLessonPlanDTO();
+            SingleDayLessonPlanExtendedDTO singleDayLessonPlanDTO = new SingleDayLessonPlanExtendedDTO();
             IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
             foreach (LessonDAO lesson in lessons)
             {
                 if (lesson.ClassId == classId && lesson.DayOfTheWeek == dayOfTheWeek)
                 {
-                    singleDayLessonPlanDTO.Lessons[lesson.LessonNumber] = subjectRepository.Get(lesson.SubjectId).Name;
+                    int userId = teachersRepository.Get(lesson.TeacherId).UserId;
+                    singleDayLessonPlanDTO.Lessons[lesson.LessonNumber].Id = lesson.Id;
+                    singleDayLessonPlanDTO.Lessons[lesson.LessonNumber].Name = subjectRepository.Get(lesson.SubjectId).Name;
+                    singleDayLessonPlanDTO.Lessons[lesson.LessonNumber].TeacherName = usersRepository.Get(userId).Firstname + " " + usersRepository.Get(userId).Surname;
                 }
             }
             return singleDayLessonPlanDTO;

@@ -14,7 +14,7 @@ namespace GradebookBackend.DTO
             Attendances = new List<string>();
             for(int i = 0; i < 8; i++)
             {
-                Attendances.Add("Not entered");
+                Attendances.Add("nie wpisano");
             }
         }
     }

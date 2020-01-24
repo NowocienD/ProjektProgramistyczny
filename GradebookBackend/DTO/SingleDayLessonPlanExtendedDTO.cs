@@ -5,17 +5,20 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.DTO
 {
-    public class SingleDayLessonPlanDTO
+    public class SingleDayLessonPlanExtendedDTO
     {
         private readonly int maxNumberOfLessonForDay = 8;
-        public List<string> Lessons { get; set; }
+        public List<LessonDTO> Lessons { get; set; }
 
-        public SingleDayLessonPlanDTO()
+        public SingleDayLessonPlanExtendedDTO()
         {
-            Lessons = new List<string>();
+            Lessons = new List<LessonDTO>();
             for (int i = 0; i < maxNumberOfLessonForDay; i++)
             {
-                Lessons.Add("brak lekcji");
+                Lessons.Add(new LessonDTO
+                {
+                    Name = "brak lekcji"
+                });
             }
         }
     }

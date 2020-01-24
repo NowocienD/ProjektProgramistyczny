@@ -15,5 +15,6 @@ namespace GradebookBackend.ServicesCore
         public int GetTeacherIdByUserId(int userId);
         public bool IsAdmin(int userId);
         public bool IsTeacher(int userId);
+        public UserDataListDTO GetAllUsers();
     }
 }

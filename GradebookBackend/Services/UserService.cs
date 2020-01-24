@@ -227,5 +227,20 @@ namespace GradebookBackend.Services
             }
             return false;
         }
+        public UserDataListDTO GetAllUsers()
+        {
+            UserDataListDTO userDataListDTO = new UserDataListDTO();
+            IEnumerable<UserDAO> users = usersRepository.GetAll();
+            foreach (UserDAO user in users)
+            {
+                userDataListDTO.Users.Add(new UserDataDTO
+                {
+                    Firstname = user.Firstname,
+                    Surname = user.Surname,
+                    Role = rolesRepository.Get(user.RoleId).Name
+                });
+            }
+            return userDataListDTO;
+        }
     }
 }
