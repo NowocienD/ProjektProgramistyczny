@@ -92,8 +92,32 @@ namespace GradebookBackend.Controllers
                 }
                 else
                 {
-                    lessonService.AddNewLesson(newLessonDTO);
+                    lessonService.AddLesson(newLessonDTO);
                     return Ok("Pomyslnie dodano nowa lekcje");
+                }
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("admin/deletelesson")]
+        public IActionResult DaleteLesson([FromBody] NewLessonDTO newLessonDTO)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
+            {
+                if (lessonService.CheckIfLessonExists(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId))
+                {
+                    int lessonId = lessonService.GetLessonId(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId);
+                    lessonService.DeleteLesson(lessonId);
+                    return Ok("Pomyslnie usunieto lekcje");
+                }
+                else
+                {
+                    return BadRequest("Lekcja ktora ma byc usunieta nie istnieje");
                 }
             }
             else
