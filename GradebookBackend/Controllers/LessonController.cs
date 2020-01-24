@@ -61,13 +61,13 @@ namespace GradebookBackend.Controllers
             }
         }
         [Authorize]
-        [HttpGet("admin/LessonPlan")]
+        [HttpGet("admin/lessonplan")]
         public IActionResult GetLessonPlan([FromQuery] int dayOfTheWeek, [FromQuery] int classId)
         {
             int userId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(userId))
             {
-                SingleDayLessonPlanDTO singleDaylessonPlanDTO = lessonService.
+                SingleDayLessonPlanExtendedDTO singleDaylessonPlanDTO = lessonService.
                     GetSingleDayLessonPlanByDayOfTheWeekAndClassId(dayOfTheWeek, classId);
                 return Ok(singleDaylessonPlanDTO);
             }
