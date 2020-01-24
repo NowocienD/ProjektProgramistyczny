@@ -86,9 +86,7 @@ namespace GradebookBackend.Controllers
             {
                 if (lessonService.CheckIfLessonExists(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId))
                 {
-                    int lessonId = lessonService.GetLessonId(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId);
-                    lessonService.UpdateLesson(newLessonDTO, lessonId);
-                    return Ok("Pomyslnie zaktualizowano istniejaca lekcje");
+                    return BadRequest("Lekcja w tym czasie dla podanej klasy juz istnieje");
                 }
                 else
                 {
@@ -103,22 +101,30 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpDelete("admin/deletelesson")]
-        public IActionResult DaleteLesson([FromBody] NewLessonDTO newLessonDTO)
+        [HttpPatch("admin/updatelesson/{lessonId}")]
+        public IActionResult UpdateLesson([FromBody] NewLessonDTO updatedLessonDTO, int lessonId)
         {
             int userId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(userId))
             {
-                if (lessonService.CheckIfLessonExists(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId))
-                {
-                    int lessonId = lessonService.GetLessonId(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId);
-                    lessonService.DeleteLesson(lessonId);
-                    return Ok("Pomyslnie usunieto lekcje");
-                }
-                else
-                {
-                    return BadRequest("Lekcja ktora ma byc usunieta nie istnieje");
-                }
+                lessonService.UpdateLesson(updatedLessonDTO, lessonId);
+                return Ok("Pomyslnie zaktualizowano lekcje");
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
+
+        [Authorize]
+        [HttpDelete("admin/deletelesson/{lessonId}")]
+        public IActionResult DaleteLesson(int lessonId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
+            {
+                lessonService.DeleteLesson(lessonId);
+                return Ok("Pomyslnie usunieto lekcje");                           
             }
             else
             {
