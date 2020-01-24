@@ -10,6 +10,7 @@ namespace GradebookBackend.ServicesCore
     {
         public ClassListDTO GetAllClasses();
         public ClassListDTO GetAllClassesOfTeacher(int teacherId);
+        public void AddClass(ClassDTO newClassDTO);
         public void DeleteClassWithId(int classId);
     }
 }
