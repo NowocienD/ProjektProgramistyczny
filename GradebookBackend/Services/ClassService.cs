@@ -70,5 +70,21 @@ namespace GradebookBackend.Services
             }
             return isAlready;
         }
+
+        public void AddClass(ClassDTO newClassDTO)
+        {
+            ClassDAO newClassDAO = new ClassDAO
+            {
+                Name = newClassDTO.Name
+            };
+            foreach(ClassDAO checkedClass in classRepository.GetAll().ToList())
+            {
+                if(checkedClass.Name.Equals(newClassDAO.Name))
+                {
+                    throw new GradebookServerException("Klasa o tej nazwie juz istnieje");
+                }
+            }
+            classRepository.Add(newClassDAO);
+        }
     }
 }

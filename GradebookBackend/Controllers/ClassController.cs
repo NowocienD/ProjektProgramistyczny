@@ -51,12 +51,34 @@ namespace GradebookBackend.Controllers
                 ClassListDTO classListDTO = classService.GetAllClassesOfTeacher(teacherId);
                 return Ok(classListDTO);
 
-            } catch (GradebookServerException ex)
-            {
-                return BadRequest(ex.Message);
             }
-
-
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
         }
+
+        [Authorize]
+        [HttpPost("admin/addClass")]
+        public IActionResult AddClass([FromBody] ClassDTO newClassDTO)
+        {
+            try
+            {
+                int userId = int.Parse(userProviderService.GetUserId());
+                if (userService.IsAdmin(userId))
+                {
+                    classService.AddClass(newClassDTO);
+                    return Ok("Udalo sie dodac nowa klase");
+                } else
+                {
+                    return BadRequest("Brak uprawnien do dodawania klasy");
+                }
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
     }
 }
