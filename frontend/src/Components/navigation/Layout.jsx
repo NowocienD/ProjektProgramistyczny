@@ -203,7 +203,9 @@ const Layout = (props) => {
           <Route path="/notes" exact component={props.components.NotesContainer} />
           <Route path="/me" exact component={SettingsContainer} />
           <Route path="/subjects" exact component={props.components.SubjectsContainer} />
-          <Route path="/subjects/:subjectId" component={props.components.TeacherSubjectContainer} />
+          <Route path="/subjects/:subjectId" component={props.components.SubjectTeacherContainer} />
+          <Route path="/lessons/" exact component={props.components.LessonsContainer} />
+          <Route path="/lessons/:classId/:lessonNumber" component={props.components.AddLessonContainer} />
         </div>
       </main>
     </div >

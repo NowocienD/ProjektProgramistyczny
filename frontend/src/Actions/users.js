@@ -15,4 +15,11 @@ function changeMyPassword(data) {
   })
 }
 
+// function getAllUsers() {
+//   return axiosDefault({
+//     method: "GET",
+//     url: "api/user/"
+//   })
+// }
+
 export { getLoggedUserData, changeMyPassword };

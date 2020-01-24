@@ -1,7 +1,7 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 import { Card, Typography } from '@material-ui/core';
-import YesNoDialog from '../../navigation/YesNoDialog';
+import YesNoDialog from '../../../navigation/YesNoDialog';
 
 const AdminSubjectsComponent = (props) => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
 import AddTeacherSubjectComponent from './AddTeacherSubjectComponent';
-import {  getSubjectTeachers, deleteSubjectTeacher, addSubjectTeacher } from '../../../Actions/subjects';
-import {  geAllTeachers, getAllTeachers } from '../../../Actions/teacher';
-import { withSnackbar } from '../../navigation/SnackbarContext';
+import {  getSubjectTeachers, deleteSubjectTeacher, addSubjectTeacher } from '../../../../Actions/subjects';
+import {  getAllTeachers } from '../../../../Actions/teacher';
+import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 class AddTeacherSubjectContainer extends React.Component {
   constructor(props) {

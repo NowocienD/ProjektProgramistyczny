@@ -61,8 +61,8 @@ namespace GradebookBackend.Controllers
             }
         }
         [Authorize]
-        [HttpGet("admin/LessonPlan")]
-        public IActionResult GetLessonPlan([FromQuery] int dayOfTheWeek, [FromQuery] int classId)
+        [HttpGet("admin/LessonPlan/{classId}/{dayOfTheWeek}")]
+        public IActionResult GetLessonPlan(int dayOfTheWeek, int classId)
         {
             int userId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(userId))

@@ -13,8 +13,10 @@ import TeacherTimetableContainer from './Components/modules/Teacher/Timetable/Te
 import TeacherNotesContainer from './Components/modules/Teacher/Notes/TeacherNotesContainer';
 import TeacherGradesContainer from './Components/modules/Teacher/Grades/TeacherGradesContainer';
 import TeacherPresenceContainer from './Components/modules/Teacher/Presence/TeacherPresenceContainer';
-import AdminSubjectsContainer from './Components/modules/Admin/AdminSubjectsContainer';
-import AddTeacherSubjectContainer from './Components/modules/Admin/AddTeacherSubjectContainer';
+import AdminSubjectsContainer from './Components/modules/Admin/Subjects/AdminSubjectsContainer';
+import AddTeacherSubjectContainer from './Components/modules/Admin/Subjects/AddTeacherSubjectContainer';
+import AdminLessonsContainer from './Components/modules/Admin/Lessons/AdminLessonsContainer';
+import AdminAddLessonContainer from './Components/modules/Admin/Lessons/AdminAddLessonContainer';
 
 class App extends Component {
 
@@ -69,6 +71,12 @@ class App extends Component {
             name: "Przedmioty",
             icon: 'subject',
             to: '/subjects'
+          },
+          {
+            key: 'Plan lekcji',
+            name: "Plan lekcji",
+            icon: 'chrome_reader_mode',
+            to: '/lessons'
           }
         ]
       }
@@ -94,7 +102,9 @@ class App extends Component {
     } else if (role === 'Admin') {
       this.components = {
         SubjectsContainer: AdminSubjectsContainer,
-        TeacherSubjectContainer: AddTeacherSubjectContainer,
+        SubjectTeacherContainer: AddTeacherSubjectContainer,
+        LessonsContainer: AdminLessonsContainer,
+        AddLessonContainer: AdminAddLessonContainer,
       }
     }
   }

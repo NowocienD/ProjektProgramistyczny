@@ -11,7 +11,7 @@ import {
   InputLabel,
   Grid,
 } from '@material-ui/core';
-import { withSnackbar } from './../../navigation/SnackbarContext';
+import { withSnackbar } from './../../../navigation/SnackbarContext';
 
 const AddTeacherSubjectDialog = (props) => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminSubjectsComponent from './AdminSubjectsComponent';
-import { getAllSubjects, addSubject, deleteSubject } from '../../../Actions/subjects';
-import { withSnackbar } from '../../navigation/SnackbarContext';
+import { getAllSubjects, addSubject, deleteSubject } from '../../../../Actions/subjects';
+import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 class AdminSubjectsContainer extends React.Component {
   constructor() {
