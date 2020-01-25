@@ -85,6 +85,12 @@ class App extends Component {
             name: "Użytkownicy",
             icon: 'people_alt',
             to: '/users'
+          },
+          {
+            key: 'Klasy',
+            name: "Klasy",
+            icon: 'people_alt',
+            to: '/classes'
           }
         ]
       }
