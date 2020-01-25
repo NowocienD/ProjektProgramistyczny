@@ -14,7 +14,7 @@ const formikEnhancer = withFormik({
     Firstname: props.user && props.user.firstname ? props.user.firstname : '',
     Surname: props.user && props.user.surname ? props.user.surname : '',
     Role: props.user && props.user.role ? props.user.role.id : 1,
-    Class: props.user && props.user.classId ? props.user.classId : 1,
+    ClassId: props.user && props.user.classId ? props.user.classId : 1,
   }),
 
   handleSubmit: (values, { props }) => {
@@ -117,11 +117,11 @@ const SettingsComponent = (props) => {
               <Select
                 variant="outlined"
                 value={props.values.Class}
-                onChange={props.handleChange('Class')}
-                onBlur={props.handleBlur('Class')}
+                onChange={props.handleChange('ClassId')}
+                onBlur={props.handleBlur('ClassId')}
                 margin="dense"
                 style={{ width: '100%' }}
-                id="Class"
+                id="ClassId"
               >
                 {props.classes.map(item => (
                   <MenuItem key={item.id} value={item.id}>
