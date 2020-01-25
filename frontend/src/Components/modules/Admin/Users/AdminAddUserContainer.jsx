@@ -8,6 +8,7 @@ class AdminAddUserContainer extends Component {
       userId: this.props.match.params.userId,
       user: {},
       addMode: this.props.match.params.userId === 'add',
+      roles: [{id:0, name:"student"}]
     }
   }
 
@@ -37,6 +38,7 @@ class AdminAddUserContainer extends Component {
           user={this.state.user}
           addMode={this.state.addMode}
           goBack={this.goBack}
+          roles={this.state.roles}
         />
       </div>
     );

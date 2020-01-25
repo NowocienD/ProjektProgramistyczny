@@ -25,7 +25,7 @@ function getAllUsers() {
 function getUserData(userId) {
   return axiosDefault({
     method: "GET",
-    url: `api/user/admin/userdata/${userId}`
+    url: `api/user/admin/user/${userId}`
   });
 }
 

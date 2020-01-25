@@ -63,7 +63,7 @@ namespace GradebookBackend.Controllers
             int userId = Int32.Parse(userProviderService.GetUserId());
             UserDataDTO userDataDTO = userService.GetUserDataByUserId(userId);
             return Ok(userDataDTO);
-        } 
+        }
 
         [Authorize]
         [HttpPost("admin/addUser")]
@@ -71,15 +71,15 @@ namespace GradebookBackend.Controllers
         {
             if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
             {
-               try
-               {
+                try
+                {
                     userService.AddUser(newUserDTO);
                     return Ok("Uzytkownik zostal pomyslnie dodany");
-               }
+                }
                 catch (GradebookServerException exception)
-               {
+                {
                     return BadRequest(exception.Message);
-               }
+                }
             }
             else
             {
@@ -89,7 +89,7 @@ namespace GradebookBackend.Controllers
 
         [Authorize]
         [HttpPatch("admin/updateUser/{userId}")]
-        public IActionResult UpdatedUser([FromBody] NewUserDTO newUserDTO, int userId)
+        public IActionResult UpdatedUser([FromBody] UserDTO newUserDTO, int userId)
         {
             if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
             {
@@ -131,7 +131,7 @@ namespace GradebookBackend.Controllers
         public IActionResult GetAllUsers()
         {
             int userId = Int32.Parse(userProviderService.GetUserId());
-            if(userService.IsAdmin(userId))
+            if (userService.IsAdmin(userId))
             {
                 UserListDTO userDataListDTO = userService.GetAllUsers();
                 return Ok(userDataListDTO);

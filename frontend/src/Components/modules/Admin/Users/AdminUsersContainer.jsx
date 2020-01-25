@@ -10,6 +10,7 @@ class AdminUsersContainer extends React.Component {
       users: [],
       dialogVisible: false,
       userId: '',
+
     };
   }
 
@@ -85,6 +86,14 @@ class AdminUsersContainer extends React.Component {
         ]}
         columns={[
           {
+            title: 'Login',
+            field: 'login',
+          },
+          {
+            title: 'E-mail',
+            field: 'email',
+          },
+          {
             title: 'Imię',
             field: 'firstname',
           },
@@ -94,7 +103,7 @@ class AdminUsersContainer extends React.Component {
           },
           {
             title: 'Rola',
-            field: 'role',
+            field: 'role.name',
           },
         ]}
         hideDialog={this.hideDialog}

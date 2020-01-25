@@ -1,8 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 import React from 'react';
 import { withFormik } from 'formik';
-import { TextField, Button, Typography, Card } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
+import { TextField, Button, Typography, Card, Grid, Select, InputLabel, MenuItem } from '@material-ui/core';
 import { withSnackbar } from './../../../navigation/SnackbarContext';
 
 const formikEnhancer = withFormik({
@@ -14,7 +13,7 @@ const formikEnhancer = withFormik({
     password: '',
     firstname: props.user && props.user.firstname ? props.user.firstname : '',
     surname: props.user && props.user.surname ? props.user.surname : '',
-
+    role: props.user && props.user.role ? props.user.role : '',
   }),
 
   handleSubmit: (values, { props }) => {
@@ -70,7 +69,7 @@ const SettingsComponent = (props) => {
             <Grid item xs={10} sm={3}>
               <TextField
                 id="password"
-                label="password"
+                label="Hasło"
                 variant="outlined"
                 value={props.values.password}
                 type="password"
@@ -105,7 +104,25 @@ const SettingsComponent = (props) => {
               />
             </Grid>
           </Grid>
-
+          <Grid item xs={12}>
+            <Grid item xs={10} sm={3}>
+            <InputLabel style={{ marginTop: '5%' }}>Rola</InputLabel>
+          <Select
+            value={props.role}
+            onChange={props.handleChange('role')}
+            onBlur={props.handleBlur('role')}
+            margin="dense"
+            style={{ width: '100%' }}
+            id="role"
+          >
+            {props.roles.map(item => (
+              <MenuItem key={item.id} value={item}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </Select>
+            </Grid>
+          </Grid>
           <Grid item xs={12}>
             <Grid item xs={10} sm={3}>
               <Button
