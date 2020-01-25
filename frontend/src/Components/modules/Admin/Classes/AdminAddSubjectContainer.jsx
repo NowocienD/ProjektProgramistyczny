@@ -1,19 +1,19 @@
 import React from 'react';
-import AddTeacherSubjectComponent from './AddTeacherSubjectComponent';
-import {  getSubjectTeachers, deleteSubjectTeacher, addSubjectTeacher } from '../../../../Actions/subjects';
-import {  getAllTeachers } from '../../../../Actions/teacher';
+import { getClassSubjects, getAllSubjects } from '../../../../Actions/subjects';
+import { addClassSubject, deleteClassSubject } from '../../../../Actions/classSubject';
 import { withSnackbar } from '../../../navigation/SnackbarContext';
+import AdminAddSubjectComponent from './AdminAddSubjectComponent';
 
-class AddTeacherSubjectContainer extends React.Component {
+class AdminAddSubjectContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      leftTeachers: [],
-      selectedTeachers: [],
       dialogVisible: false,
-      subjectId: props.match.params.subjectId,
-      teacher: '',
+      classId: props.match.params.classId,
+      subjects: [],
+      subject: '',
       addDialogVisible: false,
+      leftSubjects: [],
     };
   }
 
@@ -24,14 +24,14 @@ class AddTeacherSubjectContainer extends React.Component {
   showDialog = (event, data) => {
     this.setState({
       dialogVisible: true,
-      teacher: data,
+      subject: data,
     })
   }
 
   hideDialog = () => {
     this.setState({
       dialogVisible: false,
-      teacher: '',
+      subject: '',
     })
   }
 
@@ -47,7 +47,7 @@ class AddTeacherSubjectContainer extends React.Component {
     })
   }
 
-  onDeleteTeacher = () => deleteSubjectTeacher(this.state.subjectId, this.state.teacher.id)
+  onDeleteSubject = () => deleteClassSubject(this.state.classId, this.state.subject.id)
     .catch(error => {
       this.props.showMessage(error.response.data);
       this.hideDialog();
@@ -59,7 +59,7 @@ class AddTeacherSubjectContainer extends React.Component {
     })
 
 
-  onAddTeacher = () => addSubjectTeacher(this.state.subjectId, this.state.teacher.id)
+  onAddSubject = () => addClassSubject(this.state.classId, this.state.subject.id)
     .catch(error => {
       this.props.showMessage(error.response.data);
       this.hideAddDialog();
@@ -70,73 +70,75 @@ class AddTeacherSubjectContainer extends React.Component {
       this.props.showMessage(res.data)
     })
 
+  goBack = () => {
+    this.props.history.push("/classes");
+  }
   update = () => {
-    getSubjectTeachers(this.state.subjectId)
+    getClassSubjects(this.state.classId)
       .then(res => {
         this.setState({
-          selectedTeachers: res.data.teacherSubjects,
+          subjects: res.data.subjectList,
         }, () => {
-          getAllTeachers()
+          getAllSubjects()
             .then(res => {
-              const temp = res.data.teachers.filter(n => {
-                for (let i=0; i < this.state.selectedTeachers.length; i++) {
-                  if (this.state.selectedTeachers[i].id === n.id) {
+              const temp = res.data.subjectList.filter(n => {
+                for (let i=0; i < this.state.subjects.length; i++) {
+                  if (this.state.subjects[i].id === n.id) {
                     return false;
                   }
                 }
                 return true;
               });
               this.setState({
-                leftTeachers: temp,
+                leftSubjects: temp,
               });
-            })
+            });
         });
       });
   }
 
-  handleTeacherChange = (event) => {
+  handleSubjectChange = (event) => {
     this.setState({
-      teacher: event.target.value,
+      subject: event.target.value,
     });
   }
 
   render() {
     return (
-      <AddTeacherSubjectComponent
-        teachers={this.state.selectedTeachers}
+      <AdminAddSubjectComponent
+        subjects={this.state.subjects}
         actions={[
           {
             icon: 'add',
-            tooltip: 'Dodaj nauczyciela',
+            tooltip: 'Dodaj przedmiot',
             isFreeAction: true,
             onClick: this.showAddDialog,
           },
           {
             icon: 'delete',
-            tooltip: 'Usuń nauczyciela',
+            tooltip: 'Usuń przedmiot z klasy',
             onClick: (event, rowData) => this.showDialog(event, rowData),
           }
         ]}
         columns={[
           {
-            title: 'Nauczyciel',
-            field: 'firstnameSurname',
+            title: 'Przedmiot',
+            field: 'name',
           },
         ]}
         hideDialog={this.hideDialog}
-        onDelete={this.onDeleteTeacher}
+        onDelete={this.onDeleteSubject}
         dialogVisible={this.state.dialogVisible}
-
-        leftTeachers={this.state.leftTeachers}
-        teacher={this.state.teacher}
-        handleTeacherChange={this.handleTeacherChange}
         hideAddDialog={this.hideAddDialog}
         showAddDialog={this.showAddDialog}
         addDialogVisible={this.state.addDialogVisible}
-        onAddTeacher={this.onAddTeacher}
+        onAddSubject={this.onAddSubject}
+        leftSubjects={this.state.leftSubjects}
+        handleSubjectChange={this.handleSubjectChange}
+        goBack={this.goBack}
       />
     );
   }
 }
 
-export default withSnackbar(AddTeacherSubjectContainer);
+export default withSnackbar(AdminAddSubjectContainer);

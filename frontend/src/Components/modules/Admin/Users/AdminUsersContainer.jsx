@@ -69,18 +69,18 @@ class AdminUsersContainer extends React.Component {
         actions={[
           {
             icon: 'add',
-            toolTip: 'Dodaj użytkownika',
+            tooltip: 'Dodaj użytkownika',
             onClick: (event, rowData) => {this.props.history.push("/users/add")},
             isFreeAction: true,
           },         
           {
             icon: 'edit',
-            toolTip: 'Edytuj użytkownika',
+            tooltip: 'Edytuj użytkownika',
             onClick: (event, rowData) => {this.props.history.push(`/users/${rowData.id}`)}
           },
           rowData => ({
             icon: 'delete',
-            toolTip: "Usuń użytkownika",
+            tooltip: "Usuń użytkownika",
             hidden: !rowData.isActive,
             onClick: (event, rowData) => {
               if (rowData.isActive) {

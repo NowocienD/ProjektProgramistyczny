@@ -71,12 +71,12 @@ class AdminSubjectsContainer extends React.Component {
         actions={[
           {
             icon: 'edit',
-            toolTip: 'Dodaj nauczyciela',
+            tooltip: 'Dodaj nauczyciela',
             onClick: (event, rowData) =>{this.props.history.push(`/subjects/${rowData.id}`)}
           },
           {
             icon: 'delete',
-            toolTip: 'Usuń przedmiot',
+            tooltip: 'Usuń przedmiot',
             onClick: (event, rowData) => this.showDialog(event, rowData),
           }
         ]}

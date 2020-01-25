@@ -12,7 +12,7 @@ const AdminClassesComponent = (props) => {
 
       <MaterialTable
         columns={props.columns}
-        data={props.subjects}
+        data={props.classes}
         actions={props.actions}
         title="Przedmioty"
         editable={props.editable}

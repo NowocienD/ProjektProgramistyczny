@@ -16,7 +16,7 @@ function getAllClasses() {
 
 function addClass(data) {
   return axiosDefault({
-    method: "GET",
+    method: "POST",
     url: "/api/class/admin/addClass",
     data: data
   });
@@ -33,7 +33,7 @@ function editClass(data, classId) {
 function deleteClass(classId) {
   return axiosDefault({
     method: "DELETE",
-    url: `/api/class/admin/updateClass/${classId}`
+    url: `/api/class/admin/deleteClass/${classId}`
   });
 }
 

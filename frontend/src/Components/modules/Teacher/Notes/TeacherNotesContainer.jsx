@@ -107,7 +107,7 @@ class TeacherNotesContainer extends React.Component {
         actions={[
           {
             icon: 'add',
-            toolTip: 'Dodaj uwagę',
+            tooltip: 'Dodaj uwagę',
             isFreeAction: true,
             onClick: this.showDialog,
           }

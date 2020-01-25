@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminClassesComponent from './AdminClassesComponent';
-import { getAllClasses, addClass, deleteClass, editClass } from '../../../../Actions/subjects';
+import { getAllClasses, addClass, deleteClass, editClass } from '../../../../Actions/class';
 import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 class AdminClassesContainer extends React.Component {
@@ -61,24 +61,35 @@ class AdminClassesContainer extends React.Component {
       this.props.showMessage(res.data)
     })
 
+  onEditClass = (newData, oldData) => {
+    return editClass(newData, newData.id)
+      .catch(error => {
+        this.props.showMessage(error.response.data);
+      })
+      .then(res => {
+        this.update();
+        this.props.showMessage(res.data)
+      });
+  }
+
   render() {
     return (
       <AdminClassesComponent
         classes={this.state.classes}
         editable={{
           onRowAdd: newData => this.onAddClass(newData),
-          //onRowEdit: newData => this.onEditClass(newData),
+          onRowUpdate: (newData, oldData) => this.onEditClass(newData, oldData),
         }}
         actions={[
           {
-            icon: 'edit',
-            toolTip: 'Dodaj nauczyciela',
-            onClick: (event, rowData) => { this.props.history.push(`/classes/${rowData.id}`) }
+            icon: 'delete',
+            tooltip: 'Usuń klasę',
+            onClick: (event, rowData) => this.showDialog(event, rowData),
           },
           {
-            icon: 'delete',
-            toolTip: 'Usuń klasę',
-            onClick: (event, rowData) => this.showDialog(event, rowData),
+            icon: 'recent_actors',
+            tooltip: 'Dodaj przedmioty do klasy',
+            onClick: (event, rowData) => this.props.history.push(`/classes/${rowData.id}`),
           }
         ]}
         columns={[

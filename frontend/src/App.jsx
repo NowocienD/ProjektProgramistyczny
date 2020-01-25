@@ -19,6 +19,8 @@ import AdminLessonsContainer from './Components/modules/Admin/Lessons/AdminLesso
 import AdminAddLessonContainer from './Components/modules/Admin/Lessons/AdminAddLessonContainer';
 import AdminUsersContainer from './Components/modules/Admin/Users/AdminUsersContainer';
 import AdminAddUserContainer from './Components/modules/Admin/Users/AdminAddUserContainer';
+import AdminClassesContainer from './Components/modules/Admin/Classes/AdminClassesContainer';
+import AdminAddSubjectContainer from './Components/modules/Admin/Classes/AdminAddSubjectContainer';
 
 class App extends Component {
 
@@ -89,7 +91,7 @@ class App extends Component {
           {
             key: 'Klasy',
             name: "Klasy",
-            icon: 'people_alt',
+            icon: 'class',
             to: '/classes'
           }
         ]
@@ -121,6 +123,8 @@ class App extends Component {
         AddLessonContainer: AdminAddLessonContainer,
         UsersContainer: AdminUsersContainer,
         AddUserContainer: AdminAddUserContainer,
+        ClassesContainer: AdminClassesContainer,
+        AddStudentsToClassContainer: AdminAddSubjectContainer,
       }
     }
   }

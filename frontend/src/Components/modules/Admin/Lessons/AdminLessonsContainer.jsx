@@ -130,18 +130,18 @@ class AdminLessonsContainer extends React.Component {
         actions={[
           {
             icon: 'edit',
-            toolTip: 'Modyfikuj lekcję',
+            tooltip: 'Modyfikuj lekcję',
             onClick: this.onEdit,
           },
           {
             icon: 'add',
-            toolTip: 'Dodaj lekcję',
+            tooltip: 'Dodaj lekcję',
             isFreeAction: true,
             onClick: (event, rowData) => { this.props.history.push(`/lessons/${this.state.class.id}/${this.state.day.id}/add`) }
           },
           {
             icon: 'delete',
-            toolTip: 'Usuń lekcję',
+            tooltip: 'Usuń lekcję',
             onClick: (event, rowData) => this.showDialog(event, rowData),
           }
         ]}

@@ -160,9 +160,9 @@ const Layout = (props) => {
       >
         <div className={classes.drawerHeader}>
           <h2 style={{ marginLeft: '5%', marginRight: 'auto' }}>
-            {props.user.firstname 
-            && props.user.surname
-             && (`${props.user.firstname} ${props.user.surname}`)}
+            {props.user.firstname
+              && props.user.surname
+              && (`${props.user.firstname} ${props.user.surname}`)}
           </h2>
 
           <IconButton onClick={handleDrawerClose}>
@@ -197,7 +197,7 @@ const Layout = (props) => {
       >
         <div className={classes.drawerHeader} />
         <div className="content">
-          <Route path="/timetable" exact component={props.components.TimetableContainer } />
+          <Route path="/timetable" exact component={props.components.TimetableContainer} />
           <Route path="/grades" exact component={props.components.GradesContainer} />
           <Route path="/presence" exact component={props.components.PresenceContainer} />
           <Route path="/notes" exact component={props.components.NotesContainer} />
@@ -208,7 +208,8 @@ const Layout = (props) => {
           <Route path="/lessons/:classId/:day/:lessonId" component={props.components.AddLessonContainer} />
           <Route path="/users/" exact component={props.components.UsersContainer} />
           <Route path="/users/:userId" exact component={props.components.AddUserContainer} />
-
+          <Route path="/classes/" exact component={props.components.ClassesContainer} />
+          <Route path="/classes/:classId" component={props.components.AddStudentsToClassContainer} />
         </div>
       </main>
     </div >

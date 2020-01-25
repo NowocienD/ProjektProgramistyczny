@@ -65,6 +65,7 @@ function addSubjectTeacher(subjectId, teacherId) {
   });
 }
 
+
 export {
   getMySubjects,
   getClassSubjects,
@@ -73,5 +74,5 @@ export {
   deleteSubject,
   getSubjectTeachers,
   deleteSubjectTeacher,
-  addSubjectTeacher
+  addSubjectTeacher,
 };
