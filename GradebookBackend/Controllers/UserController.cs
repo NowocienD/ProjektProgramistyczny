@@ -22,7 +22,7 @@ namespace GradebookBackend.Controllers
         {
             this.tokenService = tokenService;
             this.userService = userService;
-            this.userProviderService = userProviderService;// ?? throw new ArgumentNullException(nameof(userProvider));
+            this.userProviderService = userProviderService;
         }
 
         [HttpPost("login")]
@@ -51,7 +51,7 @@ namespace GradebookBackend.Controllers
             string userId = userProviderService.GetUserId();
             if (userId.Equals(string.Empty))
             {
-                return BadRequest("niepoprawny token, pusty token albo inny chuj strzelił metode wyciagajaca id z tokenu");
+                return BadRequest("Niepoprawny token");
             }
             return Ok(userId);
         }
@@ -60,21 +60,21 @@ namespace GradebookBackend.Controllers
         [HttpGet("myProfile")]
         public IActionResult GetUserData()
         {
-            UserDataDTO userDataDTO = userService.GetUserDataByUserId(Int32.Parse(userProviderService.GetUserId()));
+            int userId = Int32.Parse(userProviderService.GetUserId());
+            UserDataDTO userDataDTO = userService.GetUserDataByUserId(userId);
             return Ok(userDataDTO);
         } 
 
         [Authorize]
         [HttpPost("admin/addUser")]
-        public IActionResult AddUser([FromBody] NewUserDTO newUserDTO)
+        public IActionResult AddUser([FromBody] UserDTO newUserDTO)
         {
-
             if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
             {
                try
                {
                     userService.AddUser(newUserDTO);
-                    return Ok("User has been added");
+                    return Ok("Uzytkownik zostal pomyslnie dodany");
                }
                 catch (GradebookServerException exception)
                {
@@ -83,7 +83,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return BadRequest("Logged user is not a admin");
+                return BadRequest("Brak uprawnien administratora");
             }
         }
 
@@ -96,7 +96,7 @@ namespace GradebookBackend.Controllers
                 try
                 {
                     userService.UpdateUser(newUserDTO, userId);
-                    return Ok("User has been updated");
+                    return Ok("Uzytkownik zostal pomyslnie zaktualizowany");
 
                 }
                 catch (GradebookServerException exception)
@@ -106,7 +106,7 @@ namespace GradebookBackend.Controllers
             }
             else
             {
-                return BadRequest("Logged user is not a admin");
+                return BadRequest("Brak uprawnien administratora");
             }
         }
 
@@ -118,7 +118,7 @@ namespace GradebookBackend.Controllers
             {
                 int userId = Int32.Parse(userProviderService.GetUserId());
                 userService.UpdateUserPassword(userPasswordChangeDTO, userId);
-                return Ok("User password has been updated");
+                return Ok("Haslo uzytkownika zostalo pomyslnie zaktualizowane");
             }
             catch (GradebookServerException exception)
             {
@@ -133,7 +133,7 @@ namespace GradebookBackend.Controllers
             int userId = Int32.Parse(userProviderService.GetUserId());
             if(userService.IsAdmin(userId))
             {
-                UserDataListDTO userDataListDTO = userService.GetAllUsers();
+                UserListDTO userDataListDTO = userService.GetAllUsers();
                 return Ok(userDataListDTO);
             }
             else
@@ -142,14 +142,14 @@ namespace GradebookBackend.Controllers
             }
         }
         [Authorize]
-        [HttpGet("admin/userdata/{userId}")]
+        [HttpGet("admin/user/{userId}")]
         public IActionResult GetUserData(int userId)
         {
             int loggedUserId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(loggedUserId))
             {
-                UserDataDTO userDataDTO = userService.GetUserDataByUserId(userId);
-                return Ok(userDataDTO);
+                UserDTO userDTO = userService.GetUserByUserId(userId);
+                return Ok(userDTO);
             }
             else
             {
