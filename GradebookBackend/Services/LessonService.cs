@@ -122,5 +122,17 @@ namespace GradebookBackend.Services
         {
             lessonsRepository.Delete(lessonId);
         }
+        public LessonDTO GetLessonByLessonId(int lessonId)
+        {
+            LessonDAO lesson = lessonsRepository.Get(lessonId);
+            int userId = teachersRepository.Get(lesson.TeacherId).UserId;
+            LessonDTO lessonDTO = new LessonDTO
+            {
+                Id = lessonId,
+                Name = subjectRepository.Get(lesson.SubjectId).Name,
+                TeacherName = usersRepository.Get(userId).Firstname + " " + usersRepository.Get(userId).Surname
+            };
+            return lessonDTO;
+        }
     }
 }
