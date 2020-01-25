@@ -88,7 +88,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPost("admin/updateUser/{userId}")]
+        [HttpPatch("admin/updateUser/{userId}")]
         public IActionResult UpdatedUser([FromBody] NewUserDTO newUserDTO, int userId)
         {
             if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))

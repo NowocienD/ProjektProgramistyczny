@@ -206,6 +206,9 @@ const Layout = (props) => {
           <Route path="/subjects/:subjectId" component={props.components.SubjectTeacherContainer} />
           <Route path="/lessons/" exact component={props.components.LessonsContainer} />
           <Route path="/lessons/:classId/:day/:lessonId" component={props.components.AddLessonContainer} />
+          <Route path="/users/" exact component={props.components.UsersContainer} />
+          <Route path="/users/:userId" exact component={props.components.AddUserContainer} />
+
         </div>
       </main>
     </div >

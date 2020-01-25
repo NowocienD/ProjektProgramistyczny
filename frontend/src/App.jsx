@@ -17,6 +17,8 @@ import AdminSubjectsContainer from './Components/modules/Admin/Subjects/AdminSub
 import AddTeacherSubjectContainer from './Components/modules/Admin/Subjects/AddTeacherSubjectContainer';
 import AdminLessonsContainer from './Components/modules/Admin/Lessons/AdminLessonsContainer';
 import AdminAddLessonContainer from './Components/modules/Admin/Lessons/AdminAddLessonContainer';
+import AdminUsersContainer from './Components/modules/Admin/Users/AdminUsersContainer';
+import AdminAddUserContainer from './Components/modules/Admin/Users/AdminAddUserContainer';
 
 class App extends Component {
 
@@ -77,6 +79,12 @@ class App extends Component {
             name: "Plan lekcji",
             icon: 'chrome_reader_mode',
             to: '/lessons'
+          },
+          {
+            key: 'Użytkownicy',
+            name: "Użytkownicy",
+            icon: 'people_alt',
+            to: '/users'
           }
         ]
       }
@@ -105,6 +113,8 @@ class App extends Component {
         SubjectTeacherContainer: AddTeacherSubjectContainer,
         LessonsContainer: AdminLessonsContainer,
         AddLessonContainer: AdminAddLessonContainer,
+        UsersContainer: AdminUsersContainer,
+        AddUserContainer: AdminAddUserContainer,
       }
     }
   }

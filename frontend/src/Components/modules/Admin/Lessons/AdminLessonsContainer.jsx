@@ -61,16 +61,18 @@ class AdminLessonsContainer extends React.Component {
     });
   }
 
+  addIndex = (lessons) => {
+    console.log(lessons);
+    const nl = lessons.map((e, index) => { return { number: index+1, ...e}});
+    console.log(nl);
+    return nl;
+  }
+
   getData = () => {
     getClassLessons(this.state.class.id, this.state.day.id)
       .then(res => {
         this.setState({
-          lessons: res.data.lessons.map((element, index) => {
-            return {
-              lessonNumber: index,
-              ...element,
-            }
-          }),
+          lessons: this.addIndex(res.data.lessons),
         });
       });
   }
@@ -146,7 +148,7 @@ class AdminLessonsContainer extends React.Component {
         columns={[
           {
             title: 'Numer lekcji',
-            field: 'lessonNumber',
+            field: 'number',
           },
           {
             title: 'Nazwa',

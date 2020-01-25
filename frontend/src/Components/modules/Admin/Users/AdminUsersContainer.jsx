@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminSubjectsComponent from './AdminSubjectsComponent';
-import { getAllSubjects, addSubject, deleteSubject } from '../../../../Actions/subjects';
+import AdminUsersComponent from './AdminUsersComponent';
+import { getAllUsers } from '../../../../Actions/users';
 import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 class AdminUsersContainer extends React.Component {
@@ -32,67 +32,74 @@ class AdminUsersContainer extends React.Component {
   }
 
   update = () => {
-    getAllSubjects()
+    getAllUsers()
       .then(res => {
         this.setState({
-          subjects: res.data.subjectList,
+          users: res.data.users,
         });
       });
   }
 
-  onDeleteSubject = () => deleteSubject(this.state.subjectId)
-    .catch(error => {
-      this.props.showMessage(error.response.data);
-      this.hideDialog();
-    })
-    .then(res => {
-      this.update();
-      this.props.showMessage(res.data)
-      this.hideDialog();
-    })
+  // onDeleteUser = () => deleteUser(this.state.userId)
+  //   .catch(error => {
+  //     this.props.showMessage(error.response.data);
+  //     this.hideDialog();
+  //   })
+  //   .then(res => {
+  //     this.update();
+  //     this.props.showMessage(res.data)
+  //     this.hideDialog();
+  //   })
 
 
-  onAddSubject = data => addSubject(data)
-    .catch(error => {
-      this.props.showMessage(error.response.data);
-    })
-    .then(res => {
-      this.update();
-      this.props.showMessage(res.data)
-    })
+  // onAddSubject = data => addUser(data)
+  //   .catch(error => {
+  //     this.props.showMessage(error.response.data);
+  //   })
+  //   .then(res => {
+  //     this.update();
+  //     this.props.showMessage(res.data)
+  //   })
 
   render() {
     return (
-      <AdminSubjectsComponent
-        subjects={this.state.subjects}
-        editable={{
-          onRowAdd: newData => this.onAddSubject(newData),
-        }}
+      <AdminUsersComponent
+        users={this.state.users}
         actions={[
           {
-            icon: 'edit',
+            icon: 'add',
             toolTip: 'Dodaj nauczyciela',
-            onClick: (event, rowData) =>{this.props.history.push(`/subjects/${rowData.id}`)}
+            onClick: (event, rowData) => {this.props.history.push("/users/add")},
+            isFreeAction: true,
           },
           {
             icon: 'delete',
-            toolTip: 'Usuń przedmiot',
+            toolTip: 'Usuń nauczyciela',
             onClick: (event, rowData) => this.showDialog(event, rowData),
+          },
+          {
+            icon: 'edit',
+            toolTip: 'Edytuj nauczyciela',
+            onClick: (event, rowData) => {this.props.history.push(`/users/${rowData.id}`)}
           }
         ]}
         columns={[
           {
-            title: 'Nazwa',
-            field: 'name',
+            title: 'Imię',
+            field: 'firstname',
+          },
+          {
+            title: 'Nazwisko',
+            field: 'surname',
+          },
+          {
+            title: 'Rola',
+            field: 'role',
           },
         ]}
         hideDialog={this.hideDialog}
-        onDelete={this.onDeleteSubject}
+        onDelete={this.onDeleteUser}
         dialogVisible={this.state.dialogVisible}
-
-        hideAddDialog={this.hideAddDialog}
-        onSave={this.onSave}
-        addDialogVisible={this.state.addDialogVisible}
       />
     );
   }

@@ -47,7 +47,7 @@ class AdminAddLessonContainer extends React.Component {
     getClassSubjects(this.state.classId)
       .then(res => {
         this.setState({
-          subjects: res.data.subjectList,
+          subjects: res.data.subjectList ? res.data.subjectList : '',
           subject: res.data.subjectList ? res.data.subjectList[0] : '',
         }, () => {
           this.getTeachers()
@@ -56,15 +56,17 @@ class AdminAddLessonContainer extends React.Component {
   }
 
   getTeachers = () => {
-    getSubjectTeachers(this.state.subject.id)
-      .then(res => {
-        this.setState({
-          teachers: res.data.teacherSubjects,
-          teacher: res.data.teacherSubjects ? res.data.teacherSubjects[0] : '',
-        }, () => {
-          this.setDefaultValues();
-        });
-      })
+    if (this.state.subject) {
+      getSubjectTeachers(this.state.subject.id)
+        .then(res => {
+          this.setState({
+            teachers: res.data.teacherSubjects,
+            teacher: res.data.teacherSubjects ? res.data.teacherSubjects[0] : '',
+          }, () => {
+            this.setDefaultValues();
+          });
+        })
+    }
   }
 
   handleSubjectChange = (event) => {
@@ -88,36 +90,41 @@ class AdminAddLessonContainer extends React.Component {
   }
 
   onSave = () => {
-    const dto = {
-      LessonNumber: this.state.lessonNumber,
-      DayOfTheWeek: parseInt(this.state.day),
-      SubjectId: this.state.subject.id,
-      ClassId: parseInt(this.state.classId),
-      TeacherId: this.state.teacher.id,
-    };
-    if (this.state.addMode) {
-      addLesson(dto)
-      .then(res => {
-        this.goBack();
-        this.props.showMessage(res.data);
-      })
-      .catch(res => {
-        this.goBack();
-        this.props.showMessage(res.data.response);
-      });
+    if (this.state.subject && this.state.teacher) {
+      const dto = {
+        LessonNumber: this.state.lessonNumber,
+        DayOfTheWeek: parseInt(this.state.day),
+        SubjectId: this.state.subject.id,
+        ClassId: parseInt(this.state.classId),
+        TeacherId: this.state.teacher.id,
+      };
+      if (this.state.addMode) {
+        addLesson(dto)
+          .then(res => {
+            this.goBack();
+            this.props.showMessage(res.data);
+          })
+          .catch(res => {
+            this.goBack();
+            this.props.showMessage(res.data.response);
+          });
 
+      } else {
+        editLesson(dto, this.state.lessonId)
+          .then(res => {
+            this.goBack();
+            this.props.showMessage(res.data);
+          })
+          .catch(res => {
+            this.goBack();
+            this.props.showMessage(res.data.response);
+          });
+      }
     } else {
-      editLesson(dto, this.state.lessonId)
-        .then(res => {
-          this.goBack();
-          this.props.showMessage(res.data);
-        })
-        .catch(res => {
-          this.goBack();
-          this.props.showMessage(res.data.response);
-        });
+      this.props.showMessage("Nie wybrano przedmiotu lub nauczyciela");
     }
   }
+
 
   render() {
     return (

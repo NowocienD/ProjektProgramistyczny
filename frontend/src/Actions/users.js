@@ -9,17 +9,47 @@ function getLoggedUserData() {
 
 function changeMyPassword(data) {
   return axiosDefault({
-    method: 'POST',
+    method: "POST",
     url: "/api/user/updateMyPassword",
-    data: data,
-  })
+    data: data
+  });
 }
 
-// function getAllUsers() {
-//   return axiosDefault({
-//     method: "GET",
-//     url: "api/user/"
-//   })
-// }
+function getAllUsers() {
+  return axiosDefault({
+    method: "GET",
+    url: "api/user/admin/allusers"
+  });
+}
 
-export { getLoggedUserData, changeMyPassword };
+function getUserData(userId) {
+  return axiosDefault({
+    method: "GET",
+    url: `api/user/admin/userdata/${userId}`
+  });
+}
+
+function addUser(data) {
+  return axiosDefault({
+    method: "POST",
+    url: "api/user/admin/addUser",
+    data: data
+  });
+}
+
+function editUser(data, userId) {
+  return axiosDefault({
+    method: "PATCH",
+    url: `api/user/admin/updateUser/${userId}`,
+    data: data
+  });
+}
+
+export {
+  getLoggedUserData,
+  changeMyPassword,
+  getAllUsers,
+  getUserData,
+  addUser,
+  editUser,
+};
