@@ -62,7 +62,7 @@ namespace GradebookBackend.Controllers
         {
             UserDataDTO userDataDTO = userService.GetUserDataByUserId(Int32.Parse(userProviderService.GetUserId()));
             return Ok(userDataDTO);
-        }
+        } 
 
         [Authorize]
         [HttpPost("admin/addUser")]
@@ -135,6 +135,21 @@ namespace GradebookBackend.Controllers
             {
                 UserDataListDTO userDataListDTO = userService.GetAllUsers();
                 return Ok(userDataListDTO);
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
+        [Authorize]
+        [HttpGet("admin/userdata/{userId}")]
+        public IActionResult GetUserData(int userId)
+        {
+            int loggedUserId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(loggedUserId))
+            {
+                UserDataDTO userDataDTO = userService.GetUserDataByUserId(userId);
+                return Ok(userDataDTO);
             }
             else
             {
