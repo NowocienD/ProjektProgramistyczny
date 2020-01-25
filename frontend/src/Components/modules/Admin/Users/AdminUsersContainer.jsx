@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminUsersComponent from './AdminUsersComponent';
-import { getAllUsers } from '../../../../Actions/users';
+import { getAllUsers, deleteUser } from '../../../../Actions/users';
 import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 class AdminUsersContainer extends React.Component {
@@ -41,16 +41,16 @@ class AdminUsersContainer extends React.Component {
       });
   }
 
-  // onDeleteUser = () => deleteUser(this.state.userId)
-  //   .catch(error => {
-  //     this.props.showMessage(error.response.data);
-  //     this.hideDialog();
-  //   })
-  //   .then(res => {
-  //     this.update();
-  //     this.props.showMessage(res.data)
-  //     this.hideDialog();
-  //   })
+  onDeleteUser = () => deleteUser(this.state.userId)
+    .catch(error => {
+      this.props.showMessage(error.response.data);
+      this.hideDialog();
+    })
+    .then(res => {
+      this.update();
+      this.props.showMessage(res.data)
+      this.hideDialog();
+    })
 
 
   // onAddSubject = data => addUser(data)
@@ -76,7 +76,13 @@ class AdminUsersContainer extends React.Component {
           {
             icon: 'delete',
             toolTip: 'Usuń nauczyciela',
-            onClick: (event, rowData) => this.showDialog(event, rowData),
+            onClick: (event, rowData) => {
+              if (rowData.isActive) {
+                this.showDialog(event, rowData);
+              } else {
+                this.props.showMessage('Ten użytkownik już jest dezaktywowany');
+              }
+            },
           },
           {
             icon: 'edit',
@@ -104,6 +110,11 @@ class AdminUsersContainer extends React.Component {
           {
             title: 'Rola',
             field: 'role.name',
+          },
+          {
+            title: 'Aktywny',
+            field: 'isActive',
+            type: 'boolean'
           },
         ]}
         hideDialog={this.hideDialog}

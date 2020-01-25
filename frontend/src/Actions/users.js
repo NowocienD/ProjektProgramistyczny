@@ -45,6 +45,13 @@ function editUser(data, userId) {
   });
 }
 
+function deleteUser(userId) {
+  return axiosDefault({
+    method: "DELETE",
+    url: `api/user/admin/deactivateuser/${userId}`,
+  });
+}
+
 export {
   getLoggedUserData,
   changeMyPassword,
@@ -52,4 +59,5 @@ export {
   getUserData,
   addUser,
   editUser,
+  deleteUser,
 };

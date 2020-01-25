@@ -17,6 +17,7 @@ const AdminUsersComponent = (props) => {
         options={
           {
             emptyRowsWhenPaging: false,
+            pageSize: 10,
           }
         }
         localization={{
