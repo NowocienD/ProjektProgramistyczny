@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace GradebookBackend.DTO
 {
-    public class UserDataListDTO
+    public class UserListDTO
     {
-        public List<UserDataDTO> Users { get; set; }
-        public UserDataListDTO()
+        public List<UserDTO> Users { get; set; }
+        public UserListDTO()
         {
-            Users = new List<UserDataDTO>();
+            Users = new List<UserDTO>();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace GradebookBackend.Services
             this.passwordHasher = new PasswordHasher();
         }
 
-        public void AddUser(NewUserDTO newUserDTO)
+        public void AddUser(UserDTO newUserDTO)
         {
             if (!CheckIfNewUserLoginIsUnique(newUserDTO.Login))
             {
@@ -44,7 +44,7 @@ namespace GradebookBackend.Services
                 Email = newUserDTO.Email,
                 Firstname = newUserDTO.Firstname,
                 Surname = newUserDTO.Surname,
-                RoleId = newUserDTO.RoleId,
+                RoleId = newUserDTO.Role.Id,
                 IsActive = newUserDTO.IsActive
             };
             newUserDAO.Password = passwordHasher.HashPassword(newUserDTO.Password);
@@ -74,7 +74,7 @@ namespace GradebookBackend.Services
             }
         }
 
-        public void UpdateUser(NewUserDTO updatedUserDTO, int userId)
+        public void UpdateUser(UserDTO updatedUserDTO, int userId)
         {
             if (!CheckIfUpdatedUserLoginIsUnique(updatedUserDTO.Login, userId))
             {
@@ -87,7 +87,7 @@ namespace GradebookBackend.Services
                 Email = updatedUserDTO.Email,
                 Firstname = updatedUserDTO.Firstname,
                 Surname = updatedUserDTO.Surname,
-                RoleId = updatedUserDTO.RoleId,
+                RoleId = updatedUserDTO.Role.Id,
                 IsActive = updatedUserDTO.IsActive
             };
             updatedUserDAO.Password = passwordHasher.HashPassword(updatedUserDTO.Password);
@@ -137,12 +137,33 @@ namespace GradebookBackend.Services
 
         public UserDataDTO GetUserDataByUserId(int userId)
         {
-            UserDataDTO userDataDTO = new UserDataDTO();
-            userDataDTO.Firstname = usersRepository.Get(userId).Firstname;
-            userDataDTO.Surname = usersRepository.Get(userId).Surname;
-            userDataDTO.Role = rolesRepository.Get(usersRepository.Get(userId).RoleId).Name;
-
+            UserDAO userDAO = usersRepository.Get(userId);
+            UserDataDTO userDataDTO = new UserDataDTO
+            {
+                Firstname = userDAO.Firstname,
+                Surname = userDAO.Surname,
+                Role = rolesRepository.Get(userDAO.RoleId).Name
+            };
             return userDataDTO;
+        }
+
+        public UserDTO GetUserByUserId(int userId)
+        {
+            UserDAO userDAO = usersRepository.Get(userId);
+            UserDTO userDTO = new UserDTO
+            {
+                Firstname = userDAO.Firstname,
+                Surname = userDAO.Surname,
+                Login = userDAO.Login,
+                Email = userDAO.Email,
+                IsActive = userDAO.IsActive,
+                Role = new RoleDTO
+                {
+                    Id = userDAO.Id,
+                    Name = rolesRepository.Get(userDAO.RoleId).Name
+                }
+            };
+            return userDTO;
         }
 
         public int GetUserIdByLoginAndPassword(string login, string password)
@@ -227,17 +248,24 @@ namespace GradebookBackend.Services
             }
             return false;
         }
-        public UserDataListDTO GetAllUsers()
+        public UserListDTO GetAllUsers()
         {
-            UserDataListDTO userDataListDTO = new UserDataListDTO();
+            UserListDTO userDataListDTO = new UserListDTO();
             IEnumerable<UserDAO> users = usersRepository.GetAll();
             foreach (UserDAO user in users)
             {
-                userDataListDTO.Users.Add(new UserDataDTO
+                userDataListDTO.Users.Add(new UserDTO
                 {
                     Firstname = user.Firstname,
                     Surname = user.Surname,
-                    Role = rolesRepository.Get(user.RoleId).Name
+                    Email = user.Email,
+                    IsActive = user.IsActive,
+                    Login = user.Login,
+                    Role = new RoleDTO
+                    {
+                        Id = user.RoleId,
+                        Name = rolesRepository.Get(user.RoleId).Name
+                    }
                 });
             }
             return userDataListDTO;
