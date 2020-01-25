@@ -52,16 +52,6 @@ class AdminUsersContainer extends React.Component {
       this.hideDialog();
     })
 
-
-  // onAddSubject = data => addUser(data)
-  //   .catch(error => {
-  //     this.props.showMessage(error.response.data);
-  //   })
-  //   .then(res => {
-  //     this.update();
-  //     this.props.showMessage(res.data)
-  //   })
-
   render() {
     return (
       <AdminUsersComponent

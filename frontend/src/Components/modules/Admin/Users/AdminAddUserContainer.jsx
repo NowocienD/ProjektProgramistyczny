@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AdminAddUserComponent from './AdminAddUserComponent';
 import { getUserData, addUser, editUser } from '../../../../Actions/users';
 import { getAllRoles } from '../../../../Actions/roles';
+import { getAllClasses } from '../../../../Actions/class';
 import { withSnackbar }  from '../../../navigation/SnackbarContext';
 
 class AdminAddUserContainer extends Component {
@@ -13,6 +14,7 @@ class AdminAddUserContainer extends Component {
       addMode: this.props.match.params.userId === 'add',
       roles: [],
       role: '',
+      classes: [],
     }
   }
 
@@ -23,6 +25,12 @@ class AdminAddUserContainer extends Component {
   }
 
   componentDidMount = () => {
+    getAllClasses()
+      .then(res => {
+        this.setState({
+          classes: res.data.classList
+        });
+      });
     getAllRoles()
         .then(res => {
           this.setState({
@@ -41,6 +49,7 @@ class AdminAddUserContainer extends Component {
 
   onSave = (values) => {
     const v = {...values, Role: {id: values.Role}, IsActive: true, };
+    console.log(v);
     if (this.state.addMode) {
       addUser(v)
       .catch(error => {
@@ -69,13 +78,13 @@ class AdminAddUserContainer extends Component {
   render() {
     return (
       <div>
-        {console.log(this.state.roles)}
         <AdminAddUserComponent
           user={this.state.user}
           addMode={this.state.addMode}
           goBack={this.goBack}
           onSave={this.onSave}
           roles={this.state.roles}
+          classes={this.state.classes}
         />
       </div>
     );

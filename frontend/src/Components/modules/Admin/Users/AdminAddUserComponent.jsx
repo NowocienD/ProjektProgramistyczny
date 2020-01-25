@@ -14,6 +14,7 @@ const formikEnhancer = withFormik({
     Firstname: props.user && props.user.firstname ? props.user.firstname : '',
     Surname: props.user && props.user.surname ? props.user.surname : '',
     Role: props.user && props.user.role ? props.user.role.id : 1,
+    Class: props.user && props.user.classId ? props.user.classId : 1,
   }),
 
   handleSubmit: (values, { props }) => {
@@ -33,94 +34,106 @@ const SettingsComponent = (props) => {
               Edycja użytkownika
          </Typography>)}
 
-        <Grid container>
-          <Grid item xs={12}>
-            <Grid item xs={10} sm={3}>
-              <TextField
-                id="Email"
-                label="Email"
-                variant="outlined"
-                type="email"
-                value={props.values.Email}
-                className="textfield"
-                onChange={props.handleChange}
-              />
-            </Grid>
+        <Grid container spacing={3}>
+          <Grid item xs={10} sm={4}>
+            <TextField
+              id="Email"
+              label="Email"
+              variant="outlined"
+              type="email"
+              value={props.values.Email}
+              className="textfield"
+              onChange={props.handleChange}
+            />
           </Grid>
-          <Grid item xs={12}>
-            <Grid item xs={10} sm={3}>
-              <TextField
-                id="Login"
-                label="Login"
-                variant="outlined"
-                value={props.values.Login}
-                className="textfield"
-                onChange={props.handleChange}
-              />
-            </Grid>
+          <Grid item xs={10} sm={4}>
+            <TextField
+              id="Login"
+              label="Login"
+              variant="outlined"
+              value={props.values.Login}
+              className="textfield"
+              onChange={props.handleChange}
+            />
           </Grid>
-          <Grid item xs={12}>
-            <Grid item xs={10} sm={3}>
-              <TextField
-                id="Password"
-                label="Hasło"
-                variant="outlined"
-                value={props.values.Password}
-                type="password"
-                className="textfield"
-                onChange={props.handleChange}
-              />
-            </Grid>
+          <Grid item xs={10} sm={4}>
+            <TextField
+              id="Password"
+              label="Hasło"
+              variant="outlined"
+              value={props.values.Password}
+              type="password"
+              className="textfield"
+              onChange={props.handleChange}
+            />
+          </Grid>
+          <Grid item xs={10} sm={4}>
+            <TextField
+              id="Firstname"
+              label="Imię"
+              variant="outlined"
+              value={props.values.Firstname}
+              className="textfield"
+              onChange={props.handleChange}
+            />
+          </Grid>
+          <Grid item xs={10} sm={4}>
+            <TextField
+              id="Surname"
+              label="Nazwisko"
+              variant="outlined"
+              value={props.values.Surname}
+              className="textfield"
+              onChange={props.handleChange}
+            />
           </Grid>
 
-          <Grid item xs={12}>
-            <Grid item xs={10} sm={3}>
-              <TextField
-                id="Firstname"
-                label="Imię"
-                variant="outlined"
-                value={props.values.Firstname}
-                className="textfield"
-                onChange={props.handleChange}
-              />
-            </Grid>
+
+
+          <Grid item xs={10} sm={4}>
+            <InputLabel style={{ marginTop: '5%' }}>Rola</InputLabel>
+            <Select
+              disabled={!props.addMode}
+              value={props.values.Role}
+              onChange={props.handleChange('Role')}
+              onBlur={props.handleBlur('Role')}
+              margin="dense"
+              style={{ width: '100%' }}
+              variant="outlined"
+              id="Role"
+            >
+              {props.roles.map(item => (
+                <MenuItem key={item.id} value={item.id}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </Select>
           </Grid>
 
-          <Grid item xs={12}>
-            <Grid item xs={10} sm={3}>
-              <TextField
-                id="Surname"
-                label="Nazwisko"
-                variant="outlined"
-                value={props.values.Surname}
-                className="textfield"
-                onChange={props.handleChange}
-              />
-            </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid item xs={10} sm={3}>
-              <InputLabel style={{ marginTop: '5%' }}>Rola</InputLabel>
+          {props.values.Role === 1 && (
+
+            <Grid item xs={10} sm={4}>
+              <InputLabel style={{ marginTop: '5%' }}>Klasa</InputLabel>
               <Select
-                disabled={!props.addMode}
-                value={props.values.Role}
-                onChange={props.handleChange('Role')}
-                onBlur={props.handleBlur('Role')}
+                variant="outlined"
+                value={props.values.Class}
+                onChange={props.handleChange('Class')}
+                onBlur={props.handleBlur('Class')}
                 margin="dense"
                 style={{ width: '100%' }}
-                id="Role"
+                id="Class"
               >
-                {console.log(props.roles)}
-                {props.roles.map(item => (
+                {props.classes.map(item => (
                   <MenuItem key={item.id} value={item.id}>
                     {item.name}
                   </MenuItem>
                 ))}
               </Select>
             </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid item xs={10} sm={3}>
+
+          )}
+          <Grid item xs={12} style={{float: 'right'}}>
+            <Grid item xs={10} sm={2}>
               <Button
                 variant="contained"
                 className="button"
@@ -130,9 +143,7 @@ const SettingsComponent = (props) => {
                 Zapisz
               </Button>
             </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid item xs={10} sm={3}>
+            <Grid item xs={10} sm={2}>
               <Button
                 variant="contained"
                 className="button"
@@ -142,11 +153,9 @@ const SettingsComponent = (props) => {
               </Button>
             </Grid>
           </Grid>
-
-
         </Grid>
       </Card>
-    </form>
+    </form >
   );
 }
 
