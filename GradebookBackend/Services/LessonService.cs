@@ -63,6 +63,7 @@ namespace GradebookBackend.Services
                 {
                     int userId = teachersRepository.Get(lesson.TeacherId).UserId;
                     singleDayLessonPlanDTO.Lessons[lesson.LessonNumber].Id = lesson.Id;
+                    singleDayLessonPlanDTO.Lessons[lesson.LessonNumber].LessonNumber = lesson.LessonNumber;
                     singleDayLessonPlanDTO.Lessons[lesson.LessonNumber].Name = subjectRepository.Get(lesson.SubjectId).Name;
                     singleDayLessonPlanDTO.Lessons[lesson.LessonNumber].TeacherName = usersRepository.Get(userId).Firstname + " " + usersRepository.Get(userId).Surname;
                 }
@@ -129,6 +130,7 @@ namespace GradebookBackend.Services
             LessonDTO lessonDTO = new LessonDTO
             {
                 Id = lessonId,
+                LessonNumber = lesson.LessonNumber,
                 Name = subjectRepository.Get(lesson.SubjectId).Name,
                 TeacherName = usersRepository.Get(userId).Firstname + " " + usersRepository.Get(userId).Surname
             };

@@ -38,9 +38,16 @@ function addLesson(data) {
 
 function editLesson(data, lessonId) {
   return axiosDefault({
-    method: "POST",
+    method: "Patch",
     url: `/api/lesson/admin/updatelesson/${lessonId}`,
     data: data
+  });
+}
+
+function getLesson(lessonId) {
+  return axiosDefault({
+    method: "GET",
+    url: `/api/lesson/admin/getlesson/${lessonId}`,
   });
 }
 
@@ -51,4 +58,5 @@ export {
   deleteLesson,
   addLesson,
   editLesson,
+  getLesson,
 };

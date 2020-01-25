@@ -136,7 +136,7 @@ namespace GradebookBackend.Controllers
             }
         }
         [Authorize]
-        [HttpDelete("admin/getlesson/{lessonId}")]
+        [HttpGet("admin/getlesson/{lessonId}")]
         public IActionResult GetLesson(int lessonId)
         {
             int userId = int.Parse(userProviderService.GetUserId());

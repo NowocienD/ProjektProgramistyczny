@@ -61,16 +61,16 @@ class AdminLessonsContainer extends React.Component {
     });
   }
 
-  addNumber = (lessons) => {
-    let newLessons = lessons.map((element, index) => { return { number: index + 1, ...element } });
-    return newLessons;
-  }
-
   getData = () => {
     getClassLessons(this.state.class.id, this.state.day.id)
       .then(res => {
         this.setState({
-          lessons: this.addNumber(res.data.lessons),
+          lessons: res.data.lessons.map((element, index) => {
+            return {
+              lessonNumber: index,
+              ...element,
+            }
+          }),
         });
       });
   }
@@ -98,7 +98,13 @@ class AdminLessonsContainer extends React.Component {
       this.hideDialog();
     })
 
-
+    onEdit = (event, rowData) => {
+      if (rowData.id === 0) {
+        this.props.showMessage("Nie można modyfikować lekcji, która nie istnieje");
+      } else {
+        this.props.history.push(`/lessons/${this.state.class.id}/${this.state.day.id}/${rowData.id}`);
+      }
+    }
 
   // onModifyLesson = data => addSubject(data)
   //   .catch(error => {
@@ -123,13 +129,13 @@ class AdminLessonsContainer extends React.Component {
           {
             icon: 'edit',
             toolTip: 'Modyfikuj lekcję',
-            onClick: (event, rowData) => { this.props.history.push(`/lessons/${this.state.class.id}/${rowData.id}`) }
+            onClick: this.onEdit,
           },
           {
             icon: 'add',
             toolTip: 'Dodaj lekcję',
             isFreeAction: true,
-            onClick: (event, rowData) => { this.props.history.push(`/lessons/${this.state.class.id}/add`) }
+            onClick: (event, rowData) => { this.props.history.push(`/lessons/${this.state.class.id}/${this.state.day.id}/add`) }
           },
           {
             icon: 'delete',
@@ -140,7 +146,7 @@ class AdminLessonsContainer extends React.Component {
         columns={[
           {
             title: 'Numer lekcji',
-            field: 'number',
+            field: 'lessonNumber',
           },
           {
             title: 'Nazwa',

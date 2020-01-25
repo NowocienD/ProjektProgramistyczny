@@ -10,7 +10,7 @@ import {
   Card,
 } from '@material-ui/core';
 
-const lessonNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
+const lessonNumbers = [0, 1, 2, 3, 4, 5, 6, 7];
 const AdminAddLessonComponent = (props) => {
   return (
     <Card className="component-container">
@@ -35,7 +35,7 @@ const AdminAddLessonComponent = (props) => {
           >
             {
               props.subjects.map(item => (
-                <MenuItem key={item.id} value={item}>
+                <MenuItem key={item} value={item}>
                   {item.name}
                 </MenuItem>
               ))
@@ -52,7 +52,7 @@ const AdminAddLessonComponent = (props) => {
             style={{ width: '100%' }}
           >
             {props.teachers.map(item => (
-              <MenuItem key={item.id} value={item}>
+              <MenuItem key={item} value={item}>
                 {item.firstnameSurname}
               </MenuItem>
             ))}
@@ -70,7 +70,7 @@ const AdminAddLessonComponent = (props) => {
           >
             {lessonNumbers.map(item => (
               <MenuItem key={item} value={item}>
-                {item - 1}
+                {item + 1}
               </MenuItem>
             ))}
           </Select>
@@ -80,7 +80,7 @@ const AdminAddLessonComponent = (props) => {
           <Button
             variant="contained"
             className="button"
-            onClick={props.handleSubmit}
+            onClick={props.onSave}
             type="submit"
           >
             Zapisz
@@ -90,7 +90,7 @@ const AdminAddLessonComponent = (props) => {
           <Button
             variant="contained"
             className="button"
-            onClick={props.handleSubmit}
+            onClick={props.goBack}
             style={{marginLeft: '1%'}}
           >
             Anuluj

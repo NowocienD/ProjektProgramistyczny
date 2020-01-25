@@ -1,30 +1,46 @@
 import React from 'react';
 import AdminAddLessonComponent from './AdminAddLessonComponent';
 import { getClassSubjects, getSubjectTeachers } from '../../../../Actions/subjects';
-import { addLesson, editLesson } from '../../../../Actions/lessonPlan';
+import { addLesson, editLesson, getLesson } from '../../../../Actions/lessonPlan';
 import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 class AdminAddLessonContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      addMode: props.match.params.lessonNumber === 'add',
-      lessonNumber: props.match.params.lessonNumber,
+      addMode: props.match.params.lessonId === 'add',
+      lessonId: props.match.params.lessonId,
       classId: props.match.params.classId,
       subjects: [],
       subject: '',
       teachers: [],
       teacher: '',
+      lessonNumber: '',
+      day: props.match.params.day
     };
   }
 
   componentDidMount = () => {
-    this.setDefaultValues();
     this.fetchData();
   }
 
+  goBack = () => {
+    this.props.history.push('/lessons')
+  }
+
   setDefaultValues = () => {
-    if (!this.state.addMode)
+    if (!this.state.addMode) {
+      getLesson(this.state.lessonId)
+        .then(res => {
+          const sub = this.state.subjects.filter(el => el.name === res.data.name)
+          const te = this.state.teachers.filter(el => el.firstnameSurname === res.data.teacherName);
+          this.setState({
+            subject: sub[0],
+            lessonNumber: res.data.lessonNumber,
+            teacher: te[0],
+          });
+        })
+    }
   }
 
   fetchData = () => {
@@ -34,7 +50,7 @@ class AdminAddLessonContainer extends React.Component {
           subjects: res.data.subjectList,
           subject: res.data.subjectList ? res.data.subjectList[0] : '',
         }, () => {
-          this.getTeachers();
+          this.getTeachers()
         })
       })
   }
@@ -45,6 +61,8 @@ class AdminAddLessonContainer extends React.Component {
         this.setState({
           teachers: res.data.teacherSubjects,
           teacher: res.data.teacherSubjects ? res.data.teacherSubjects[0] : '',
+        }, () => {
+          this.setDefaultValues();
         });
       })
   }
@@ -65,15 +83,39 @@ class AdminAddLessonContainer extends React.Component {
 
   handleLessonNumberChange = (event) => {
     this.setState({
-      lessonNumber: event.target.value,
+      lessonNumber: event.target.value - 1,
     });
   }
 
   onSave = () => {
+    const dto = {
+      LessonNumber: this.state.lessonNumber,
+      DayOfTheWeek: parseInt(this.state.day),
+      SubjectId: this.state.subject.id,
+      ClassId: parseInt(this.state.classId),
+      TeacherId: this.state.teacher.id,
+    };
     if (this.state.addMode) {
+      addLesson(dto)
+      .then(res => {
+        this.goBack();
+        this.props.showMessage(res.data);
+      })
+      .catch(res => {
+        this.goBack();
+        this.props.showMessage(res.data.response);
+      });
 
     } else {
-
+      editLesson(dto, this.state.lessonId)
+        .then(res => {
+          this.goBack();
+          this.props.showMessage(res.data);
+        })
+        .catch(res => {
+          this.goBack();
+          this.props.showMessage(res.data.response);
+        });
     }
   }
 
@@ -85,10 +127,12 @@ class AdminAddLessonContainer extends React.Component {
         teachers={this.state.teachers}
         teacher={this.state.teacher}
         handleSubjectChange={this.handleSubjectChange}
-        handleTeacherChange={this.handleSubjectChange}
+        handleTeacherChange={this.handleTeacherChange}
         handleLessonNumberChange={this.handleLessonNumberChange}
         lessonNumber={this.state.lessonNumber}
         addMode={this.state.addMode}
+        goBack={this.goBack}
+        onSave={this.onSave}
       />
     );
   }
