@@ -43,12 +43,13 @@ namespace GradebookBackend.Repositories
             return this.context.Classes;
         }
 
-        public ClassDAO Update(ClassDAO tObjectChanges)
+        public ClassDAO Update(ClassDAO classChanges)
         {
-            var tObject = this.context.Classes.Attach(tObjectChanges);
+            context.Entry(classChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            var tObject = this.context.Classes.Attach(classChanges);
             tObject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             this.context.SaveChanges();
-            return tObjectChanges;
+            return classChanges;
         }
     }
 }

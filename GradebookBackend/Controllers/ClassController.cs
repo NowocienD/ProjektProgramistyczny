@@ -105,8 +105,8 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPatch("admin/updateClass/{classId}")]
-        public IActionResult UpdateClassById([FromBody] ClassDTO updatedClassDTO, int classId)
+        [HttpPut("admin/updateClass/{classId}")]
+        public IActionResult UpdateClass([FromBody] ClassDTO updatedClassDTO, int classId)
         {
             try
             {
