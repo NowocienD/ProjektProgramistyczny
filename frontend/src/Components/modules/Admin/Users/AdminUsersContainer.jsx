@@ -69,13 +69,19 @@ class AdminUsersContainer extends React.Component {
         actions={[
           {
             icon: 'add',
-            toolTip: 'Dodaj nauczyciela',
+            toolTip: 'Dodaj użytkownika',
             onClick: (event, rowData) => {this.props.history.push("/users/add")},
             isFreeAction: true,
-          },
+          },         
           {
+            icon: 'edit',
+            toolTip: 'Edytuj użytkownika',
+            onClick: (event, rowData) => {this.props.history.push(`/users/${rowData.id}`)}
+          },
+          rowData => ({
             icon: 'delete',
-            toolTip: 'Usuń nauczyciela',
+            toolTip: "Usuń użytkownika",
+            hidden: !rowData.isActive,
             onClick: (event, rowData) => {
               if (rowData.isActive) {
                 this.showDialog(event, rowData);
@@ -83,12 +89,7 @@ class AdminUsersContainer extends React.Component {
                 this.props.showMessage('Ten użytkownik już jest dezaktywowany');
               }
             },
-          },
-          {
-            icon: 'edit',
-            toolTip: 'Edytuj nauczyciela',
-            onClick: (event, rowData) => {this.props.history.push(`/users/${rowData.id}`)}
-          }
+          })
         ]}
         columns={[
           {
