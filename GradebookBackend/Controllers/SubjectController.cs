@@ -133,7 +133,7 @@ namespace GradebookBackend.Controllers
                 }
                 else
                 {
-                    return BadRequest("Zalogowany uzytkownik nie jest administratorem");
+                    return BadRequest("Brak uprawnien administratora do wykonania tej operacji");
                 }
             }
             catch (GradebookServerException ex)

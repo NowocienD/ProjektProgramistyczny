@@ -104,5 +104,28 @@ namespace GradebookBackend.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPatch("admin/updateClass/{classId}")]
+        public IActionResult UpdateClassById([FromBody] ClassDTO updatedClassDTO, int classId)
+        {
+            try
+            {
+                int userId = int.Parse(userProviderService.GetUserId());
+                if (userService.IsAdmin(userId))
+                {
+                    classService.UpdateClass(updatedClassDTO, classId);
+                    return Ok("Pomyslnie zaktualizowano klase");
+                }
+                else
+                {
+                    return BadRequest("Brak uprawnien administratora do wykonania tej operacji");
+                }
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
     }
 }
