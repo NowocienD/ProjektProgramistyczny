@@ -21,10 +21,25 @@ function getClassLessons(classId, dayOfTheWeek) {
   });
 }
 
-function deleteLesson(data) {
+function deleteLesson(lessonId) {
   return axiosDefault({
     method: "DELETE",
-    url: "/api/lesson/admin/deletelesson",
+    url: `/api/lesson/admin/deletelesson/${lessonId}`,
+  });
+}
+
+function addLesson(data) {
+  return axiosDefault({
+    method: "POST",
+    url: "/api/lesson/admin/addlesson",
+    data: data
+  });
+}
+
+function editLesson(data, lessonId) {
+  return axiosDefault({
+    method: "POST",
+    url: `/api/lesson/admin/updatelesson/${lessonId}`,
     data: data
   });
 }
@@ -33,5 +48,7 @@ export {
   getStudentLessonPlan,
   getTeacherLessonPlan,
   getClassLessons,
-  deleteLesson
+  deleteLesson,
+  addLesson,
+  editLesson,
 };

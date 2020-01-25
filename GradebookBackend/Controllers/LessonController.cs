@@ -120,6 +120,10 @@ namespace GradebookBackend.Controllers
         [HttpDelete("admin/deletelesson/{lessonId}")]
         public IActionResult DaleteLesson(int lessonId)
         {
+            if (lessonId == 0)
+            {
+                return BadRequest("Nie ma takiej lekcji");
+            }
             int userId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(userId))
             {

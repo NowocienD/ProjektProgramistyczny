@@ -18,9 +18,9 @@ class AdminLessonsContainer extends React.Component {
     this.state = {
       lessons: [],
       dialogVisible: false,
-      lesson: {},
+      lesson: '',
       classes: [],
-      class: {},
+      class: '',
       days: allDays,
       day: allDays[0],
     };
@@ -62,7 +62,7 @@ class AdminLessonsContainer extends React.Component {
   }
 
   addNumber = (lessons) => {
-    let newLessons = lessons.map((element, index) => { return { name: element, number: index+1 } });
+    let newLessons = lessons.map((element, index) => { return { number: index + 1, ...element } });
     return newLessons;
   }
 
@@ -87,16 +87,17 @@ class AdminLessonsContainer extends React.Component {
       })
   }
 
-  // onDeleteLesson = () => deleteLesson({LessonNumber: this.state.lesson.number-1, DayOfTheWeek: this.state.day.id, SubjectId, })
-  //   .catch(error => {
-  //     this.props.showMessage(error.response.data);
-  //     this.hideDialog();
-  //   })
-  //   .then(res => {
-  //     this.update();
-  //     this.props.showMessage(res.data)
-  //     this.hideDialog();
-  //   })
+  onDeleteLesson = () => deleteLesson(this.state.lesson.id)
+    .then(res => {
+      this.getData();
+      this.props.showMessage(res.data)
+      this.hideDialog();
+    })
+    .catch(error => {
+      this.props.showMessage(error.response.data);
+      this.hideDialog();
+    })
+
 
 
   // onModifyLesson = data => addSubject(data)
@@ -122,7 +123,7 @@ class AdminLessonsContainer extends React.Component {
           {
             icon: 'edit',
             toolTip: 'Modyfikuj lekcję',
-            onClick: (event, rowData) => { this.props.history.push(`/lessons/${this.state.class.id}/${rowData.number}`) }
+            onClick: (event, rowData) => { this.props.history.push(`/lessons/${this.state.class.id}/${rowData.id}`) }
           },
           {
             icon: 'add',
@@ -144,6 +145,10 @@ class AdminLessonsContainer extends React.Component {
           {
             title: 'Nazwa',
             field: 'name',
+          },
+          {
+            title: 'Nauczyciel',
+            field: 'teacherName',
           },
         ]}
         hideDialog={this.hideDialog}

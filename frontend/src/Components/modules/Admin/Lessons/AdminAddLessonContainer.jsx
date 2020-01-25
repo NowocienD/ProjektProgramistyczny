@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminAddLessonComponent from './AdminAddLessonComponent';
-import {  getClassSubjects, getSubjectTeachers } from '../../../../Actions/subjects';
+import { getClassSubjects, getSubjectTeachers } from '../../../../Actions/subjects';
+import { addLesson, editLesson } from '../../../../Actions/lessonPlan';
 import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 class AdminAddLessonContainer extends React.Component {
@@ -18,7 +19,12 @@ class AdminAddLessonContainer extends React.Component {
   }
 
   componentDidMount = () => {
+    this.setDefaultValues();
     this.fetchData();
+  }
+
+  setDefaultValues = () => {
+    if (!this.state.addMode)
   }
 
   fetchData = () => {
@@ -35,12 +41,12 @@ class AdminAddLessonContainer extends React.Component {
 
   getTeachers = () => {
     getSubjectTeachers(this.state.subject.id)
-    .then(res => {
-      this.setState({
-        teachers: res.data.teacherSubjects,
-        teacher: res.data.teacherSubjects ? res.data.teacherSubjects[0] : '',
-      });
-    })
+      .then(res => {
+        this.setState({
+          teachers: res.data.teacherSubjects,
+          teacher: res.data.teacherSubjects ? res.data.teacherSubjects[0] : '',
+        });
+      })
   }
 
   handleSubjectChange = (event) => {
@@ -67,7 +73,7 @@ class AdminAddLessonContainer extends React.Component {
     if (this.state.addMode) {
 
     } else {
-      
+
     }
   }
 
@@ -83,7 +89,7 @@ class AdminAddLessonContainer extends React.Component {
         handleLessonNumberChange={this.handleLessonNumberChange}
         lessonNumber={this.state.lessonNumber}
         addMode={this.state.addMode}
-      /> 
+      />
     );
   }
 }
