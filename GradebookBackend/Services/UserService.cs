@@ -152,6 +152,7 @@ namespace GradebookBackend.Services
             UserDAO userDAO = usersRepository.Get(userId);
             UserDTO userDTO = new UserDTO
             {
+                Id = userDAO.Id,
                 Firstname = userDAO.Firstname,
                 Surname = userDAO.Surname,
                 Login = userDAO.Login,
@@ -256,6 +257,7 @@ namespace GradebookBackend.Services
             {
                 userDataListDTO.Users.Add(new UserDTO
                 {
+                    Id = user.Id,
                     Firstname = user.Firstname,
                     Surname = user.Surname,
                     Email = user.Email,
