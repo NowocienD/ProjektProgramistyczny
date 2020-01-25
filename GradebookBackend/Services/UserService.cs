@@ -28,7 +28,6 @@ namespace GradebookBackend.Services
             this.studentsRepository = studentsRepository;
             this.teachersRepository = teachersRepository;
             this.adminsRepository = adminsRepository;
-
             this.passwordHasher = new PasswordHasher();
         }
 
@@ -90,8 +89,29 @@ namespace GradebookBackend.Services
                 RoleId = updatedUserDTO.Role.Id,
                 IsActive = updatedUserDTO.IsActive
             };
-            updatedUserDAO.Password = passwordHasher.HashPassword(updatedUserDTO.Password);
+            if (updatedUserDTO.Password != null)
+            {
+                updatedUserDAO.Password = passwordHasher.HashPassword(updatedUserDTO.Password);
+            }
+            else
+            {
+                updatedUserDAO.Password = usersRepository.Get(userId).Password;
+            }
             usersRepository.Update(updatedUserDAO);
+        }
+
+        public void DeactivateUser(int userId)
+        {
+            UserDAO userDAO = usersRepository.Get(userId);
+            if (userDAO.IsActive)
+            {
+                userDAO.IsActive = false;
+                usersRepository.Update(userDAO);
+            }
+            else
+            {
+                throw new GradebookServerException("Niepowodzenie, uzytkownik jest juz deazaktywowany");
+            }
         }
 
         public void UpdateUserPassword(UserPasswordChangeDTO userPasswordChangeDTO, int userId)
