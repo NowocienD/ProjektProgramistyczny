@@ -35,7 +35,7 @@ namespace GradebookBackend.Services
         {
             if (!CheckIfNewUserLoginIsUnique(newUserDTO.Login))
             {
-                throw new GradebookServerException("New user login is not unique");
+                throw new GradebookServerException("Nowy login uzytkownika nie jest unikalny");
             }
             UserDAO newUserDAO = new UserDAO
             {
@@ -69,7 +69,7 @@ namespace GradebookBackend.Services
             }
             else
             {
-                throw new GradebookServerException("Not valid roleId");
+                throw new GradebookServerException("Nie poprawna roleId");
             }
         }
 
@@ -77,7 +77,7 @@ namespace GradebookBackend.Services
         {
             if (!CheckIfUpdatedUserLoginIsUnique(updatedUserDTO.Login, userId))
             {
-                throw new GradebookServerException("Updated user login is not unique");
+                throw new GradebookServerException("Zaktualizowany login uzytkownika nie jest unikalny");
             }
             UserDAO updatedUserDAO = new UserDAO
             {
@@ -123,7 +123,7 @@ namespace GradebookBackend.Services
             }
             else
             {
-                throw new GradebookServerException("Old password is not valid");
+                throw new GradebookServerException("Poprzednie haslo nie jest poprawne");
             }
             usersRepository.Update(userDAO);
         }
@@ -202,20 +202,20 @@ namespace GradebookBackend.Services
                         }
                         else if (passwordHasher.VerifyHashedPassword(user.Password, password) == Microsoft.AspNet.Identity.PasswordVerificationResult.SuccessRehashNeeded)
                         {
-                            throw new GradebookServerException("Password should be rehash");
+                            throw new GradebookServerException("Haslo powinno byc rehashowane");
                         }
                         else
                         {
-                            throw new GradebookServerException("Wrong password");
+                            throw new GradebookServerException("Niepoprawne haslo");
                         }
                     }
                     else
                     {
-                        throw new GradebookServerException("User with this login isn't active");
+                        throw new GradebookServerException("Uzytkownik o tym loginie nie jest aktywny");
                     }
                 }
             }
-            throw new GradebookServerException("User with this login doesn't exists");
+            throw new GradebookServerException("Niepoprawny login");
         }
 
         public int GetStudentIdByUserId(int userId)
@@ -228,7 +228,7 @@ namespace GradebookBackend.Services
                     return student.Id;
                 }
             }
-            throw new GradebookServerException("Student with this userId doesn't exist");
+            throw new GradebookServerException("Student o tym userId nie istnieje");
         }
 
         public int GetTeacherIdByUserId(int userId)
@@ -241,7 +241,7 @@ namespace GradebookBackend.Services
                     return teacher.Id;
                 }
             }
-            throw new GradebookServerException("Teacher with this userId doesn't exist");
+            throw new GradebookServerException("Nauczyciel o tym userId nie istnieje");
         }
 
         public bool IsAdmin(int userId)
