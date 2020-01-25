@@ -38,6 +38,7 @@ function addUser(data) {
 }
 
 function editUser(data, userId) {
+  console.log(data);
   return axiosDefault({
     method: "PATCH",
     url: `api/user/admin/updateUser/${userId}`,
