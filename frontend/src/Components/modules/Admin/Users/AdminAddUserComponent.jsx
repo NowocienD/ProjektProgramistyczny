@@ -13,7 +13,7 @@ const formikEnhancer = withFormik({
     password: '',
     firstname: props.user && props.user.firstname ? props.user.firstname : '',
     surname: props.user && props.user.surname ? props.user.surname : '',
-    role: props.user && props.user.role ? props.user.role : '',
+    role: props.user && props.user.role ? props.user.role.id : 1,
   }),
 
   handleSubmit: (values, { props }) => {
@@ -106,21 +106,21 @@ const SettingsComponent = (props) => {
           </Grid>
           <Grid item xs={12}>
             <Grid item xs={10} sm={3}>
-            <InputLabel style={{ marginTop: '5%' }}>Rola</InputLabel>
-          <Select
-            value={props.role}
-            onChange={props.handleChange('role')}
-            onBlur={props.handleBlur('role')}
-            margin="dense"
-            style={{ width: '100%' }}
-            id="role"
-          >
-            {props.roles.map(item => (
-              <MenuItem key={item.id} value={item}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
+              <InputLabel style={{ marginTop: '5%' }}>Rola</InputLabel>
+              <Select
+                value={props.values.role}
+                onChange={props.handleChange('role')}
+                onBlur={props.handleBlur('role')}
+                margin="dense"
+                style={{ width: '100%' }}
+                id="role"
+              >
+                {props.roles.map(item => (
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </Select>
             </Grid>
           </Grid>
           <Grid item xs={12}>
