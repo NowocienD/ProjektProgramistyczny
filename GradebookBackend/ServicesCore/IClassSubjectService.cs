@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GradebookBackend.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,5 +10,6 @@ namespace GradebookBackend.ServicesCore
     {
         public void AddClassSubject(int classId, int subjectId);
         public void DeleteClassSubject(int classId, int subjectId);
+        public SubjectListDTO GetSubjectsAssignedToClass(int classId);
     }
 }
