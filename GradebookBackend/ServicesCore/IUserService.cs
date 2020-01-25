@@ -6,6 +6,7 @@ namespace GradebookBackend.ServicesCore
     {
         public void AddUser(UserDTO newUserDTO);
         public void UpdateUser(UserDTO newUserDTO, int userId);
+        public void DeactivateUser(int userId);
         public void UpdateUserPassword(UserPasswordChangeDTO userPasswordChangeDTO, int userId);
         public bool CheckIfNewUserLoginIsUnique(string newUserLogin);
         public bool CheckIfUpdatedUserLoginIsUnique(string updatedUserLogin, int userId);

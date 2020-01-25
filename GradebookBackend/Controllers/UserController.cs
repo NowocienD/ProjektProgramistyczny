@@ -66,7 +66,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpPost("admin/addUser")]
+        [HttpPost("admin/adduser")]
         public IActionResult AddUser([FromBody] UserDTO newUserDTO)
         {
             if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
@@ -87,6 +87,27 @@ namespace GradebookBackend.Controllers
             }
         }
 
+        [HttpDelete("admin/deactivateuser/{userId}")]
+        public IActionResult DeactivateUser(int userId)
+        {
+            if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
+            {
+                try
+                {
+                    userService.DeactivateUser(userId);
+                    return Ok("Uzytkownik zostal pomyslnie dezaktywowany");
+                }
+                catch(GradebookServerException exception)
+                {
+                    return BadRequest(exception.Message);
+                }
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
+
         [Authorize]
         [HttpPatch("admin/updateUser/{userId}")]
         public IActionResult UpdatedUser([FromBody] UserDTO newUserDTO, int userId)
@@ -97,7 +118,6 @@ namespace GradebookBackend.Controllers
                 {
                     userService.UpdateUser(newUserDTO, userId);
                     return Ok("Uzytkownik zostal pomyslnie zaktualizowany");
-
                 }
                 catch (GradebookServerException exception)
                 {
@@ -141,9 +161,10 @@ namespace GradebookBackend.Controllers
                 return BadRequest("Brak uprawnien administratora");
             }
         }
+
         [Authorize]
         [HttpGet("admin/user/{userId}")]
-        public IActionResult GetUserData(int userId)
+        public IActionResult GetUser(int userId)
         {
             int loggedUserId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(loggedUserId))

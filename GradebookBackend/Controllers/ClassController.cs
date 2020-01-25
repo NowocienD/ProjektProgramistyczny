@@ -69,7 +69,8 @@ namespace GradebookBackend.Controllers
                 {
                     classService.AddClass(newClassDTO);
                     return Ok("Udalo sie dodac nowa klase");
-                } else
+                }
+                else
                 {
                     return BadRequest("Brak uprawnien do dodawania klasy");
                 }
@@ -79,7 +80,8 @@ namespace GradebookBackend.Controllers
                 return BadRequest(exception.Message);
             }
         }
-        
+
+        [Authorize]
         [HttpDelete("admin/deleteClass/{classId}")]
         public IActionResult DeleteClassByClassId(int classId)
         {
@@ -90,14 +92,38 @@ namespace GradebookBackend.Controllers
                 {
                     classService.DeleteClassWithId(classId);
                     return Ok("Udalo sie usunac podana klase");
-                } 
+                }
                 else
                 {
                     return BadRequest("Brak uprawnien administratora do wykonania tej operacji");
                 }
-            } catch (GradebookServerException ex)
+            }
+            catch (GradebookServerException ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("admin/updateClass/{classId}")]
+        public IActionResult UpdateClass([FromBody] ClassDTO updatedClassDTO, int classId)
+        {
+            try
+            {
+                int userId = int.Parse(userProviderService.GetUserId());
+                if (userService.IsAdmin(userId))
+                {
+                    classService.UpdateClass(updatedClassDTO, classId);
+                    return Ok("Pomyslnie zaktualizowano klase");
+                }
+                else
+                {
+                    return BadRequest("Brak uprawnien administratora do wykonania tej operacji");
+                }
+            }
+            catch (GradebookServerException exception)
+            {
+                return BadRequest(exception.Message);
             }
         }
 

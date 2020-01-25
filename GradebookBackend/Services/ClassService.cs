@@ -24,7 +24,7 @@ namespace GradebookBackend.Services
         {
             IEnumerable<ClassDAO> classes = classRepository.GetAll();
             ClassListDTO classesDTO = new ClassListDTO();
-            foreach(ClassDAO classDAO in classes)
+            foreach (ClassDAO classDAO in classes)
             {
                 ClassDTO classDTO = new ClassDTO()
                 {
@@ -40,9 +40,9 @@ namespace GradebookBackend.Services
         {
             ClassListDTO classListDTO = new ClassListDTO();
             IEnumerable<LessonDAO> lessons = lessonRepository.GetAll();
-            foreach(LessonDAO lesson in lessons)
+            foreach (LessonDAO lesson in lessons)
             {
-                if(lesson.TeacherId == teacherId)
+                if (lesson.TeacherId == teacherId)
                 {
                     ClassDTO newClass = new ClassDTO()
                     {
@@ -61,9 +61,9 @@ namespace GradebookBackend.Services
         public bool IsClassAlreadyInClassList(ClassListDTO classListDTO, ClassDTO classDTO)
         {
             bool isAlready = false;
-            foreach(ClassDTO checkedClass in classListDTO.ClassList)
+            foreach (ClassDTO checkedClass in classListDTO.ClassList)
             {
-                if(checkedClass.Id == classDTO.Id)
+                if (checkedClass.Id == classDTO.Id)
                 {
                     isAlready = true;
                 }
@@ -90,9 +90,9 @@ namespace GradebookBackend.Services
         public void DeleteClassWithId(int classId)
         {
             IEnumerable<ClassDAO> classes = classRepository.GetAll();
-            foreach(ClassDAO checkedClass in classes.ToList())
+            foreach (ClassDAO checkedClass in classes.ToList())
             {
-                if(checkedClass.Id == classId)
+                if (checkedClass.Id == classId)
                 {
                     classRepository.Delete(classId);
                     return;
@@ -100,5 +100,35 @@ namespace GradebookBackend.Services
             }
             throw new GradebookServerException("Nie ma klasy o takim numerze Id");
         }
+
+        public void UpdateClass(ClassDTO updatedClassDTO, int classId)
+        {
+            if (IsClassRepositoryContaining(classId))
+            {
+                ClassDAO updatedClassDAO = new ClassDAO
+                {
+                    Id = classId,
+                    Name = updatedClassDTO.Name
+                };
+                classRepository.Update(updatedClassDAO);
+            }
+            else
+            {
+                throw new GradebookServerException("Nie ma klasy o podanym numerze Id");
+            }
+        }
+
+        private bool IsClassRepositoryContaining(int classId)
+        {
+            foreach(ClassDAO checkedClass in classRepository.GetAll().ToList())
+            {
+                if(checkedClass.Id == classId)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
+
