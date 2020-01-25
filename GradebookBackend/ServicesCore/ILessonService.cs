@@ -16,5 +16,6 @@ namespace GradebookBackend.ServicesCore
         public void AddLesson(NewLessonDTO newLessonDTO);
         public void UpdateLesson(NewLessonDTO updatedLessonDTO, int lessonId);
         public void DeleteLesson(int lessonId);
+        public LessonDTO GetLessonByLessonId(int lessonId);
     }
 }

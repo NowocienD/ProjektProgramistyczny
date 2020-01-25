@@ -118,13 +118,28 @@ namespace GradebookBackend.Controllers
 
         [Authorize]
         [HttpDelete("admin/deletelesson/{lessonId}")]
-        public IActionResult DaleteLesson(int lessonId)
+        public IActionResult DeleteLesson(int lessonId)
         {
             int userId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(userId))
             {
                 lessonService.DeleteLesson(lessonId);
                 return Ok("Pomyslnie usunieto lekcje");                           
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
+        [Authorize]
+        [HttpDelete("admin/getlesson/{lessonId}")]
+        public IActionResult GetLesson(int lessonId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
+            {
+                LessonDTO lessonDTO = lessonService.GetLessonByLessonId(lessonId);
+                return Ok(lessonDTO);
             }
             else
             {
