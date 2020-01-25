@@ -1,4 +1,5 @@
-﻿using GradebookBackend.ServicesCore;
+﻿using GradebookBackend.DTO;
+using GradebookBackend.ServicesCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -49,6 +50,22 @@ namespace GradebookBackend.Controllers
             {
                 classSubjectService.DeleteClassSubject(classId, subjectId);
                 return Ok("Pomyslnie usunieto powiazanie klasy z przedmiotem");
+            }
+            else
+            {
+                return BadRequest("Brak uprawnien administratora");
+            }
+        }
+
+        [Authorize]
+        [HttpGet("admin/subjectsassignedtoclass/{classId}")]
+        public IActionResult DeleteClassSubject(int classId)
+        {
+            int userId = int.Parse(userProviderService.GetUserId());
+            if (userService.IsAdmin(userId))
+            {
+                SubjectListDTO subjectListDTO =  classSubjectService.GetSubjectsAssignedToClass(classId);
+                return Ok(subjectListDTO);
             }
             else
             {
