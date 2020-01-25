@@ -125,7 +125,7 @@ const SettingsComponent = (props) => {
                 className="button"
                 onClick={props.goBack}
               >
-                Zapisz
+                Anuluj
               </Button>
             </Grid>
           </Grid>
