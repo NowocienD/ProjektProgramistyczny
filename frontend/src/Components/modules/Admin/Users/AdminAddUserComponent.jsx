@@ -14,7 +14,7 @@ const formikEnhancer = withFormik({
     Firstname: props.user && props.user.firstname ? props.user.firstname : '',
     Surname: props.user && props.user.surname ? props.user.surname : '',
     Role: props.user && props.user.role ? props.user.role.id : 1,
-    ClassId: props.user && props.user.classId ? props.user.classId : 1,
+    ClassId: props.user && props.user.classId ? props.user.classId : '',
   }),
 
   handleSubmit: (values, { props }) => {
@@ -33,7 +33,7 @@ const SettingsComponent = (props) => {
             <Typography variant="h5" className="underline-title" >
               Edycja użytkownika
          </Typography>)}
-
+          
         <Grid container spacing={3}>
           <Grid item xs={10} sm={4}>
             <TextField
