@@ -51,7 +51,7 @@ namespace GradebookBackend.Services
             if (newUserDAO.RoleId == 1) studentsRepository.Add(new StudentDAO
             {
                 UserId = GetUserIdByLoginAndPassword(newUserDAO.Login, newUserDTO.Password),
-                ClassId = newUserDTO.ClassId
+                //ClassId = newUserDTO.ClassId
             });
             else if (newUserDAO.RoleId == 2)
             {

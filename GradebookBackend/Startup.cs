@@ -91,6 +91,7 @@ namespace GradebookBackend
                 };
             });
             services.AddTransient<IClassService, ClassService>();
+            services.AddTransient<IClassSubjectService, ClassSubjectService>();
             services.AddTransient<IGradeService, GradeService>();
             services.AddTransient<ILessonService, LessonService>();
             services.AddTransient<IStudentService, StudentService>();
