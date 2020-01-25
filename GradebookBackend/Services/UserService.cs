@@ -51,7 +51,7 @@ namespace GradebookBackend.Services
             if (newUserDAO.RoleId == 1) studentsRepository.Add(new StudentDAO
             {
                 UserId = GetUserIdByLoginAndPassword(newUserDAO.Login, newUserDTO.Password),
-                //ClassId = newUserDTO.ClassId
+                ClassId = newUserDTO.ClassId
             });
             else if (newUserDAO.RoleId == 2)
             {
@@ -98,6 +98,18 @@ namespace GradebookBackend.Services
                 updatedUserDAO.Password = usersRepository.Get(userId).Password;
             }
             usersRepository.Update(updatedUserDAO);
+
+            if(IsStudent(userId))
+            {
+                int studentId = GetStudentIdByUserId(userId);
+                StudentDAO updatedStudentDAO = new StudentDAO
+                {
+                    Id = studentId,
+                    UserId = userId,
+                    ClassId = updatedUserDTO.ClassId
+                };
+                studentsRepository.Update(updatedStudentDAO);
+            }
         }
 
         public void DeactivateUser(int userId)
@@ -242,6 +254,19 @@ namespace GradebookBackend.Services
                 }
             }
             throw new GradebookServerException("Nauczyciel o tym userId nie istnieje");
+        }
+
+        public bool IsStudent(int userId)
+        {
+            IEnumerable<StudentDAO> listOfStudents = studentsRepository.GetAll();
+            foreach (StudentDAO student in listOfStudents)
+            {
+                if (student.UserId == userId)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool IsAdmin(int userId)
