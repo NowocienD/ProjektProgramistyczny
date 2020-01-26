@@ -41,7 +41,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("admin/addteachersubject")]
+        [HttpPost("admin/addteachersubject")]
         public IActionResult AddTeacherSubjects([FromQuery] int teacherId, [FromQuery] int subjectId)
         {
             int userId = int.Parse(userProviderService.GetUserId());
@@ -57,7 +57,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("admin/deleteteachersubject")]
+        [HttpDelete("admin/deleteteachersubject")]
         public IActionResult DeleteTeacherSubjects([FromQuery] int teacherId, [FromQuery] int subjectId)
         {
             int userId = int.Parse(userProviderService.GetUserId());

@@ -66,7 +66,6 @@ class TeacherGradesContainer extends React.Component {
   }
 
   handleStudentChange = (event) => {
-    console.log("adsa")
     this.setState({
       student: event.target.value,
     }, () => {
@@ -211,18 +210,18 @@ class TeacherGradesContainer extends React.Component {
         actions={[
           {
             icon: 'add',
-            toolTip: 'Dodaj ocenę',
+            tooltip: 'Dodaj ocenę',
             isFreeAction: true,
             onClick: this.showDialog,
           },
           {
             icon: 'edit',
-            toolTip: 'Edytuj ocenę',
+            tooltip: 'Edytuj ocenę',
             onClick: (event, rowData) => this.showDialog(event, rowData),
           },
           {
             icon: 'delete',
-            toolTip: 'Usuń ocenę',
+            tooltip: 'Usuń ocenę',
             onClick: (event, rowData) => this.showDeleteDialog(event, rowData),
           }
         ]}

@@ -9,9 +9,9 @@ class TeacherNotesContainer extends React.Component {
     super();
     this.state= {
       classes: [],
-      class: {},
+      class: '',
       students: [],
-      student: {},
+      student: '',
       notes: [],
       dialogVisible: false,
     };
@@ -107,7 +107,7 @@ class TeacherNotesContainer extends React.Component {
         actions={[
           {
             icon: 'add',
-            toolTip: 'Dodaj uwagę',
+            tooltip: 'Dodaj uwagę',
             isFreeAction: true,
             onClick: this.showDialog,
           }

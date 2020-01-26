@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import Grid from '@material-ui/core/Grid';
 
 const days = [
   'Poniedziałek',
@@ -37,41 +38,44 @@ const StudentPresenceComponent = (props) => {
           </MenuItem>
         ))}
       </Select>
-      <Paper>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="center" ></TableCell>
-              <TableCell align="center">8:00-8:45</TableCell>
-              <TableCell align="center">9:00-9:45</TableCell>
-              <TableCell align="center">10:00 - 10:45</TableCell>
-              <TableCell align="center">11:00 - 11:45</TableCell>
-              <TableCell align="center">12:00 - 12:45</TableCell>
-              <TableCell align="center">13:00 - 13:45</TableCell>
-              <TableCell align="center">14:00 - 14:45</TableCell>
-              <TableCell align="center">15:00 - 15:45</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {props.presence.map((row, index) => (
-              <TableRow>
-                <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
-                {row.attendances.map((element, index) => {
-                  console.log(element);
-                  if (element === 'Not entered') {
-                    return <TableCell align="center" style={{ color: 'red' }}><CloseIcon />Nieobecny</TableCell>
-                  } else if (element === 'Obecny') {
-                    return <TableCell align="center" style={{ color: 'green' }}><CheckIcon />Obecny</TableCell>
-                  } else {
-                    return <TableCell align="center" style={{ color: 'orange' }}><PlaylistAddCheckIcon />Usprawiedliwiony</TableCell>
-                  }
-
-                })}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Paper>
+      <Grid container>
+        <Grid xs={12}>
+          <Paper>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center" ></TableCell>
+                  <TableCell align="center">8:00-8:45</TableCell>
+                  <TableCell align="center">9:00-9:45</TableCell>
+                  <TableCell align="center">10:00 - 10:45</TableCell>
+                  <TableCell align="center">11:00 - 11:45</TableCell>
+                  <TableCell align="center">12:00 - 12:45</TableCell>
+                  <TableCell align="center">13:00 - 13:45</TableCell>
+                  <TableCell align="center">14:00 - 14:45</TableCell>
+                  <TableCell align="center">15:00 - 15:45</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {console.log(props.presence)}
+                {props.presence.map((row, index) => (
+                  <TableRow>
+                    <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
+                    {row.attendances.map((element, index) => {
+                      if (element === 'nie wpisano' || element ==='Nieobecny') {
+                        return <TableCell align="center" style={{ color: 'red' }}><CloseIcon />NO</TableCell>
+                      } else if (element === 'obecny') {
+                        return <TableCell align="center" style={{ color: 'green' }}><CheckIcon />O</TableCell>
+                      } else {
+                        return <TableCell align="center" style={{ color: 'orange' }}><PlaylistAddCheckIcon />USP</TableCell>
+                      }
+                    })}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </Grid>
+      </Grid>
     </Card>
   )
 

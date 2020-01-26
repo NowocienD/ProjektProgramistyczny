@@ -3,6 +3,7 @@ import TeacherPresenceComponent from './TeacherPresenceComponent';
 import { getTeacherClasses } from '../../../../Actions/class';
 import { getClassPresence, addPresence } from '../../../../Actions/presence';
 import { getPresenceStatuses } from '../../../../Actions/presenceStatus';
+import { withSnackbar } from '../../../navigation/SnackbarContext';
 
 class TeacherPresenceContainer extends React.Component {
   constructor() {
@@ -45,13 +46,14 @@ class TeacherPresenceContainer extends React.Component {
   }
 
   getData = () => {
-    getClassPresence(this.state.date, this.state.class.id, this.state.lesson)
+    getClassPresence(this.state.date, this.state.class.id, this.state.lesson-1)
       .then(res => {
         this.setState({
           data: res.data.singleLessonAttendances,
         });
       })
       .catch(err => {
+        this.props.showMessage(err.response.data);
         this.setState({
           data: [],
         });
@@ -85,13 +87,17 @@ class TeacherPresenceContainer extends React.Component {
   onAddPresence = (newData, oldData) => {
     const data = {
       date: this.state.date,
-      lessonNumber: parseInt(this.state.lesson),
+      lessonNumber: parseInt(this.state.lesson - 1),
       attendanceStatusId: parseInt(newData.attendanceStatusId),
     };
     return addPresence(data, newData.studentId)
-      .then(() => {
+      .then((res) => {
         this.getData();
+        this.props.showMessage(res.data)
       })
+      .catch(error => {
+        this.props.showMessage(error.response.data);
+      });
   }
 
   render() {
@@ -126,5 +132,5 @@ class TeacherPresenceContainer extends React.Component {
   }
 }
 
-export default TeacherPresenceContainer;
+export default withSnackbar(TeacherPresenceContainer);
 

@@ -14,6 +14,7 @@ import {
   Grid,
   Checkbox,
 } from '@material-ui/core';
+import { withSnackbar } from './../../../navigation/SnackbarContext';
 
 const formikEnhancer = withFormik({
   enableReinitialize: true,
@@ -26,13 +27,15 @@ const formikEnhancer = withFormik({
   handleSubmit: (values, { props }) => {
     const onSubmit = props.grade && props.grade.value ? props.onUpdateGrade : props.onAddGrade;
     onSubmit(values)
-      .then(() => {
+      .then(res => {
+        props.showMessage(res.data)
         props.getGrades()
-      })
-      .then(props.hideDialog)
-      .then(() => {
+        props.hideDialog()
         values.topic = '';
         values.date = '';
+      })
+      .catch(error => {
+        props.showMessage(error.response.data);
       })
   }
 });
@@ -44,17 +47,17 @@ const AddGradeDialog = (props) => {
       open={props.dialogVisible}
       onClose={props.hideDialog}
     >
-      {props.grade && props.grade.value && 
-       <DialogTitle>
-         Edycja oceny
+      {props.grade && props.grade.value &&
+        <DialogTitle>
+          Edycja oceny
        </DialogTitle>
       }
-        {!(props.grade && props.grade.value) && 
-       <DialogTitle>
-         Dodawanie oceny
+      {!(props.grade && props.grade.value) &&
+        <DialogTitle>
+          Dodawanie oceny
        </DialogTitle>
       }
-     
+
       <DialogContent>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={2}>
@@ -62,7 +65,7 @@ const AddGradeDialog = (props) => {
             <Select
               value={props.value}
               onChange={props.handleValue}
-              margin="normal"
+              margin="dense"
             >
               {grades.map(item => (
                 <MenuItem key={item} value={item}>
@@ -77,7 +80,7 @@ const AddGradeDialog = (props) => {
               disabled={props.checked}
               value={props.checked && props.grade && props.grade.importance ? props.grade.importance : props.importance}
               onChange={props.handleImportance}
-              margin="normal"
+              margin="dense"
             >
               {grades.map(item => (
                 <MenuItem key={item} value={item}>
@@ -119,7 +122,7 @@ const AddGradeDialog = (props) => {
               variant="outlined"
               onChange={props.handleChange}
               fullWidth
-              margin="normal"
+              margin="dense"
             />
           </Grid>
         </Grid>
@@ -136,4 +139,4 @@ const AddGradeDialog = (props) => {
   );
 }
 
-export default formikEnhancer(AddGradeDialog); 
+export default withSnackbar(formikEnhancer(AddGradeDialog)); 

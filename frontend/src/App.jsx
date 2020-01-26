@@ -13,6 +13,14 @@ import TeacherTimetableContainer from './Components/modules/Teacher/Timetable/Te
 import TeacherNotesContainer from './Components/modules/Teacher/Notes/TeacherNotesContainer';
 import TeacherGradesContainer from './Components/modules/Teacher/Grades/TeacherGradesContainer';
 import TeacherPresenceContainer from './Components/modules/Teacher/Presence/TeacherPresenceContainer';
+import AdminSubjectsContainer from './Components/modules/Admin/Subjects/AdminSubjectsContainer';
+import AddTeacherSubjectContainer from './Components/modules/Admin/Subjects/AddTeacherSubjectContainer';
+import AdminLessonsContainer from './Components/modules/Admin/Lessons/AdminLessonsContainer';
+import AdminAddLessonContainer from './Components/modules/Admin/Lessons/AdminAddLessonContainer';
+import AdminUsersContainer from './Components/modules/Admin/Users/AdminUsersContainer';
+import AdminAddUserContainer from './Components/modules/Admin/Users/AdminAddUserContainer';
+import AdminClassesContainer from './Components/modules/Admin/Classes/AdminClassesContainer';
+import AdminAddSubjectContainer from './Components/modules/Admin/Classes/AdminAddSubjectContainer';
 
 class App extends Component {
 
@@ -60,8 +68,35 @@ class App extends Component {
             to: '/notes',
           },
         ]
+      } else if (role === 'Admin') {
+        this.menu = [
+          {
+            key: 'subjects',
+            name: "Przedmioty",
+            icon: 'subject',
+            to: '/subjects'
+          },
+          {
+            key: 'Plan lekcji',
+            name: "Plan lekcji",
+            icon: 'chrome_reader_mode',
+            to: '/lessons'
+          },
+          {
+            key: 'Użytkownicy',
+            name: "Użytkownicy",
+            icon: 'people_alt',
+            to: '/users'
+          },
+          {
+            key: 'Klasy',
+            name: "Klasy",
+            icon: 'class',
+            to: '/classes'
+          }
+        ]
       }
-    }
+    } 
   }
 
   createComponents = (role) => {
@@ -80,6 +115,17 @@ class App extends Component {
         PresenceContainer: TeacherPresenceContainer,
         TimetableContainer: TeacherTimetableContainer,
       }  
+    } else if (role === 'Admin') {
+      this.components = {
+        SubjectsContainer: AdminSubjectsContainer,
+        SubjectTeacherContainer: AddTeacherSubjectContainer,
+        LessonsContainer: AdminLessonsContainer,
+        AddLessonContainer: AdminAddLessonContainer,
+        UsersContainer: AdminUsersContainer,
+        AddUserContainer: AdminAddUserContainer,
+        ClassesContainer: AdminClassesContainer,
+        AddStudentsToClassContainer: AdminAddSubjectContainer,
+      }
     }
   }
 

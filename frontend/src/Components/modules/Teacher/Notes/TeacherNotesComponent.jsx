@@ -19,7 +19,7 @@ const TeacherNotesComponent = (props) => {
             className="select-fluid"
           >
             {props.classes.map(item => (
-              <MenuItem value={item}>
+              <MenuItem key={item} value={item}>
                 {item.name}
               </MenuItem>
             ))}
@@ -33,7 +33,7 @@ const TeacherNotesComponent = (props) => {
             className="select-fluid"
           >
             {props.students.map(item => (
-              <MenuItem value={item}>
+              <MenuItem key={item.surname} value={item}>
                 {item.firstname} {item.surname}
               </MenuItem>
             ))}

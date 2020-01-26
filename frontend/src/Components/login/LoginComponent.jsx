@@ -5,6 +5,8 @@ import { withFormik } from 'formik';
 import { Grid } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import { Card } from '@material-ui/core';
+import { withSnackbar } from './../navigation/SnackbarContext';
+
 
 const formikEnhancer = withFormik({
   enableReinitialize: true,
@@ -18,6 +20,9 @@ const formikEnhancer = withFormik({
     props.login(values)
       .then(() => {
         props.redirectToMainPage();
+      })
+      .catch(error => {
+        props.showMessage(error.response.data);
       });
   }
 });
@@ -73,4 +78,4 @@ const LoginComponent = (props) => {
   )
 }
 
-export default formikEnhancer(LoginComponent);
+export default withSnackbar(formikEnhancer(LoginComponent));

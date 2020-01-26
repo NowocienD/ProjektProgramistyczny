@@ -193,7 +193,7 @@ namespace GradebookBackend.Services
                 IsActive = userDAO.IsActive,
                 Role = new RoleDTO
                 {
-                    Id = userDAO.Id,
+                    Id = rolesRepository.Get(userDAO.RoleId).Id,
                     Name = rolesRepository.Get(userDAO.RoleId).Name
                 }
             };

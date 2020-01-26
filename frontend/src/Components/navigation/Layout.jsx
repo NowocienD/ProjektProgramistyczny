@@ -160,9 +160,9 @@ const Layout = (props) => {
       >
         <div className={classes.drawerHeader}>
           <h2 style={{ marginLeft: '5%', marginRight: 'auto' }}>
-            {props.user.firstname 
-            && props.user.surname
-             && (`${props.user.firstname} ${props.user.surname}`)}
+            {props.user.firstname
+              && props.user.surname
+              && (`${props.user.firstname} ${props.user.surname}`)}
           </h2>
 
           <IconButton onClick={handleDrawerClose}>
@@ -175,12 +175,13 @@ const Layout = (props) => {
           {props.menu.map(item => {
             return (
               <NavLink
+                key={item.to}
                 to={item.to}
                 className="inactive-button"
                 activeClassName="active-button"
               >
                 <ListItem button key={item.key}>
-                  <ListItemIcon>   <Icon> {item.icon} </Icon> </ListItemIcon>
+                  <ListItemIcon key={item.icon}>  <Icon> {item.icon} </Icon> </ListItemIcon>
                   <ListItemText primary={item.name} />
                 </ListItem>
               </NavLink>
@@ -196,11 +197,19 @@ const Layout = (props) => {
       >
         <div className={classes.drawerHeader} />
         <div className="content">
-          <Route path="/timetable" exact component={props.components.TimetableContainer } />
+          <Route path="/timetable" exact component={props.components.TimetableContainer} />
           <Route path="/grades" exact component={props.components.GradesContainer} />
           <Route path="/presence" exact component={props.components.PresenceContainer} />
           <Route path="/notes" exact component={props.components.NotesContainer} />
           <Route path="/me" exact component={SettingsContainer} />
+          <Route path="/subjects" exact component={props.components.SubjectsContainer} />
+          <Route path="/subjects/:subjectId" component={props.components.SubjectTeacherContainer} />
+          <Route path="/lessons/" exact component={props.components.LessonsContainer} />
+          <Route path="/lessons/:classId/:day/:lessonId" component={props.components.AddLessonContainer} />
+          <Route path="/users/" exact component={props.components.UsersContainer} />
+          <Route path="/users/:userId" exact component={props.components.AddUserContainer} />
+          <Route path="/classes/" exact component={props.components.ClassesContainer} />
+          <Route path="/classes/:classId" component={props.components.AddStudentsToClassContainer} />
         </div>
       </main>
     </div >

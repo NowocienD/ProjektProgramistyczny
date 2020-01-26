@@ -18,7 +18,7 @@ const YesNoDialog = (props) => {
       <DialogTitle>
         {props.title}
       </DialogTitle>
-      <DialogContentText style={{ textAlign: 'center' }}>
+      <DialogContentText style={{ textAlign: 'left', margin: '5%' }}>
         {props.content}
       </DialogContentText>
       <DialogActions>

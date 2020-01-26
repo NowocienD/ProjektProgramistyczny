@@ -7,6 +7,7 @@ namespace GradebookBackend.DTO
 {
     public class TeacherSubjectDTO
     {
-        public string TeacherIdFirstnameSurname { get; set; }
+        public int Id { get; set; }
+        public string FirstnameSurname { get; set; }
     }
 }

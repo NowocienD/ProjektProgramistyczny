@@ -61,8 +61,8 @@ namespace GradebookBackend.Controllers
             }
         }
         [Authorize]
-        [HttpGet("admin/lessonplan")]
-        public IActionResult GetLessonPlan([FromQuery] int dayOfTheWeek, [FromQuery] int classId)
+        [HttpGet("admin/LessonPlan/{classId}/{dayOfTheWeek}")]
+        public IActionResult GetLessonPlan(int dayOfTheWeek, int classId)
         {
             int userId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(userId))
@@ -120,6 +120,10 @@ namespace GradebookBackend.Controllers
         [HttpDelete("admin/deletelesson/{lessonId}")]
         public IActionResult DeleteLesson(int lessonId)
         {
+            if (lessonId == 0)
+            {
+                return BadRequest("Nie ma takiej lekcji");
+            }
             int userId = int.Parse(userProviderService.GetUserId());
             if (userService.IsAdmin(userId))
             {

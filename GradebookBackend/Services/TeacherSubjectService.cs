@@ -32,7 +32,8 @@ namespace GradebookBackend.Services
                     int userId = teacherRepository.Get(teacherSubject.TeacherId).UserId;
                     teacherSubjectListDTO.teacherSubjects.Add(new TeacherSubjectDTO
                     {
-                        TeacherIdFirstnameSurname = teacherSubject.TeacherId + " " + userRepository.Get(userId).Firstname + " " + userRepository.Get(userId).Surname
+                        Id = teacherSubject.TeacherId,
+                        FirstnameSurname = userRepository.Get(userId).Firstname + " " + userRepository.Get(userId).Surname
                     });
                 }
             }
