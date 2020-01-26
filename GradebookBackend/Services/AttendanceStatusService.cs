@@ -22,6 +22,7 @@ namespace GradebookBackend.Services
                 Name = newAttendanceStatusName
             });
         }
+
         public AttendanceStatusListDTO GetAttendanceStatusList()
         {
             AttendanceStatusListDTO attendanceStatusListDTO = new AttendanceStatusListDTO();

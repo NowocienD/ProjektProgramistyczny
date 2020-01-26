@@ -16,6 +16,7 @@ namespace GradebookBackend.Services
             this.subjectRepository = subjectRepository;
             this.classSubjectRepository = classSubjectRepository;
         }
+
         public SubjectListDTO GetSubjectListByClassId(int classId)
         {
             IEnumerable<ClassSubjectDAO> classesSubjects = classSubjectRepository.GetAll();

@@ -4,10 +4,10 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IGradeService
     {
-        public bool CheckIfTeacherTeachSubject(int teacherId, int subjectId);
-        public void AddGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId);
-        public void DeleteGrade(int gradeId);
-        public void UpdateGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId);
-        public GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId);
+        bool CheckIfTeacherTeachSubject(int teacherId, int subjectId);
+        void AddGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId);
+        void DeleteGrade(int gradeId);
+        void UpdateGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId);
+        GradeListDTO GetStudentGradesByStudentId(int studentId, int subjectId);
     }
 }

@@ -11,7 +11,6 @@ namespace GradebookBackend.Services
     public class TokenGeneratorService : ITokenGeneratorService
     {
         private readonly ITokenSettings tokenSettings;
-
         private readonly SymmetricSecurityKey signingKey;
 
         public TokenGeneratorService(ITokenSettings tokenSettings)
@@ -26,7 +25,6 @@ namespace GradebookBackend.Services
             {
                 throw new ArgumentNullException(nameof(signingKey));
             }
-
             var token = new JwtSecurityToken(
                 claims: new Claim[] { new Claim(nameof(userId), userId.ToString()) },
                 notBefore: new DateTimeOffset(DateTime.Now).DateTime,

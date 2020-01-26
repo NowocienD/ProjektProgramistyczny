@@ -4,7 +4,7 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IStudentService
     {
-        public int GetStudentClassIdByStudentId(int studentId);
-        public StudentListDTO GetStudentsByClassId(int classId);
+        int GetStudentClassIdByStudentId(int studentId);
+        StudentListDTO GetStudentsByClassId(int classId);
     }
 }

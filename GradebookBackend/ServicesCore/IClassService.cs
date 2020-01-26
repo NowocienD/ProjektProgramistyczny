@@ -4,10 +4,10 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IClassService
     {
-        public ClassListDTO GetAllClasses();
-        public ClassListDTO GetAllClassesOfTeacher(int teacherId);
-        public void AddClass(ClassDTO newClassDTO);
-        public void DeleteClass(int classId);
-        public void UpdateClass(ClassDTO updatedClassDTO, int classId);
+        ClassListDTO GetAllClasses();
+        ClassListDTO GetAllClassesOfTeacher(int teacherId);
+        void AddClass(ClassDTO newClassDTO);
+        void DeleteClass(int classId);
+        void UpdateClass(ClassDTO updatedClassDTO, int classId);
     }
 }

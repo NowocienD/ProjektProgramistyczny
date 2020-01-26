@@ -11,6 +11,7 @@ namespace GradebookBackend.Services
         public IRepositoryRelation<TeacherSubjectDAO> teacherSubjectRepository;
         public IRepository<TeacherDAO> teacherRepository;
         public IRepository<UserDAO> userRepository;
+
         public TeacherSubjectService(IRepositoryRelation<TeacherSubjectDAO> teacherSubjectRepository,
             IRepository<TeacherDAO> teacherRepository, IRepository<UserDAO> userRepository)
         {
@@ -18,6 +19,7 @@ namespace GradebookBackend.Services
             this.teacherRepository = teacherRepository;
             this.userRepository = userRepository;
         }
+
         public TeacherSubjectListDTO GetTeacherSubjectBySubjectId(int subjectId)
         {
             IEnumerable<TeacherSubjectDAO> teacherSubjects = teacherSubjectRepository.GetAll();

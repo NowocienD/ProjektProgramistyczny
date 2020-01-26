@@ -36,6 +36,7 @@ namespace GradebookBackend.Services
             }
             return lessonPlanDTO;
         }
+
         public LessonPlanDTO GetTeacherLessonPlanByTeacherId(int teacherId)
         {
             LessonPlanDTO lessonPlanDTO = new LessonPlanDTO();
@@ -50,6 +51,7 @@ namespace GradebookBackend.Services
             }
             return lessonPlanDTO;
         }
+
         public SingleDayLessonPlanExtendedDTO GetSingleDayLessonPlanByDayOfTheWeekAndClassId(int dayOfTheWeek, int classId)
         {
             SingleDayLessonPlanExtendedDTO singleDayLessonPlanDTO = new SingleDayLessonPlanExtendedDTO();
@@ -67,6 +69,7 @@ namespace GradebookBackend.Services
             }
             return singleDayLessonPlanDTO;
         }
+
         public int GetLessonId(int lessonNumber, int dayOfTheWeek, int classId)
         {
             IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
@@ -79,6 +82,7 @@ namespace GradebookBackend.Services
             }
             throw new GradebookServerException("Nie znaleziono lekcji o przekazanych danych");
         }
+
         public bool CheckIfLessonExists(int lessonNumber, int dayOfTheWeek, int classId)
         {
             IEnumerable<LessonDAO> lessons = lessonsRepository.GetAll();
@@ -91,6 +95,7 @@ namespace GradebookBackend.Services
             }
             return false;
         }
+
         public void AddLesson(NewLessonDTO newLessonDTO)
         {
             LessonDAO newLessonDAO = new LessonDAO
@@ -103,6 +108,7 @@ namespace GradebookBackend.Services
             };
             lessonsRepository.Add(newLessonDAO);
         }
+
         public void UpdateLesson(NewLessonDTO updatedLessonDTO, int lessonId)
         {
             LessonDAO newLessonDAO = new LessonDAO
@@ -116,10 +122,12 @@ namespace GradebookBackend.Services
             };
             lessonsRepository.Update(newLessonDAO);
         }
+
         public void DeleteLesson(int lessonId)
         {
             lessonsRepository.Delete(lessonId);
         }
+
         public LessonDTO GetLessonByLessonId(int lessonId)
         {
             LessonDAO lesson = lessonsRepository.Get(lessonId);

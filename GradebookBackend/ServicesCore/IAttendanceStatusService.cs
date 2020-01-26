@@ -4,7 +4,7 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IAttendanceStatusService
     {
-        public void AddAttendanceStatus(string newAttendanceStatusName);
-        public AttendanceStatusListDTO GetAttendanceStatusList();
+        void AddAttendanceStatus(string newAttendanceStatusName);
+        AttendanceStatusListDTO GetAttendanceStatusList();
     }
 }

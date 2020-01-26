@@ -16,12 +16,12 @@ namespace GradebookBackend
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -116,7 +116,6 @@ namespace GradebookBackend
             services.AddScoped<IRepository<UserDAO>, UserRepository>();
             services.AddScoped<IRepositoryRelation<ClassSubjectDAO>, ClassSubjectRepository>();
             services.AddScoped<IRepositoryRelation<TeacherSubjectDAO>, TeacherSubjectRepository>();
-
         }
 
         public void Configure(IApplicationBuilder app)

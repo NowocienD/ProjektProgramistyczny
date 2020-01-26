@@ -4,6 +4,6 @@ namespace GradebookBackend.ServicesCore
 {
     public interface ITeacherService
     {
-        public TeacherListDTO GetAllTeachers();
+        TeacherListDTO GetAllTeachers();
     }
 }

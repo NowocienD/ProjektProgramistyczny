@@ -4,6 +4,6 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IRoleService
     {
-        public RoleListDTO GetAllRoles();
+        RoleListDTO GetAllRoles();
     }
 }

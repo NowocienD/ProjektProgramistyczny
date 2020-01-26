@@ -15,7 +15,6 @@ namespace GradebookBackend.Services
         private readonly IRepository<StudentDAO> studentsRepository;
         private readonly IRepository<TeacherDAO> teachersRepository;
         private readonly IRepository<AdminDAO> adminsRepository;
-
         private readonly PasswordHasher passwordHasher;
 
         public UserService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository,
@@ -297,6 +296,7 @@ namespace GradebookBackend.Services
             }
             return false;
         }
+
         public UserListDTO GetAllUsers()
         {
             UserListDTO userDataListDTO = new UserListDTO();

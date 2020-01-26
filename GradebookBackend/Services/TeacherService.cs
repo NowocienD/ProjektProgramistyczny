@@ -10,6 +10,7 @@ namespace GradebookBackend.Services
     {
         public IRepository<TeacherDAO> teacherRepository;
         public IRepository<UserDAO> userRepository;
+
         public TeacherService(IRepository<TeacherDAO> teacherRepository, IRepository<UserDAO> userRepository)
         {
             this.teacherRepository = teacherRepository;

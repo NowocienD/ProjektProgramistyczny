@@ -23,6 +23,7 @@ namespace GradebookBackend.Services
             this.teachersRepository = teachersRepository;
             this.teacherSubjectsRepository = teacherSubjectsRepository;
         }
+
         public bool CheckIfTeacherTeachSubject(int teacherId, int subjectId)
         {
             IEnumerable<TeacherSubjectDAO> teacherSubjectDAOs = teacherSubjectsRepository.GetAll();
@@ -35,6 +36,7 @@ namespace GradebookBackend.Services
             }
             return false;
         }
+
         public void AddGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId)
         {
             if (!CheckIfTeacherTeachSubject(teacherId, newGradeDTO.SubjectId))
@@ -53,6 +55,7 @@ namespace GradebookBackend.Services
             };
             gradesRepository.Add(newGradeDAO);
         }
+
         public void DeleteGrade(int gradeId)
         {
             gradesRepository.Delete(gradeId);

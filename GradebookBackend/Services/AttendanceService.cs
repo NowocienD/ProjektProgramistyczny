@@ -26,6 +26,7 @@ namespace GradebookBackend.Services
             this.userRepository = userRepository;
             this.attendanceStatusRepository = attendanceStatusRepository;
         }
+
         public SingleDayAttendancesListDTO GetAttendancesByStudentId(int studentId, DateTime firstDate)
         {
             IEnumerable<AttendanceDAO> attendances = attendanceRepository.GetAll();
@@ -42,6 +43,7 @@ namespace GradebookBackend.Services
             }
             return attendancesPlanDTO;
         }
+
         public SingleLessonAttendancesListDTO GetClassAttendances(int classId, int lessonId, DateTime date)
         {
             SingleLessonAttendancesListDTO singleLessonAttendancesListDTO = new SingleLessonAttendancesListDTO();
@@ -81,6 +83,7 @@ namespace GradebookBackend.Services
             }
             return singleLessonAttendancesListDTO;
         }
+
         public void AddUpdateDeleteAttendance(DateTime date, int attendanceStatusId, int lessonId, int studentId)
         {
             IEnumerable<AttendanceDAO> attendances = attendanceRepository.GetAll();
@@ -107,6 +110,7 @@ namespace GradebookBackend.Services
                     return;
                 }
             }
+
             AttendanceDAO newAttendanceDAO = new AttendanceDAO
             {
                 AttendanceStatusId = attendanceStatusId,

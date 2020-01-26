@@ -17,6 +17,7 @@ namespace GradebookBackend.Services
             this.classSubjectRepository = classSubjectRepository;
             this.subjectRepository = subjectRepository;
         }
+
         public void AddClassSubject(int classId, int subjectId)
         {
             ClassSubjectDAO newClassSubjectDAO = new ClassSubjectDAO
@@ -26,10 +27,12 @@ namespace GradebookBackend.Services
             };
             classSubjectRepository.Add(newClassSubjectDAO);
         }
+
         public void DeleteClassSubject(int classId, int subjectId)
         {
             classSubjectRepository.Delete(classId, subjectId);
         }
+
         public SubjectListDTO GetSubjectsAssignedToClass(int classId)
         {
             SubjectListDTO subjectListDTO = new SubjectListDTO();

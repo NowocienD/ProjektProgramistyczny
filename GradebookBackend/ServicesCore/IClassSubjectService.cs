@@ -4,8 +4,8 @@ namespace GradebookBackend.ServicesCore
 {
     public interface IClassSubjectService
     {
-        public void AddClassSubject(int classId, int subjectId);
-        public void DeleteClassSubject(int classId, int subjectId);
-        public SubjectListDTO GetSubjectsAssignedToClass(int classId);
+        void AddClassSubject(int classId, int subjectId);
+        void DeleteClassSubject(int classId, int subjectId);
+        SubjectListDTO GetSubjectsAssignedToClass(int classId);
     }
 }
