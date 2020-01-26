@@ -14,11 +14,11 @@ namespace GradebookBackend.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public string GetUserId()
+        public int GetUserId()
         {
             try
             {
-                return context.HttpContext.User.Claims.First(i => i.Type == "userId").Value;
+                return int.Parse(context.HttpContext.User.Claims.First(i => i.Type == "userId").Value);
             }
             catch (Exception exception)
             {

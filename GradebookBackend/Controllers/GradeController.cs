@@ -25,7 +25,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("student/myGrades/{subjectId}")]
         public IActionResult GetStudentGrades(int subjectId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             GradeListDTO gradeListDTO = gradeService.GetStudentGradesByStudentId(userService.GetStudentIdByUserId(userId), subjectId);
             return Ok(gradeListDTO);
         }
@@ -34,7 +34,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("teacher/grades/{subjectId}/{studentId}")]
         public IActionResult GetGrades(int subjectId, int studentId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             try
             {
                 if (userService.IsTeacher(userId))
@@ -60,7 +60,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 int teacherId = userService.GetTeacherIdByUserId(userId);
                 gradeService.AddGrade(newGradeDTO, teacherId, studentId);
             }
@@ -77,7 +77,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 if (userService.IsTeacher(userId))
                 {
                     gradeService.DeleteGrade(gradeId);
@@ -97,7 +97,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 int teacherId = userService.GetTeacherIdByUserId(userId);
                 gradeService.UpdateGrade(updatedGradeDTO, teacherId, studentId);
             }

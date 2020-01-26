@@ -27,7 +27,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("student/mySubjects")]
         public IActionResult GetStudentSubjects()
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             SubjectListDTO subjectListDTO = subjectService.GetSubjectListByClassId(
                 studentService.GetStudentClassIdByStudentId(userService.GetStudentIdByUserId(userId)));
             return Ok(subjectListDTO);
@@ -37,7 +37,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("subjectsFromClass/{classId}")]
         public IActionResult GetClassSubjects(int classId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsTeacher(userId) || userService.IsAdmin(userId))
             {
                 SubjectListDTO subjectListDTO = subjectService.GetSubjectListByClassId(classId);
@@ -49,12 +49,11 @@ namespace GradebookBackend.Controllers
             }
         }
 
-
         [Authorize]
         [HttpGet("allSubjects")]
         public IActionResult GetAllSubjects()
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 SubjectListDTO subjectListDTO = subjectService.GetAllSubjects();
@@ -73,7 +72,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 if (userService.IsAdmin(userId))
                 {
                     subjectService.AddNewSubject(newSubjectDTO);
@@ -97,7 +96,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 if (userService.IsAdmin(userId))
                 {
                     subjectService.DeleteSubject(subjectId);
@@ -121,7 +120,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 if (userService.IsAdmin(userId))
                 {
                     subjectService.UpdateSubject(updatedSubjectDTO, subjectId);

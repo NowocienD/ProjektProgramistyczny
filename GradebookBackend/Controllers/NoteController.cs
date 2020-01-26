@@ -27,7 +27,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 NoteListDTO noteListDTO = noteService.GetStudentNotesByStudentId(userService.GetStudentIdByUserId(userId));
                 return Ok(noteListDTO);
             }
@@ -43,7 +43,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 int teacherId = userService.GetTeacherIdByUserId(userId);
                 noteService.AddNewNote(newNoteDTO, teacherId, studentId);
                 return Ok("Note has been added");

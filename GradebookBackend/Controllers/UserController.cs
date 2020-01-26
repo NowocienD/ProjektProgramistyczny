@@ -46,11 +46,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("myId")]
         public IActionResult GetIdFromToken()
         {
-            string userId = userProviderService.GetUserId();
-            if (userId.Equals(string.Empty))
-            {
-                return BadRequest("Niepoprawny token");
-            }
+            int userId = userProviderService.GetUserId();
             return Ok(userId);
         }
 
@@ -58,7 +54,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("myProfile")]
         public IActionResult GetUserData()
         {
-            int userId = Int32.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             UserDataDTO userDataDTO = userService.GetUserDataByUserId(userId);
             return Ok(userDataDTO);
         }
@@ -67,7 +63,8 @@ namespace GradebookBackend.Controllers
         [HttpPost("admin/adduser")]
         public IActionResult AddUser([FromBody] UserDTO newUserDTO)
         {
-            if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
+            int loggedUserId = userProviderService.GetUserId();
+            if (userService.IsAdmin(loggedUserId))
             {
                 try
                 {
@@ -88,7 +85,8 @@ namespace GradebookBackend.Controllers
         [HttpDelete("admin/deactivateuser/{userId}")]
         public IActionResult DeactivateUser(int userId)
         {
-            if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
+            int loggedUserId = userProviderService.GetUserId();
+            if (userService.IsAdmin(loggedUserId))
             {
                 try
                 {
@@ -110,7 +108,8 @@ namespace GradebookBackend.Controllers
         [HttpPatch("admin/updateUser/{userId}")]
         public IActionResult UpdatedUser([FromBody] UserDTO newUserDTO, int userId)
         {
-            if (userService.IsAdmin(Int32.Parse(userProviderService.GetUserId())))
+            int loggedUserId = userProviderService.GetUserId();
+            if (userService.IsAdmin(loggedUserId))
             {
                 try
                 {
@@ -134,7 +133,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = Int32.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 userService.UpdateUserPassword(userPasswordChangeDTO, userId);
                 return Ok("Haslo uzytkownika zostalo pomyslnie zaktualizowane");
             }
@@ -148,7 +147,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("admin/allusers")]
         public IActionResult GetAllUsers()
         {
-            int userId = Int32.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 UserListDTO userDataListDTO = userService.GetAllUsers();
@@ -164,7 +163,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("admin/user/{userId}")]
         public IActionResult GetUser(int userId)
         {
-            int loggedUserId = int.Parse(userProviderService.GetUserId());
+            int loggedUserId = userProviderService.GetUserId();
             if (userService.IsAdmin(loggedUserId))
             {
                 UserDTO userDTO = userService.GetUserByUserId(userId);

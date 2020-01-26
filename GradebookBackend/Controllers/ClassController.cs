@@ -24,7 +24,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("allClasses")]
         public IActionResult GetAllClasses()
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 ClassListDTO classListDTO = classService.GetAllClasses();
@@ -40,7 +40,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("teacher/myClasses")]
         public IActionResult GetAllClassesByTeacherId()
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             try
             {
                 int teacherId = userService.GetTeacherIdByUserId(userId);
@@ -60,7 +60,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 if (userService.IsAdmin(userId))
                 {
                     classService.AddClass(newClassDTO);
@@ -81,12 +81,12 @@ namespace GradebookBackend.Controllers
         [HttpDelete("admin/deleteClass/{classId}")]
         public IActionResult DeleteClassByClassId(int classId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             try
             {
                 if (userService.IsAdmin(userId))
                 {
-                    classService.DeleteClassWithId(classId);
+                    classService.DeleteClass(classId);
                     return Ok("Udalo sie usunac podana klase");
                 }
                 else
@@ -106,7 +106,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 if (userService.IsAdmin(userId))
                 {
                     classService.UpdateClass(updatedClassDTO, classId);

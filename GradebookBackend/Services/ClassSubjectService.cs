@@ -10,6 +10,7 @@ namespace GradebookBackend.Services
     {
         public IRepositoryRelation<ClassSubjectDAO> classSubjectRepository;
         public IRepository<SubjectDAO> subjectRepository;
+
         public ClassSubjectService(IRepositoryRelation<ClassSubjectDAO> classSubjectRepository,
             IRepository<SubjectDAO> subjectRepository)
         {

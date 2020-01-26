@@ -24,8 +24,8 @@ namespace GradebookBackend.Controllers
         [HttpGet("admin/allteachersubject/{subjectId}")]
         public IActionResult GetTeacherSubjects(int subjectId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
-            if(userService.IsAdmin(userId))
+            int userId = userProviderService.GetUserId();
+            if (userService.IsAdmin(userId))
             {
                 TeacherSubjectListDTO teacherSubjectListDTO = teacherSubjectService.GetTeacherSubjectBySubjectId(subjectId);
                 return Ok(teacherSubjectListDTO);
@@ -40,7 +40,7 @@ namespace GradebookBackend.Controllers
         [HttpPost("admin/addteachersubject")]
         public IActionResult AddTeacherSubjects([FromQuery] int teacherId, [FromQuery] int subjectId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 teacherSubjectService.AddTeacherSubject(teacherId, subjectId);
@@ -56,7 +56,7 @@ namespace GradebookBackend.Controllers
         [HttpDelete("admin/deleteteachersubject")]
         public IActionResult DeleteTeacherSubjects([FromQuery] int teacherId, [FromQuery] int subjectId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 teacherSubjectService.DeleteTeacherSubject(teacherId, subjectId);

@@ -33,7 +33,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("addAttendanceStatus/{newAttendanceStatusName}")]
         public IActionResult AddAttendanceStatusList(string newAttendanceStatusName)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 attendanceStatusService.AddAttendanceStatus(newAttendanceStatusName);

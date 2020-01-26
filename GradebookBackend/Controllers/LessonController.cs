@@ -29,7 +29,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 LessonPlanDTO lessonPlanDTO = lessonService.GetStudentLessonPlanByClassId(
                 studentService.GetStudentClassIdByStudentId(userService.GetStudentIdByUserId(userId)));
                 return Ok(lessonPlanDTO);
@@ -46,7 +46,7 @@ namespace GradebookBackend.Controllers
         {
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 int teacherId = userService.GetTeacherIdByUserId(userId);
                 LessonPlanDTO lessonPlanDTO = lessonService.GetTeacherLessonPlanByTeacherId(teacherId);
                 return Ok(lessonPlanDTO);
@@ -60,7 +60,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("admin/LessonPlan/{classId}/{dayOfTheWeek}")]
         public IActionResult GetLessonPlan(int dayOfTheWeek, int classId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 SingleDayLessonPlanExtendedDTO singleDaylessonPlanDTO = lessonService.
@@ -77,7 +77,7 @@ namespace GradebookBackend.Controllers
         [HttpPost("admin/addlesson")]
         public IActionResult AddLesson([FromBody] NewLessonDTO newLessonDTO)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 if (lessonService.CheckIfLessonExists(newLessonDTO.LessonNumber, newLessonDTO.DayOfTheWeek, newLessonDTO.ClassId))
@@ -100,7 +100,7 @@ namespace GradebookBackend.Controllers
         [HttpPatch("admin/updatelesson/{lessonId}")]
         public IActionResult UpdateLesson([FromBody] NewLessonDTO updatedLessonDTO, int lessonId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 lessonService.UpdateLesson(updatedLessonDTO, lessonId);
@@ -120,7 +120,7 @@ namespace GradebookBackend.Controllers
             {
                 return BadRequest("Nie ma takiej lekcji");
             }
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 lessonService.DeleteLesson(lessonId);
@@ -135,7 +135,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("admin/getlesson/{lessonId}")]
         public IActionResult GetLesson(int lessonId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 LessonDTO lessonDTO = lessonService.GetLessonByLessonId(lessonId);

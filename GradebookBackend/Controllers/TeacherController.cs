@@ -12,6 +12,7 @@ namespace GradebookBackend.Controllers
         private readonly IUserProviderService userProviderService;
         private readonly IUserService userService;
         private readonly ITeacherService teacherService;
+
         public TeacherController(IUserProviderService userProviderService, IUserService userService,
             ITeacherService teacherService)
         {
@@ -24,7 +25,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("admin/allteachers")]
         public IActionResult GetTeachers()
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 TeacherListDTO teachersListDTO = teacherService.GetAllTeachers();

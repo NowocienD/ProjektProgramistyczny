@@ -85,7 +85,7 @@ namespace GradebookBackend.Services
             classRepository.Add(newClassDAO);
         }
 
-        public void DeleteClassWithId(int classId)
+        public void DeleteClass(int classId)
         {
             IEnumerable<ClassDAO> classes = classRepository.GetAll();
             foreach (ClassDAO checkedClass in classes.ToList())

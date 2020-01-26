@@ -25,7 +25,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("admin/addclasssubject")]
         public IActionResult AddClassSubject([FromQuery] int classId, [FromQuery] int subjectId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 classSubjectService.AddClassSubject(classId, subjectId);
@@ -41,7 +41,7 @@ namespace GradebookBackend.Controllers
         [HttpDelete("admin/deleteclasssubject")]
         public IActionResult DeleteClassSubject([FromQuery] int classId, [FromQuery] int subjectId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 classSubjectService.DeleteClassSubject(classId, subjectId);
@@ -55,12 +55,12 @@ namespace GradebookBackend.Controllers
 
         [Authorize]
         [HttpGet("admin/subjectsassignedtoclass/{classId}")]
-        public IActionResult DeleteClassSubject(int classId)
+        public IActionResult GetSubjectsAssignedToClass(int classId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
-                SubjectListDTO subjectListDTO =  classSubjectService.GetSubjectsAssignedToClass(classId);
+                SubjectListDTO subjectListDTO = classSubjectService.GetSubjectsAssignedToClass(classId);
                 return Ok(subjectListDTO);
             }
             else

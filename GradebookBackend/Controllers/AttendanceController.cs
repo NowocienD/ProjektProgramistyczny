@@ -37,7 +37,7 @@ namespace GradebookBackend.Controllers
             }
             try
             {
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 int studentId = userService.GetStudentIdByUserId(userId);
                 DateTime date = new DateTime(year, month, day);
                 SingleDayAttendancesListDTO singleDayAttendancesListDTO = attendanceService.GetAttendancesByStudentId(studentId, date);
@@ -57,7 +57,7 @@ namespace GradebookBackend.Controllers
             {
                 return BadRequest("day, month, year, classId i lessonNumber nie moga byc rowne 0");
             }
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsTeacher(userId))
             {
                 try
@@ -85,7 +85,7 @@ namespace GradebookBackend.Controllers
             try
             {
                 DateTime date = DateTime.ParseExact(newAttendanceDTO.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                int userId = int.Parse(userProviderService.GetUserId());
+                int userId = userProviderService.GetUserId();
                 int teacherId = userService.GetTeacherIdByUserId(userId);
                 int classId = studentService.GetStudentClassIdByStudentId(studentId);
                 int lessonId = lessonService.GetLessonId(newAttendanceDTO.LessonNumber, (int)date.DayOfWeek - 1, classId);

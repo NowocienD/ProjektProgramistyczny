@@ -25,8 +25,8 @@ namespace GradebookBackend.Controllers
         [HttpGet("studentsFromClass/{classId}")]
         public IActionResult GetAllStudentsByClassId(int classId)
         {
-            int userId = int.Parse(userProviderService.GetUserId());
-            if(userService.IsAdmin(userId) || userService.IsTeacher(userId))
+            int userId = userProviderService.GetUserId();
+            if (userService.IsAdmin(userId) || userService.IsTeacher(userId))
             {
                 StudentListDTO studentListDTO = studentService.GetStudentsByClassId(classId);
                 return Ok(studentListDTO);

@@ -25,7 +25,7 @@ namespace GradebookBackend.Controllers
         [HttpGet("admin/allroles")]
         public IActionResult GetRoles()
         {
-            int userId = int.Parse(userProviderService.GetUserId());
+            int userId = userProviderService.GetUserId();
             if (userService.IsAdmin(userId))
             {
                 RoleListDTO roleListDTO = roleService.GetAllRoles();
