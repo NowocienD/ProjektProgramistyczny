@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GradebookBackend.Services
 {
@@ -196,6 +197,10 @@ namespace GradebookBackend.Services
                     Name = rolesRepository.Get(userDAO.RoleId).Name
                 }
             };
+            if(IsStudent(userId))
+            {
+                userDTO.ClassId = studentsRepository.Get(GetStudentIdByUserId(userId)).ClassId;
+            }
             return userDTO;
         }
 
@@ -259,7 +264,7 @@ namespace GradebookBackend.Services
         public bool IsStudent(int userId)
         {
             IEnumerable<StudentDAO> listOfStudents = studentsRepository.GetAll();
-            foreach (StudentDAO student in listOfStudents)
+            foreach (StudentDAO student in listOfStudents.ToList())
             {
                 if (student.UserId == userId)
                 {
