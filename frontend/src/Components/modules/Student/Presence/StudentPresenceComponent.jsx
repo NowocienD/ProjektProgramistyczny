@@ -9,6 +9,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
+import MinimizeIcon from '@material-ui/icons/Minimize';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import Grid from '@material-ui/core/Grid';
 
@@ -61,10 +62,12 @@ const StudentPresenceComponent = (props) => {
                   <TableRow>
                     <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
                     {row.attendances.map((element, index) => {
-                      if (element === 'nie wpisano' || element ==='Nieobecny') {
+                      if (element === 'nieobecny') {
                         return <TableCell align="center" style={{ color: 'red' }}><CloseIcon />NO</TableCell>
                       } else if (element === 'obecny') {
                         return <TableCell align="center" style={{ color: 'green' }}><CheckIcon />O</TableCell>
+                      } else if (element === 'nie wpisano') {
+                        return <TableCell align="center" style={{ color: 'gray' }}><MinimizeIcon />NW</TableCell>
                       } else {
                         return <TableCell align="center" style={{ color: 'orange' }}><PlaylistAddCheckIcon />USP</TableCell>
                       }

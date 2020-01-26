@@ -53,9 +53,9 @@ namespace GradebookBackend.Controllers
         [HttpGet("teacher/classAttendances")]
         public IActionResult GetClassAttendances([FromQuery] int classId, [FromQuery] int lessonNumber, [FromQuery] int day, [FromQuery] int month, [FromQuery] int year)
         {
-            if (day == 0 || month == 0 || year == 0 || classId == 0 || lessonNumber == 0)
+            if (day == 0 || month == 0 || year == 0 || classId == 0)
             {
-                return BadRequest("day, month, year, classId i lessonNumber nie moga byc rowne 0");
+                return BadRequest("day, month, year, classId nie moga byc rowne 0");
             }
             int userId = userProviderService.GetUserId();
             if (userService.IsTeacher(userId))

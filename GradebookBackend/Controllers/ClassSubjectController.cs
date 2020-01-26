@@ -22,7 +22,7 @@ namespace GradebookBackend.Controllers
         }
 
         [Authorize]
-        [HttpGet("admin/addclasssubject")]
+        [HttpPost("admin/addclasssubject")]
         public IActionResult AddClassSubject([FromQuery] int classId, [FromQuery] int subjectId)
         {
             int userId = userProviderService.GetUserId();

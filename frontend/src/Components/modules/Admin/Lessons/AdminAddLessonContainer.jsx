@@ -104,9 +104,9 @@ class AdminAddLessonContainer extends React.Component {
             this.goBack();
             this.props.showMessage(res.data);
           })
-          .catch(res => {
+          .catch(err => {
             this.goBack();
-            this.props.showMessage(res.data.response);
+            this.props.showMessage(err.response.data);
           });
 
       } else {
@@ -117,7 +117,7 @@ class AdminAddLessonContainer extends React.Component {
           })
           .catch(res => {
             this.goBack();
-            this.props.showMessage(res.data.response);
+            this.props.showMessage(res.response.data);
           });
       }
     } else {

@@ -7,7 +7,7 @@ import { withSnackbar } from '../../../navigation/SnackbarContext';
 const allDays = [
   { id: 0, name: "Poniedziałek" },
   { id: 1, name: "Wtorek" },
-  { id: 2, name: "Śrooda" },
+  { id: 2, name: "Środa" },
   { id: 3, name: "Czwartek" },
   { id: 4, name: "Piątek" },
 ];
@@ -62,9 +62,7 @@ class AdminLessonsContainer extends React.Component {
   }
 
   addIndex = (lessons) => {
-    console.log(lessons);
     const nl = lessons.map((e, index) => { return { number: index+1, ...e}});
-    console.log(nl);
     return nl;
   }
 
