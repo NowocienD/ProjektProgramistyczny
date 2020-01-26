@@ -5,8 +5,6 @@ using GradebookBackend.ServicesCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -41,7 +39,7 @@ namespace GradebookBackend.Services
                         TeacherFirstName = teacherFirstName,
                         TeacherSurname = teacherSurname,
                         FirstNameAndSurname = teacherFirstName + " " + teacherSurname
-                        
+
                     };
                     studentNotesDTO.NoteDTOs.Add(noteDTO);
                 }

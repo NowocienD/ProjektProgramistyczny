@@ -2,10 +2,7 @@
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -24,10 +21,10 @@ namespace GradebookBackend.Services
         public TeacherSubjectListDTO GetTeacherSubjectBySubjectId(int subjectId)
         {
             IEnumerable<TeacherSubjectDAO> teacherSubjects = teacherSubjectRepository.GetAll();
-            TeacherSubjectListDTO teacherSubjectListDTO = new TeacherSubjectListDTO(); 
-            foreach(TeacherSubjectDAO teacherSubject in teacherSubjects)
+            TeacherSubjectListDTO teacherSubjectListDTO = new TeacherSubjectListDTO();
+            foreach (TeacherSubjectDAO teacherSubject in teacherSubjects)
             {
-                if(teacherSubject.SubjectId == subjectId)
+                if (teacherSubject.SubjectId == subjectId)
                 {
                     int userId = teacherRepository.Get(teacherSubject.TeacherId).UserId;
                     teacherSubjectListDTO.teacherSubjects.Add(new TeacherSubjectDTO
@@ -39,7 +36,7 @@ namespace GradebookBackend.Services
             }
             return teacherSubjectListDTO;
         }
-        
+
         public void AddTeacherSubject(int teacherId, int subjectId)
         {
             TeacherSubjectDAO newTeacherSubject = new TeacherSubjectDAO

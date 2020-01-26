@@ -1,13 +1,9 @@
 ﻿using GradebookBackend.DTO;
-using GradebookBackend.Services;
 using GradebookBackend.ServicesCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Controllers
 {

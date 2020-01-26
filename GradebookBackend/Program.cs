@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace GradebookBackend
 {
@@ -27,7 +22,7 @@ namespace GradebookBackend
                     webBuilder
                     .UseKestrel()
                     .UseIISIntegration()
-                    .UseUrls("http://*:8080") // to nie jest super poprawne ale moze kiedyœ zachce sie komus zmieniæ.
+                    .UseUrls("http://*:8080")
                     .UseStartup<Startup>();
                 });
     }

@@ -1,8 +1,5 @@
-﻿using System;
+﻿using GradebookBackend.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GradebookBackend.Model;
 
 namespace GradebookBackend.Repositories
 {
@@ -15,11 +12,11 @@ namespace GradebookBackend.Repositories
             this.context = context;
         }
 
-        public LessonDAO Add(LessonDAO tObjectChanges)
+        public LessonDAO Add(LessonDAO tObject)
         {
-            this.context.Lessons.Add(tObjectChanges);
+            this.context.Lessons.Add(tObject);
             this.context.SaveChanges();
-            return tObjectChanges;
+            return tObject;
         }
 
         public LessonDAO Delete(int Id)

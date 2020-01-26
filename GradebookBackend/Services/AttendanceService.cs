@@ -4,9 +4,7 @@ using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -33,15 +31,15 @@ namespace GradebookBackend.Services
             IEnumerable<AttendanceDAO> attendances = attendanceRepository.GetAll();
             SingleDayAttendancesListDTO attendancesPlanDTO = new SingleDayAttendancesListDTO();
             DateTime secondDate = firstDate.AddDays(5);
-                foreach(AttendanceDAO attendance in attendances)
+            foreach (AttendanceDAO attendance in attendances)
+            {
+                if (attendance.StudentId == studentId && attendance.Date >= firstDate && attendance.Date <= secondDate)
                 {
-                    if(attendance.StudentId == studentId && attendance.Date >= firstDate && attendance.Date <= secondDate)
-                    {
-                        int dayOfTheWeek = lessonRepository.Get(attendance.LessonId).DayOfTheWeek;
-                        int lessonNumber = lessonRepository.Get(attendance.LessonId).LessonNumber;
-                        attendancesPlanDTO.AttendancesPlan[dayOfTheWeek].Attendances[lessonNumber] = attendanceStatusRepository.Get(attendance.AttendanceStatusId).Name;
-                    }
+                    int dayOfTheWeek = lessonRepository.Get(attendance.LessonId).DayOfTheWeek;
+                    int lessonNumber = lessonRepository.Get(attendance.LessonId).LessonNumber;
+                    attendancesPlanDTO.AttendancesPlan[dayOfTheWeek].Attendances[lessonNumber] = attendanceStatusRepository.Get(attendance.AttendanceStatusId).Name;
                 }
+            }
             return attendancesPlanDTO;
         }
         public SingleLessonAttendancesListDTO GetClassAttendances(int classId, int lessonId, DateTime date)
@@ -52,11 +50,11 @@ namespace GradebookBackend.Services
             bool attendanceEntered = false;
             foreach (StudentDAO student in students)
             {
-                if(student.ClassId == classId)
+                if (student.ClassId == classId)
                 {
-                    foreach(AttendanceDAO attendance in attendances)
+                    foreach (AttendanceDAO attendance in attendances)
                     {
-                        if(attendance.StudentId == student.Id && attendance.LessonId == lessonId && attendance.Date == date)
+                        if (attendance.StudentId == student.Id && attendance.LessonId == lessonId && attendance.Date == date)
                         {
                             singleLessonAttendancesListDTO.SingleLessonAttendances.Add(new SingleLessonAttendanceDTO
                             {
@@ -86,9 +84,9 @@ namespace GradebookBackend.Services
         public void AddUpdateDeleteAttendance(DateTime date, int attendanceStatusId, int lessonId, int studentId)
         {
             IEnumerable<AttendanceDAO> attendances = attendanceRepository.GetAll();
-            foreach(AttendanceDAO attendance in attendances.ToList())
+            foreach (AttendanceDAO attendance in attendances.ToList())
             {
-                if(attendance.Date == date && attendance.LessonId == lessonId && attendance.StudentId == studentId)
+                if (attendance.Date == date && attendance.LessonId == lessonId && attendance.StudentId == studentId)
                 {
                     if (attendanceStatusId == 0)
                     {
@@ -109,7 +107,7 @@ namespace GradebookBackend.Services
                     return;
                 }
             }
-            AttendanceDAO newAttendanceDAO = new AttendanceDAO 
+            AttendanceDAO newAttendanceDAO = new AttendanceDAO
             {
                 AttendanceStatusId = attendanceStatusId,
                 StudentId = studentId,

@@ -1,9 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GradebookBackend.Model;
+﻿using GradebookBackend.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace GradebookBackend.Repositories
 {

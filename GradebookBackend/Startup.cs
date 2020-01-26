@@ -1,25 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using GradebookBackend.Model;
+using GradebookBackend.Repositories;
+using GradebookBackend.Services;
+using GradebookBackend.ServicesCore;
+using GradebookBackend.Settings;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
-using GradebookBackend.Model;
-using Microsoft.EntityFrameworkCore;
-using GradebookBackend.Repositories;
-using GradebookBackend.ServicesCore;
-using GradebookBackend.Services;
-using GradebookBackend.Settings;
 
 namespace GradebookBackend
 {

@@ -1,4 +1,5 @@
-﻿namespace GradebookBackend.ServicesCore
+﻿
+namespace GradebookBackend.ServicesCore
 {
     public interface ITokenGeneratorService
     {

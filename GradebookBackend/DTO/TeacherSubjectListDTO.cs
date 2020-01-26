@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GradebookBackend.DTO
 {
@@ -10,7 +7,7 @@ namespace GradebookBackend.DTO
         public List<TeacherSubjectDTO> teacherSubjects { get; set; }
         public TeacherSubjectListDTO()
         {
-            teacherSubjects = new List<TeacherSubjectDTO>();    
+            teacherSubjects = new List<TeacherSubjectDTO>();
         }
     }
 }

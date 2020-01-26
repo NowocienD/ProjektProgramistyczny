@@ -1,8 +1,5 @@
 ﻿using GradebookBackend.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Repositories
 {
@@ -15,11 +12,11 @@ namespace GradebookBackend.Repositories
             this.context = context;
         }
 
-        public SubjectDAO Add(SubjectDAO subject)
+        public SubjectDAO Add(SubjectDAO tObject)
         {
-            this.context.Subjects.Add(subject);
+            this.context.Subjects.Add(tObject);
             this.context.SaveChanges();
-            return subject;
+            return tObject;
         }
 
         public SubjectDAO Delete(int Id)
@@ -44,13 +41,13 @@ namespace GradebookBackend.Repositories
             return this.context.Subjects;
         }
 
-        public SubjectDAO Update(SubjectDAO subjectChanges)
+        public SubjectDAO Update(SubjectDAO tObjectChanges)
         {
-            context.Entry(subjectChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-            var subject = this.context.Subjects.Attach(subjectChanges);
+            context.Entry(tObjectChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            var subject = this.context.Subjects.Attach(tObjectChanges);
             subject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             this.context.SaveChanges();
-            return subjectChanges;
+            return tObjectChanges;
         }
     }
 }

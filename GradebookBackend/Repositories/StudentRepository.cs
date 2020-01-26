@@ -1,12 +1,9 @@
-﻿using System;
+﻿using GradebookBackend.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GradebookBackend.Model;
 
 namespace GradebookBackend.Repositories
 {
-    public class StudentRepository :IRepository<StudentDAO>
+    public class StudentRepository : IRepository<StudentDAO>
     {
         private readonly GradebookDbContext context;
 

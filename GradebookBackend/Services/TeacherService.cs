@@ -2,10 +2,7 @@
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -23,7 +20,7 @@ namespace GradebookBackend.Services
         {
             IEnumerable<TeacherDAO> teachers = teacherRepository.GetAll();
             TeacherListDTO teacherListDTO = new TeacherListDTO();
-            foreach(TeacherDAO teacher in teachers)
+            foreach (TeacherDAO teacher in teachers)
             {
                 teacherListDTO.teachers.Add(new TeacherDTO
                 {

@@ -1,8 +1,5 @@
-﻿using System;
+﻿using GradebookBackend.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GradebookBackend.Model;
 
 namespace GradebookBackend.Repositories
 {
@@ -43,13 +40,13 @@ namespace GradebookBackend.Repositories
             return this.context.Classes;
         }
 
-        public ClassDAO Update(ClassDAO classChanges)
+        public ClassDAO Update(ClassDAO tObjectChanges)
         {
-            context.Entry(classChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-            var tObject = this.context.Classes.Attach(classChanges);
+            context.Entry(tObjectChanges).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            var tObject = this.context.Classes.Attach(tObjectChanges);
             tObject.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             this.context.SaveChanges();
-            return classChanges;
+            return tObjectChanges;
         }
     }
 }

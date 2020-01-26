@@ -2,10 +2,7 @@
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -33,7 +30,7 @@ namespace GradebookBackend.Services
                         Name = subjectRepository.Get(classSubject.SubjectId).Name
                     }
                     );
-                }            
+                }
             }
             return subjectListDTO;
         }
@@ -42,7 +39,7 @@ namespace GradebookBackend.Services
         {
             IEnumerable<SubjectDAO> subjects = subjectRepository.GetAll();
             SubjectListDTO subjectsDTO = new SubjectListDTO();
-            foreach(SubjectDAO subject in subjects)
+            foreach (SubjectDAO subject in subjects)
             {
                 SubjectDTO subjectDTO = new SubjectDTO()
                 {
@@ -60,7 +57,7 @@ namespace GradebookBackend.Services
             {
                 Name = newSubjectDTO.Name
             };
-            foreach(SubjectDAO checkedSubject in subjectRepository.GetAll())
+            foreach (SubjectDAO checkedSubject in subjectRepository.GetAll())
             {
                 if (checkedSubject.Name.Equals(newSubject.Name))
                 {
@@ -102,9 +99,9 @@ namespace GradebookBackend.Services
 
         public bool IsSubjectRepositoryContaining(int subjectId)
         {
-            foreach(SubjectDAO checkedSubject in subjectRepository.GetAll())
+            foreach (SubjectDAO checkedSubject in subjectRepository.GetAll())
             {
-                if(checkedSubject.Id == subjectId)
+                if (checkedSubject.Id == subjectId)
                 {
                     return true;
                 }

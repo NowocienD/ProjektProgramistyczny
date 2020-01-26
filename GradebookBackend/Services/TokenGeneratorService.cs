@@ -1,10 +1,10 @@
-﻿using System;
+﻿using GradebookBackend.ServicesCore;
+using GradebookBackend.Settings;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using GradebookBackend.ServicesCore;
-using GradebookBackend.Settings;
-using Microsoft.IdentityModel.Tokens;
 
 namespace GradebookBackend.Services
 {

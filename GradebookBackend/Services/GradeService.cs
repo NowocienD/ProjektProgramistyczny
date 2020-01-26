@@ -5,8 +5,6 @@ using GradebookBackend.ServicesCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -28,18 +26,18 @@ namespace GradebookBackend.Services
         public bool CheckIfTeacherTeachSubject(int teacherId, int subjectId)
         {
             IEnumerable<TeacherSubjectDAO> teacherSubjectDAOs = teacherSubjectsRepository.GetAll();
-            foreach(TeacherSubjectDAO teacherSubject in teacherSubjectDAOs)
+            foreach (TeacherSubjectDAO teacherSubject in teacherSubjectDAOs)
             {
-                if(teacherSubject.SubjectId == subjectId && teacherSubject.TeacherId == teacherId)
+                if (teacherSubject.SubjectId == subjectId && teacherSubject.TeacherId == teacherId)
                 {
                     return true;
                 }
             }
             return false;
         }
-        public void AddGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId )
+        public void AddGrade(NewGradeDTO newGradeDTO, int teacherId, int studentId)
         {
-            if(!CheckIfTeacherTeachSubject(teacherId, newGradeDTO.SubjectId))
+            if (!CheckIfTeacherTeachSubject(teacherId, newGradeDTO.SubjectId))
             {
                 throw new GradebookServerException("Nie mozna dodac oceny poniewaz nauczyciel nie uczy tego przedmiotu");
             }

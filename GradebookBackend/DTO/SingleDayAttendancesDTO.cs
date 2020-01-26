@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace GradebookBackend.DTO
 {
@@ -12,7 +9,7 @@ namespace GradebookBackend.DTO
         public SingleDayAttendancesDTO()
         {
             Attendances = new List<string>();
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 Attendances.Add("nie wpisano");
             }

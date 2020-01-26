@@ -1,12 +1,8 @@
-﻿using GradebookBackend.Controllers;
-using GradebookBackend.DTO;
+﻿using GradebookBackend.DTO;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -25,9 +21,9 @@ namespace GradebookBackend.Services
         {
             IEnumerable<StudentDAO> students = studentsRepository.GetAll();
             StudentListDTO studentListDTO = new StudentListDTO();
-            foreach(StudentDAO student in students)
+            foreach (StudentDAO student in students)
             {
-                if(student.ClassId == classId)
+                if (student.ClassId == classId)
                 {
                     StudentDTO studentToAdd = new StudentDTO()
                     {

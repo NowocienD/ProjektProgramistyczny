@@ -2,10 +2,7 @@
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -29,7 +26,7 @@ namespace GradebookBackend.Services
         {
             AttendanceStatusListDTO attendanceStatusListDTO = new AttendanceStatusListDTO();
             IEnumerable<AttendanceStatusDAO> attendancesStatus = attendanceStatusRepository.GetAll();
-            foreach(AttendanceStatusDAO attendanceStatus in attendancesStatus)
+            foreach (AttendanceStatusDAO attendanceStatus in attendancesStatus)
             {
                 attendanceStatusListDTO.AttendanceStatusDTOs.Add(new AttendanceStatusDTO
                 {
@@ -37,7 +34,7 @@ namespace GradebookBackend.Services
                     Name = attendanceStatus.Name
                 });
             }
-            return attendanceStatusListDTO;  
+            return attendanceStatusListDTO;
         }
     }
 }

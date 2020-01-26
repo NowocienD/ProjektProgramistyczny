@@ -2,10 +2,8 @@
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace GradebookBackend.Services
 {
@@ -120,9 +118,9 @@ namespace GradebookBackend.Services
 
         private bool IsClassRepositoryContaining(int classId)
         {
-            foreach(ClassDAO checkedClass in classRepository.GetAll().ToList())
+            foreach (ClassDAO checkedClass in classRepository.GetAll().ToList())
             {
-                if(checkedClass.Id == classId)
+                if (checkedClass.Id == classId)
                 {
                     return true;
                 }

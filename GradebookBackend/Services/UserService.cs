@@ -3,8 +3,6 @@ using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,7 +18,7 @@ namespace GradebookBackend.Services
 
         private readonly PasswordHasher passwordHasher;
 
-        public UserService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository, 
+        public UserService(IRepository<UserDAO> usersRepository, IRepository<RoleDAO> rolesRepository,
             IRepository<StudentDAO> studentsRepository, IRepository<AdminDAO> adminsRepository,
             IRepository<TeacherDAO> teachersRepository)
         {
@@ -100,7 +98,7 @@ namespace GradebookBackend.Services
             }
             usersRepository.Update(updatedUserDAO);
 
-            if(IsStudent(userId))
+            if (IsStudent(userId))
             {
                 int studentId = GetStudentIdByUserId(userId);
                 StudentDAO updatedStudentDAO = new StudentDAO
@@ -130,7 +128,7 @@ namespace GradebookBackend.Services
         public void UpdateUserPassword(UserPasswordChangeDTO userPasswordChangeDTO, int userId)
         {
             UserDAO userDAO = usersRepository.Get(userId);
-            if(passwordHasher.VerifyHashedPassword(userDAO.Password, userPasswordChangeDTO.OldPassword) == Microsoft.AspNet.Identity.PasswordVerificationResult.Success)
+            if (passwordHasher.VerifyHashedPassword(userDAO.Password, userPasswordChangeDTO.OldPassword) == Microsoft.AspNet.Identity.PasswordVerificationResult.Success)
             {
                 userDAO.Password = passwordHasher.HashPassword(userPasswordChangeDTO.NewPassword);
             }
@@ -197,7 +195,7 @@ namespace GradebookBackend.Services
                     Name = rolesRepository.Get(userDAO.RoleId).Name
                 }
             };
-            if(IsStudent(userId))
+            if (IsStudent(userId))
             {
                 userDTO.ClassId = studentsRepository.Get(GetStudentIdByUserId(userId)).ClassId;
             }
@@ -207,9 +205,9 @@ namespace GradebookBackend.Services
         public int GetUserIdByLoginAndPassword(string login, string password)
         {
             IEnumerable<UserDAO> users = usersRepository.GetAll();
-            foreach(UserDAO user in users)
+            foreach (UserDAO user in users)
             {
-                if(user.Login == login)
+                if (user.Login == login)
                 {
                     if (user.IsActive == true)
                     {
@@ -277,9 +275,9 @@ namespace GradebookBackend.Services
         public bool IsAdmin(int userId)
         {
             IEnumerable<AdminDAO> listOfAdmins = adminsRepository.GetAll();
-            foreach(AdminDAO admin in listOfAdmins)
+            foreach (AdminDAO admin in listOfAdmins)
             {
-                if(admin.UserId == userId)
+                if (admin.UserId == userId)
                 {
                     return true;
                 }
