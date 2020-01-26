@@ -27,19 +27,15 @@ const formikEnhancer = withFormik({
   handleSubmit: (values, { props }) => {
     const onSubmit = props.grade && props.grade.value ? props.onUpdateGrade : props.onAddGrade;
     onSubmit(values)
-      .catch(error => {
-        props.showMessage(error.response.data);
-      })
       .then(res => {
         props.showMessage(res.data)
-      })
-      .then(() => {
         props.getGrades()
-      })
-      .then(props.hideDialog)
-      .then(() => {
+        props.hideDialog()
         values.topic = '';
         values.date = '';
+      })
+      .catch(error => {
+        props.showMessage(error.response.data);
       })
   }
 });

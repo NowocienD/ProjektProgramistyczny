@@ -66,7 +66,6 @@ class TeacherGradesContainer extends React.Component {
   }
 
   handleStudentChange = (event) => {
-    console.log("adsa")
     this.setState({
       student: event.target.value,
     }, () => {
