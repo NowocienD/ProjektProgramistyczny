@@ -85,14 +85,14 @@ class AdminAddLessonContainer extends React.Component {
 
   handleLessonNumberChange = (event) => {
     this.setState({
-      lessonNumber: event.target.value - 1,
+      lessonNumber: event.target.value,
     });
   }
 
   onSave = () => {
     if (this.state.subject && this.state.teacher) {
       const dto = {
-        LessonNumber: this.state.lessonNumber,
+        LessonNumber: this.state.lessonNumber-1,
         DayOfTheWeek: parseInt(this.state.day),
         SubjectId: this.state.subject.id,
         ClassId: parseInt(this.state.classId),

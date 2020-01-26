@@ -56,13 +56,14 @@ const StudentPresenceComponent = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
+                {console.log(props.presence)}
                 {props.presence.map((row, index) => (
                   <TableRow>
                     <TableCell style={{ fontWeight: "bold" }} align="left">{days[index]}</TableCell>
                     {row.attendances.map((element, index) => {
-                      if (element === 'Not entered') {
+                      if (element === 'nie wpisano' || element ==='Nieobecny') {
                         return <TableCell align="center" style={{ color: 'red' }}><CloseIcon />NO</TableCell>
-                      } else if (element === 'Obecny') {
+                      } else if (element === 'obecny') {
                         return <TableCell align="center" style={{ color: 'green' }}><CheckIcon />O</TableCell>
                       } else {
                         return <TableCell align="center" style={{ color: 'orange' }}><PlaylistAddCheckIcon />USP</TableCell>

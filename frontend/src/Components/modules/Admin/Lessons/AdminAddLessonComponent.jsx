@@ -10,7 +10,7 @@ import {
   Card,
 } from '@material-ui/core';
 
-const lessonNumbers = [0, 1, 2, 3, 4, 5, 6, 7];
+const lessonNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
 const AdminAddLessonComponent = (props) => {
   return (
     <Card className="component-container">
@@ -70,7 +70,7 @@ const AdminAddLessonComponent = (props) => {
           >
             {lessonNumbers.map(item => (
               <MenuItem key={item} value={item}>
-                {item + 1}
+                {item}
               </MenuItem>
             ))}
           </Select>

@@ -116,7 +116,7 @@ const SettingsComponent = (props) => {
               <InputLabel style={{ marginTop: '5%' }}>Klasa</InputLabel>
               <Select
                 variant="outlined"
-                value={props.values.Class}
+                value={props.values.ClassId}
                 onChange={props.handleChange('ClassId')}
                 onBlur={props.handleBlur('ClassId')}
                 margin="dense"
