@@ -97,6 +97,38 @@ namespace BackendTests
             }
         }
 
+        [Fact]
+        public void ClassDAOList_to_classDTOList_CorrectData_expectEquals()
+        {
+            //arrange
+            ClassListDTO expected = new ClassListDTO();
+            List<ClassDAO> classDAOList = new List<ClassDAO>();
+
+            ClassDAO_to_classDTO_testData testData = new ClassDAO_to_classDTO_testData();
+            foreach (var item in testData)
+            {
+                expected.ClassList.Add((ClassDTO)item.ToArray()[0]);
+                classDAOList.Add((ClassDAO)item.ToArray()[1]);
+            }
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            Type type = typeof(ClassService);
+            var className = Activator.CreateInstance(type, classRepositoryMock.Object, lessonRepositoryMock.Object);
+            MethodInfo methodName = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
+            .Where(x => x.Name == "ClassDAOList_to_classDTOList" && x.IsPrivate)
+            .First();
+
+            //act
+            var result = (ClassListDTO)methodName.Invoke(className, new object[] { classDAOList });
+
+            //assert
+            for (int i = 0; i < expected.ClassList.Count; i++)
+            {
+                Assert.Equal(expected.ClassList[i], result.ClassList[i]);
+            }
+        }
+
         [Theory]
         [ClassData(typeof(ClassDAO_to_classDTO_testData))]
         public void ClassDAO_to_classDTO_CorrectData_expectEquals(ClassDTO expectedClassDTO, ClassDAO classDAO)
