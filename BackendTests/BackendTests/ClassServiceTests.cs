@@ -91,10 +91,7 @@ namespace BackendTests
             var result = testService.GetAllClasses();
 
             //assert
-            for (int i = 0; i < expected.ClassList.Count; i++)
-            {
-                Assert.Equal(expected.ClassList[i], result.ClassList[i]);
-            }
+            Assert.Equal(expected, result);
         }
 
         [Fact]
@@ -123,10 +120,7 @@ namespace BackendTests
             var result = (ClassListDTO)methodName.Invoke(className, new object[] { classDAOList });
 
             //assert
-            for (int i = 0; i < expected.ClassList.Count; i++)
-            {
-                Assert.Equal(expected.ClassList[i], result.ClassList[i]);
-            }
+            Assert.Equal(expected, result);
         }
 
         [Theory]
