@@ -1,17 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using GradebookBackend.DTO;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
-using GradebookBackend.ServicesCore;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using Xunit;
-using Moq;
 using GradebookBackend.Services;
-using System.Reflection;
+using GradebookBackend.ServicesCore;
+using Moq;
+using Xunit;
 
 namespace BackendTests
 {
@@ -21,11 +20,12 @@ namespace BackendTests
         {
             public IEnumerator<object[]> GetEnumerator()
             {
-                yield return new object[] {
+                yield return new object[]
+                {
                     new ClassDTO()
                         {
                             Id = 1,
-                            Name = "nameclass1"
+                            Name = "nameclass1",
                         },
                     new ClassDAO()
                         {
@@ -34,14 +34,16 @@ namespace BackendTests
                             ClassSubjects = null,
                             Lessons = new List<LessonDAO>()
                             {
-                                new LessonDAO()
-                            }
-                        } };
-                yield return new object[] {
+                                new LessonDAO(),
+                            },
+                        },
+                };
+                yield return new object[]
+                {
                     new ClassDTO()
                         {
                             Id = 2,
-                            Name = null
+                            Name = null,
                         },
                     new ClassDAO()
                         {
@@ -50,23 +52,25 @@ namespace BackendTests
                             ClassSubjects = null,
                             Lessons = new List<LessonDAO>()
                             {
-                                new LessonDAO()
-                            }
-                    } };
+                                new LessonDAO(),
+                            },
+                        },
+                };
 
-                yield return new object[] {
+                yield return new object[]
+                {
                     new ClassDTO(),
-                    new ClassDAO()
-                         };
+                    new ClassDAO(),
+                };
             }
+
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
-
 
         [Fact]
         public void GetAllClasses_CorrectData_expectEquals()
         {
-            //arrange
+            // arrange
             ClassListDTO expected = new ClassListDTO();
             List<ClassDAO> classDAO = new List<ClassDAO>();
 
@@ -77,27 +81,25 @@ namespace BackendTests
                 classDAO.Add((ClassDAO)item.ToArray()[1]);
             }
 
-
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(classDAO);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object
-                );
+                lessonRepositoryMock.Object);
 
-            //act
+            // act
             var result = testService.GetAllClasses();
 
-            //assert
+            // assert
             Assert.Equal(expected, result);
         }
 
         [Fact]
         public void ClassDAOList_to_classDTOList_CorrectData_expectEquals()
         {
-            //arrange
+            // arrange
             ClassListDTO expected = new ClassListDTO();
             List<ClassDAO> classDAOList = new List<ClassDAO>();
 
@@ -116,10 +118,10 @@ namespace BackendTests
             .Where(x => x.Name == "ClassDAOList_to_classDTOList" && x.IsPrivate)
             .First();
 
-            //act
+            // act
             var result = (ClassListDTO)methodName.Invoke(className, new object[] { classDAOList });
 
-            //assert
+            // assert
             Assert.Equal(expected, result);
         }
 
@@ -127,7 +129,7 @@ namespace BackendTests
         [ClassData(typeof(ClassDAO_to_classDTO_testData))]
         public void ClassDAO_to_classDTO_CorrectData_expectEquals(ClassDTO expectedClassDTO, ClassDAO classDAO)
         {
-            //arrange
+            // arrange
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
 
@@ -137,13 +139,12 @@ namespace BackendTests
             .Where(x => x.Name == "ClassDAO_to_classDTO" && x.IsPrivate)
             .First();
 
-            //Act
+            // Act
             var result = (ClassDTO)methodName.Invoke(className, new object[] { classDAO });
 
-            //assert
+            // assert
             Assert.Equal(expectedClassDTO, result);
         }
-
 
         [Fact]
         public void GetAllClassesOfTeacher_CorrectData_expectEquals()
@@ -186,25 +187,23 @@ namespace BackendTests
             expected.Add(new ClassDTO()
             {
                 Id = 3,
-                Name = "someClass"
+                Name = "someClass",
             });
             expected.Add(new ClassDTO()
             {
                 Id = 5,
-                Name = "someClass"
+                Name = "someClass",
             });
             expected.Add(new ClassDTO()
             {
                 Id = 2,
-                Name = "someClass"
+                Name = "someClass",
             });
             expected.Add(new ClassDTO()
             {
                 Id = 1,
-                Name = "someClass"
+                Name = "someClass",
             });
-
-
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(new ClassDAO() { Name = "someClass" });
@@ -213,16 +212,15 @@ namespace BackendTests
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object
-                );
+                lessonRepositoryMock.Object);
 
-            //act
+            // act
             ClassListDTO classListDTO = testService.GetAllClassesOfTeacher(teacherID);
 
-            //assert
+            // assert
             Assert.Equal(expected, classListDTO.ClassList);
-
         }
+
         [Fact]
         public void GetAllClassesOfTeacher_RecursiveData_expectEquals()
         {
@@ -240,7 +238,7 @@ namespace BackendTests
                 Id = 5,
                 TeacherId = 4,
                 ClassId = 2,
-            }); 
+            });
             lissonsDAOList.Add(new LessonDAO
             {
                 Id = 5,
@@ -264,12 +262,12 @@ namespace BackendTests
             expected.Add(new ClassDTO()
             {
                 Id = 2,
-                Name = "someClass"
+                Name = "someClass",
             });
             expected.Add(new ClassDTO()
             {
                 Id = 1,
-                Name = "someClass"
+                Name = "someClass",
             });
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
@@ -279,13 +277,12 @@ namespace BackendTests
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object
-                );
+                lessonRepositoryMock.Object);
 
-            //act
+            // act
             ClassListDTO classListDTO = testService.GetAllClassesOfTeacher(teacherID);
 
-            //assert
+            // assert
             Assert.Equal(expected, classListDTO.ClassList);
         }
 
@@ -304,13 +301,12 @@ namespace BackendTests
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object
-                );
+                lessonRepositoryMock.Object);
 
-            //act
+            // act
             ClassListDTO classListDTO = testService.GetAllClassesOfTeacher(teacherID);
 
-            //assert
+            // assert
             Assert.Equal(expected, classListDTO.ClassList);
         }
     }
