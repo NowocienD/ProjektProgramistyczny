@@ -154,9 +154,93 @@ namespace BackendTests
             lissonsDAOList.Add(new LessonDAO
             {
                 Id = 2,
+                TeacherId = 4,
+                ClassId = 3,
+            });
+            lissonsDAOList.Add(new LessonDAO
+            {
+                Id = 5,
+                TeacherId = 4,
+                ClassId = 5,
+            });
+            lissonsDAOList.Add(new LessonDAO
+            {
+                Id = 4,
+                TeacherId = 4,
+                ClassId = 2,
+            });
+            lissonsDAOList.Add(new LessonDAO
+            {
+                Id = 1,
+                TeacherId = 4,
+                ClassId = 1,
+            });
+            lissonsDAOList.Add(new LessonDAO
+            {
+                Id = 8,
+                TeacherId = 3,
+                ClassId = 8,
+            });
+
+            List<ClassDTO> expected = new List<ClassDTO>();
+            expected.Add(new ClassDTO()
+            {
+                Id = 3,
+                Name = "someClass"
+            });
+            expected.Add(new ClassDTO()
+            {
+                Id = 5,
+                Name = "someClass"
+            });
+            expected.Add(new ClassDTO()
+            {
+                Id = 2,
+                Name = "someClass"
+            });
+            expected.Add(new ClassDTO()
+            {
+                Id = 1,
+                Name = "someClass"
+            });
+
+
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(new ClassDAO() { Name = "someClass" });
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            lessonRepositoryMock.Setup(x => x.GetAll()).Returns(lissonsDAOList);
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object
+                );
+
+            //act
+            ClassListDTO classListDTO = testService.GetAllClassesOfTeacher(teacherID);
+
+            //assert
+            Assert.Equal(expected, classListDTO.ClassList);
+
+        }
+        [Fact]
+        public void GetAllClassesOfTeacher_RecursiveData_expectEquals()
+        {
+            int teacherID = 4;
+
+            List<LessonDAO> lissonsDAOList = new List<LessonDAO>();
+            lissonsDAOList.Add(new LessonDAO
+            {
+                Id = 2,
                 TeacherId = 8,
                 ClassId = 3,
             });
+            lissonsDAOList.Add(new LessonDAO
+            {
+                Id = 5,
+                TeacherId = 4,
+                ClassId = 2,
+            }); 
             lissonsDAOList.Add(new LessonDAO
             {
                 Id = 5,
@@ -188,7 +272,30 @@ namespace BackendTests
                 Name = "someClass"
             });
 
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(new ClassDAO() { Name = "someClass" });
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            lessonRepositoryMock.Setup(x => x.GetAll()).Returns(lissonsDAOList);
 
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object
+                );
+
+            //act
+            ClassListDTO classListDTO = testService.GetAllClassesOfTeacher(teacherID);
+
+            //assert
+            Assert.Equal(expected, classListDTO.ClassList);
+        }
+
+        [Fact]
+        public void GetAllClassesOfTeacher_EmptyData_expectEquals()
+        {
+            int teacherID = 4;
+
+            List<LessonDAO> lissonsDAOList = new List<LessonDAO>();
+            List<ClassDTO> expected = new List<ClassDTO>();
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(new ClassDAO() { Name = "someClass" });
@@ -205,7 +312,6 @@ namespace BackendTests
 
             //assert
             Assert.Equal(expected, classListDTO.ClassList);
-
         }
     }
 }
