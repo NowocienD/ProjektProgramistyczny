@@ -42,36 +42,20 @@ namespace GradebookBackend.Services
         public ClassListDTO GetAllClassesOfTeacher(int teacherId)
         {
             ClassListDTO classListDTO = new ClassListDTO();
-            IEnumerable<LessonDAO> lessons = lessonRepository.GetAll();
-            foreach (LessonDAO lesson in lessons)
-            {
-                if (lesson.TeacherId == teacherId)
-                {
-                    ClassDTO newClass = new ClassDTO()
-                    {
-                        Id = lesson.ClassId,
-                        Name = classRepository.Get(lesson.ClassId).Name
-                    };
-                    if (!IsClassAlreadyInClassList(classListDTO, newClass))
-                    {
-                        classListDTO.ClassList.Add(newClass);
-                    }
-                }
-            }
-            return classListDTO;
-        }
 
-        public bool IsClassAlreadyInClassList(ClassListDTO classListDTO, ClassDTO classDTO)
-        {
-            bool isAlready = false;
-            foreach (ClassDTO checkedClass in classListDTO.ClassList)
+            lessonRepository.GetAll().Where(x => x.TeacherId == teacherId).ToList().ForEach(x =>
             {
-                if (checkedClass.Id == classDTO.Id)
+                if (!classListDTO.ClassList.Any(o => o.Id == x.ClassId))
                 {
-                    isAlready = true;
+                    classListDTO.ClassList.Add(new ClassDTO()
+                    {
+                        Id = x.ClassId,
+                        Name = classRepository.Get(x.ClassId).Name
+                    });
                 }
-            }
-            return isAlready;
+            });
+
+            return classListDTO;
         }
 
         public void AddClass(ClassDTO newClassDTO)
