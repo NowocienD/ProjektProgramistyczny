@@ -97,21 +97,6 @@ namespace BackendTests
             }
         }
 
-        [Fact]
-        public void GetAllClasses_()
-        {
-            //arrange
-            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
-            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
-
-            //act
-            var s = new ClassService(
-                    classRepositoryMock.Object,
-                    lessonRepositoryMock.Object);
-            //assert
-            Assert.True(true);
-        }
-
         [Theory]
         [ClassData(typeof(ClassDAO_to_classDTO_testData))]
         public void ClassDAO_to_classDTO_CorrectData_expectEquals(ClassDTO expectedClassDTO, ClassDAO classDAO)
