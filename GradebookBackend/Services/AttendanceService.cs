@@ -16,8 +16,11 @@ namespace GradebookBackend.Services
         private readonly IRepository<UserDAO> userRepository;
         private readonly IRepository<AttendanceStatusDAO> attendanceStatusRepository;
 
-        public AttendanceService(IRepository<AttendanceDAO> attendanceRepository, IRepository<LessonDAO> lessonRepository,
-            IRepository<StudentDAO> studentRepository, IRepository<UserDAO> userRepository,
+        public AttendanceService(
+            IRepository<AttendanceDAO> attendanceRepository, 
+            IRepository<LessonDAO> lessonRepository,
+            IRepository<StudentDAO> studentRepository, 
+            IRepository<UserDAO> userRepository,
             IRepository<AttendanceStatusDAO> attendanceStatusRepository)
         {
             this.attendanceRepository = attendanceRepository;

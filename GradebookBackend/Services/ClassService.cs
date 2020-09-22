@@ -2,6 +2,7 @@
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,20 +19,24 @@ namespace GradebookBackend.Services
             this.lessonRepository = lessonRepository;
         }
 
-        public ClassListDTO GetAllClasses()
+        private ClassListDTO ClassDAOList_to_classDTOList(IEnumerable<ClassDAO> classDAOList)
         {
-            IEnumerable<ClassDAO> classes = classRepository.GetAll();
-            ClassListDTO classesDTO = new ClassListDTO();
-            foreach (ClassDAO classDAO in classes)
-            {
-                ClassDTO classDTO = new ClassDTO()
+            var returnDTO = new ClassListDTO();
+            classDAOList.ToList().ForEach((x => returnDTO.ClassList.Add(ClassDAO_to_classDTO(x))));
+            return returnDTO;
+        }
+        private ClassDTO ClassDAO_to_classDTO(ClassDAO classDAO)
+        {
+            return new ClassDTO()
                 {
                     Id = classDAO.Id,
                     Name = classDAO.Name
                 };
-                classesDTO.ClassList.Add(classDTO);
-            }
-            return classesDTO;
+        }
+
+        public ClassListDTO GetAllClasses()
+        {
+            return ClassDAOList_to_classDTOList(classRepository.GetAll());
         }
 
         public ClassListDTO GetAllClassesOfTeacher(int teacherId)
