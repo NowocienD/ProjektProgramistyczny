@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using GradebookBackend;
 using GradebookBackend.DTO;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
@@ -16,7 +17,7 @@ namespace BackendTests
 {
     public class ClassServiceTests
     {
-        public class ClassDAO_to_classDTO_testData : IEnumerable<object[]>
+        public class DTOandDAO_tuple_testData : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
             {
@@ -74,7 +75,7 @@ namespace BackendTests
             ClassListDTO expected = new ClassListDTO();
             List<ClassDAO> classDAO = new List<ClassDAO>();
 
-            ClassDAO_to_classDTO_testData testData = new ClassDAO_to_classDTO_testData();
+            DTOandDAO_tuple_testData testData = new DTOandDAO_tuple_testData();
             foreach (var item in testData)
             {
                 expected.ClassList.Add((ClassDTO)item.ToArray()[0]);
@@ -103,7 +104,7 @@ namespace BackendTests
             ClassListDTO expected = new ClassListDTO();
             List<ClassDAO> classDAOList = new List<ClassDAO>();
 
-            ClassDAO_to_classDTO_testData testData = new ClassDAO_to_classDTO_testData();
+            DTOandDAO_tuple_testData testData = new DTOandDAO_tuple_testData();
             foreach (var item in testData)
             {
                 expected.ClassList.Add((ClassDTO)item.ToArray()[0]);
@@ -126,7 +127,7 @@ namespace BackendTests
         }
 
         [Theory]
-        [ClassData(typeof(ClassDAO_to_classDTO_testData))]
+        [ClassData(typeof(DTOandDAO_tuple_testData))]
         public void ClassDAO_to_classDTO_CorrectData_expectEquals(ClassDTO expectedClassDTO, ClassDAO classDAO)
         {
             // arrange
@@ -308,6 +309,98 @@ namespace BackendTests
 
             // assert
             Assert.Equal(expected, classListDTO.ClassList);
+        }
+
+        [Fact]
+        public void AddClass_correctData_expectPass()
+        {
+            List<ClassDAO> mockClassDAO = new List<ClassDAO>();
+
+            mockClassDAO.Add(new ClassDAO()
+            {
+                Id = 1,
+                Name = "nameclass1",
+                ClassSubjects = null,
+                Lessons = new List<LessonDAO>()
+                        {
+                            new LessonDAO(),
+                        },
+            });
+
+            for (int i = 0; i < 100; i++)
+            {
+                mockClassDAO.Add(new ClassDAO()
+                {
+                    Id = i,
+                    Name = "nameclass" + i.ToString(),
+                });
+            }
+
+            ClassDTO mockData = new ClassDTO()
+            {
+                Name = "class1",
+                Id = 2,
+            };
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
+            classRepositoryMock.Setup(x => x.Add(It.IsAny<ClassDAO>()));
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object);
+
+            // act
+            testService.AddClass(mockData);
+
+            // assert
+            Assert.True(true);
+        }
+
+        [Fact]
+        public void AddClass_redundantData_expectExceprionThrown()
+        {
+            List<ClassDAO> mockClassDAO = new List<ClassDAO>();
+
+            mockClassDAO.Add(new ClassDAO()
+            {
+                Id = 1,
+                Name = "nameclass1",
+                ClassSubjects = null,
+                Lessons = new List<LessonDAO>()
+                        {
+                            new LessonDAO(),
+                        },
+            });
+
+            for (int i = 0; i < 100; i++)
+            {
+                mockClassDAO.Add(new ClassDAO()
+                {
+                    Id = i,
+                    Name = "nameclass" + i.ToString(),
+                });
+            }
+
+            ClassDTO mockData = new ClassDTO()
+            {
+                Name = "nameclass44",
+                Id = 2,
+            };
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
+            classRepositoryMock.Setup(x => x.Add(It.IsAny<ClassDAO>()));
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object);
+
+            // act
+            // assert
+            Assert.Throws<GradebookServerException>(() => testService.AddClass(mockData));
         }
     }
 }

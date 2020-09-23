@@ -60,18 +60,14 @@ namespace GradebookBackend.Services
 
         public void AddClass(ClassDTO newClassDTO)
         {
-            ClassDAO newClassDAO = new ClassDAO
+            if (!classRepository.GetAll().Any(x => x.Name.Equals(newClassDTO.Name)))
             {
-                Name = newClassDTO.Name
-            };
-            foreach (ClassDAO checkedClass in classRepository.GetAll().ToList())
-            {
-                if (checkedClass.Name.Equals(newClassDAO.Name))
-                {
-                    throw new GradebookServerException("Klasa o tej nazwie juz istnieje");
-                }
+                classRepository.Add( new ClassDAO() { Name = newClassDTO.Name});
             }
-            classRepository.Add(newClassDAO);
+            else
+            {
+                throw new GradebookServerException("Klasa o tej nazwie juz istnieje");
+            }
         }
 
         public void DeleteClass(int classId)
