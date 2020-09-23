@@ -84,31 +84,18 @@ namespace GradebookBackend.Services
 
         public void UpdateClass(ClassDTO updatedClassDTO, int classId)
         {
-            if (IsClassRepositoryContaining(classId))
+            if (classRepository.GetAll().Any(x => x.Id == classId))
             {
-                ClassDAO updatedClassDAO = new ClassDAO
+                classRepository.Update(new ClassDAO
                 {
                     Id = classId,
                     Name = updatedClassDTO.Name
-                };
-                classRepository.Update(updatedClassDAO);
+                });
             }
             else
             {
                 throw new GradebookServerException("Nie ma klasy o podanym numerze Id");
             }
-        }
-
-        private bool IsClassRepositoryContaining(int classId)
-        {
-            foreach (ClassDAO checkedClass in classRepository.GetAll().ToList())
-            {
-                if (checkedClass.Id == classId)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }

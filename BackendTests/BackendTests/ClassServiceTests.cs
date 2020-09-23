@@ -502,5 +502,139 @@ namespace BackendTests
             // assert
             Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(9)]
+        [InlineData(16)]
+        [InlineData(35)]
+        [InlineData(39)]
+        [InlineData(76)]
+        [InlineData(99)]
+        [InlineData(66)]
+        public void UpdateClass_CorrectData_expectPass(int id)
+        {
+            List<ClassDAO> mockClassDAOList = new List<ClassDAO>();
+            for (int i = 0; i < 100; i++)
+            {
+                mockClassDAOList.Add(new ClassDAO()
+                {
+                    Id = i,
+                    Name = "nameclass" + i.ToString(),
+                });
+            }
+
+            ClassDTO mockData = new ClassDTO()
+            {
+                Id = id,
+                Name = "className4",
+            };
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
+            classRepositoryMock.Setup(x => x.Update(It.IsAny<ClassDAO>()));
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object);
+
+            // act
+            testService.UpdateClass(mockData, mockData.Id);
+
+            // assert
+            Assert.True(true);
+        }
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(9)]
+        [InlineData(16)]
+        [InlineData(35)]
+        [InlineData(39)]
+        [InlineData(76)]
+        [InlineData(99)]
+        [InlineData(66)]
+        public void UpdateClass_NoData_expectPass(int id)
+        {
+            List<ClassDAO> mockClassDAOList = new List<ClassDAO>();
+
+            ClassDTO mockData = new ClassDTO()
+            {
+                Id = id,
+                Name = "className4",
+            };
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
+            classRepositoryMock.Setup(x => x.Update(It.IsAny<ClassDAO>()));
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object);
+
+            // act
+            // assert
+            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
+        }
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(9)]
+        [InlineData(16)]
+        [InlineData(35)]
+        [InlineData(39)]
+        [InlineData(76)]
+        [InlineData(99)]
+        [InlineData(66)]
+        public void UpdateClass_NoCorrectData_expectPass(int id)
+        {
+            List<ClassDAO> mockClassDAOList = new List<ClassDAO>();
+            for (int i = 0; i < 100; i++)
+            {
+                if (i != id)
+                {
+                    mockClassDAOList.Add(new ClassDAO()
+                    {
+                        Id = i,
+                        Name = "nameclass" + i.ToString(),
+                    });
+                }
+            }
+
+            ClassDTO mockData = new ClassDTO()
+            {
+                Id = id,
+                Name = "className4",
+            };
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
+            classRepositoryMock.Setup(x => x.Update(It.IsAny<ClassDAO>()));
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object);
+
+            // act
+            // assert
+            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
+        }
     }
 }
