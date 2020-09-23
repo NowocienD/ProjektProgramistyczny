@@ -4,6 +4,8 @@ using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using GradebookBackend.Logger.Service;
 
 namespace GradebookBackend.Services
 {
@@ -11,13 +13,16 @@ namespace GradebookBackend.Services
     {
         private readonly IRepository<ClassDAO> classRepository;
         private readonly IRepository<LessonDAO> lessonRepository;
+        private readonly ILogerService logerService;
 
         public ClassService(
             IRepository<ClassDAO> classRepository, 
-            IRepository<LessonDAO> lessonRepository)
+            IRepository<LessonDAO> lessonRepository,
+            ILogerService logerService)
         {
             this.classRepository = classRepository;
             this.lessonRepository = lessonRepository;
+            this.logerService = logerService;
         }
 
         private ClassListDTO ClassDAOList_to_classDTOList(IEnumerable<ClassDAO> classDAOList)
