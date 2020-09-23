@@ -68,7 +68,7 @@ namespace GradebookBackend.Services
         {
             if (classRepository.GetAll().Any(x => x.Name.Equals(newClassDTO.Name)))
             {
-                logerService.Debug("Klasa o tej nazwie juz istnieje");
+                logerService.Debug("Klasa o tej nazwie juz istnieje", this);
                 throw new GradebookServerException("Klasa o tej nazwie juz istnieje");
             }
             else
@@ -85,7 +85,7 @@ namespace GradebookBackend.Services
             }
             else
             {
-                logerService.Debug("Nie ma klasy o takim numerze Id");
+                logerService.Debug("Nie ma klasy o takim numerze Id", this);
                 throw new GradebookServerException("Nie ma klasy o takim numerze Id");
             }
         }
@@ -102,7 +102,7 @@ namespace GradebookBackend.Services
             }
             else
             {
-                logerService.Debug("Nie ma klasy o podanym numerze Id");
+                logerService.Debug("Nie ma klasy o podanym numerze Id", this);
                 throw new GradebookServerException("Nie ma klasy o podanym numerze Id");
             }
         }

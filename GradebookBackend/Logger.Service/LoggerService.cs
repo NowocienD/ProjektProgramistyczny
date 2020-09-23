@@ -20,29 +20,34 @@ namespace GradebookBackend.Logger.Service
             this.logger = logger;
         }
 
-        public void Debug(string message)
+        public void Debug(string message, object senderData)
         {
-            logger.LogDebug(message);
+            string data = Newtonsoft.Json.JsonConvert.SerializeObject(senderData);
+            logger.LogDebug(message + data);
         }
 
-        public void Info(string message)
+        public void Info(string message, object senderData)
         {
-            logger.LogInformation(message);
+            string data = Newtonsoft.Json.JsonConvert.SerializeObject(senderData);
+            logger.LogInformation(message + data);
         }
 
-        public void Warning(string message)
+        public void Warning(string message, object senderData)
         {
-            logger.LogWarning(message);
+            string data = Newtonsoft.Json.JsonConvert.SerializeObject(senderData);
+            logger.LogWarning(message + data);
         }
 
-        public void Error(string message)
+        public void Error(string message, object senderData)
         {
-            logger.LogError(message);
+            string data = Newtonsoft.Json.JsonConvert.SerializeObject(senderData);
+            logger.LogError(message + data);
         }
 
-        public void Critical(string message)
+        public void Critical(string message, object senderData)
         {
-            logger.LogCritical(message);
+            string data = Newtonsoft.Json.JsonConvert.SerializeObject(senderData);
+            logger.LogCritical(message + data);
         }
     }
 }

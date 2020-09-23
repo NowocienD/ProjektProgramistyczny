@@ -7,14 +7,14 @@ namespace GradebookBackend.Logger.Service
 {
     public interface ILogerService
     {
-        void Debug(string message);
+        void Debug(string message, object senderData);
 
-        void Info(string message);
+        void Info(string message, object senderData);
 
-        void Warning(string message);
+        void Warning(string message, object senderData);
 
-        void Error(string message);
+        void Error(string message, object senderData);
 
-        void Critical(string message);
+        void Critical(string message, object senderData);
     }
 }
