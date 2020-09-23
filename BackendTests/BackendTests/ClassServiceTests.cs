@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using GradebookBackend;
 using GradebookBackend.DTO;
+using GradebookBackend.Logger.Service;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.Services;
@@ -68,7 +69,6 @@ namespace BackendTests
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
-
         private class Ids_testData : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()
@@ -99,10 +99,12 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(classDAO);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             var result = testService.GetAllClasses();
@@ -127,8 +129,9 @@ namespace BackendTests
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
             Type type = typeof(ClassService);
-            var className = Activator.CreateInstance(type, classRepositoryMock.Object, lessonRepositoryMock.Object);
+            var className = Activator.CreateInstance(type, classRepositoryMock.Object, lessonRepositoryMock.Object, loggerMock.Object);
             MethodInfo methodName = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
             .Where(x => x.Name == "ClassDAOList_to_classDTOList" && x.IsPrivate)
             .First();
@@ -147,9 +150,10 @@ namespace BackendTests
             // arrange
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             Type type = typeof(ClassService);
-            var className = Activator.CreateInstance(type, classRepositoryMock.Object, lessonRepositoryMock.Object);
+            var className = Activator.CreateInstance(type, classRepositoryMock.Object, lessonRepositoryMock.Object, loggerMock.Object);
             MethodInfo methodName = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
             .Where(x => x.Name == "ClassDAO_to_classDTO" && x.IsPrivate)
             .First();
@@ -224,10 +228,12 @@ namespace BackendTests
             classRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(new ClassDAO() { Name = "someClass" });
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             lessonRepositoryMock.Setup(x => x.GetAll()).Returns(lissonsDAOList);
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             ClassListDTO classListDTO = testService.GetAllClassesOfTeacher(teacherID);
@@ -289,10 +295,12 @@ namespace BackendTests
             classRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(new ClassDAO() { Name = "someClass" });
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             lessonRepositoryMock.Setup(x => x.GetAll()).Returns(lissonsDAOList);
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             ClassListDTO classListDTO = testService.GetAllClassesOfTeacher(teacherID);
@@ -313,10 +321,12 @@ namespace BackendTests
             classRepositoryMock.Setup(x => x.Get(It.IsAny<int>())).Returns(new ClassDAO() { Name = "someClass" });
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             lessonRepositoryMock.Setup(x => x.GetAll()).Returns(lissonsDAOList);
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             ClassListDTO classListDTO = testService.GetAllClassesOfTeacher(teacherID);
@@ -359,10 +369,12 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             testService.AddClass(mockData);
@@ -407,14 +419,17 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             // assert
             Assert.Throws<GradebookServerException>(() => testService.AddClass(mockData));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
             classRepositoryMock.Verify(x => x.Add(It.IsAny<ClassDAO>()), Times.Never);
         }
@@ -433,10 +448,12 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             testService.DeleteClass(id);
@@ -468,16 +485,19 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
+            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id)); 
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
-            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never);
+            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never); 
         }
 
         [Theory]
@@ -487,16 +507,19 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(new List<ClassDAO>());
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
+            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id)); 
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
-            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never);
+            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never); 
         }
 
         [Theory]
@@ -522,10 +545,12 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             testService.UpdateClass(mockData, mockData.Id);
@@ -551,16 +576,19 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
+            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id)); 
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
-            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never);
+            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never); 
         }
 
         [Theory]
@@ -589,16 +617,19 @@ namespace BackendTests
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+            var loggerMock = new Mock<ILogerService>();
 
             IClassService testService = new ClassService(
                 classRepositoryMock.Object,
-                lessonRepositoryMock.Object);
+                lessonRepositoryMock.Object,
+                loggerMock.Object);
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
+            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id)); 
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
-            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never);
+            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never); 
         }
     }
 }

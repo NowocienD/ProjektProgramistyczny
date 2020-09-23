@@ -1,3 +1,4 @@
+using GradebookBackend.Logger.Service;
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.Services;
@@ -19,7 +20,7 @@ namespace GradebookBackend
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
-        {
+        { 
             this.Configuration = configuration;
         }
 
@@ -116,6 +117,8 @@ namespace GradebookBackend
             services.AddScoped<IRepository<UserDAO>, UserRepository>();
             services.AddScoped<IRepositoryRelation<ClassSubjectDAO>, ClassSubjectRepository>();
             services.AddScoped<IRepositoryRelation<TeacherSubjectDAO>, TeacherSubjectRepository>();
+
+            services.AddSingleton<ILogerService, LogerService>();
         }
 
         public void Configure(IApplicationBuilder app)
