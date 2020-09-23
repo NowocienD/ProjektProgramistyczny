@@ -429,6 +429,7 @@ namespace BackendTests
             // act
             // assert
             Assert.Throws<GradebookServerException>(() => testService.AddClass(mockData));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
         }
 
         [Theory]
@@ -492,6 +493,7 @@ namespace BackendTests
             // act
             // assert
             Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
         }
 
         [Theory]
@@ -512,6 +514,7 @@ namespace BackendTests
             // act
             // assert
             Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
         }
 
         [Theory]
@@ -578,6 +581,7 @@ namespace BackendTests
             // act
             // assert
             Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
         }
 
         [Theory]
@@ -617,6 +621,7 @@ namespace BackendTests
             // act
             // assert
             Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
         }
     }
 }
