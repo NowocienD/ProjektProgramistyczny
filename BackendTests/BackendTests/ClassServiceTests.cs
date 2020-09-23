@@ -68,6 +68,20 @@ namespace BackendTests
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
+
+        private class Ids_testData : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    yield return new object[] { i };
+                }
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
+
         [Fact]
         public void GetAllClasses_CorrectData_expectEquals()
         {
@@ -404,14 +418,7 @@ namespace BackendTests
         }
 
         [Theory]
-        [InlineData(3)]
-        [InlineData(5)]
-        [InlineData(35)]
-        [InlineData(8)]
-        [InlineData(28)]
-        [InlineData(96)]
-        [InlineData(64)]
-        [InlineData(4)]
+        [ClassData(typeof(Ids_testData))]
         public void DeleteClass_correctData_expectPass(int id)
         {
             List<ClassDAO> mockClassDAO = new List<ClassDAO>();
@@ -438,15 +445,7 @@ namespace BackendTests
         }
 
         [Theory]
-        [InlineData(3)]
-        [InlineData(5)]
-        [InlineData(9)]
-        [InlineData(16)]
-        [InlineData(35)]
-        [InlineData(39)]
-        [InlineData(76)]
-        [InlineData(99)]
-        [InlineData(66)]
+        [ClassData(typeof(Ids_testData))]
         public void DeleteClass_NoCorrectData_expectExceprionThrown(int id)
         {
             List<ClassDAO> mockClassDAO = new List<ClassDAO>();
@@ -478,15 +477,7 @@ namespace BackendTests
         }
 
         [Theory]
-        [InlineData(3)]
-        [InlineData(5)]
-        [InlineData(9)]
-        [InlineData(16)]
-        [InlineData(35)]
-        [InlineData(39)]
-        [InlineData(76)]
-        [InlineData(99)]
-        [InlineData(66)]
+        [ClassData(typeof(Ids_testData))]
         public void DeleteClass_NoData_expectExceprionThrown(int id)
         {
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
@@ -503,27 +494,8 @@ namespace BackendTests
             Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
         }
 
-
-
-
-
-
-
-
-
-
-
-
         [Theory]
-        [InlineData(3)]
-        [InlineData(5)]
-        [InlineData(9)]
-        [InlineData(16)]
-        [InlineData(35)]
-        [InlineData(39)]
-        [InlineData(76)]
-        [InlineData(99)]
-        [InlineData(66)]
+        [ClassData(typeof(Ids_testData))]
         public void UpdateClass_CorrectData_expectPass(int id)
         {
             List<ClassDAO> mockClassDAOList = new List<ClassDAO>();
@@ -559,15 +531,7 @@ namespace BackendTests
         }
 
         [Theory]
-        [InlineData(3)]
-        [InlineData(5)]
-        [InlineData(9)]
-        [InlineData(16)]
-        [InlineData(35)]
-        [InlineData(39)]
-        [InlineData(76)]
-        [InlineData(99)]
-        [InlineData(66)]
+        [ClassData(typeof(Ids_testData))]
         public void UpdateClass_NoData_expectPass(int id)
         {
             List<ClassDAO> mockClassDAOList = new List<ClassDAO>();
@@ -593,15 +557,7 @@ namespace BackendTests
         }
 
         [Theory]
-        [InlineData(3)]
-        [InlineData(5)]
-        [InlineData(9)]
-        [InlineData(16)]
-        [InlineData(35)]
-        [InlineData(39)]
-        [InlineData(76)]
-        [InlineData(99)]
-        [InlineData(66)]
+        [ClassData(typeof(Ids_testData))]
         public void UpdateClass_NoCorrectData_expectPass(int id)
         {
             List<ClassDAO> mockClassDAOList = new List<ClassDAO>();

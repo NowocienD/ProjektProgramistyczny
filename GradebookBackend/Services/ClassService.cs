@@ -2,7 +2,6 @@
 using GradebookBackend.Model;
 using GradebookBackend.Repositories;
 using GradebookBackend.ServicesCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +12,9 @@ namespace GradebookBackend.Services
         private readonly IRepository<ClassDAO> classRepository;
         private readonly IRepository<LessonDAO> lessonRepository;
 
-        public ClassService(IRepository<ClassDAO> classRepository, IRepository<LessonDAO> lessonRepository)
+        public ClassService(
+            IRepository<ClassDAO> classRepository, 
+            IRepository<LessonDAO> lessonRepository)
         {
             this.classRepository = classRepository;
             this.lessonRepository = lessonRepository;
@@ -22,7 +23,7 @@ namespace GradebookBackend.Services
         private ClassListDTO ClassDAOList_to_classDTOList(IEnumerable<ClassDAO> classDAOList)
         {
             var returnDTO = new ClassListDTO();
-            classDAOList.ToList().ForEach((x => returnDTO.ClassList.Add(ClassDAO_to_classDTO(x))));
+            classDAOList.ToList().ForEach(x => returnDTO.ClassList.Add(ClassDAO_to_classDTO(x))) ;
             return returnDTO;
         }
         private ClassDTO ClassDAO_to_classDTO(ClassDAO classDAO)
@@ -60,13 +61,13 @@ namespace GradebookBackend.Services
 
         public void AddClass(ClassDTO newClassDTO)
         {
-            if (!classRepository.GetAll().Any(x => x.Name.Equals(newClassDTO.Name)))
+            if (classRepository.GetAll().Any(x => x.Name.Equals(newClassDTO.Name)))
             {
-                classRepository.Add( new ClassDAO() { Name = newClassDTO.Name});
+                throw new GradebookServerException("Klasa o tej nazwie juz istnieje");
             }
             else
             {
-                throw new GradebookServerException("Klasa o tej nazwie juz istnieje");
+                classRepository.Add(new ClassDAO() { Name = newClassDTO.Name });
             }
         }
 
