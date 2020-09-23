@@ -368,7 +368,6 @@ namespace BackendTests
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
-            classRepositoryMock.Setup(x => x.Add(It.IsAny<ClassDAO>()));
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             var loggerMock = new Mock<ILogerService>();
 
@@ -381,6 +380,8 @@ namespace BackendTests
             testService.AddClass(mockData);
 
             // assert
+            classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
+            classRepositoryMock.Verify(x => x.Add(It.IsAny<ClassDAO>()), Times.Once);
             Assert.True(true);
         }
 
@@ -417,7 +418,6 @@ namespace BackendTests
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
-            classRepositoryMock.Setup(x => x.Add(It.IsAny<ClassDAO>()));
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             var loggerMock = new Mock<ILogerService>();
 
@@ -430,6 +430,8 @@ namespace BackendTests
             // assert
             Assert.Throws<GradebookServerException>(() => testService.AddClass(mockData));
             loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
+            classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
+            classRepositoryMock.Verify(x => x.Add(It.IsAny<ClassDAO>()), Times.Never);
         }
 
         [Theory]
@@ -445,7 +447,6 @@ namespace BackendTests
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
-            classRepositoryMock.Setup(x => x.Delete(It.IsAny<int>()));
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             var loggerMock = new Mock<ILogerService>();
 
@@ -458,6 +459,8 @@ namespace BackendTests
             testService.DeleteClass(id);
 
             // assert
+            classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
+            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Once);
             Assert.True(true);
         }
 
@@ -481,7 +484,6 @@ namespace BackendTests
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
-            classRepositoryMock.Setup(x => x.Delete(It.IsAny<int>()));
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             var loggerMock = new Mock<ILogerService>();
 
@@ -492,8 +494,10 @@ namespace BackendTests
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
+            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id)); 
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
+            classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
+            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never); 
         }
 
         [Theory]
@@ -502,7 +506,6 @@ namespace BackendTests
         {
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(new List<ClassDAO>());
-            classRepositoryMock.Setup(x => x.Delete(It.IsAny<int>()));
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             var loggerMock = new Mock<ILogerService>();
 
@@ -513,8 +516,10 @@ namespace BackendTests
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
+            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id)); 
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
+            classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
+            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never); 
         }
 
         [Theory]
@@ -539,7 +544,6 @@ namespace BackendTests
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
-            classRepositoryMock.Setup(x => x.Update(It.IsAny<ClassDAO>()));
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             var loggerMock = new Mock<ILogerService>();
 
@@ -553,6 +557,8 @@ namespace BackendTests
 
             // assert
             Assert.True(true);
+            classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
+            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Once);
         }
 
         [Theory]
@@ -569,7 +575,6 @@ namespace BackendTests
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
-            classRepositoryMock.Setup(x => x.Update(It.IsAny<ClassDAO>()));
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             var loggerMock = new Mock<ILogerService>();
 
@@ -580,8 +585,10 @@ namespace BackendTests
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
+            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id)); 
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
+            classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
+            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never); 
         }
 
         [Theory]
@@ -609,7 +616,6 @@ namespace BackendTests
 
             var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
             classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAOList);
-            classRepositoryMock.Setup(x => x.Update(It.IsAny<ClassDAO>()));
             var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
             var loggerMock = new Mock<ILogerService>();
 
@@ -620,8 +626,10 @@ namespace BackendTests
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
+            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id)); 
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
+            classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
+            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never); 
         }
     }
 }
