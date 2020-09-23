@@ -402,5 +402,105 @@ namespace BackendTests
             // assert
             Assert.Throws<GradebookServerException>(() => testService.AddClass(mockData));
         }
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(35)]
+        [InlineData(8)]
+        [InlineData(28)]
+        [InlineData(96)]
+        [InlineData(64)]
+        [InlineData(4)]
+        public void DeleteClass_correctData_expectPass(int id)
+        {
+            List<ClassDAO> mockClassDAO = new List<ClassDAO>();
+            for (int i = 0; i < 100; i++)
+            {
+                mockClassDAO.Add(new ClassDAO()
+                { Id = i });
+            }
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
+            classRepositoryMock.Setup(x => x.Delete(It.IsAny<int>()));
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object);
+
+            // act
+            testService.DeleteClass(id);
+
+            // assert
+            Assert.True(true);
+        }
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(9)]
+        [InlineData(16)]
+        [InlineData(35)]
+        [InlineData(39)]
+        [InlineData(76)]
+        [InlineData(99)]
+        [InlineData(66)]
+        public void DeleteClass_NoCorrectData_expectExceprionThrown(int id)
+        {
+            List<ClassDAO> mockClassDAO = new List<ClassDAO>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                if (i != id)
+                {
+                    mockClassDAO.Add(new ClassDAO()
+                    {
+                        Id = i,
+                        Name = "nameclass" + i.ToString(),
+                    });
+                }
+            }
+
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.GetAll()).Returns(mockClassDAO);
+            classRepositoryMock.Setup(x => x.Delete(It.IsAny<int>()));
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object);
+
+            // act
+            // assert
+            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
+        }
+
+        [Theory]
+        [InlineData(3)]
+        [InlineData(5)]
+        [InlineData(9)]
+        [InlineData(16)]
+        [InlineData(35)]
+        [InlineData(39)]
+        [InlineData(76)]
+        [InlineData(99)]
+        [InlineData(66)]
+        public void DeleteClass_NoData_expectExceprionThrown(int id)
+        {
+            var classRepositoryMock = new Mock<IRepository<ClassDAO>>();
+            classRepositoryMock.Setup(x => x.GetAll()).Returns(new List<ClassDAO>());
+            classRepositoryMock.Setup(x => x.Delete(It.IsAny<int>()));
+            var lessonRepositoryMock = new Mock<IRepository<LessonDAO>>();
+
+            IClassService testService = new ClassService(
+                classRepositoryMock.Object,
+                lessonRepositoryMock.Object);
+
+            // act
+            // assert
+            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
+        }
     }
 }

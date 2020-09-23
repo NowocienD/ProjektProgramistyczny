@@ -72,16 +72,14 @@ namespace GradebookBackend.Services
 
         public void DeleteClass(int classId)
         {
-            IEnumerable<ClassDAO> classes = classRepository.GetAll();
-            foreach (ClassDAO checkedClass in classes.ToList())
+            if (classRepository.GetAll().Any(x => x.Id == classId))
             {
-                if (checkedClass.Id == classId)
-                {
-                    classRepository.Delete(classId);
-                    return;
-                }
+                classRepository.Delete(classId);
             }
-            throw new GradebookServerException("Nie ma klasy o takim numerze Id");
+            else
+            {
+                throw new GradebookServerException("Nie ma klasy o takim numerze Id");
+            }
         }
 
         public void UpdateClass(ClassDTO updatedClassDTO, int classId)
