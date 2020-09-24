@@ -429,7 +429,7 @@ namespace BackendTests
             // act
             // assert
             Assert.Throws<GradebookServerException>(() => testService.AddClass(mockData));
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once);
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>(), It.IsAny<ClassService>()), Times.Once);
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
             classRepositoryMock.Verify(x => x.Add(It.IsAny<ClassDAO>()), Times.Never);
         }
@@ -494,10 +494,10 @@ namespace BackendTests
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id)); 
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
+            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>(), It.IsAny<ClassService>()), Times.Once);
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
-            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never); 
+            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never);
         }
 
         [Theory]
@@ -516,10 +516,10 @@ namespace BackendTests
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id)); 
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
+            Assert.Throws<GradebookServerException>(() => testService.DeleteClass(id));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>(), It.IsAny<ClassService>()), Times.Once);
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
-            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never); 
+            classRepositoryMock.Verify(x => x.Delete(It.IsAny<int>()), Times.Never);
         }
 
         [Theory]
@@ -585,10 +585,10 @@ namespace BackendTests
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id)); 
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
+            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>(), It.IsAny<ClassService>()), Times.Once);
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
-            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never); 
+            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never);
         }
 
         [Theory]
@@ -626,10 +626,10 @@ namespace BackendTests
 
             // act
             // assert
-            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id)); 
-            loggerMock.Verify(x => x.Debug(It.IsAny<string>()), Times.Once); 
+            Assert.Throws<GradebookServerException>(() => testService.UpdateClass(mockData, mockData.Id));
+            loggerMock.Verify(x => x.Debug(It.IsAny<string>(), It.IsAny<ClassService>()), Times.Once);
             classRepositoryMock.Verify(x => x.GetAll(), Times.Once);
-            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never); 
+            classRepositoryMock.Verify(x => x.Update(It.IsAny<ClassDAO>()), Times.Never);
         }
     }
 }
